@@ -1,12 +1,14 @@
+// import idd from './assets/images/work.jpg'
+
 const homeIcons = [
     {
         iconTitle: '재밌게놀자',
-        iconSrc: 'http://www.naver.com',
+        iconSrc: './assets/images/work.jpg',
         url: '/'
     },
     {
         iconTitle: '일하자',
-        iconSrc: 'http://www.naver.com',
+        iconSrc: '',
         url: '/work'
     },
     {

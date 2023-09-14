@@ -9,7 +9,7 @@ function Sidebar({homeIcons}){
                 <div className="window-menubar">
                     {homeIcons.map((icon, id)=>{
                         return (
-                            <Link key={id} to={icon.url}><img src={icon.iconSrc} /> {icon.iconTitle}</Link>
+                            <Link key={id} to={icon.url}><img src={icon.iconSrc} alt=''/> {icon.iconTitle}</Link>
                         )
                     })}
                 </div>
