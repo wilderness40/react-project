@@ -1,7 +1,11 @@
+a{
+    text-decoration: none;
+    color: #333;
+}
 footer {
     position: fixed;
     bottom: 0;
     width: 100%;
     background: rgb(192, 192, 192);
-    height: 35px;
+    height: 40px;
 }

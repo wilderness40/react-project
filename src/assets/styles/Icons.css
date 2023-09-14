@@ -1,9 +1,28 @@
 .main-icons{
+   margin-top: 1.2rem;
+   margin-left: 1rem;
    width: 100px;
    height: 100px;
-   border: 1px solid white; 
    display: flex;
    flex-direction: column;
    justify-content: center;
    align-items: center;
+   cursor: pointer;
+}
+
+.main-icons img{
+   width: 50px;
+   height: 50px;
+}
+.main-icons:nth-child(2) img{  /* 일하자 아이콘 커서 크기줄임 */
+   width: 40px;
+   height: 40px;
+}
+.main-icons:nth-child(5) img{  /* 집에가자 아이콘 작아서 크기키움 */
+   width: 65px;
+   height: 65px;
+   /* border: 1px solid white; */
+}
+.main-icons h5{
+   margin-top: 5px;
 }
