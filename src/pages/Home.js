@@ -13,7 +13,7 @@ function Home(){
                  console.log(icon.iconSrc)
 
                     return (
-                        <Icon key={id} src={icon.iconSrc}>{icon.iconTitle}</Icon>) 
+                        <Icon key={id} src={require(icon.iconSrc).default}>{icon.iconTitle}</Icon>) 
                     })} 
                 </main>
             </div>

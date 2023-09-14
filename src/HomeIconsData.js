@@ -7,7 +7,7 @@ const homeIcons = [
     },
     {
         iconTitle: '일하자',
-        iconSrc: './assets/images/work.jpg',
+        iconSrc: './assets/images/YouTube.jpg',
         url: '/work'
     },
     {
