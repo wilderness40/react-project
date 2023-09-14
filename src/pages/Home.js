@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import homeIcons from "../HomeIconsData"; 
+import { Icon , Footer } from "../components"
 
 function Home(){
     return(

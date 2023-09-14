@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function BackHome({}){
+function News({}){
     return(
        <>
 
@@ -8,4 +8,4 @@ function BackHome({}){
     )
 }
 
-export default BackHome
+export default News
