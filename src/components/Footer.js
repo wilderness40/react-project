@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {Button , ScheduleBar, Sidebar} from "../components"
-
+import "./Footer.css"
 function Footer({homeIcons}){
     return(
         <footer>
