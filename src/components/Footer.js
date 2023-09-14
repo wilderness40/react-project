@@ -1,5 +1,7 @@
 import React, {useState} from "react";
-import { Sidebar, Button, ScheduleBar } from '../components'
+import {Button , ScheduleBar, Sidebar} from "../components"
+import "./Footer.css"
+
 
 function Footer({homeIcons}){
     return(

@@ -1,29 +1,28 @@
-// import idd from './assets/images/work.jpg'
 
 const homeIcons = [
     {
         iconTitle: '재밌게놀자',
-        iconSrc: './assets/images/work.jpg',
+        iconSrc: '/src/assets/images/user.jpg',
         url: '/'
     },
     {
         iconTitle: '일하자',
-        iconSrc: '',
+        iconSrc: './assets/images/work.jpg',
         url: '/work'
     },
     {
         iconTitle: '밥먹자',
-        iconSrc: 'http://www.naver.com',
+        iconSrc: './assets/images/food.jpg',
         url: '/food'
     },
     {
         iconTitle: '세상에이런일이',
-        iconSrc: 'http://www.naver.com',
+        iconSrc: './assets/images/newspaper.jpg',
         url: '/news'
     },
     {
         iconTitle: '집에가자',
-        iconSrc: 'http://www.naver.com',
+        iconSrc: './assets/images/home.jpg',
         url: '/backhome'
     }
 ]
