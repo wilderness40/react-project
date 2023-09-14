@@ -1,5 +1,6 @@
 import './App.css';
-import './core.css'
+import { Route, Routes } from 'react-router-dom'
+import { Home, Food, BackHome, Play, Work } from './pages'
 
 function App() {
   return (
