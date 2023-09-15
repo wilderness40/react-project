@@ -1,12 +1,6 @@
-<<<<<<<<< Temporary merge branch 1
 import React from "react";
 import '../styles/Icons.css'
 import homeIcons from "../HomeIconsData";
-=========
-import React, {useState, useEffect} from "react";
-import '../assets/styles/Icons.css'
-import { Link, useNavigate } from "react-router-dom"
->>>>>>>>> Temporary merge branch 2
 
 
 
