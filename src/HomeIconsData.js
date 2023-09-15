@@ -4,7 +4,7 @@ const homeIcons = [
     {
         iconTitle: '재밌게놀자',
         iconSrc: 'images/YouTube.png',
-        url: '/'
+        url: '/play'
     },
     {
         iconTitle: '일하자',

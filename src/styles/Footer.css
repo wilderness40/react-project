@@ -1,3 +1,5 @@
+@import url('./Globar.css');
+
 a{
     text-decoration: none;
     color: #333;
@@ -6,6 +8,6 @@ footer {
     position: fixed;
     bottom: 0;
     width: 100%;
-    background: rgb(192, 192, 192);
+    background: var(--secondary-color);
     height: 40px;
 }

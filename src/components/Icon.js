@@ -1,5 +1,5 @@
 import React from "react";
-import '../assets/styles/Icons.css'
+import '../styles/Icons.css'
 import homeIcons from "../HomeIconsData";
 
 
