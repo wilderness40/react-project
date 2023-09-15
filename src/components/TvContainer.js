@@ -1,10 +1,7 @@
 import React, {useState} from "react";
 import { RemoteControl } from '../components'
-<<<<<<< HEAD
-=======
 import YoutubeAPI from "../services/YoutubeAPI";
 import "../styles/TvContainer.css"
->>>>>>> 4e58def85adf17ba98d5330e5fe7f282b78eb7d4
 
 function TvContainer({}){
     const youTubeApiData = YoutubeAPI()

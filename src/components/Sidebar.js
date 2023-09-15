@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 
 
 function Sidebar({homeIcons, buttonFlag}){
-//     const [sidebarState, setSidebarState] =useState('')
+    const [sidebarState, setSidebarState] =useState('')
 
 //     const anotheClickHideSidebar = (e) => {
 //         console.log(e.target)
@@ -29,7 +29,7 @@ function Sidebar({homeIcons, buttonFlag}){
 
     return(
         <>
-            <div className={`window-bar ${buttonFlag ? 'show' : ''}`}>
+            <div className={`window-bar ${buttonFlag ? 'showSidebar' : ''}`}>
                 <div className="window-textbar"><h5>Window<span>95</span></h5></div>
                 <div className="window-menubar">
                     {homeIcons.map((icon, id)=>{
