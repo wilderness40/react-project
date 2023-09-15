@@ -1,0 +1,58 @@
+@import url('./Globar.css');
+/* 
+body {
+    cursor: url('../../public/images/remote4.png'), auto;
+} */
+/* .test {
+    background: url('../../public/images/지지직.gif');
+} */
+.TvContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column
+}
+.Tv {
+    width: 680px;
+    height: 500px;
+    background-image: url('../../public/images/retrotv.png');
+    background-size: cover;
+    /* background-repeat: no-repeat; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 2rem;
+}
+.Tv-body-container {
+    width: 500px;
+    height: 390px;
+    margin-right: 8rem;
+    margin-bottom: 1rem;
+    border-radius: 20px;
+    background: url('../../public/images/지지직.gif');
+    /* border: 1px solid black;
+    border-radius: 80px; */
+}
+.youtube-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+.youtube-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 2rem;
+}
+.youtube-content span {
+    font-size: 1rem;
+    color: white;
+}
+.show {
+    display: block;
+}
+.hide {
+    display: none;
+}
