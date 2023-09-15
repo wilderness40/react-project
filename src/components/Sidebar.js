@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import { Link } from "react-router-dom"
-
 function Sidebar({homeIcons}){
     return(
         <>
@@ -8,8 +7,11 @@ function Sidebar({homeIcons}){
                 <div className="window-textbar"></div>
                 <div className="window-menubar">
                     {homeIcons.map((icon, id)=>{
+                        console.log(icon)
                         return (
-                            <Link key={id} to={icon.url}><img src={icon.iconSrc} /> {icon.iconTitle}</Link>
+                            <>
+                            <Link key={id} to={icon.url}><img src={icon.iconSrc} alt=''/>{icon.iconTitle}</Link>
+                            </>
                         )
                     })}
                 </div>
