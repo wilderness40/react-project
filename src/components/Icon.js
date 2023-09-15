@@ -34,7 +34,7 @@ function Icon({ src, children, href }) {
         e.target.tagName !== 'IMG' &&
         e.target.tagName !== 'H5'
       ) {
-        setIconActiveFlag(false);
+        setIconActiveFlag('');
       }
     };
     
