@@ -24,6 +24,18 @@
   border-right: 2px solid rgba(0, 0, 0, 0.6);
   border-bottom: 2px solid rgba(0, 0, 0, 0.6);
   border-left: 2px solid #fff;
+  animation: move-detail .5s;
+}
+
+@keyframes move-detail{
+  from{
+    opacity: 0.5;
+    transform: translateY(100px);
+  }
+  to{
+    opacity: 1;
+    transform: translateY(0px);
+  }
 }
 /* 달력 스타일 */
 .Calendar-btn{
