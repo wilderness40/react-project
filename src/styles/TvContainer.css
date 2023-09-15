@@ -1,0 +1,17 @@
+@import url('./Globar.css');
+
+
+.TvContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.Tv {
+    width: 680px;
+    height: 500px;
+    background-image: url('../../public/images/retrotv.png');
+    background-size: cover;
+    /* background-repeat: no-repeat; */
+
+    margin-top: 2rem;
+}
