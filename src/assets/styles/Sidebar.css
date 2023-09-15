@@ -1,0 +1,57 @@
+.window-menubar img{
+    width: 50px;
+    height: 50px;
+}
+.window-bar{
+    width: 250px;
+    display: flex;
+    position: absolute;
+    top: 100px;
+    background: rgb(192, 192, 192);
+    transition: all 0.3s ease-in-out;
+}
+.window-textbar{
+    width: 30px;
+    height: 320px;
+    background-color: #807F86;
+    color: #BEBEBE;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+.window-menubar {
+    width: 100%;
+    margin-top: 10px;
+    margin-left: 1rem;  /* 이것을 안해야 hover시 보라색 배경이 꽉찬다 */
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.window-menubar div:hover{  /* 메뉴 hover시 보라색 배경색깔 적용 */
+    background: #020183;
+}
+.window-menubar div:hover { /* 메뉴 hover시 글자 흰색으로 적용 */
+    color: #fff;
+}
+.window-menubar div{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.window-menubar a{ /* 메뉴바 아이콘 옆 글자 */
+    font-weight: bold;
+}
+
+.window-textbar h5{ /*Window 95에서 WIndow 글자 */
+    writing-mode: vertical-rl ;
+    transform: rotate(180deg);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+.window-textbar span{ /*Window 95에서 95 글자 */
+    color: #F2EFF7;
+    font-weight: normal;
+}
+.show{
+    top: -320px;
+}

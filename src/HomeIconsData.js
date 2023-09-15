@@ -1,29 +1,29 @@
-
+// import image from '../public' 상대경로
 
 const homeIcons = [
     {
         iconTitle: '재밌게놀자',
-        iconSrc: '../assets/images/work.jpg',
+        iconSrc: 'images/YouTube.png',
         url: '/'
     },
     {
         iconTitle: '일하자',
-        iconSrc: '',
+        iconSrc: 'images/work.png',
         url: '/work'
     },
     {
         iconTitle: '밥먹자',
-        iconSrc: 'http://www.naver.com',
+        iconSrc: 'images/food.png',
         url: '/food'
     },
     {
         iconTitle: '세상에이런일이',
-        iconSrc: 'http://www.naver.com',
+        iconSrc: 'images/newspaper.png',
         url: '/news'
     },
     {
         iconTitle: '집에가자',
-        iconSrc: 'http://www.naver.com',
+        iconSrc: 'images/home.png',
         url: '/backhome'
     }
 ]

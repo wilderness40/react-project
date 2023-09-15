@@ -1,10 +1,15 @@
 import React from "react";
+import '../assets/styles/Icons.css'
+import homeIcons from "../HomeIconsData";
 
-function Icon() {
+
+function Icon({ src, children}) {
+    // console.log(children)
     return (
-        <>
-        
-        </>
+        <div className="main-icons">
+            <div className="icon-image"><img src={src} /></div>
+            <h5>{children}</h5>
+        </div>
     )
 }
 
