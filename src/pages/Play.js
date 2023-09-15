@@ -4,7 +4,6 @@ function Play({}){
     return(
        <>
          <TvContainer></TvContainer>
-         <NewsPaper></NewsPaper>
        </>
     )
 }

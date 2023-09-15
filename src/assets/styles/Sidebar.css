@@ -22,7 +22,6 @@
 .window-menubar {
     width: 100%;
     margin-top: 10px;
-    margin-left: 1rem;  /* 이것을 안해야 hover시 보라색 배경이 꽉찬다 */
     gap: 10px;
     display: flex;
     flex-direction: column;
@@ -34,6 +33,7 @@
     color: #fff;
 }
 .window-menubar div{
+    padding-left: 1rem;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -52,6 +52,6 @@
     color: #F2EFF7;
     font-weight: normal;
 }
-.show{
+.show{ /* 하단 시작버튼 메뉴바 보이게 하기 */
     top: -320px;
 }
