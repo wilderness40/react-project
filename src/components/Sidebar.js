@@ -4,7 +4,6 @@ import { Link } from "react-router-dom"
 
 
 function Sidebar({homeIcons, buttonFlag}){
-    
     return(
         <>
             <div className={`window-bar ${buttonFlag ? 'show' : ''}`}>
@@ -12,7 +11,7 @@ function Sidebar({homeIcons, buttonFlag}){
                 <div className="window-menubar">
                     {homeIcons.map((icon, id)=>{
                         return (
-                                <Link key={id} to={icon.url} sidebar={{title:icon.iconTitle}}>
+                                <Link key={id} to={icon.url} state={{sidebarText : icon.iconTitle}}>
                                    <div> 
                                     <img src={icon.iconSrc}  alt='' /> 
                                     {icon.iconTitle}

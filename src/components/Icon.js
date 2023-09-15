@@ -41,7 +41,6 @@ function Icon({ src, children, href }) {
     const navigate = useNavigate() // useNavigate hook을 이용해 페이지 이동을 구현한다.
     const moveToPage = () => { // Icon 컴포넌트를 더블클릭하면 해당 페이지로 이동한다.
        navigate(href, {state : children})
-       console.log(pageTitle)
     }
 
     useEffect(() => { // Icon 컴포넌트가 생성될 때 이벤트 리스너를 추가한다.
