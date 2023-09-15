@@ -1,4 +1,4 @@
-import '../assets/styles/Header.css'
+import '../styles/Header.css'
 import React, {useState} from 'react'
 
 function Header(){
