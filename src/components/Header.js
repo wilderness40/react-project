@@ -1,7 +1,7 @@
-import '../assets/styles/Header.css'
+import '../styles/Header.css'
 import React, {useState} from 'react'
 
-function Header(){
+function Header({}){
     return(
         <div className="header">
             <h5>일하자</h5>

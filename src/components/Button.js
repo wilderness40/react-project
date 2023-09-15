@@ -1,5 +1,5 @@
 import React from "react";
-import '../components/assets/styles/Button.css'
+import '../styles/Button.css'
 
 function Button({ toggleMenubar}) {
     return (

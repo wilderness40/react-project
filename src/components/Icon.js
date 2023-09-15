@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import '../assets/styles/Icons.css'
+import '../styles/Icons.css'
 import { Link, useNavigate } from "react-router-dom"
 
 
