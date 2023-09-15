@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import Header from "../components/Header";
 import '../styles/Work.css'
-import { Footer } from "../components";
+import { Header, Footer } from "../components";
 
 function Work(){
     return(

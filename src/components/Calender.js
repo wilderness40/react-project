@@ -3,7 +3,7 @@ import React from "react";
 function Calender() {
 
     const makeCalender = (year, month) => {
-        const firstDay = new Date(2023,8,1).getDay();
+        const firstDay = new Date(2023,8,1).getDay(); 
         // console.log(firstDay)
         const dateArray = [];
         let nextMonth = 0;
@@ -23,7 +23,7 @@ function Calender() {
         // console.log(dateArray)
         const weekCount = dateArray.length%7 !== 0 ? Math.floor(dateArray.length / 7) + 1 : dateArray.length / 7;
         const weekCountArray = new Array(weekCount).fill(1).map((a, i) => i);
-        console.log(weekCountArray)
+        // console.log(weekCountArray)
 
         return (
             <table>

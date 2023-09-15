@@ -10,7 +10,6 @@ function Sidebar({homeIcons, buttonFlag}){
                 <div className="window-textbar"><h5>Window<span>95</span></h5></div>
                 <div className="window-menubar">
                     {homeIcons.map((icon, id)=>{
-                        console.log(icon)
                         return (
                                 <Link key={id} to={icon.url}>
                                    <div> 
