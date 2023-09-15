@@ -1,20 +1,26 @@
-import React, {useState, useEffect} from "react";
+<<<<<<<<< Temporary merge branch 1
+import React from "react";
 import '../styles/Icons.css'
+import homeIcons from "../HomeIconsData";
+=========
+import React, {useState, useEffect} from "react";
+import '../assets/styles/Icons.css'
 import { Link, useNavigate } from "react-router-dom"
+>>>>>>>>> Temporary merge branch 2
 
 
 
 function Icon({ src, children, href }) {
     
     const [iconActiveFlag, setIconActiveFlag] = useState('');
-    const [pageTitle, setPageTitle] = useState(children)
+    
 
     const changeIconFlag = (e) => {
         setIconActiveFlag('clicked');
         removeAndAddActiveClass(e);
     };
   
-    const removeAndAddActiveClass = (e) => { // Icon 컴포넌트를 클릭하면 해당 컴포넌트만 blur 처리하고, 해당 컴포넌트의 h5 태그만 active 처리한다.
+    const removeAndAddActiveClass = (e) => {
         const icons = document.querySelectorAll('.main-icons');
         const h5 = document.querySelectorAll('h5');
         icons.forEach((icon) => {
@@ -40,7 +46,7 @@ function Icon({ src, children, href }) {
     
     const navigate = useNavigate() // useNavigate hook을 이용해 페이지 이동을 구현한다.
     const moveToPage = () => { // Icon 컴포넌트를 더블클릭하면 해당 페이지로 이동한다.
-       navigate(href, {state : children})
+       navigate(href)
     }
 
     useEffect(() => { // Icon 컴포넌트가 생성될 때 이벤트 리스너를 추가한다.
