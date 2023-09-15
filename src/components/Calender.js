@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 
-function Calender() {
+function Calendar() {
+    const [selecDate, setSelctDate] = useState({ 
+        year : new Date().getFullYear(), 
+        month : new Date().getMonth()
+    })
 
-    const makeCalender = (year, month) => {
-        const firstDay = new Date(2023,8,1).getDay(); 
+    const makeCalendar = (year, month) => {
+        const firstDay = new Date(year,month,1).getDay(); // 1일의 요일을 저장
         // console.log(firstDay)
-        const dateArray = [];
+        const dateArray = []; // 
         let nextMonth = 0;
         let day = 1;
         for(let i = 0; i < firstDay; i++){
@@ -13,7 +17,7 @@ function Calender() {
         }
         while(nextMonth < 2){
             
-            if(new Date(2023,8,day).getDate() === 1) nextMonth++;
+            if(new Date(year,month,day).getDate() === 1) nextMonth++;
             // console.log(day)
             // console.log(new Date(2023,8,day).getDate())
             // console.log(nextMonth)
@@ -57,33 +61,28 @@ function Calender() {
         )
     }
 
-    makeCalender()
+    const decreaseMonth = () => {
+        const year = selecDate.month <= 0 ? selecDate.year - 1 : selecDate.year;
+        const month = selecDate.month <= 0 ? 11 : selecDate.month - 1;
+        setSelctDate({ year, month })
+    }
 
-
-
-
-
-
+    const increaseMonth = () => {
+        const year = selecDate.month >= 11 ? selecDate.year + 1 : selecDate.year;
+        const month = selecDate.month >= 11 ? 0 : selecDate.month + 1;
+        setSelctDate({ year, month })
+    }
 
     return (
         <>
-            {/* <table>
-                <th>
-                    <td>일</td>
-                    <td>월</td>
-                    <td>화</td>
-                    <td>수</td>
-                    <td>목</td>
-                    <td>금</td>
-                    <td>토</td>
-                </th>
-                <tr>
-                    <td>1</td>
-                </tr>
-            </table> */}
-            {makeCalender(2023,9)}
+            <div>
+                <button onClick={decreaseMonth}className='Calendar-btn'>◀</button>
+                <span>{`${selecDate.year}년 ${selecDate.month+1}월`}</span>
+                <button onClick={increaseMonth} className='Calendar-btn'>▶</button>
+            </div>
+            {makeCalendar(selecDate.year, selecDate.month)}
         </>
     )
 }
 
-export default Calender
+export default Calendar
