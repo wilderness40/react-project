@@ -1,18 +1,23 @@
-import React, {useState} from "react";
-import {Time , Calender, Dday, Todo} from "../components"
+import React, { useState } from "react";
+import { Time, Calender, Dday, Todo } from "../components"
 // import Time from "./Time";
 // import Calender from "./Calender";
 // import Dday from "./Dday";
 // import Todo from "./Todo";
+import './assets/styles/ScheduleBar.css'
 
-function ScheduleBar(){
-    return(
+function ScheduleBar() {
+    return (
         <>
+
             <Time></Time>
-            <Calender></Calender>
-            <Dday></Dday>
-            <Todo></Todo>
-       </>
+            {<div className="ScheduleBar-detail-container">
+                <Dday></Dday>
+                <Todo></Todo>
+                <Calender></Calender>
+            </div>}
+            
+        </>
     )
 }
 

@@ -6,7 +6,7 @@ import { Link } from "react-router-dom"
 function Sidebar({homeIcons, buttonFlag}){
     return(
         <>
-            <div className={`window-bar ${buttonFlag ? '' : 'show'}`}>
+            <div className={`window-bar ${buttonFlag ? 'show' : ''}`}>
                 <div className="window-textbar"><h5>Window<span>95</span></h5></div>
                 <div className="window-menubar">
                     {homeIcons.map((icon, id)=>{
