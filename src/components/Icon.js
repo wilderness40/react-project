@@ -14,7 +14,7 @@ function Icon({ src, children, href }) {
         removeAndAddActiveClass(e);
     };
   
-    const removeAndAddActiveClass = (e) => {
+    const removeAndAddActiveClass = (e) => { // Icon 컴포넌트를 클릭하면 해당 컴포넌트만 blur 처리하고, 해당 컴포넌트의 h5 태그만 active 처리한다.
         const icons = document.querySelectorAll('.main-icons');
         const h5 = document.querySelectorAll('h5');
         icons.forEach((icon) => {
