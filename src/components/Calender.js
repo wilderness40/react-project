@@ -27,19 +27,18 @@ function Calendar() {
         // console.log(dateArray)
         const weekCount = dateArray.length%7 !== 0 ? Math.floor(dateArray.length / 7) + 1 : dateArray.length / 7;
         const weekCountArray = new Array(weekCount).fill(1).map((a, i) => i);
-        console.log(weekCountArray)
 
         return (
             <table>
                 <thead>
                     <tr>
-                        <th>일</th>
-                        <th>월</th>
-                        <th>화</th>
-                        <th>수</th>
-                        <th>목</th>
-                        <th>금</th>
-                        <th>토</th>
+                        <th>S</th>
+                        <th>M</th>
+                        <th>T</th>
+                        <th>W</th>
+                        <th>T</th>
+                        <th>F</th>
+                        <th>S</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -74,14 +73,14 @@ function Calendar() {
     }
 
     return (
-        <>
-            <div>
+        <div className="Calendar-container">
+            <div className="Calendar-select-container">
                 <button onClick={decreaseMonth}className='Calendar-btn'>◀</button>
                 <span>{`${selecDate.year}년 ${selecDate.month+1}월`}</span>
                 <button onClick={increaseMonth} className='Calendar-btn'>▶</button>
             </div>
             {makeCalendar(selecDate.year, selecDate.month)}
-        </>
+        </div>
     )
 }
 

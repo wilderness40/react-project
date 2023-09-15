@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Time, Calender, Dday, Todo } from "../components"
 // import Time from "./Time";
 // import Calender from "./Calender";
@@ -7,16 +7,30 @@ import { Time, Calender, Dday, Todo } from "../components"
 import './assets/styles/ScheduleBar.css'
 
 function ScheduleBar() {
+    const [toggleOpenDetail, setToggleOpenDetail] = useState(false);
+
+    // useEffect(() => {
+    //     if(toggleOpenDetail)
+    //     window.addEventListener('click',(e) => {
+    //         console.log(e.target)
+    //         setToggleOpenDetail(false);
+    //     })
+    // },[toggleOpenDetail])
+
+    const handleTimeClick = (e) => {
+        e.stopPropagation();
+        setToggleOpenDetail(!toggleOpenDetail);
+    }
     return (
         <>
-
-            <Time></Time>
-            {<div className="ScheduleBar-detail-container">
+            <Time handleTimeClick={handleTimeClick}></Time>
+            {toggleOpenDetail ? 
+            <div className="ScheduleBar-detail-container">
                 <Dday></Dday>
                 <Todo></Todo>
                 <Calender></Calender>
-            </div>}
-            
+            </div>
+            :<></>}
         </>
     )
 }
