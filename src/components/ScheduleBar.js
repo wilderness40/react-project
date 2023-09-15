@@ -4,7 +4,7 @@ import { Time, Calender, Dday, Todo } from "../components"
 // import Calender from "./Calender";
 // import Dday from "./Dday";
 // import Todo from "./Todo";
-import './assets/styles/ScheduleBar.css'
+import '../styles/ScheduleBar.css'
 
 function ScheduleBar() {
     const [toggleOpenDetail, setToggleOpenDetail] = useState(false);
