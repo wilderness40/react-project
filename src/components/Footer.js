@@ -10,10 +10,12 @@ function Footer({}){
     const toggleMenubar = () => {
         setButtonFlag(!buttonFlag)
     }
-
+    const handleSidebarFlag = () => {
+        setButtonFlag(false)
+    }
     return(
         <footer>
-            <Sidebar homeIcons={homeIcons} buttonFlag={buttonFlag}></Sidebar>
+            <Sidebar homeIcons={homeIcons} buttonFlag={buttonFlag} flagChange={handleSidebarFlag}></Sidebar>
             <Button toggleMenubar={toggleMenubar} />
             <ScheduleBar></ScheduleBar>
         </footer>
