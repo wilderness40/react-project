@@ -11,7 +11,7 @@ function NewsPaper() {
     const date = today.getDate();   
     const day = today.getDay(); 
     const days = ['일', '월', '화', '수', '목', '금', '토'];
-    console.log(data.articles)
+    console.log(typeof(data))
     return (
        <div className="newspapaer">
             <div className="newspapaer__header">
@@ -42,15 +42,10 @@ function NewsPaper() {
                 <article className="center">
                     <div className="center__article">
                         <div className="center__article__img">
-                            <img src='zz'/>
+                            <img src={data.length !==0 && data.articles[1].urlToImage}/>
                         </div>    
                         <div className="center__article__text">
-                            {/* {data.articles.length !== 0 && data.articles.map( (data, index) => {
-                                if(index===0) {
-                                    return <h3 className="center__article__text__headline">{data[0].title}</h3>
-                                    
-                                }
-                            })} */}
+                            {data.length !==0 && data.articles[1].title}
                         </div>
                     </div>
                     <div className="center__article__sub">
