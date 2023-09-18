@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { RemoteControl } from '../components'
 import YoutubeAPI from "../services/YoutubeAPI";
 import "../styles/TvContainer.css"
@@ -11,16 +11,31 @@ function TvContainer({}){
         borderRadius: '20px',
         border : 'none',
     }
-    console.log(youTubeApiData)
-    const blindShow = (e) => {
+    // const blindShow = (e) => {
+    //     const tvifram = document.querySelector('.Tv-body-container > iframe')
+    //     tvifram.classList.add('hide')
+    //     const src = e.target.firstChild.src
+    //     // console.log(e.target.firstChild)
+    //     // console.log(src)
+    //     setTimeout(() => {
+    //         tvifram.classList.remove('hide')
+    //         tvifram.src = src
+    //     }, 1000)
+    // }
+    const tvShow = (e) => {
         const tvifram = document.querySelector('.Tv-body-container > iframe')
         tvifram.classList.add('hide')
-        const src = e.target.children[0].src
-        setTimeout(() => {
-            tvifram.classList.remove('hide')
-            tvifram.src = src
-        }, 1000)
-        console.log(e.target.children[0].src)
+        if (youTubeApiData.length !==0) {
+            youTubeApiData.items.map( (youtube) => {
+                if(e.target.src === youtube.snippet.thumbnails.medium.url) {
+                    const movieSrc = `https://www.youtube.com/embed/${youtube.id.videoId}`
+                    setTimeout( () => {
+                        tvifram.classList.remove('hide')
+                        tvifram.src = movieSrc
+                    }, 1000)
+                }
+            },[])
+        }
     }
     return(
         <>       
@@ -28,9 +43,9 @@ function TvContainer({}){
                 <div className="Tv">
                     <div className="Tv-body-container">
                         {youTubeApiData.length !==0 && youTubeApiData.items.map( (youtube, index, id) => {
-                            console.log(youtube)
+                            // console.log(youtube)
                             if(index === 0) {
-                                return <iframe key={id} style={iframeStyle} src={`https://www.youtube.com/embed/${youtube.id.videoId}`}></iframe>
+                                return <iframe key={id} style={iframeStyle} src={`https://www.youtube.com/embed/${youtube.id.videoId}`}/>
                             }
                         })}
                     </div>
@@ -38,9 +53,14 @@ function TvContainer({}){
                 <div className="youtube-container">
                     {youTubeApiData.length !==0 && youTubeApiData.items.map( (youtube, id) => {
                         return (
-                            <div key={id} className="youtube-content" onClick={blindShow} >
-                                <iframe width="200px" height='200px'src={`https://www.youtube.com/embed/${youtube.id.videoId}`}/>
-                                <span>{youtube.snippet.channelTitle}</span>
+                            <div key={id} className="youtube-content" >
+                                <img src={youtube.snippet.thumbnails.medium.url} onClick={tvShow}/>
+                                {/* <iframe width="300px" height='200px'src={`https://www.youtube.com/embed/${youtube.id.videoId}`}/> */}
+                                <div className="youtube-description">
+                                    <span>{youtube.snippet.title}</span>
+                                </div>
+
+                                {/* <p>{youtube.snippet.description}</p> */}
                             </div>
                         ) 
                     })}

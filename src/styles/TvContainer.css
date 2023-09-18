@@ -10,7 +10,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column
+    flex-direction: column;
+    background: var(--primary-color);
 }
 .Tv {
     width: 680px;
@@ -31,13 +32,15 @@ body {
     margin-bottom: 1rem;
     border-radius: 20px;
     background: url('../../public/images/지지직.gif');
-    /* border: 1px solid black;
-    border-radius: 80px; */
 }
 .youtube-container {
     display: flex;
     justify-content: center;
     align-items: flex-start;
+    height: 300px;
+    width: 1680px;
+    flex-wrap: wrap;
+    flex: 1 1 20%;
 }
 .youtube-content {
     display: flex;
@@ -45,8 +48,16 @@ body {
     align-items: center;
     flex-direction: column;
     padding: 2rem;
+    margin-bottom: 2rem;
+    width: 300px;
 }
-.youtube-content span {
+.youtube-content img {
+    width: 300px;
+    height: 200px;
+    border-radius: 20px;
+    border: none;
+}
+.youtube-description span {
     font-size: 1rem;
     color: white;
 }
