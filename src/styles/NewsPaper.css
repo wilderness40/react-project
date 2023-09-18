@@ -1,0 +1,183 @@
+@import url('./Globar.css');
+
+.newspapaer{
+    width: 100vw;
+    height: 150vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    position: relative;
+}       
+.newspapaer__header{
+    width: 100%;
+    height: 15%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #c7c7c7;
+
+    font-family: 'Nanum Myeongjo', serif;
+    letter-spacing: 3px;    
+    margin-top: 3rem;
+
+    display: flex;
+    flex-direction: column;
+}
+.newspapaer__header h1{
+    font-size: 3.3rem;
+    margin-bottom: 20px;
+}
+
+
+.date-information{
+    width: 100%;
+    padding: 5px 0;
+    border-top: 1px solid #c7c7c7;
+    text-align: right;
+   
+}
+.date-information span{
+    font-family: 'Nanum Myeongjo', serif;
+    margin-right: 3rem;
+}
+
+
+/* 뉴스내용-좌/중/우 레이아웃 구성 */
+.newspapaer__body{
+    max-width: 90%;
+    height: 80%;
+    display: flex;
+    margin-top: 5rem;
+}
+.left{
+    width: 400px;
+    height: 100%;
+    /* border: 1px solid #0e0a0a; */
+}
+.center{
+    /* width: 1000px; */
+    height: 100%;
+    /* border: 3px solid #a72e2e; */
+}
+.right{
+    width: 400px;
+    height: 100%;
+    /* border: 1px solid #0e0a0a; */
+}
+
+/* 기사 레이아웃 */
+/* 중간기사 */
+.center__article{
+    width: 100%;
+    height: 800px;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.center__article__img{
+    width: 500px;
+    height: 300px;
+    border: 1px solid #0e0a0a;
+}
+.center__article__img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.center__article__text{
+    width: 100%;
+    height: 150px;
+    /* border: 1px solid #cc2b2b; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.center__article__text__headline{
+    font-size: 1.5rem;
+    font-family: 'Nanum Myeongjo', serif;
+    /* letter-spacing: 3px; */
+    text-align: center;
+    margin-top: -4rem;
+}
+/* 왼쪽기사 */
+.left__article{
+    width: 100%;
+    height: 800px;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.left__article__img{
+    width: 300px;
+    height: 200px;
+    border: 1px solid #0e0a0a;
+}
+.left__article__img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.left__article__text{
+    width: 100%;
+    height: 150px;
+    /* border: 1px solid #cc2b2b; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.left__article__text__headline{
+    font-size: 1.3rem;
+    font-family: 'Nanum Myeongjo', serif;
+    /* letter-spacing: 3px; */
+    text-align: center;
+    margin-top: -4rem;
+}
+/* 오른쪽기사 */
+.right__article{
+    width: 100%;
+    height: 800px;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.right__article__img{
+    width: 300px;
+    height: 200px;
+    border: 1px solid #0e0a0a;
+}
+.right__article__img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.right__article__text{
+    width: 100%;
+    height: 150px;
+    /* border: 1px solid #cc2b2b; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.right__article__text__headline{
+    font-size: 1.3rem;
+    font-family: 'Nanum Myeongjo', serif;
+    /* letter-spacing: 3px; */
+    text-align: center;
+    margin-top: -4rem;
+}
+
+.newspapaer__footer{
+    height: 200px;
+    width: 100%;
+    background-color: #333;
+    /* display: none; */
+    position: absolute;
+    bottom: 0 ;
+
+}
+
+
