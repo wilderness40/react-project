@@ -1,17 +1,22 @@
 import React, {useEffect, useState} from "react";
 import "../styles/NewsPaper.css"
-import NewsPapers from "../services/Newpaper"
+import NewsPaperAPI from "../services/NewspaperAPI"
 
 function NewsPaper() {
     // 헤더 우측 날짜관련 변수
-    const data = NewsPapers()
+    const data = NewsPaperAPI()
+    const news = data[0]
+    const techNews = data[1]
+    const sportsNews = data[2]
+
     const today = new Date();
     const year = today.getFullYear();
     const month = today.getMonth() + 1;
     const date = today.getDate();   
     const day = today.getDay(); 
     const days = ['일', '월', '화', '수', '목', '금', '토'];
-    // 필터로 사진없는 data는 거르자
+
+
     return (
        <div className="newspapaer">
             <div className="newspapaer__header">
@@ -24,58 +29,108 @@ function NewsPaper() {
                 <article className="left">
                     <div className="left__article">
                             <div className="left__article__img">
-                                <img src='https://a.cdn-hotels.com/gdcs/production125/d653/a01517ea-0ec0-4639-b862-33922c62f04a.jpg' />
+                            <img src={data.length !==0 && techNews[0].urlToImage ? techNews[0].urlToImage : 'https://dummyimage.com/450x250/'}/>
                             </div>    
                             <div className="left__article__text">
-                                <h3 className="left__article__text__headline">왼쪽기사 헤드라인입니다. 뭐먹지.</h3>
+                                <h3 className="left__article__text__headline">{data.length !==0 && techNews[0].title}</h3>
                             </div>
                         </div>
                     <div className="left__article__sub">
-                        <div className="left__article__sub__img">
-                            <img src='https://a.cdn-hotels.com/gdcs/production125/d653/a01517ea-0ec0-4639-b862-33922c62f04a.jpg' />
-                        </div>    
-                        <div className="left__article__sub__text">
-                            <h3 className="left__article__sub__text__headline">왼쪽기사 헤드라인입니다. 뭐먹지.</h3>
+                        <div className="left__article__sub__content">
+                        {data.length !== 0 ? (
+                            techNews.slice(1).map((item, index) => {
+                            return item.urlToImage && item.title ? (
+                                <div key={index}>
+                                <img src={item.urlToImage} alt={item.title} />
+                                <h3 className="left__article__sub__text__headline">{item.title}</h3>
+                                </div>
+                            ) : (
+                                <div key={index}>
+                                <img src="https://dummyimage.com/150x100/" alt="사진을 가져오는 중입니다" />
+                                <h3 className="left__article__sub__text__headline">{item.title}</h3>
+                                </div>
+                            );
+                            })
+                        ) : (
+                            <div>
+                            <img src="https://dummyimage.com/150x100/" alt="사진을 가져오는 중입니다" />
+                            <h3 className="left_article_sub_text_headline">데이터를 가져오는 중입니다.</h3>
+                            </div>
+                        )}
                         </div>
                     </div>    
                 </article>
                 <article className="center">
                     <div className="center__article">
-                        <div className="center__article__img">
-                            <img src={data.length !==0 && data.articles[1].urlToImage}/>
+                        <div className="center__article__img"> 
+                            <img src={data.length !==0 && news[0].urlToImage ? news[0].urlToImage : 'https://dummyimage.com/600x300/'}/>
                         </div>    
                         <div className="center__article__text">
-                            {data.length !==0 && data.articles[1].title}
+                        <h3 className="center__article__text__headline">{data.length !==0 && news[0].title}</h3>
                         </div>
                     </div>
                     <div className="center__article__sub">
-                        <div className="center__article__sub__img">
-                            <img src='https://static01.nyt.com/images/2023/03/28/multimedia/00skorea-japan-explainer-01-wpcf/00skorea-japan-explainer-01-wpcf-videoSixteenByNine3000.jpg' />
-                        </div>    
-                        <div className="center__article__sub_text">
-                            <h3 className="center__article__sub__text__headline">서브기사 헤드라인 자리, 이곳에 서브기사 헤드라인이 노출됩니다.</h3>
+                    <div className="center__article__sub__content">
+                        {data.length !== 0 ? (
+                            news.slice(1).map((item, index) => {
+                            return item.urlToImage && item.title ? (
+                                <div key={index}>
+                                <img src={item.urlToImage} alt={item.title} />
+                                <h3 className="center__article__sub__text__headline">{item.title}</h3>
+                                </div>
+                            ) : (
+                                <div key={index}>
+                                <img src="https://dummyimage.com/150x100/" alt="사진을 가져오는 중입니다" />
+                                <h3 className="center__article__sub__text__headline">{item.title}</h3>
+                                </div>
+                            );
+                            })
+                        ) : (
+                            <div>
+                            <img src="https://dummyimage.com/150x100/" alt="사진을 가져오는 중입니다" />
+                            <h3 className="center_article_sub_text_headline">데이터를 가져오는 중입니다.</h3>
+                            </div>
+                        )}
                         </div>
                     </div>  
                 </article>
                 <article className="right">
                     <div className="right__article">
                                 <div className="right__article__img">
-                                    <img src='https://www.state.gov/wp-content/uploads/2023/07/shutterstock_656695444v2.jpg' />
+                                    <img src={data.length !==0 && sportsNews[0].urlToImage ? sportsNews[0].urlToImage : 'https://dummyimage.com/450x250/'}/>
                                 </div>    
                                 <div className="right__article__text">
-                                    <h3 className="right__article__text__headline">오른쪽기사 헤드라인입니다. 배고프다</h3>
+                                    <h3 className="right__article__text__headline">{data.length !==0 && sportsNews[0].title}</h3>
                                 </div>
                             </div>
+
                     <div className="right__article__sub">
-                        <div className="right__article__sub__img">
-                            <img src='https://www.state.gov/wp-content/uploads/2023/07/shutterstock_656695444v2.jpg' />
-                        </div>    
-                        <div className="right__article__sub__text">
-                            <h3 className="right__article__sub__text__headline">오른쪽기사 헤드라인입니다. 배고프다</h3>
+                        <div className="right__article__sub__content">
+                        {data.length !== 0 ? (
+                            sportsNews.slice(1).map((item, index) => {
+                            return item.urlToImage && item.title ? (
+                                <div key={index}>
+                                <img src={item.urlToImage} alt={item.title} />
+                                <h3 className="right__article__sub__text__headline">{item.title}</h3>
+                                </div>
+                            ) : (
+                                <div key={index}>
+                                <img src="https://dummyimage.com/150x100/" alt="사진을 가져오는 중입니다" />
+                                <h3 className="right__article__sub__text__headline">{item.title}</h3>
+                                </div>
+                            );
+                            })
+                        ) : (
+                            <div>
+                            <img src="https://dummyimage.com/150x100/" alt="사진을 가져오는 중입니다" />
+                            <h3 className="right_article_sub_text_headline">데이터를 가져오는 중입니다.</h3>
+                            </div>
+                        )}
                         </div>
-                    </div> 
+                    </div>    
                 </article>
             </div>
+
             <div className="newspapaer__footer">
                 <div className="newspapaer__footer__left">
                     <h3>세상에 이런 일이</h3>
