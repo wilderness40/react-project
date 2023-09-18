@@ -10,7 +10,11 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column
+    flex-direction: column;
+    padding: 3rem;
+    /* background: var(--primary-color); */
+    /* background: var(--secondary-color); */
+    background: url('https://mblogthumb-phinf.pstatic.net/MjAxNzAzMTZfMTA4/MDAxNDg5NjcyOTUzOTc2.BV87bXTpxENcTBg9ovkIrjULnYSVWX4UMgiFI9i_OC4g.BU2qzDQJSSSy0tpGs8dJNRk5RDpWt0SGStrVPnDuP-sg.PNG.johnoh125/%ED%85%8C%EC%8A%A4%ED%8A%B8_%ED%8C%A8%ED%84%B4.png?type=w800');
 }
 .Tv {
     width: 680px;
@@ -31,13 +35,16 @@ body {
     margin-bottom: 1rem;
     border-radius: 20px;
     background: url('../../public/images/지지직.gif');
-    /* border: 1px solid black;
-    border-radius: 80px; */
 }
 .youtube-container {
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
+    justify-content: flex-start;
+    align-items: center;
+    width: 1680px;
+    margin: 2rem 0;
+    background: rgba(161 153 153)
+    /* background: whitesmoke */
+    /* background: url('https://mblogthumb-phinf.pstatic.net/MjAxNzAzMTZfMTA4/MDAxNDg5NjcyOTUzOTc2.BV87bXTpxENcTBg9ovkIrjULnYSVWX4UMgiFI9i_OC4g.BU2qzDQJSSSy0tpGs8dJNRk5RDpWt0SGStrVPnDuP-sg.PNG.johnoh125/%ED%85%8C%EC%8A%A4%ED%8A%B8_%ED%8C%A8%ED%84%B4.png?type=w800'); */
 }
 .youtube-content {
     display: flex;
@@ -45,14 +52,38 @@ body {
     align-items: center;
     flex-direction: column;
     padding: 2rem;
+    margin: 1rem 0;
+    width: 330px;
+    height: 300px;
+    background: url('../../public/images/필름프레임4.png');
+    background-size: cover;
+    filter: grayscale(100%);
 }
-.youtube-content span {
+.youtube-content:hover {
+    box-shadow: 1px 1px 1px 1px rgba(0,0,0,.3);
+    filter: grayscale(0%);
+}
+.youtube-content img {
+    width: 300px;
+    height: 200px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    background: url('../../public/images/login.png');
+    background-size: contain;
+}
+.youtube-description span {
     font-size: 1rem;
-    color: white;
+    color: gray;
+    font-weight: 800;
 }
 .show { /*sidebar menu와 클래스명이 겹쳐서 충돌함*/
     display: block;
 }
 .hide {
     display: none;
+}
+.slideMove {
+    transition: all 5s ease-in-out;
+    transform: translateX(-300px);
 }
