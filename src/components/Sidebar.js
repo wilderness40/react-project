@@ -5,7 +5,7 @@ import { Link } from "react-router-dom"
 
 function Sidebar({homeIcons, buttonFlag, flagChange}){
     const [sidebarState, setSidebarState] =useState('')
-
+    // 미해결사항 : 사이드바가 열려있을 때 하단 시계버튼을 클릭하면 사이드바가 사라지지 않는다.
     const anotheClickHideSidebar = (e) => { // 다른 곳을 클릭하면 사이드바가 사라지게 하는 함수
         
         const sidebarmenu = document.querySelector('.window-bar')
@@ -14,7 +14,6 @@ function Sidebar({homeIcons, buttonFlag, flagChange}){
         const footerButtonChildDivImg = footerButton.childNodes[0].children[0] 
         const footerButtonChildDivSpan = footerButton.childNodes[0].children[1] 
 
-        console.log(footerButtonChildDiv)
       if(sidebarmenu.classList.contains('showSidebar') // 사이드바가 보여지고 있을 때
       && e.target !== footerButton // footer button을 제외한 다른 곳을 클릭했을 때
       && e.target !== footerButtonChildDiv // footer button의 자식 div를 제외한 다른 곳을 클릭했을 때
