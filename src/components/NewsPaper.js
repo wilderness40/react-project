@@ -11,7 +11,7 @@ function NewsPaper() {
     const date = today.getDate();   
     const day = today.getDay(); 
     const days = ['일', '월', '화', '수', '목', '금', '토'];
-    console.log(typeof(data))
+    // 필터로 사진없는 data는 거르자
     return (
        <div className="newspapaer">
             <div className="newspapaer__header">
