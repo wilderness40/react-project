@@ -1,0 +1,21 @@
+@import url('./Globar.css');
+/* 승현님의 스타일을 가져와 수정했습니다. 감사합니다 */
+.Minimize-tab{
+  position: absolute;
+  background: var(--secondary-color);
+  box-shadow: 1px 1px 1px 1px  rgb(123, 123, 123);
+  border: none;
+  padding: 4px 10px;
+  cursor: pointer;
+  left: 100px;
+  top: 50%;
+  transform: translateY(-50%);
+  min-width: 200px;
+  border-top: 1px solid #fff;
+  border-left: 1px solid #fff;
+  font-weight: 500;
+}
+
+.Minimize-tab:active{ /* 시작버튼 클릭시 버튼 들어가는 느낌주기, 나중에 js로 active 토글빼기*/
+  box-shadow: inset -.3rem -.1rem 1.4rem  rgb(123, 123, 123), inset .3rem .4rem .8rem rgb(123, 123, 123);
+}
