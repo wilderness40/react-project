@@ -11,42 +11,41 @@
 }       
 .newspapaer__header{
     width: 100%;
-    height: 15%;
+    height: 200px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     border-bottom: 1px solid #c7c7c7;
 
     font-family: 'Nanum Myeongjo', serif;
     letter-spacing: 3px;    
-    margin-top: 3rem;
 
-    display: flex;
-    flex-direction: column;
 }
 .newspapaer__header h1{
     font-size: 3.3rem;
-    margin-bottom: 20px;
 }
 
 
 .date-information{
     width: 100%;
+    height: 30px;
     padding: 5px 0;
     border-top: 1px solid #c7c7c7;
     text-align: right;
-   
+    height: 10px;
 }
 .date-information span{
     font-family: 'Nanum Myeongjo', serif;
     margin-right: 3rem;
+    line-height: 40px;
 }
 
 
 /* 뉴스내용-좌/중/우 레이아웃 구성 */
 .newspapaer__body{
     max-width: 90%;
-    height: 80%;
+    height: 100vh;
     display: flex;
     margin-top: 5rem;
 }
@@ -170,14 +169,53 @@
     margin-top: -4rem;
 }
 
+
+/*    
+  <div className="newspapaer__footer">
+                <div className="newspapaer__footer__left">
+                    <h3>세상에 이런 일이</h3>
+                    <div className="icon-links"></div>
+                    <div className="site-information">
+                        <p>아무텍스트나</p>
+                        <p>작성해봅시다</p>
+                        <p>Publisher : Kwon | Jihun | Seunghyun</p>
+                        <p>Copyright © React-Team All rights reserved.</p>
+                    </div>
+                </div>
+<div className="newspapaer__footer__right">
+                    <ul>
+                        <li className="About">About Us</li>
+                        <li>History</li>
+                        <li>Contact Us</li>
+                    </ul>
+
+                    <ul>
+                        <li className="Service">Service</li>
+                        <li>How to Use</li>
+                        <li>Terms of Service</li>
+                    </ul>
+
+                    <ul>
+                        <li className="Policy">Policy</li>
+                        <li>Copyright Policy</li>
+                    </ul>
+
+
+                </div> 
+                */
 .newspapaer__footer{
     height: 200px;
     width: 100%;
     background-color: #333;
-    /* display: none; */
+   
     position: absolute;
     bottom: 0 ;
 
+    display: flex;
+    color: #fff;
+}
+.newspapaer__footer li{
+    list-style: none;
 }
 
 
