@@ -14,7 +14,7 @@ function Sidebar({homeIcons, buttonFlag, flagChange}){
         const footerButtonChildDivImg = footerButton.childNodes[0].children[0] 
         const footerButtonChildDivSpan = footerButton.childNodes[0].children[1] 
 
-        console.log(footerButtonChildDiv)
+        // console.log(footerButtonChildDiv)
       if(sidebarmenu.classList.contains('showSidebar') // 사이드바가 보여지고 있을 때
       && e.target !== footerButton // footer button을 제외한 다른 곳을 클릭했을 때
       && e.target !== footerButtonChildDiv // footer button의 자식 div를 제외한 다른 곳을 클릭했을 때
