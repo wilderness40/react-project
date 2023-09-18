@@ -1,0 +1,23 @@
+.footerBar{
+    width: 150px;
+    height: 35px;
+    box-shadow: inset 1px 1px 3px 1px rgb(123, 123, 123); 
+    margin-left: 6rem;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.footerBar:active{
+    box-shadow:  1px 1px 3px 1px rgb(123, 123, 123); 
+}
+.footerBar span{
+    font-size: .8rem;
+    margin-left: 7px;
+}
+.footerBar h5{
+    font-size: .8rem;
+    margin-left: 7px;
+    font-weight: normal;
+}

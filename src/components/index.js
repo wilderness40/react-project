@@ -11,4 +11,6 @@ export { default as Todo } from './Todo'
 export { default as NewsPaper } from  './NewsPaper'
 export { default as ScheduleBar } from './ScheduleBar'
 export { default as RemoteControl } from  './RemoteControl'
+export { default as FooterBar } from  './FooterBar'
+
 export { default as MinimizeTab } from  './MinimizeTab'
