@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import Header from "../components/Header";
+import '../styles/Work.css'
+import { Header, Footer } from "../components";
 
-function Work({}){
+function Work(){
     return(
-       <>
+       <div className="work">
          <Header></Header>   
-       </>
+         <Footer></Footer>
+       </div>
     )
 }
 

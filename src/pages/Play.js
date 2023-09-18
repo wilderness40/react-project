@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { TvContainer, Footer } from "../components/index"
 import "../styles/Play.css"
+
 function Play({}){
     return(
        <>
