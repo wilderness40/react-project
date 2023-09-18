@@ -1,15 +1,16 @@
 import React, {useState, useEffect} from "react";
-import axios from "axios"
+// import axios from "axios"
 function YoutubeAPI() {
     const [youTubeData , setYouTubeData] = useState([])
     const API_KEY = process.env.REACT_APP_Youtube_API_KEY;
+    // console.log(API_KEY)
     // const getApidata = async () => {
     //     const apiData = await axios.get(`https://www.googleapis.com/youtube/v3/search?&key=${API_KEY}&part=snippet&type=video&q=dog`)
     //     // console.log(apiData)
     //         setYouTubeData(apiData.data)
     // }
     useEffect( ()=> {
-        fetch(`https://www.googleapis.com/youtube/v3/search?&key=${API_KEY}&part=snippet&type=video&q=dog`)
+        fetch(`https://www.googleapis.com/youtube/v3/search?&key=${API_KEY}&part=snippet&type=video&q=Alan Walker&maxResults=10`)
         .then( res => res.json())
         .then(response => {
             // console.log(response)
