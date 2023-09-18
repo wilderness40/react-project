@@ -48,6 +48,7 @@
     height: 100vh;
     display: flex;
     margin-top: 5rem;
+    border: 1px solid #333;
 }
 .left{
     width: 400px;
@@ -65,11 +66,27 @@
     /* border: 1px solid #0e0a0a; */
 }
 
+
+/* 
+<div className="center__article__sub">
+<div className="center__article__sub__img">
+    <img src='https://static01.nyt.com/images/2023/03/28/multimedia/00skorea-japan-explainer-01-wpcf/00skorea-japan-explainer-01-wpcf-videoSixteenByNine3000.jpg' />
+</div>    
+<div className="center__article__sub_text">
+    <h3 className="center__article__sub__text__headline">서브기사 헤드라인 자리, 이곳에 서브기사 헤드라인이 노출됩니다.</h3>
+</div>
+</div>   
+*/
+
+
 /* 기사 레이아웃 */
-/* 중간기사 */
+.center{
+    margin-right: 1rem;
+}
+/* 중간 기사 */
 .center__article{
     width: 100%;
-    height: 800px;
+    height: 450px;
 
     display: flex;
     align-items: center;
@@ -78,7 +95,6 @@
 .center__article__img{
     width: 500px;
     height: 300px;
-    border: 1px solid #0e0a0a;
 }
 .center__article__img img{
     width: 100%;
@@ -87,8 +103,7 @@
 }
 .center__article__text{
     width: 100%;
-    height: 150px;
-    /* border: 1px solid #cc2b2b; */
+    height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -96,23 +111,46 @@
 .center__article__text__headline{
     font-size: 1.5rem;
     font-family: 'Nanum Myeongjo', serif;
-    /* letter-spacing: 3px; */
     text-align: center;
-    margin-top: -4rem;
 }
+
+/* 중간서브기사 */
+.center__article__sub{
+    width: 100%;
+    display: flex;
+}
+.center__article__sub__img{
+    width: 150px;
+    height: 100px;
+}
+.center__article__sub__img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.center__article__sub__text{
+    width: 100%;
+    /* height: 50px; */
+}
+.center__article__sub__text__headline{
+    font-size: .9rem;
+    font-family: 'Nanum Myeongjo', serif;
+    line-height: 60px;
+    margin-left: 10px;
+}
+
+
 /* 왼쪽기사 */
 .left__article{
     width: 100%;
-    height: 800px;
+    /* height: 800px; */
 
     display: flex;
-    align-items: center;
     flex-direction: column;
 }
 .left__article__img{
     width: 300px;
     height: 200px;
-    border: 1px solid #0e0a0a;
 }
 .left__article__img img{
     width: 100%;
@@ -121,32 +159,54 @@
 }
 .left__article__text{
     width: 100%;
-    height: 150px;
-    /* border: 1px solid #cc2b2b; */
+    height: 50px;
     display: flex;
-    justify-content: center;
     align-items: center;
 }
 .left__article__text__headline{
     font-size: 1.3rem;
     font-family: 'Nanum Myeongjo', serif;
-    /* letter-spacing: 3px; */
-    text-align: center;
-    margin-top: -4rem;
 }
+/* 왼쪽기사 서브 */
+.left__article__sub{
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.left__article__sub__img{
+    width: 150px;
+    height: 100px;
+}
+.left__article__sub__img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.left__article__sub__text{
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.left__article__sub__text__headline{
+    font-size: .9rem;
+    font-family: 'Nanum Myeongjo', serif;
+    line-height: 1.5;
+    margin-left: 10px;
+}
+
+
 /* 오른쪽기사 */
 .right__article{
     width: 100%;
-    height: 800px;
 
     display: flex;
-    align-items: center;
+    /* align-items: flex-start; */
     flex-direction: column;
 }
 .right__article__img{
     width: 300px;
     height: 200px;
-    border: 1px solid #0e0a0a;
 }
 .right__article__img img{
     width: 100%;
@@ -155,54 +215,48 @@
 }
 .right__article__text{
     width: 100%;
-    height: 150px;
-    /* border: 1px solid #cc2b2b; */
+    height: 50px;
     display: flex;
-    justify-content: center;
+    /* justify-content:center; */
     align-items: center;
 }
 .right__article__text__headline{
     font-size: 1.3rem;
     font-family: 'Nanum Myeongjo', serif;
-    /* letter-spacing: 3px; */
     text-align: center;
-    margin-top: -4rem;
+}
+
+/* 오른쪽기사 서브 */
+.right__article__sub{
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.right__article__sub__img{
+    width: 150px;
+    height: 100px;
+}
+.right__article__sub__img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.right__article__sub__text{
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.right__article__sub__text__headline{
+    font-size: .9rem;
+    font-family: 'Nanum Myeongjo', serif;
+    line-height: 1.5;
+    margin-left: 10px;
 }
 
 
-/*    
-  <div className="newspapaer__footer">
-                <div className="newspapaer__footer__left">
-                    <h3>세상에 이런 일이</h3>
-                    <div className="icon-links"></div>
-                    <div className="site-information">
-                        <p>아무텍스트나</p>
-                        <p>작성해봅시다</p>
-                        <p>Publisher : Kwon | Jihun | Seunghyun</p>
-                        <p>Copyright © React-Team All rights reserved.</p>
-                    </div>
-                </div>
-<div className="newspapaer__footer__right">
-                    <ul>
-                        <li className="About">About Us</li>
-                        <li>History</li>
-                        <li>Contact Us</li>
-                    </ul>
 
-                    <ul>
-                        <li className="Service">Service</li>
-                        <li>How to Use</li>
-                        <li>Terms of Service</li>
-                    </ul>
-
-                    <ul>
-                        <li className="Policy">Policy</li>
-                        <li>Copyright Policy</li>
-                    </ul>
-
-
-                </div> 
-                */
+/* 푸터 왼쪽 컨텐츠  */
 .newspapaer__footer{
     height: 200px;
     width: 100%;
@@ -212,10 +266,42 @@
     bottom: 0 ;
 
     display: flex;
+    justify-content: space-around;
+}
+.newspapaer__footer__left{
     color: #fff;
 }
-.newspapaer__footer li{
-    list-style: none;
+.newspapaer__footer__left .site-information{
+    color: rgb(187, 187, 187);
 }
-
-
+.newspapaer__footer__left .site-information p{
+    margin-top: -15px;
+}
+.newspapaer__footer__left .site-information p:first-child{
+    border-top: 1px dashed rgb(187, 187, 187);
+    padding-top: 5px;
+}
+.newspapaer__footer__left .site-information p:last-child{
+    border-bottom: 1px dashed rgb(187, 187, 187);
+    padding-bottom: 5px;
+}
+/* 푸터 오른쪽 컨텐츠 */
+.newspapaer__footer ul{
+    width: 150px;
+    padding: 20px;
+}
+.newspapaer__footer li{
+    padding: 2px 0;
+    list-style: none;
+    color: rgb(187, 187, 187);
+}
+.newspapaer__footer__right{
+    display: flex;
+}
+.newspapaer__footer__right .About,
+.newspapaer__footer__right .Service,
+.newspapaer__footer__right .Policy
+{
+    color: #fff;
+    font-weight: bold;
+}
