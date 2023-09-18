@@ -63,7 +63,7 @@ function Calendar() {
     useEffect(() => {
         // 오늘 날짜에 하이라이트 효과 적용
         if(selecDate.year === new Date().getFullYear() && selecDate.month === new Date().getMonth()){
-            const td = document.querySelectorAll('tbody tr td');
+            const td = document.querySelectorAll('.Calendar-container tbody tr td');
 
             td.forEach(td => {
                 if(td.innerText == new Date().getDate()){
@@ -74,7 +74,7 @@ function Calendar() {
             })
         }else{
             // 다른 달로 넘어 갈때 효과 초기화
-            const td = document.querySelectorAll('tbody tr td');
+            const td = document.querySelectorAll('.Calendar-container tbody tr td');
 
             td.forEach(td => {
                     td.style.backgroundColor = '';

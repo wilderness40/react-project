@@ -12,4 +12,11 @@ export { default as NewsPaper } from  './NewsPaper'
 export { default as ScheduleBar } from './ScheduleBar'
 export { default as RemoteControl } from  './RemoteControl'
 export { default as FooterBar } from  './FooterBar'
+export { default as Workpad } from  './Workpad'
+export { default as WorkpadContents } from  './WorkpadContents'
+export { default as WorkpadSchedule } from  './WorkpadSchedule'
+export { default as WorkpadTotal } from  './WorkpadTotal'
+export { default as WorkpadTodo } from  './WorkpadTodo'
+
+
 

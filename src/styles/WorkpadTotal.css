@@ -1,0 +1,16 @@
+.WorkpadTotal-container{
+  padding-top: 2rem;
+  padding-left: 2rem;
+  display: flex;
+}
+.WorkpadTotal-container .WorkpadTotal-schedule-container{
+  width: 80%;
+  display: flex;
+}
+.WorkpadTotal-container .WorkpadTotal-schedule-container .WorkpadTotal-schedule{
+  width: 70%;
+}
+.WorkpadTotal-schedule-list{
+  border-left: 1px solid #000;
+  padding-left: 1rem;
+}
