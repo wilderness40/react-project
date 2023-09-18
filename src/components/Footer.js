@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Button , ScheduleBar, Sidebar} from "../components"
+import {Button , ScheduleBar, Sidebar, FooterBar} from "../components"
 import homeIcons from "../HomeIconsData";
 import "../styles/Footer.css"
 
@@ -17,6 +17,7 @@ function Footer({}){
         <footer>
             <Sidebar homeIcons={homeIcons} buttonFlag={buttonFlag} flagChange={handleSidebarFlag}></Sidebar>
             <Button toggleMenubar={toggleMenubar} />
+            <FooterBar homeIcons={homeIcons}></FooterBar>
             <ScheduleBar></ScheduleBar>
         </footer>
     )

@@ -10,4 +10,6 @@ footer {
     width: 100%;
     background: var(--secondary-color);
     height: 40px;
+    display: flex;
+    align-items: center;
 }
