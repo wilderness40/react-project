@@ -11,7 +11,8 @@ function HelpMemo({ memoToggle, handleMemoToggle }){
       </div>
       <div className='HelpMemo-textarea'>
           <p>
-            설명내용입니다.
+            아이콘을 더블클릭 하거나 왼쪽 하단 시작 버튼을 클릭하여 컨텐츠를 이용해보세요.<br/><br/>
+            오른쪽 하단 시계 버튼을 클릭하면 스케쥴에 관한 자세한 내용을 확인 할 수 있습니다.
           </p>
       </div>
     </div>
