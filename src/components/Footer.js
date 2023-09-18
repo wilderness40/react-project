@@ -4,7 +4,7 @@ import homeIcons from "../HomeIconsData";
 import "../styles/Footer.css"
 
 
-function Footer({ handleMemoToggle }){
+function Footer({ handleMemoToggle, memoToggle }){
     const [buttonFlag, setButtonFlag] = useState(false)
 
     const toggleMenubar = () => {
@@ -17,8 +17,7 @@ function Footer({ handleMemoToggle }){
         <footer>
             <Sidebar homeIcons={homeIcons} buttonFlag={buttonFlag} flagChange={handleSidebarFlag}></Sidebar>
             <Button toggleMenubar={toggleMenubar} />
-            <FooterBar homeIcons={homeIcons}></FooterBar>
-            <MinimizeTab handleMemoToggle={handleMemoToggle}>Help</MinimizeTab>
+            <FooterBar handleMemoToggle={handleMemoToggle} memoToggle={memoToggle}></FooterBar>
             <ScheduleBar></ScheduleBar>
         </footer>
     )

@@ -25,7 +25,7 @@ function Home(){
                 </main>
             </div>
             <HelpMemo memoToggle={memoToggle} handleMemoToggle={handleMemoToggle}/>
-            <Footer handleMemoToggle={handleMemoToggle}></Footer>
+            <Footer handleMemoToggle={handleMemoToggle} memoToggle={memoToggle}></Footer>
         </>
     )
 }
