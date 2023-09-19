@@ -12,9 +12,9 @@ body::-webkit-scrollbar {
 .TvContainer {
     display: flex;
     justify-content: center;
-    align-items: center;
+    /* align-items: center; */
     flex-direction: column;
-    padding: 3rem;
+    /* padding: 3rem; */
     width: 2500px;
     /* background: var(--primary-color); */
     /* background: var(--secondary-color); */
@@ -28,6 +28,7 @@ body::-webkit-scrollbar {
     height: 500px;
     background-image: url('../../public/images/retrotv.png');
     background-size: cover;
+    margin-left: 700px;
     /* background-repeat: no-repeat; */
     display: flex;
     align-items: center;

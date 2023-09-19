@@ -3,13 +3,14 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import Browser from './Browser'
 import YoutubeAPI from './services/YoutubeAPI';
+import createkakaoMap from './services/Map'
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
     <Browser />
-    // <YoutubeAPI/>
+    // <createkakaoMap/>
   // </React.StrictMode>
 );
 
