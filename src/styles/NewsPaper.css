@@ -16,7 +16,7 @@
 
 .newspapaer{
     width: 100vw;
-    height: 320vh;
+    min-height: 400vh;
     display: flex;
     flex-direction: column;
     align-items: center;
