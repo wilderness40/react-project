@@ -40,7 +40,7 @@ useEffect(() => {
                 <div className="window-menubar">
                     {homeIcons.map((icon, id)=>{
                         return (
-                                <Link key={id} to={icon.url} state={{sidebarText : icon.iconTitle}}>
+                                <Link key={id} to={icon.url} state={icon.iconTitle}>
                                    <div> 
                                     <img src={icon.iconSrc}  alt='' /> 
                                     {icon.iconTitle}

@@ -18,6 +18,10 @@
     font-size: .8rem;
     margin-left: 7px;
 }
+.footerBar img{
+    width: 25px;
+    padding-left: 1rem;
+}
 .footerBar h5{
     font-size: .8rem;
     margin-left: 7px;

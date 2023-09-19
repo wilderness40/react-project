@@ -17,7 +17,7 @@ function Footer({ handleMemoToggle, memoToggle }){
         <footer>
             <Sidebar homeIcons={homeIcons} buttonFlag={buttonFlag} flagChange={handleSidebarFlag}></Sidebar>
             <Button toggleMenubar={toggleMenubar} />
-            <FooterBar handleMemoToggle={handleMemoToggle} memoToggle={memoToggle}></FooterBar>
+            <FooterBar handleMemoToggle={handleMemoToggle} memoToggle={memoToggle} homeIcons={homeIcons}></FooterBar>
             <ScheduleBar></ScheduleBar>
         </footer>
     )
