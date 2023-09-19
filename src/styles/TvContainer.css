@@ -1,26 +1,34 @@
 @import url('./Globar.css');
-/* 
-body {
+
+/* body {
     cursor: url('../../public/images/remote4.png'), auto;
 } */
+body::-webkit-scrollbar {
+    display: none;
+}
 /* .test {
     background: url('../../public/images/지지직.gif');
 } */
 .TvContainer {
     display: flex;
     justify-content: center;
-    align-items: center;
+    /* align-items: center; */
     flex-direction: column;
-    padding: 3rem;
+    /* padding: 3rem; */
+    width: 2500px;
     /* background: var(--primary-color); */
     /* background: var(--secondary-color); */
     background: url('https://mblogthumb-phinf.pstatic.net/MjAxNzAzMTZfMTA4/MDAxNDg5NjcyOTUzOTc2.BV87bXTpxENcTBg9ovkIrjULnYSVWX4UMgiFI9i_OC4g.BU2qzDQJSSSy0tpGs8dJNRk5RDpWt0SGStrVPnDuP-sg.PNG.johnoh125/%ED%85%8C%EC%8A%A4%ED%8A%B8_%ED%8C%A8%ED%84%B4.png?type=w800');
 }
+/* .TvContainer::-webkit-scrollbar {
+    display: none;
+} */
 .Tv {
     width: 680px;
     height: 500px;
     background-image: url('../../public/images/retrotv.png');
     background-size: cover;
+    margin-left: 700px;
     /* background-repeat: no-repeat; */
     display: flex;
     align-items: center;
@@ -40,11 +48,14 @@ body {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    width: 1680px;
+    width: 3000px;
     margin: 2rem 0;
     background: rgba(161 153 153)
     /* background: whitesmoke */
     /* background: url('https://mblogthumb-phinf.pstatic.net/MjAxNzAzMTZfMTA4/MDAxNDg5NjcyOTUzOTc2.BV87bXTpxENcTBg9ovkIrjULnYSVWX4UMgiFI9i_OC4g.BU2qzDQJSSSy0tpGs8dJNRk5RDpWt0SGStrVPnDuP-sg.PNG.johnoh125/%ED%85%8C%EC%8A%A4%ED%8A%B8_%ED%8C%A8%ED%84%B4.png?type=w800'); */
+}
+.youtube-container::-webkit-scrollbar {
+    display: none;
 }
 .youtube-content {
     display: flex;
@@ -72,10 +83,19 @@ body {
     background: url('../../public/images/login.png');
     background-size: contain;
 }
+.youtube-description {
+    width: 330px;
+    display: inline-flex;
+    text-align: center;
+}
 .youtube-description span {
+    width: 330px;
     font-size: 1rem;
-    color: gray;
+    color: white;
     font-weight: 800;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space:nowrap
 }
 .show { /*sidebar menu와 클래스명이 겹쳐서 충돌함*/
     display: block;
