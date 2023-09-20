@@ -3,6 +3,7 @@ import "../styles/NewsPaper.css"
 import NewsPaperAPI from "../services/NewspaperAPI"
 import { NewsPaperHeadline } from "../components"
 
+
 function NewsPaper({}) {
     // 헤더 우측 날짜관련 변수
     const data = NewsPaperAPI()
@@ -28,7 +29,6 @@ function NewsPaper({}) {
       console.log(selectedNews)
   }
 
-
     return (
        <div className="newspapaer">
 {/* 헤더부분 */}
@@ -41,23 +41,9 @@ function NewsPaper({}) {
 
 {/* 본문부분 */}
 {selectedNews ? 
-           ( 
-           <div className="newspapaer__body__selectedNews">
-                <div className="selectedNews__headline">
-                    <h2>{selectedNews.title}</h2>
-                </div>
-                <div className="selectedNews__img">
-                    <img src={selectedNews.urlToImage} alt={selectedNews.title}/>
-                </div>
-                <div className="selectedNews__content">
-                    <p>{selectedNews.description}</p> <a href={selectedNews.url}>기사 전문 페이지로 이동</a>
-                </div>
-            </div>        
-)
+ window.location.href = selectedNews.url // 해당기사 출처 본문으로 이동
 : <NewsPaperHeadline showDetailArticle={showDetailArticle}></NewsPaperHeadline>
 } 
-
-
           
 
 {/* 푸터영역 */}

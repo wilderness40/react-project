@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Header , Footer } from "../components"
 import mapApi from "../services/Map";
+
 const { kakao } = window;
+
 function Food({}){
     // const mapData = mapApi()
     // console.log(mapData)
