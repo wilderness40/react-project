@@ -40,17 +40,6 @@ function TvContainer({}){
             slideStyle.transition = "all 500ms ease-in-out"
         })
     }
-    // const blindShow = (e) => {
-    //     const tvifram = document.querySelector('.Tv-body-container > iframe')
-    //     tvifram.classList.add('hide')
-    //     const src = e.target.firstChild.src
-    //     // console.log(e.target.firstChild)
-    //     // console.log(src)
-    //     setTimeout(() => {
-    //         tvifram.classList.remove('hide')
-    //         tvifram.src = src
-    //     }, 1000)
-    // }
     const tvShow = (e) => {
         const tvifram = document.querySelector('.Tv-body-container > iframe')
         tvifram.classList.add('hide')
@@ -91,54 +80,6 @@ function TvContainer({}){
                             </div>
                         ) 
                     })}
-                    {/* <div className="youtube-content" style={slideStyle}>
-                        <img/>
-                        <div className="youtube-description">
-                            <span>test1</span>
-                        </div>
-                    </div>
-                    <div className="youtube-content" style={slideStyle}>
-                        <img/>
-                        <div className="youtube-description">
-                            <span>test2</span>
-                        </div>
-                    </div>
-                    <div className="youtube-content" style={slideStyle}>
-                        <img/>
-                        <div className="youtube-description">
-                            <span>test3</span>
-                        </div>
-                    </div>
-                    <div className="youtube-content" style={slideStyle}>
-                        <img/>
-                        <div className="youtube-description">
-                            <span>test4</span>
-                        </div>
-                    </div>
-                    <div className="youtube-content" style={slideStyle}>
-                        <img/>
-                        <div className="youtube-description">
-                            <span>test5</span>
-                        </div>
-                    </div>
-                    <div className="youtube-content" style={slideStyle}>
-                        <img/>
-                        <div className="youtube-description">
-                            <span>test6</span>
-                        </div>
-                    </div>
-                    <div className="youtube-content" style={slideStyle}>
-                        <img/>
-                        <div className="youtube-description">
-                            <span>test7</span>
-                        </div>
-                    </div>
-                    <div className="youtube-content" style={slideStyle}>
-                        <img/>
-                        <div className="youtube-description">
-                            <span>test8</span>
-                        </div>
-                    </div> */}
                 </div>
                 <RemoteControl></RemoteControl>
             </div>

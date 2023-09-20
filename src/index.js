@@ -5,12 +5,12 @@ import Browser from './Browser'
 import YoutubeAPI from './services/YoutubeAPI';
 import createkakaoMap from './services/Map'
 import reportWebVitals from './reportWebVitals';
-
+import DaejeonFoodAPI from './services/DaejeonFoodAPI'
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
-    <Browser />
-    // <createkakaoMap/>
+    // <Browser />
+    <DaejeonFoodAPI/>
   // </React.StrictMode>
 );
 
