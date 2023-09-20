@@ -6,7 +6,7 @@ const mongoose = require('mongoose')
 const config = require('./config')
 const port = 5300
 const corsOptions = {
-    origin : 'http://localhost:5000' ,
+    origin : 'http://localhost:3000' ,
     credential : true ,
 }
 
