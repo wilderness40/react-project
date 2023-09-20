@@ -9,8 +9,8 @@ import DaejeonFoodAPI from './services/DaejeonFoodAPI'
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
-    // <Browser />
-    <DaejeonFoodAPI/>
+    <Browser />
+    // <DaejeonFoodAPI/>
   // </React.StrictMode>
 );
 
