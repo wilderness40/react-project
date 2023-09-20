@@ -2,20 +2,22 @@ import React from "react";
 import { WorkpadTotal, WorkpadSchedule, WorkpadTodo } from './'
 
 function WorkpadContents({ workpadTabState }){
-  if(workpadTabState === 'total'){
-    return (
-      <WorkpadTotal></WorkpadTotal>
-    )
-  }else if(workpadTabState === 'schedule'){
-    return (
-      <WorkpadSchedule></WorkpadSchedule>
-    )
-  }else if(workpadTabState === 'todo'){
-    return (
-      <WorkpadTodo></WorkpadTodo>
-    )
+  switch(workpadTabState){
+    case 'total':
+      return (
+        <WorkpadTotal></WorkpadTotal>
+      )
+    case 'schedule':
+      return (
+        <WorkpadSchedule></WorkpadSchedule>
+      )
+    case 'todo':
+      return (
+        <WorkpadTodo></WorkpadTodo>
+      )
+    default:
+      return
   }
- 
 }
 
 export default WorkpadContents;
