@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-import NewsPaper from "../components/NewsPaper";
-import { Header , Footer } from "../components"
+import { Header , Footer, NewsPaper } from "../components"
 
 
-function News({}){
+function News(){
     return(
        <>
-         <Header></Header>   
-         <NewsPaper></NewsPaper>  
+         <Header></Header>  
+         <NewsPaper></NewsPaper>
          <Footer></Footer>
        </>
     )

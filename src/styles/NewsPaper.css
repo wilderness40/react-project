@@ -16,7 +16,7 @@
 
 .newspapaer{
     width: 100vw;
-    min-height: 400vh;
+    min-height: 350vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -246,9 +246,10 @@
 .left__article__sub__text__headline{
     font-size: .9rem;
     font-family: 'Chosunilbo_myungjo';
-    line-height: 1.5;
+    line-height: 1.2;
     margin-left: 10px;
 } 
+
 .left__article__sub__text__headline:hover{
     color: #5579d3;
     cursor: pointer;
@@ -317,11 +318,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    
 }
 .right__article__sub__text__headline{
     font-size: .9rem;
     font-family: 'Chosunilbo_myungjo';
-    line-height: 1.5;
+    line-height: 1.2;
     margin-left: 10px;
 }
 .right__article__sub__text__headline:hover{
@@ -402,8 +404,64 @@
     font-weight: bold;
 }
 
+/* 
+<div className="newspapaer__body__selectedNews">
+                <div className="selectedNews__headline">
+                    <h2>{selectedNews.title}</h2>
+                </div>
+                <div className="selectedNews__img">
+                    <img src={selectedNews.urlToImage} alt={selectedNews.title}/>
+                </div>
+                <div className="selectedNews__content">
+                    <p>{selectedNews.description}</p> <a href={selectedNews.url}>기사 전문 페이지로 이동</a>
+                </div>
+            </div>        
+*/
+.newspapaer__body__selectedNews{
+    max-width: 80%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.selectedNews__img{
+    width: 1200px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.selectedNews__img img{
+    width: 100%;
+}
+.selectedNews__headline h2{
+    font-size: 2.5rem;
+    font-family: 'Chosunilbo_myungjo';
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
 
-/* 스크롤바 */
-.newspapaer__body .scroll::-webkit-scrollbar {
-    display: none;
-  }
+.selectedNews__content{
+    width: 1200px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.selectedNews__content p{
+    font-size: 1.5rem;
+    font-family: 'Chosunilbo_myungjo';
+    margin-bottom: 3rem;
+    text-align: left;
+    line-height: 2;
+}
+
+.selectedNews__content a{
+    color: #5579d3;
+}
+.selectedNews__content a:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}

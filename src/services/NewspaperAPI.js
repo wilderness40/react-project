@@ -8,7 +8,7 @@ function NewsPaperAPI() {
         const fetchData = async () => {
             try{
             // 중앙 기사 랜덤 기사 데이터
-            const response1 = await fetch(`https://newsapi.org/v2/top-headlines?country=kr&apiKey=${newsApiKey}`)
+            const response1 = await fetch(`https://newsapi.org/v2/top-headlines?page=2&country=kr&apiKey=${newsApiKey}`)
             const newsDatas1 = await response1.json()
             const withImageNewsDatas1 = newsDatas1.articles.filter((newsData) => newsData.urlToImage !== null)
            

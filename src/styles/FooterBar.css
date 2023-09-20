@@ -48,6 +48,7 @@
   }
   .Minimize-tab img{
     width: 15px;
+    margin-right: 10px;
   }
   
   .Minimize-tab:active{ /* 시작버튼 클릭시 버튼 들어가는 느낌주기, 나중에 js로 active 토글빼기*/
