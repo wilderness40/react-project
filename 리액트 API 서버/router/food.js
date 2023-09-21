@@ -21,7 +21,7 @@ router.get('/:search', async(req, res, next) => {
             { TOB_INFO : req.params.search },
             { ADDR : { $regex: /^대전광역시 서구 둔산동/ }}
         ]        
-    }).limit(50)
+    })
     console.log(searchFoodList)
     res.json(searchFoodList)
 })
