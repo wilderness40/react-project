@@ -26,3 +26,6 @@
   flex-direction: column;
   gap: 2rem;
 }
+.WorkpadSchedule-detail{
+  text-align: center;
+}
