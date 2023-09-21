@@ -64,6 +64,7 @@
 .left{
     width: 450px;
     height: 100%;
+    margin-left: -3rem;
     /* border: 1px solid #0e0a0a; */
 }
 .center{

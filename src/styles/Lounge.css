@@ -1,0 +1,132 @@
+@import url('./Globar.css');
+
+
+/*
+        <div className="loung__body">
+                    <div className="lounge__textOutput">
+                        <div className="lounge__textOutput__title">
+                            <h3>글모음</h3>
+                        </div>
+                        <div className="lounge__textOutput__text">
+                            <div className="nickname"><span>닉네임</span></div>
+                            <p>글이 이곳으로 작성됩니다</p>
+                            <div className="text__function">
+                                <div className="text__function__edit"><span>수정</span></div>
+                                <div className="text__function__delete"><span>삭제</span></div>
+                                <div className="text__function__comment"><span>댓글</span></div>
+                            </div>
+                        </div>
+                    </div>    
+                    <div className="lounge__input">
+                       <div className="lounge__input__nameAndPassword"> 
+                         <label>닉네임</label>
+                            <input type='text'></input>
+                         <label>댓글</label>    
+                            <input type='password'></input>
+                        </div>
+                        <div className="lounge__input__text__register">
+                            <label>글쓰기</label>
+                            <input type="text" placeholder="글을 입력하세요"></input>
+                            <button type="button">등록</button>
+                        </div>
+                    </div>
+                </div>
+*/
+
+.loung__body{
+    width: 100vw;
+    height: 150vh;
+    background: #fff;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.lounge__textOutput{
+    max-width: 80%;
+    width: 100%;
+    height: 100%;
+    margin: 3rem 0;
+    
+    /* border: 1px solid #333; */
+}
+.lounge__textOutput__text{
+    display: flex;
+    flex-direction: column;
+    border-bottom: 0.5px solid rgb(243, 239, 239);
+    margin-top: 1rem;
+}
+
+.lounge__textOutput__text .nickname span{
+    /* border: 1px solid #333; */
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: .8rem;
+}
+.lounge__textOutput__text .nickname span img{
+    width: 25px;
+    height: 25px;
+}
+
+.lounge__textOutput .text__function{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    /* border: 1px solid #333; */
+    font-size: .8rem;
+}
+
+.lounge__input{
+    max-width: 80%;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    /* align-items: left; */
+    /* border: 1px solid #333; */
+}
+.lounge__input__nameAndPassword{
+    display: flex;
+    gap: 10px;
+}
+.lounge__input__text__register input{
+    margin-left: 10px;
+}
+.lounge__input__text__register button{
+    width: 50px;
+    height: 35px;
+    margin-left: 10px;
+}
+#nickname {
+    width: 100px;
+    border: 1px solid #333;
+}
+#password{
+    width: 100px;
+    border: 1px solid #333;
+}
+#text{
+    width: 600px;
+    height: 30px;
+}
+.edit{
+    color: rgb(75, 73, 218);
+}
+.delete{
+    color: rgb(218, 73, 73);
+}
+.edit:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
+.delete:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
+.comment:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}

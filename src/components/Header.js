@@ -13,10 +13,10 @@ function Header({}){
       const iconText = useLocation()  // Icon 컴포넌트의 useNavigate state 값(icon.title)과 Sidebar 컴포넌트의 state값(icon.title)을 iconText로 모두 반환한다
     //   console.log(iconText.state) //  Icon 컴포넌트의 useNavigate state 값
     //   console.log(iconText.state.sidebarText) // Sidebar 컴포넌트의 state값
-
+    console.log(iconText)
     return(
         <div className="header">
-            <h5>{iconText.state.sidebarText ? iconText.state.sidebarText : iconText.state}</h5> 
+            <h5>{iconText.state !==null && iconText.state.sidebarText ? iconText.state.sidebarText : iconText.state}</h5> 
             <div className='button-container'>
                 <button onClick={moveToHomePage}>X</button>
             </div>

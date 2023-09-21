@@ -1,6 +1,6 @@
 import './App.css';
 import {Routes, Route} from "react-router-dom"
-import { Home, Play, Work, Food, News, BackHome} from './pages'
+import { Home, Play, Work, Food, News, BackHome, Lounge} from './pages'
 
 function App() {
   return (
@@ -12,6 +12,7 @@ function App() {
          <Route exact path='/food' element={<Food />} />
          <Route exact path='/news' element={<News />} />
          <Route exact path='/BackHome' element={<BackHome />} />
+         <Route exact path='/lounge' element={<Lounge />} />
       </Routes>
     </div>
   )

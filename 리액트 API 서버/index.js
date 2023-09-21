@@ -10,17 +10,27 @@ const corsOptions = {
     credential : true ,
 }
 
+// 몽고디비 연결
 mongoose.connect(config.MONGODB_URL)
 .then( () => console.log('mongodb connect ...'))
 .catch(e => console.log(`faild to connect mongodb ${e}`))
 
+// 미들웨어 설정
 app.use(cors(corsOptions))
 app.use(express.json())
 
 app.use(express.urlencoded({extended:true}))
-const foodRouter = require('./router/food')
-app.use('/food', foodRouter)
 
+// 라우터 설정
+const foodRouter = require('./router/food')
+const loungeChat = require('./router/loungeChats')
+
+// 라우터 적용
+app.use('/food', foodRouter)
+app.use('/lounge', loungeChat)
+
+
+// 에러처리 미들웨어
 app.get('/error', (req, res, next) => {
     throw new Error('서버에 치명적인 에러가 발생했습니다.')
 })
