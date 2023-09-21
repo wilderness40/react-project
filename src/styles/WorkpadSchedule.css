@@ -1,0 +1,31 @@
+.WorkpadSchedule-container{
+  display: flex;
+  gap: 3rem;
+  padding-top: 1.5rem;
+  padding-left: 2rem;
+}
+.WorkpadSchedule-container button{
+  all: unset;
+}
+/* 달력 부분 스타일 */
+.WorkpadSchedule-calendar{
+  width: 50%;
+}
+
+/* 스케줄 등록 부분 스타일 */
+.WorkpadSchedule-input-container{
+  padding-top: 2rem;
+}
+.WorkpadSchedule-input-container form{
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.WorkpadSchedule-contents-container{
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.WorkpadSchedule-detail{
+  text-align: center;
+}

@@ -1,16 +1,21 @@
 .WorkpadTotal-container{
-  padding-top: 2rem;
+  width: 50%;
+  padding-top: 1.5rem;
   padding-left: 2rem;
-  display: flex;
 }
-.WorkpadTotal-container .WorkpadTotal-schedule-container{
+/* 다른 버튼 css와 충돌하여 언셋 적용 */
+.WorkpadTotal-container button{ 
+  all: unset;
+}
+/* .WorkpadTotal-container .WorkpadTotal-schedule-container{
   width: 80%;
   display: flex;
+  justify-content: center;
 }
 .WorkpadTotal-container .WorkpadTotal-schedule-container .WorkpadTotal-schedule{
-  width: 60%;
+  width: 100%;
 }
 .WorkpadTotal-schedule-list{
   border-left: 1px solid #000;
   padding-left: 1rem;
-}
+} */
