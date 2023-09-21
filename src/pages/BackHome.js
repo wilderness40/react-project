@@ -27,7 +27,6 @@ function BackHome({}){
                 latlng: new kakao.maps.LatLng(36.35066068335347, 127.38128166077946),
                 content : '<div class ="label"><span class="left"></span><span class="center">음식점</span><span class="right"></span></div>',
             },
-
         ]
         for( let i=0; i<position.length; i++) {
             const marker = new kakao.maps.Marker({
