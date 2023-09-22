@@ -22,6 +22,17 @@ router.post('/', expressAsyncHandler(async(req, res, next)=> {
     res.status(201).json(createdLoungeChat)
 }))
 
+router.post('/edit', expressAsyncHandler(async(req, res, next)=> {
+    const loungeChat = await LoungeChat.findOne({password: req.body.password})
+    if(loungeChat){
+        res.status(200).json()
+        console.log('비밀번호가 일치합니다.')
+    }else{
+        res.status(404).json({message: 'loungeChat not found'})
+        console.log('비밀번호가 일치하지 않습니다.')
+    }
+}))
+
 router.put('/', expressAsyncHandler(async(req, res, next) => {  // 비밀번호로 검증해야되는데 이게 맞나?
     const loungeChat = await LoungeChat.findOne(req.body.password)
     if(loungeChat){

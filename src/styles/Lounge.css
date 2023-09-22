@@ -76,6 +76,7 @@
     gap: 10px;
     /* border: 1px solid #333; */
     font-size: .8rem;
+    position: relative;
 }
 
 .lounge__input{
@@ -129,4 +130,34 @@
 .comment:hover{
     cursor: pointer;
     text-decoration: underline;
+}
+.checkPasswordModal{
+    position: absolute;
+    /* border: 1px solid #333; */
+    background: rgb(241, 231, 231);   
+    border-radius: 1rem;
+    width: 250px;
+    height: 100px;
+
+    bottom: 30%;
+    left: 10%;
+    display: none;
+}
+.checkPasswordModal input{
+    height: 20px;
+ }
+.checkPasswordModal h5{
+    font-size: .8rem;
+    margin-left: 10px;
+}
+.Modalshow{
+    display: block;
+}
+.passwordCheck{
+    margin-left: 10px;
+    margin-top: -10px;
+}
+.passwordCheck button{
+    width: 50px;
+    height: 25px;
 }
