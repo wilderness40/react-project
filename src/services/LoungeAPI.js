@@ -14,7 +14,6 @@ function LoungeAPI(){
         })
         const loungeData = await response.json()
         setLounge(loungeData)
-        console.log(lounge)
     }
 catch(err){
         console.log(err)
