@@ -1,38 +1,5 @@
 @import url('./Globar.css');
 
-
-/*
-        <div className="loung__body">
-                    <div className="lounge__textOutput">
-                        <div className="lounge__textOutput__title">
-                            <h3>글모음</h3>
-                        </div>
-                        <div className="lounge__textOutput__text">
-                            <div className="nickname"><span>닉네임</span></div>
-                            <p>글이 이곳으로 작성됩니다</p>
-                            <div className="text__function">
-                                <div className="text__function__edit"><span>수정</span></div>
-                                <div className="text__function__delete"><span>삭제</span></div>
-                                <div className="text__function__comment"><span>댓글</span></div>
-                            </div>
-                        </div>
-                    </div>    
-                    <div className="lounge__input">
-                       <div className="lounge__input__nameAndPassword"> 
-                         <label>닉네임</label>
-                            <input type='text'></input>
-                         <label>댓글</label>    
-                            <input type='password'></input>
-                        </div>
-                        <div className="lounge__input__text__register">
-                            <label>글쓰기</label>
-                            <input type="text" placeholder="글을 입력하세요"></input>
-                            <button type="button">등록</button>
-                        </div>
-                    </div>
-                </div>
-*/
-
 .loung__body{
     width: 100vw;
     height: 150vh;
@@ -141,7 +108,7 @@
 
     bottom: 30%;
     left: 10%;
-    display: none;
+    /* display: none;/ */
 }
 .checkPasswordModal input{
     height: 20px;
@@ -159,5 +126,16 @@
 }
 .passwordCheck button{
     width: 50px;
+    height: 25px;
+}
+.editInputDiv{
+    display: flex;
+    justify-content: flex-end;
+}
+.editInputDiv input{
+    height: 20px;
+}
+.editInputDiv button{
+    width: 60px;
     height: 25px;
 }
