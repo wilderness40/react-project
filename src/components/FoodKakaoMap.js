@@ -1,21 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { Map, MapMarker } from "react-kakao-maps-sdk"
+import { Map, MapMarker, CustomOverlayMap } from "react-kakao-maps-sdk"
+import "../styles/CustomOverlayStyle.css"
 const { kakao } = window
-function FoodKakaoMap({FoodList, mapState}) {
-    const [positions, setPositions] = useState([
-        {
-            title : '학원',
-            latlng : {
-                lat : 36.349184947679255,
-                lng : 127.37775416701282
-            },
-            content : <div class ="label"><span class="left"></span><span class="center">학원</span><span class="right"></span></div>,
+function FoodKakaoMap({FoodList, mapState, searchFood, loadState}) {
+    console.log(FoodList)
+    console.log(searchFood)
+    console.log(loadState)
+    const [searchPositions, setSearchPositions] = useState([
+            {   
+                REST_NM : '학원',
+                LAT : 36.349184947679255,
+                LOT : 127.37775416701282
+            }
+        ])
+    const [positions, setPositions] = useState([])
+    
+    useEffect(()=> {
+        if(loadState === true) {
+            console.log('test')
+            setSearchPositions([searchFood.data])
         }
-    ])
+        console.log(searchPositions)
+    },[searchFood])
+
     useEffect(()=>  {
-        if(mapState === false) {
-            console.log(positions)
-        }
         if(mapState === true){
         const array = []
         if(FoodList.length !== 0 ) {
@@ -26,21 +34,20 @@ function FoodKakaoMap({FoodList, mapState}) {
                         lat : FoodList.data[i].LAT,
                         lng : FoodList.data[i].LOT,
                     },
-                    // new kakao.maps.LatLng(FoodList.data[i].LAT, FoodList.data[i].LOT),
-                    content : <div class ="label"><span class="left"></span><span class="center">학원</span><span class="right"></span></div>,
+                    content : `<div className="customoverlay" key=${i}><a><span className="title">${FoodList.data[i].REST_NM}</span></a></div>`
                 }
                 array.push(data)
             }
             array.push({
                 title : '학원',
                 latlng : new kakao.maps.LatLng(36.349184947679255, 127.37775416701282) ,
-                content : <div class ="label"><span class="left"></span><span class="center">학원</span><span class="right"></span></div>,
             })
         }
         setPositions(array)
     }
     },[FoodList])
     if(mapState === false) {
+        console.log(searchPositions)
         return (
             <Map
                 center={{
@@ -55,8 +62,8 @@ function FoodKakaoMap({FoodList, mapState}) {
             >
                 <MapMarker
                     position={{
-                        lat : positions[0].latlng.lat ,
-                        lng : positions[0].latlng.lng
+                        lat : searchPositions[0].LAT ,
+                        lng : searchPositions[0].LOT
                     }}
                     image={{
                         src: "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png",
@@ -65,9 +72,19 @@ function FoodKakaoMap({FoodList, mapState}) {
                             height: 35
                             },
                         }}
-                    content={positions[0].content}
-                    title={positions[0].title}
+                    title={searchPositions[0].REST_NM}
                     ></MapMarker>
+                    <CustomOverlayMap
+                        position={{
+                            lat : searchPositions[0].LAT ,
+                            lng : searchPositions[0].LOT
+                        }}>
+                        <div className="customoverlay">
+                            <a>
+                                <span className="title">{searchPositions[0].REST_NM}</span>
+                            </a>
+                        </div>
+                    </CustomOverlayMap>
             </Map>
         )
     } 
@@ -92,8 +109,8 @@ function FoodKakaoMap({FoodList, mapState}) {
                             lng : data.latlng.lng
                         }}
                         title={data.title}
-                        content={data.content}
-                    ></MapMarker>
+                    >
+                    </MapMarker>
                 ))}
             </Map>
         )

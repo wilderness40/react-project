@@ -118,6 +118,7 @@
     display: flex;
     width: 100%;
     flex-direction: column;
+    padding: 1rem;
     border-bottom: 1px solid #e6e6e6
 }
 .foodlist-contents:hover {
@@ -125,6 +126,10 @@
 }
 .foodlist-title {
     display: flex;
+    align-items: center;
+}
+.foodlist-title > span {
+    margin-left: 3rem;
 }
 .foodlist-body {
     display: inline-flex;
