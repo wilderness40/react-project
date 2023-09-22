@@ -29,3 +29,10 @@
 .WorkpadSchedule-detail{
   text-align: center;
 }
+.WorkpadSchedule-detail button{
+  all: unset;
+}
+.WorkpadSchedule-modify-input-container input{
+  display: block;
+  margin: 1rem auto;
+}
