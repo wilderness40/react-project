@@ -46,6 +46,11 @@ function FoodMap({FoodList, mapState}) {
                         }
                         array.push(data)
                     }
+                    array.push({
+                        title : '학원',
+                        latlng : new kakao.maps.LatLng(36.349184947679255, 127.37775416701282) ,
+                        content : <div class ="label"><span class="left"></span><span class="center">학원</span><span class="right"></span></div>,
+                    })
                 }
                 console.log(array)
                 const position = array
@@ -61,7 +66,7 @@ function FoodMap({FoodList, mapState}) {
         })
     const mapStyle = {
         width : "70%",
-        height : "1000px",
+        height : "850px",
     }
 
     return (

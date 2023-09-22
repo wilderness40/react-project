@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Header , Footer, FoodMenu, FoodMap, FoodList } from "../components"
+import { Header , Footer, FoodMenu, FoodKakaoMap, FoodList} from "../components"
 import '../styles/Food.css'
 import axios from "axios";
 function Food({}){
@@ -53,7 +53,8 @@ function Food({}){
                     <FoodList FoodList={searchFoodData}></FoodList>
                 </div>
             </div>
-            <FoodMap FoodList={searchFoodData} mapState={mapState}></FoodMap>
+            {/* <FoodMap FoodList={searchFoodData} mapState={mapState}></FoodMap> */}
+            <FoodKakaoMap FoodList={searchFoodData} mapState={mapState}></FoodKakaoMap>
         </div>
         <Footer></Footer>
        </>
