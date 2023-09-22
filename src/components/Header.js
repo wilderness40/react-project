@@ -14,7 +14,7 @@ function Header({}){
     //   console.log(iconText.state) //  Icon 컴포넌트의 useNavigate state 값
     //   console.log(iconText.state.sidebarText) // Sidebar 컴포넌트의 state값
     const icon = homeIcons.filter(i => iconText.pathname === i.url)
-    console.log(iconText)
+
     return(
         <div className="header">
             <h5>{icon.length !== 0 && icon[0].iconTitle}</h5> 
