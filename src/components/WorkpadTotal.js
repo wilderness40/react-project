@@ -2,7 +2,7 @@ import '../styles/WorkpadTotal.css';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 
-function WorkpadTotal(){
+function WorkpadTotal({ scheduleList }){
 
   return (
     <div className='WorkpadTotal-container'>
@@ -10,7 +10,7 @@ function WorkpadTotal(){
           plugins={[dayGridPlugin]}
           initialView='dayGridMonth'
           weekends={true}
-          // events={events}
+          events={scheduleList}
           eventContent={renderEventContent}
           />
     </div>
@@ -19,11 +19,10 @@ function WorkpadTotal(){
 
 function renderEventContent(eventInfo) {
   return (
-    <>
-      <b>{eventInfo.timeText}</b>
-      <i>{eventInfo.event.title}</i>
-      <i>asd</i>
-    </>
+    <div style={{textAlign:'center'}}>
+      {/* <b>{eventInfo.timeText}</b> */}
+      <i >{eventInfo.event.title}</i>
+    </div>
   )
 }
 

@@ -3,18 +3,26 @@
   gap: 3rem;
   padding-top: 1.5rem;
   padding-left: 2rem;
+  height: 100%;
 }
 .WorkpadSchedule-container button{
   all: unset;
 }
 /* 달력 부분 스타일 */
 .WorkpadSchedule-calendar{
-  width: 50%;
+  width: 60%;
+}
+.fc.fc-media-screen.fc-direction-ltr.fc-theme-standard{
+  max-height: 80vh;
 }
 
 /* 스케줄 등록 부분 스타일 */
 .WorkpadSchedule-input-container{
   padding-top: 2rem;
+  /* display: flex;
+  flex-direction: column;
+  gap: 2rem; */
+  width: 20%;
 }
 .WorkpadSchedule-input-container form{
   display: flex;
@@ -26,8 +34,10 @@
   flex-direction: column;
   gap: 2rem;
 }
-.WorkpadSchedule-detail{
+/* 스케줄 디테일 스타일 */
+.WorkpadSchedule-detail-container{
   text-align: center;
+  width: 20%;
 }
 .WorkpadSchedule-detail button{
   all: unset;
