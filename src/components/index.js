@@ -23,6 +23,7 @@ export { default as WorkpadTodo } from  './WorkpadTodo'
 export { default as FoodMenu } from  './FoodMenu'
 export { default as FoodMap } from  './FoodMap'
 export { default as FoodList } from  './FoodList'
+export { default as FoodKakaoMap } from  './FoodKakaoMap'
 
 
 

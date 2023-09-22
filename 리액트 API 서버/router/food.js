@@ -15,7 +15,6 @@ router.get('/', async(req, res, next)=> {
 })
 
 router.get('/:search', async(req, res, next) => {
-    const address = '둔산동'
     const searchFoodList = await Foods.find({
         $and : [
             { TOB_INFO : req.params.search },
