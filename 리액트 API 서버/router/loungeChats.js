@@ -33,7 +33,7 @@ router.post('/edit', expressAsyncHandler(async(req, res, next)=> {
     }
 }))
 
-router.put('/', expressAsyncHandler(async(req, res, next) => {  // 비밀번호로 검증해야되는데 이게 맞나?
+router.put('/edit', expressAsyncHandler(async(req, res, next) => {  // 비밀번호로 검증해야되는데 이게 맞나?
     const loungeChat = await LoungeChat.findOne(req.body.password)
     if(loungeChat){
         loungeChat.nickname = loungeChat.nickname

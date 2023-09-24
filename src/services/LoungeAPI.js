@@ -2,12 +2,12 @@ import React, {useState, useEffect} from "react";
 
 function LoungeAPI(){
     const [lounge, setLounge] = useState([])
-    //  lounge api key 없어도 되는건가?
+    
     useEffect(() => {
         const fetchData = async () => {
             try{
         const response = await fetch('http://127.0.0.1:5300/lounge', {
-            method: 'GET',
+            method: 'get',
             headers: {
                 'Content-Type': 'application/json'
             }
