@@ -1,11 +1,11 @@
 import React from "react";
 
-function LoungeInputEdit({chat, index, passwordMatched, modalPosition, HandleModalEdit, comfirmEditText, pargraphText}){
+function LoungeInputEdit({chat, index, passwordMatched, modalPosition, HandleModalEdit, comfirmEditText, dbCode}){
 
 
     return (
         <>
-          {passwordMatched && !modalPosition && pargraphText == chat._id? 
+          {passwordMatched && !modalPosition && dbCode == chat._id? 
                                     <>  
                                         <div className="editInputDiv" >
                                             <input type="text" className="editText" defaultValue={chat.text} />

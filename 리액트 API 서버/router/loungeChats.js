@@ -35,17 +35,17 @@ router.post('/edit', expressAsyncHandler(async(req, res, next)=> {
 
 router.put('/edit', expressAsyncHandler(async(req, res, next) => {  // 비밀번호로 검증해야되는데 이게 맞나?
     const loungeChat = await LoungeChat.findOne({
-     nickname: req.body.nickname,
+     id: req.body.id,
      password: req.body.password
     })
-    console.log(req.body.nickname)
+    console.log(req.body.id)
     if(loungeChat){
         loungeChat.text = req.body.text || loungeChat.text
 
         const updatedLoungeChat = await loungeChat.save()
         res.json(updatedLoungeChat)
     }else{
-        res.status(404).json({message: 'loungeChat not found'})
+        res.status(404).json({message: '비밀번호가 일치하지 않습니다.'})
     }
 }))
 
@@ -53,6 +53,8 @@ router.delete('/delete', expressAsyncHandler(async(req, res, next) => {
     const loungeChat = await LoungeChat.findOneAndDelete({password: req.body.password})
     if(loungeChat){
         res.json({message: '글이 삭제되었습니다'})
+}else{
+    res.status(404).json({message: '비밀번호가 일치하지 않습니다.'})
 }
 }))
 

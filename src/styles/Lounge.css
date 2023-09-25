@@ -107,7 +107,6 @@
     border-radius: 1rem;
     width: 250px;
     height: 100px;
-
     bottom: 30%;
     left: 10%;
     /* display: none;/ */
@@ -152,3 +151,18 @@
 .paragraph-id{
     opacity: 0;
 }
+.password-incorrect-text{
+    color: rgb(235, 23, 23);
+}
+.password-incorrect{
+   animation: vibration 0.1s;
+}
+
+@keyframes vibration {
+    from {
+      transform: rotate(1deg);
+    }
+    to {
+      transform: rotate(-1deg);
+    }
+  }

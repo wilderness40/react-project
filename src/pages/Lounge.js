@@ -12,7 +12,8 @@ function Lounge(){
     const [userNickname, setUserNickname] = useState(null)
     const [passwordMatched, setPasswordMatched] = useState(false);
     const [updateInputValue, setUpdateInputValue] = useState('')
-    const [pargraphText, setPargraphText] = useState('')
+    const [dbCode, setDbCode] = useState('')
+    const [modalStyle, setModalStyle] = useState(false)
     const chatData = LoungeAPI()
     
     // DB데이터 가져오기
@@ -37,6 +38,7 @@ function Lounge(){
                 && e.target.className !== "passwordCheck"
                 && e.target.className !== 'editPassword') {
                 setModalPosition(null)
+                setUpdateInputValue('')
             }
         }
         document.addEventListener('click', clickModalOutside)
@@ -73,11 +75,12 @@ function Lounge(){
 
 
     // 모달창 띄우기
-    const HandleModalEdit = async (e, index) => {
+    const HandleModalEdit = async (e, index) => {        
         const pInnerText = e.target.parentNode.parentNode.firstChild.innerText
-        const pargarphId = e.target.parentNode.parentNode.parentNode.firstChild.children[1].innerText
+        const mongoDbId = e.target.parentNode.parentNode.parentNode.firstChild.children[1].innerText
 
-        setPargraphText(pargarphId)
+        setModalStyle(false)
+        setDbCode(mongoDbId)
         setClickData(e.target)
         const rect = e.target.getBoundingClientRect();
         
@@ -115,8 +118,11 @@ function Lounge(){
                     setModalPosition(null)
                     setPasswordText(editPassword)
                     setUserNickname(id)
+                    
                   } else {
                     setPasswordMatched(false);
+                    setModalStyle(true)
+                    setModalPosition(modalPosition)
                   }
                 }
             )
@@ -143,6 +149,8 @@ function Lounge(){
              getChatData()
              setModalPosition(null)
             }else{
+                setModalStyle(true)
+                setModalPosition(modalPosition)
                 console.log('삭제실패')
             }}
             )
@@ -221,7 +229,7 @@ function Lounge(){
                                 onChange={onChange}
                                 updateInputValue={updateInputValue}
                                 chat={chat}
-                                pargraphText={pargraphText}
+                                dbCode={dbCode}
                                 />
                              </div>
                              </div>
@@ -235,7 +243,7 @@ function Lounge(){
                             updateInputValue={updateInputValue}
                             editModalText={editModalText}
                             onChange={onChange}
-
+                            modalStyle={modalStyle}
                             />
 
                     </div> 
