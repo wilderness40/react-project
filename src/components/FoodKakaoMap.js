@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Map, MapMarker, CustomOverlayMap } from "react-kakao-maps-sdk"
 import "../styles/CustomOverlayStyle.css"
 const { kakao } = window
-function FoodKakaoMap({FoodList, mapState, searchFood, loadState}) {
+function FoodKakaoMap({FoodList, mapState, searchFood, 
+    loadState, selectMenu, selectRef}) {
     const [positions, setPositions] = useState([
         {   
             REST_NM : '학원',
@@ -42,7 +43,9 @@ function FoodKakaoMap({FoodList, mapState, searchFood, loadState}) {
             setPositions(array)
         }
     },[FoodList])
-
+    // const menuAcive = (e) => {
+    //     console.log(e.target)
+    // }
     if(mapState === false) {
         return (
             <Map
@@ -52,7 +55,7 @@ function FoodKakaoMap({FoodList, mapState, searchFood, loadState}) {
                 }}
                 style={{
                     width : "70%",
-                    height : "850px",
+                    height : "930px",
                 }}
                 level={3}
             >
@@ -60,7 +63,6 @@ function FoodKakaoMap({FoodList, mapState, searchFood, loadState}) {
                     return (
                         <>
                             <MapMarker
-                                key={index}
                                 position={{
                                     lat : position.LAT ,
                                     lng : position.LOT
@@ -75,7 +77,6 @@ function FoodKakaoMap({FoodList, mapState, searchFood, loadState}) {
                                 title={position.REST_NM}
                             />
                             <CustomOverlayMap
-                                key={index}
                                 position={{
                                     lat : position.LAT ,
                                     lng : position.LOT
@@ -93,7 +94,6 @@ function FoodKakaoMap({FoodList, mapState, searchFood, loadState}) {
                     return(
                         <>
                             <MapMarker
-                                key={index}
                                 position={{
                                     lat : searchPosition.LAT ,
                                     lng : searchPosition.LOT
@@ -108,12 +108,11 @@ function FoodKakaoMap({FoodList, mapState, searchFood, loadState}) {
                                 title={searchPosition.REST_NM}
                             />
                             <CustomOverlayMap
-                                key={index}
                                 position={{
                                     lat : searchPosition.LAT ,
                                     lng : searchPosition.LOT
                                 }}>
-                                <div className="customoverlay">
+                                <div className="customoverlay" ref={selectRef} onClick={selectMenu} key={index}>
                                     <a>
                                         <span className="title">{searchPosition.REST_NM}</span>
                                     </a>
@@ -137,13 +136,12 @@ function FoodKakaoMap({FoodList, mapState, searchFood, loadState}) {
                 }}
                 style={{
                     width : "70%",
-                    height : "850px",
+                    height : "930px",
                 }}
                 level={4}
                 >
                 {positions.map((data, index) => (
                     <MapMarker
-                        key={index}
                         position={{
                             lat : data.LAT,
                             lng : data.LOT,

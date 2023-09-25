@@ -16,13 +16,8 @@ body::-webkit-scrollbar {
     flex-direction: column;
     /* padding: 3rem; */
     width: 2500px;
-    /* background: var(--primary-color); */
-    /* background: var(--secondary-color); */
     background: url('https://mblogthumb-phinf.pstatic.net/MjAxNzAzMTZfMTA4/MDAxNDg5NjcyOTUzOTc2.BV87bXTpxENcTBg9ovkIrjULnYSVWX4UMgiFI9i_OC4g.BU2qzDQJSSSy0tpGs8dJNRk5RDpWt0SGStrVPnDuP-sg.PNG.johnoh125/%ED%85%8C%EC%8A%A4%ED%8A%B8_%ED%8C%A8%ED%84%B4.png?type=w800');
 }
-/* .TvContainer::-webkit-scrollbar {
-    display: none;
-} */
 .Tv {
     width: 680px;
     height: 500px;

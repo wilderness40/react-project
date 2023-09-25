@@ -38,4 +38,16 @@ router.get('/search/:id', async(req, res, next) => {
     res.json(searchFoodList)
 })
 
+router.post('/discription/:id', async(req, res, next) => {
+    const discriptionFood = await Foods.findOne({
+        $and : [
+            { REST_NM : { $regex : req.params.id }},
+            { ADDR : { $regex: req.body.addr}}
+        ]
+    })
+    console.log(discriptionFood)
+    res.json(discriptionFood)
+})
+
+
 module.exports = router
