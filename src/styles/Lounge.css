@@ -139,3 +139,11 @@
     width: 60px;
     height: 25px;
 }
+.confirm:hover{
+    cursor: pointer;
+    text-decoration: underline;    
+}
+.cancel:hover{
+    cursor: pointer;
+    text-decoration: underline;    
+}

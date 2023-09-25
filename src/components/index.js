@@ -1,6 +1,6 @@
 import { formToJSON } from 'axios';
 
-export { default as Button } from './Button';
+export { default as HomeMenubarButton } from './HomeMenubarButton';
 export { default as Footer } from './Footer';
 export { default as Header } from './Header';
 export { default as Icon } from './Icon';
@@ -24,6 +24,9 @@ export { default as FoodMenu } from  './FoodMenu'
 export { default as FoodMap } from  './FoodMap'
 export { default as FoodList } from  './FoodList'
 export { default as FoodKakaoMap } from  './FoodKakaoMap'
+export { default as FoodSearchComponent} from  './FoodSearchComponent'
+export { default as LoungeInputEdit} from  './LoungeInputEdit'
+
 
 
 

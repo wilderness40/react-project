@@ -7,29 +7,7 @@ import { json } from 'react-router-dom';
 
 
 
-function WorkpadSchedule() {
-  // 달력에 표시될 스케줄 리스트 state
-  const [scheduleList, setScheduleList] = useState([])
-
-  const getScheduleToDB = () => {
-    fetch('http://127.0.0.1:4000/api/schedule', {
-      method: 'GET'
-    })
-      .catch(e => console.log(e))
-      .then(res => res.json())
-      .then(res => {
-        // res.map(res => {
-        //   return {...res, start : new Date(res.start), end : new Date(res.end)}
-        // })
-        console.log(res.scheduleList)
-        setScheduleList(res.scheduleList)
-      })
-  }
-
-  useEffect(() => {
-    getScheduleToDB();
-  }, [])
-
+function WorkpadSchedule({ scheduleList, getScheduleToDB }) {
   // 등록할 시작날짜와 종료날짜 state에 저장
   const [selectedDate, setSelectedDate] = useState({
     start: `${new Date().getFullYear()}-${new Date().getMonth() + 1 < 10 ? '0' + (new Date().getMonth() + 1) : new Date().getMonth() + 1}-${new Date().getDate()}`,
@@ -40,23 +18,25 @@ function WorkpadSchedule() {
 
   const registerSchedule = (e) => {
     e.preventDefault();
-    fetch('http://127.0.0.1:4000/api/schedule', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        start: new Date(e.target.form[0].value),
-        end: new Date(e.target.form[1].value),
-        title: e.target.form[2].value,
-        description: e.target.form[3].value,
+    if (e.target.form[2].value.trim()) {
+      fetch('http://127.0.0.1:4000/api/schedule', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          start: new Date(e.target.form[0].value),
+          end: new Date(e.target.form[1].value),
+          title: e.target.form[2].value,
+          description: e.target.form[3].value,
+        })
       })
-    })
-      .then(() => {
-        e.target.form[2].value = '';
-        e.target.form[3].value = '';
-        getScheduleToDB();
-      })
+        .then(() => {
+          e.target.form[2].value = '';
+          e.target.form[3].value = '';
+          getScheduleToDB();
+        })
+    }
   }
 
   const handleDateClick = (arg) => {
@@ -84,27 +64,72 @@ function WorkpadSchedule() {
   }
 
   const [detailEvent, setDetailEvent] = useState();
-
+  // 스케줄 클릭시 이벤트
   const handleEventClick = (e) => {
     console.log(e)
     const eventId = e.event._def.extendedProps._id;
-    fetch(`http://127.0.0.1:4000/api/schedule/${eventId}`,{
-      method : 'GET'
+    fetch(`http://127.0.0.1:4000/api/schedule/${eventId}`, {
+      method: 'GET'
     })
-    .catch(e => console.log(e))
-    .then(res => res.json())
-    .then(res => setDetailEvent(res.schedule))
+      .catch(e => console.log(e))
+      .then(res => res.json())
+      .then(res => setDetailEvent(res.schedule))
   }
 
-  const deleteEvent = (e) => {
-    const id = e.target.id;
-    fetch(`http://127.0.0.1:4000/api/schedule/${id}`,{
-      method : 'DELETE'
+  const deleteEvent = () => {
+    fetch(`http://127.0.0.1:4000/api/schedule/${detailEvent._id}`, {
+      method: 'DELETE'
     })
-    .then(() => {
-      getScheduleToDB();
-      setDetailEvent();
-    })
+      .then(() => {
+        getScheduleToDB();
+        setDetailEvent();
+      })
+  }
+  // 스케줄 수정 
+  const [modifyMode, setModifyMode] = useState(false);
+  const [modifySchedule, setModifySchedule] = useState({
+    title: '',
+    description: ''
+  })
+
+  const changeModifyInput = (e) => {
+    switch (e.target.name) {
+      case 'modify-title':
+        setModifySchedule({ ...modifySchedule, title: e.target.value })
+        break;
+      case 'modify-description':
+        setModifySchedule({ ...modifySchedule, description: e.target.value })
+        break;
+      default:
+        return;
+    }
+  }
+
+  const modifyEvent = () => {
+    if(modifyMode) {
+      fetch(`http://127.0.0.1:4000/api/schedule/${detailEvent._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          title: modifySchedule.title,
+          description: modifySchedule.description
+        })
+      })
+        .catch(e => console.log(e))
+        .then(res => res.json())
+        .then((res) => {
+          getScheduleToDB();
+          setDetailEvent(res.schedule);
+        })
+    }else {
+      setModifySchedule({
+        title: '',
+        description: ''
+      })
+    }
+    setModifyMode(!modifyMode);
   }
 
   return (
@@ -120,6 +145,7 @@ function WorkpadSchedule() {
             eventContent={renderEventContent}
             dateClick={handleDateClick}
             eventClick={handleEventClick}
+          // aspectRatio={2}
           />
         </div>
         {/* 스케줄 등록 부분 */}
@@ -128,19 +154,29 @@ function WorkpadSchedule() {
             <label htmlFor='selectDate-start'>시작날짜: </label><input name="selectDate-start" id='selectDate-start' value={selectedDate.start} readOnly onClick={ChangeDateSelectMode} />
             <label htmlFor='selectDate-end'>종료날짜: </label><input name="selectDate-end" id='selectDate-end' value={selectedDate.end} readOnly onClick={ChangeDateSelectMode} />
             <label htmlFor='schedule-title'>title:</label><input name="schedule-title" id='schedule-title' />
-            <label htmlFor='schedule-description'>description:</label><input type='textarea' name="schedule-description" id='schedule-description' />
+            <label htmlFor='schedule-description'>description:</label><input type='text' name="schedule-description" id='schedule-description'/>
             <button onClick={registerSchedule}>스케줄 등록</button>
           </form>
         </div>
-      </div>
-      <div className='WorkpadSchedule-detail'>
-        {!detailEvent? <></> 
-        : <>
-            <h3>{detailEvent.title}</h3>
-            <p>{detailEvent.description}</p>
-            <button onClick={deleteEvent} id={detailEvent._id}>삭제</button>
-        </>}
-        
+        {/* 스케줄 디테일 */}
+        <div className='WorkpadSchedule-detail-container'>
+          {detailEvent && (!modifyMode ?
+            <>
+              <h3>{detailEvent.title}</h3>
+              <p>{detailEvent.description}</p>
+              <button onClick={modifyEvent}>수정</button>
+              <button onClick={deleteEvent}>삭제</button>
+            </>
+            :
+            <>
+              <div className='WorkpadSchedule-modify-input-container'>
+                <input type='text' defaultValue={detailEvent.title} name='modify-title' onChange={changeModifyInput} />
+                <input type='text' defaultValue={detailEvent.description} name='modify-description' onChange={changeModifyInput}/>
+              </div>
+              <button onClick={modifyEvent} id={detailEvent._id}>수정</button>
+              <button onClick={modifyEvent}>취소</button>
+            </>)}
+        </div>
       </div>
     </>
 
@@ -149,11 +185,10 @@ function WorkpadSchedule() {
 
 function renderEventContent(eventInfo) {
   return (
-    <>
+    <div style={{ textAlign: 'center' }}>
       {/* <b>{eventInfo.timeText}</b> */}
-      <i>{eventInfo.event.title}</i>
-      {/* <i>asd</i> */}
-    </>
+      <i >{eventInfo.event.title}</i>
+    </div>
   )
 }
 
