@@ -49,13 +49,11 @@ function Food({}){
         const searchKeyword = document.querySelector('.keyword')
         axios.get(`http://127.0.0.1:5300/food/search/${searchKeyword.value}`)
         .then(res => {
-            console.log(res)
             setFoodSearchData(res)
             setLoadState(true)
             setMapState(false)
         })
     }
-    console.log(FoodSearchData)
     return(
        <>
         <Header></Header>
@@ -68,8 +66,8 @@ function Food({}){
                         <input type="text" className="keyword"></input>
                         <button className="searchBtn" onClick={keywordSearch}>검색</button>
                     </div>
-                    {loadState === false ? 
-                    <FoodList FoodList={FoodListData}></FoodList> :
+                    {!loadState ? 
+                    <FoodList FoodList={FoodListData} ></FoodList> :
                     <FoodSearchComponent FoodList={FoodSearchData}></FoodSearchComponent>
                     }
                     

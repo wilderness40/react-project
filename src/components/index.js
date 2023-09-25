@@ -25,6 +25,6 @@ export { default as FoodMap } from  './FoodMap'
 export { default as FoodList } from  './FoodList'
 export { default as FoodKakaoMap } from  './FoodKakaoMap'
 export { default as FoodSearchComponent} from  './FoodSearchComponent'
-
+export { default as FoodKeyword} from  './FoodKeyword'
 
 

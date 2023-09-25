@@ -26,8 +26,9 @@ router.get('/category/:id', async(req, res, next) => {
     console.log(categoryFoodList)
     res.json(categoryFoodList)
 })
+
 router.get('/search/:id', async(req, res, next) => {
-    const searchFoodList = await Foods.findOne({
+    const searchFoodList = await Foods.find({
         $and : [
             { REST_NM : { $regex : req.params.id }},
             { ADDR : { $regex: /^대전광역시 서구 둔산동/ }}
