@@ -44,5 +44,5 @@ app.use((err, req, res, next) => { // 서버내부 오류처리
     res.status(500).send('Internal Server Error')
 })
 app.listen(port, '0.0.0.0', () => {
-    console.log('server is runnig on port 5000...')
+    console.log(`server is runnig on port ${port}...`)
 })

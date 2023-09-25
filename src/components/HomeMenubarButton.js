@@ -1,7 +1,7 @@
 import React from "react";
-import '../styles/Button.css'
+import '../styles/HomeMenubarButton.css'
 
-function Button({ toggleMenubar}) {
+function HomeMenubarButton({ toggleMenubar}) {
     return (
         <>
           <button onClick={toggleMenubar}>
@@ -14,4 +14,4 @@ function Button({ toggleMenubar}) {
     )
 }
 
-export default Button
+export default HomeMenubarButton

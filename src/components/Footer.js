@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Button , ScheduleBar, Sidebar, FooterBar, MinimizeTab} from "../components"
+import {HomeMenubarButton , ScheduleBar, Sidebar, FooterBar, MinimizeTab} from "../components"
 import homeIcons from "../HomeIconsData";
 import "../styles/Footer.css"
 
@@ -16,7 +16,7 @@ function Footer({ handleMemoToggle, memoToggle }){
     return(
         <footer>
             <Sidebar homeIcons={homeIcons} buttonFlag={buttonFlag} flagChange={handleSidebarFlag}></Sidebar>
-            <Button toggleMenubar={toggleMenubar} />
+            <HomeMenubarButton toggleMenubar={toggleMenubar} />
             <FooterBar handleMemoToggle={handleMemoToggle} memoToggle={memoToggle} homeIcons={homeIcons}></FooterBar>
             <ScheduleBar></ScheduleBar>
         </footer>
