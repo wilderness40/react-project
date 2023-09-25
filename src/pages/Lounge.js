@@ -1,5 +1,5 @@
 import React, { useState,useEffect,useRef } from "react";
-import { Header , Footer, LoungeInputEdit, LoungeModal } from "../components"
+import { Header , Footer, LoungeInputEdit, LoungeModal, LoungeRegisterInput } from "../components"
 import "../styles/Lounge.css"
 import LoungeAPI from "../services/LoungeAPI";
 
@@ -159,6 +159,10 @@ function Lounge(){
            }
         
 }
+
+if(clickData.innerText === "댓글"){
+    <LoungeRegisterInput registerText={registerText} />
+} 
       }
 
       // 모달창에서 비밀번호 일치 후 수정확정하거나 취소하기
@@ -247,20 +251,9 @@ function Lounge(){
                             />
 
                     </div> 
-                    <div className="lounge__input">
-                       <div className="lounge__input__nameAndPassword"> 
-                         <label htmlFor='nickname'>닉네임</label>
-                            <input type='text' id='nickname' placeholder="닉네임 설정"></input>
-                         <label htmlFor='password'>비밀번호</label>    
-                            <input type='password' id='password' placeholder="비밀번호 입력"></input>
-                        </div>
-
-                        <div className="lounge__input__text__register">
-                            <label htmlFor="text">내용</label>
-                            <input type="text" placeholder="글을 입력하세요" id="text"></input>
-                            <button type="button" onClick={registerText}>등록</button>
-                        </div>
-                    </div>
+                            <LoungeRegisterInput
+                                registerText={registerText}
+                            />
                 </div>
             <Footer></Footer>
          </>
