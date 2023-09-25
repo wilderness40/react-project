@@ -26,6 +26,7 @@ export { default as FoodList } from  './FoodList'
 export { default as FoodKakaoMap } from  './FoodKakaoMap'
 export { default as FoodSearchComponent} from  './FoodSearchComponent'
 export { default as LoungeInputEdit} from  './LoungeInputEdit'
+export { default as LoungeModal} from  './LoungeModal'
 
 
 

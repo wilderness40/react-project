@@ -23,7 +23,9 @@
     border-bottom: 0.5px solid rgb(243, 239, 239);
     margin-top: 1rem;
 }
-
+.lounge__textOutput__text .nickname{
+    display: flex;
+}
 .lounge__textOutput__text .nickname span{
     /* border: 1px solid #333; */
     font-weight: bold;
@@ -146,4 +148,7 @@
 .cancel:hover{
     cursor: pointer;
     text-decoration: underline;    
+}
+.paragraph-id{
+    opacity: 0;
 }
