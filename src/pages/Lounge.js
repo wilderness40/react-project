@@ -38,6 +38,7 @@ function Lounge(){
         .then(data => setChat(data))
     }
     const HandleModalEdit = (e) => {
+
         const { target } = e
         const rect = target.getBoundingClientRect()
         setModalPosition({ 
@@ -47,40 +48,37 @@ function Lounge(){
     }
 
     const checkPassswordAndDelete = (e) => {
+        console.log(e.target)
         console.dir(e.target.parentNode.parentNode.parentNode.parentNode)
         const id = document.querySelector("#nickname").value;
         const editPassword = document.querySelector(".editPassword").value;
         const text = document.querySelector("#text").value;
-        const editWord = document.querySelector(".edit").innerHTML
-        const deleteWord = document.querySelector(".delete").innerHTML
-
-        if(editWord === "수정"){
-                   fetch('http://127.0.0.1:5300/lounge/edit', { // db의 비밀번호와 입력한 비밀번호가 일치하는지 확인하기 위해 서버에 요청
-            method: 'post',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                nickname: id,
-                password: editPassword,
-                text: text
-            }) 
-        })
-        .then(res => {
-            if(res.status === 200){
-                setPasswordMatched(true)
-                setModalPosition(null)
-                return res.json()
-            }
-            else{
-                setPasswordMatched(false)
-                return res.json()
-            }
-        })
-        .catch(error => {
-            console.log(error)
-        })
-    } else if(deleteWord === "삭제"){
+        
+        //            fetch('http://127.0.0.1:5300/lounge/edit', { // db의 비밀번호와 입력한 비밀번호가 일치하는지 확인하기 위해 서버에 요청
+        //     method: 'post',
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify({
+        //         nickname: id,
+        //         password: editPassword,
+        //         text: text
+        //     }) 
+        // })
+        // .then(res => {
+        //     if(res.status === 200){
+        //         setPasswordMatched(true)
+        //         setModalPosition(null)
+        //         return res.json()
+        //     }
+        //     else{
+        //         setPasswordMatched(false)
+        //         return res.json()
+        //     }
+        // })
+        // .catch(error => {
+        //     console.log(error)
+        // })
         fetch('http://127.0.0.1:5300/lounge/delete', { // db의 비밀번호와 입력한 비밀번호가 일치하는지 확인하기 위해 서버에 요청
         method: 'delete',
         headers: {
@@ -93,7 +91,7 @@ function Lounge(){
         }) 
     })
 
-    }
+    
     }
     const editText = (e) => {
         checkPassswordAndDelete(e)
