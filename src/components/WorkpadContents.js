@@ -3,7 +3,7 @@ import { WorkpadTotal, WorkpadSchedule, WorkpadTodo } from './'
 
 function WorkpadContents({ workpadTabState }){
   // 달력에 표시될 스케줄 리스트 state
-  const [scheduleList, setScheduleList] = useState([])
+  const [scheduleList, setScheduleList] = useState([]);
   
   const getScheduleToDB = () => {
     fetch('http://127.0.0.1:4000/api/schedule', {
@@ -20,14 +20,28 @@ function WorkpadContents({ workpadTabState }){
       })
   }
 
+  const [todoList, setTodoList] = useState([]);
+
+  const getTodoToDB = () => {
+    fetch('http://127.0.0.1:4000/api/todo', {
+      method : 'GET'
+    })
+    .catch(e => console.log(e))
+    .then(res => res.json())
+    .then(res => {
+      setTodoList(res.todos)
+    })
+  }
+
   useEffect(() => {
     getScheduleToDB();
-  }, [])
+    getTodoToDB();
+  }, []);
 
   switch(workpadTabState){
     case 'total':
       return (
-        <WorkpadTotal scheduleList={scheduleList}></WorkpadTotal>
+        <WorkpadTotal scheduleList={scheduleList} todoList={todoList}></WorkpadTotal>
       )
     case 'schedule':
       return (
@@ -35,7 +49,7 @@ function WorkpadContents({ workpadTabState }){
       )
     case 'todo':
       return (
-        <WorkpadTodo></WorkpadTodo>
+        <WorkpadTodo todoList={todoList} getTodoToDB={getTodoToDB}></WorkpadTodo>
       )
     default:
       return

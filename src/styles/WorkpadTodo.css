@@ -1,0 +1,93 @@
+.WorkpadTodo-container{
+  padding-top: 1rem;
+  padding-left: 1rem;
+}
+.WorkpadTodo-container button{
+  all: unset;
+  
+}
+/* 투두 등록 스타일 */
+.WorkpadTodo-register-container form{
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+/* 투두 리스트 스타일 */
+.WorkpadTodo-list-container{
+  position: relative;
+  display: flex;
+  gap: .5rem;
+}
+.WorkpadTodo-list{
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.WorkpadTodo-list-card{
+  border-radius: 5px;
+  background-color: #A3ABF5;
+  cursor: pointer;
+  transition: .5s;
+  z-index: 50;
+}
+.WorkpadTodo-list-card.primary{
+  background-color: #ff2f2f;
+}
+.WorkpadTodo-list-card.routine{
+  background-color: #4254ff;
+}
+.WorkpadTodo-list-card.done{
+  background-color: #00c400;
+}
+.WorkpadTodo-list-card.noDone{
+  background-color: #e500e1;
+}
+.WorkpadTodo-list-card.deadline-pass{
+  background-color: #666666;
+}
+.WorkpadTodo-list-card.deadline-today{
+  background-color: #F46000;
+}
+.WorkpadTodo-list-card.deadline-almost{
+  background-color: #A918F5;
+}
+.WorkpadTodo-list-card.deadline-fivedays{
+  background-color: #14c1ca;
+}
+.WorkpadTodo-list-card.deadline-sevendays{
+  background-color: #add615;
+}
+
+.WorkpadTodo-list-card p{
+  margin: 0;
+  padding: .5rem .8rem;
+  color: #fff;
+  font-weight: bold;
+}
+.WorkpadTodo-list-card.move-todo-card{
+  transform: translateX(175px);
+}
+/* 투두 카드 설정 탭 스타일 */
+.WorkpadTodo-todo-card-set{
+  position: absolute;
+  display: flex;
+  z-index: 49;
+}
+.WorkpadTodo-todo-card-set button{
+  padding: .5rem .8rem;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+
+}
+.WorkpadTodo-todo-card-set button:nth-child(1){
+  border-radius: 5px 0 0 5px;
+  background-color: #208c71;
+}
+.WorkpadTodo-todo-card-set button:nth-child(2){
+  background-color: #c2c501;
+}
+.WorkpadTodo-todo-card-set button:nth-child(3){
+  border-radius: 0 5px 5px 0;
+  background-color: #e35f5f;
+}
