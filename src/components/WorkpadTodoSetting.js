@@ -15,6 +15,16 @@ function WorkpadTodoSetting({ todoSettingMode, showingTodoList, getTodoToDB, set
             setTodoSettingMode({ mode : false });
           });
           break;
+        case '완취':
+          fetch(`http://127.0.0.1:4000/api/todo/done/${_id}`,{
+            method : 'PUT',
+          })
+          .catch(e => console.log(e))
+          .then(() => {
+            getTodoToDB();
+            setTodoSettingMode({ mode : false });
+          });
+          break;
         case '수정':
           if(!todoSettingMode.modify){
             setModifyTodoTitle(document.getElementById(_id)?.firstChild.innerText)
