@@ -30,6 +30,9 @@ export { default as FoodKeyword} from  './FoodKeyword'
 export { default as LoungeInputEdit} from  './LoungeInputEdit'
 export { default as LoungeModal} from  './LoungeModal'
 export { default as LoungeRegisterInput} from  './LoungeRegisterInput'
+export { default as LoungePagenation} from  './LoungePagenation'
+export { default as LoungeButton} from  './LoungeButton'
+export { default as LoungePageWrap} from  './LoungePageWrap'
 
 
 
