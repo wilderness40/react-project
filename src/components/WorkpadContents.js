@@ -29,7 +29,7 @@ function WorkpadContents({ workpadTabState }){
     .catch(e => console.log(e))
     .then(res => res.json())
     .then(res => {
-      setTodoList(res.todos)
+      setTodoList({ todos : res.todos, doneTodos : res.doneTodos })
     })
   }
 
@@ -49,7 +49,7 @@ function WorkpadContents({ workpadTabState }){
       )
     case 'todo':
       return (
-        <WorkpadTodo todoList={todoList} getTodoToDB={getTodoToDB}></WorkpadTodo>
+        <WorkpadTodo todoList={todoList.todos} doneTodos={todoList.doneTodos} getTodoToDB={getTodoToDB}></WorkpadTodo>
       )
     default:
       return

@@ -1,4 +1,4 @@
-function WorkpadTodoList({ children, todos, todoType }){
+function WorkpadTodoList({ children, todos, todoType, todoSettingMode, changeModifyTodo }){
   let deadlineStyle = [];
   if(todoType === 'deadline'){
     deadlineStyle = todos.map(todo => {
@@ -26,7 +26,9 @@ function WorkpadTodoList({ children, todos, todoType }){
       {todos && todoType !== 'deadline'? todos.map(todo => {
         return (
           <div key={todo._id} id={todo._id} className={`WorkpadTodo-list-card ${todoType}`}>
-            <p>{todo.title}</p>
+            {!todoSettingMode.modify && <p>{todo.title}</p>}
+            {todoSettingMode.modify && (todo._id === todoSettingMode._id ?
+             <input type='text' defaultValue={todo.title} onChange={changeModifyTodo}/> : <p>{todo.title}</p>)}
           </div>
         )
       })
@@ -34,7 +36,9 @@ function WorkpadTodoList({ children, todos, todoType }){
     deadlineStyle.map(todo => {
       return (
         <div key={todo._id} id={todo._id} className={`WorkpadTodo-list-card ${todoType} ${todo.todostyle}`}>
-          <p>{todo.title}</p>
+          {!todoSettingMode.modify && <p>{todo.title}</p>}
+          {todoSettingMode.modify && (todo._id === todoSettingMode._id ?
+            <input type='text' defaultValue={todo.title} onChange={changeModifyTodo}/> : <p>{todo.title}</p>)}
         </div>
       )
     })}

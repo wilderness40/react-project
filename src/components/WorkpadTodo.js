@@ -3,7 +3,7 @@ import '../styles/WorkpadTodo.css';
 import WorkpadTodoSetting from './WorkpadTodoSetting';
 import WorkpadTodoList from './WorkpadTodoList';
 
-function WorkpadTodo({ todoList, getTodoToDB }){
+function WorkpadTodo({ todoList, doneTodos, getTodoToDB }){
   const [newTodo, setNewTodo] = useState({
     title : '',
   })
@@ -49,7 +49,7 @@ function WorkpadTodo({ todoList, getTodoToDB }){
     return { ...todo, rest : restTime < 0 ? 100 : restTime };
   }).sort((a, b) => a.rest - b.rest);
 
-  const [todoSettingMode, setTodoSettingMode] = useState({ mode : false, loc : { x : 0, y : 0 }, _id : null });
+  const [todoSettingMode, setTodoSettingMode] = useState({ mode : false, loc : { x : 0, y : 0 }, _id : null, modify : false });
    // todo 클릭시 설정
   const handleClickTodoCard = (e) => {
     if(e.target.parentNode.className.includes('WorkpadTodo-list-card')){
@@ -63,6 +63,11 @@ function WorkpadTodo({ todoList, getTodoToDB }){
     }
   }
 
+  const [modifyTodoTitle, setModifyTodoTitle] = useState('')
+  const changeModifyTodo = (e) => {
+    setModifyTodoTitle(e.target.value);
+  }
+  // 보여줄 투두 리스트 변경
   const [showingTodoList, setShowingTodoList] = useState('select-primary');
 
   const selectShowingTodoList = (e) => {
@@ -86,7 +91,7 @@ function WorkpadTodo({ todoList, getTodoToDB }){
         return;
     }
     document.querySelectorAll('.WorkpadTodo-list-card').forEach(card => card.classList.remove('move-todo-card'));
-    setTodoSettingMode({ mode : false })
+    setTodoSettingMode({ mode : false });
   }
 
   return (
@@ -118,19 +123,54 @@ function WorkpadTodo({ todoList, getTodoToDB }){
           <div className='primary' id='select-primary'>중요 TODO{` (${todoList.filter(todo => todo.primary).length})`}</div>
           <div className='routine' id='select-routine'>루틴 TODO{` (${todoList.filter(todo => todo.routine).length})`}</div>
           <div className='' id='select-deadline'>기한 TODO{` (${deadlineTodos.length})`}</div>
-          <div className='done' id='select-done'>아직 해야 할 TODO{` (${todoList.filter(todo => !todo.isDone).length})`}</div>
-          <div className='noDone' id='select-noDone'>완료된 TODO{` (${todoList.filter(todo => todo.isDone).length})`}</div>
+          <div className='noDone' id='select-noDone'>아직 해야 할 TODO{` (${todoList.filter(todo => !todo.isDone).length})`}</div>
+          <div className='done' id='select-done'>완료된 TODO{` (${doneTodos.length})`}</div>
         </div>
         <div className="WorkpadTodo-list-container" onClick={handleClickTodoCard}>
-          {showingTodoList === 'select-primary' && <WorkpadTodoList todos={todoList.filter(todo => todo.primary)} todoType='primary'>중요 TODO</WorkpadTodoList>}
-          {showingTodoList === 'select-routine' && <WorkpadTodoList todos={todoList.filter(todo => todo.routine)} todoType='routine'>루틴 TODO</WorkpadTodoList>}
-          {showingTodoList === 'select-deadline' && <WorkpadTodoList todos={deadlineTodos} todoType='deadline'>기한 TODO</WorkpadTodoList>}
-          {showingTodoList === 'select-done' && <WorkpadTodoList todos={todoList.filter(todo => !todo.isDone)} todoType='done'>아직 해야 할 TODO</WorkpadTodoList>}
-          {showingTodoList === 'select-noDone' && <WorkpadTodoList todos={todoList.filter(todo => todo.isDone)} todoType='noDone'>완료된 TODO</WorkpadTodoList>}
+          {showingTodoList === 'select-primary' && 
+          <WorkpadTodoList 
+            todos={todoList.filter(todo => todo.primary)} 
+            todoType='primary' todoSettingMode={todoSettingMode} 
+            changeModifyTodo={changeModifyTodo}>
+              중요 TODO</WorkpadTodoList>}
+          
+          {showingTodoList === 'select-routine' && 
+          <WorkpadTodoList todos={todoList.filter(todo => todo.routine)} 
+            todoType='routine' 
+            todoSettingMode={todoSettingMode} 
+            changeModifyTodo={changeModifyTodo}>
+              루틴 TODO</WorkpadTodoList>}
+          
+          {showingTodoList === 'select-deadline' && 
+          <WorkpadTodoList todos={deadlineTodos} 
+            todoType='deadline' 
+            todoSettingMode={todoSettingMode} 
+            changeModifyTodo={changeModifyTodo}>
+              기한 TODO</WorkpadTodoList>}
+          
+          {showingTodoList === 'select-noDone' && 
+          <WorkpadTodoList todos={todoList.filter(todo => !todo.isDone)} 
+            todoType='noDone' 
+            todoSettingMode={todoSettingMode} 
+            changeModifyTodo={changeModifyTodo}>
+              아직 해야 할 TODO</WorkpadTodoList>}
+          
+          {showingTodoList === 'select-done' && 
+          <WorkpadTodoList todos={doneTodos} 
+            todoType='done' 
+            todoSettingMode={todoSettingMode} 
+            changeModifyTodo={changeModifyTodo}>
+              완료된 TODO</WorkpadTodoList>}
         </div>
       </div>
       
-      {todoSettingMode.mode && <WorkpadTodoSetting loc={todoSettingMode.loc}/>}
+      {todoSettingMode.mode && <WorkpadTodoSetting 
+        todoSettingMode={todoSettingMode} 
+        showingTodoList={showingTodoList} 
+        getTodoToDB={getTodoToDB} 
+        setTodoSettingMode={setTodoSettingMode} 
+        modifyTodoTitle={modifyTodoTitle} 
+        setModifyTodoTitle={setModifyTodoTitle}/>}
     </div>
   )
 }
