@@ -5,9 +5,7 @@ function LoungeButton({key, onClick, children, className, disabled, ariaCurrent}
 
     return(
         <>
-        
             <button 
-                key={key} 
                 onClick={onClick} 
                 className={`pagenation-btn ${className}`} 
                 disabled={disabled} 

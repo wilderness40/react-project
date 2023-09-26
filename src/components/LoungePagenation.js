@@ -3,24 +3,26 @@ import LoungeButton from "./LoungeButton"
 import LoungePageWrap from "./LoungePageWrap"
 
 function LoungePagenation  ({page, setPage, totalPosts, limit}) {
-    const pageLimit = 5
-    const numPages = Math.ceil(totalPosts / pageLimit) // 총페이징 수
-    const [totalPageArray, setTotalPageArray] = useState([]) // 총 페이지
-    const [currentPagesArray, setCurrentPagesArray] = useState([]) // 현재 페이지
+    const pageLimit = 5 // 페이지 버튼 수
+    const numPages = Math.ceil(totalPosts / limit) // 총페이징 수
+
+    const [totalPageArray, setTotalPageArray] = useState([]) // 총 페이지 배열
+    const [currentPagesArray, setCurrentPagesArray] = useState([]) // 현재 페이지 배열, 5개 단위로 끊어서 보여줌
     
     useEffect(()=> {
         const slicedPageArray = slicedPageArrayByLimit(numPages ,pageLimit) // 페이징 수 제한
-        setTotalPageArray(slicedPageArray)
-        setCurrentPagesArray(slicedPageArray[0])
+        setTotalPageArray(slicedPageArray) 
+        setCurrentPagesArray(slicedPageArray[0]) 
+        console.log(slicedPageArray) // [[1,2,3,4,5], [6,7,8,9,10],[11]]
+        console.log(currentPagesArray, totalPageArray) // [1,2,3,4,5] , [[1,2,3,4,5], [6,7,8,9,10],[11]]
     }, [numPages])
 
-    useEffect(()=> {
+    useEffect(()=> { 
         if(page % pageLimit === 1){
-            setCurrentPagesArray(totalPageArray[Math.floor(page / pageLimit)])
+            setCurrentPagesArray(totalPageArray[Math.floor(page / pageLimit)]) // 페이지가 1일때
         }else if(page % pageLimit === 0){
-            setCurrentPagesArray(totalPageArray[Math.floor(page / pageLimit) - 1])
+            setCurrentPagesArray(totalPageArray[Math.floor(page / pageLimit) - 1]) // 페이지가 5일때
         }
-        console.log(currentPagesArray)
     }, [page])
 
     const [btnActive, setBtnActive] = useState(0) 
@@ -28,6 +30,7 @@ function LoungePagenation  ({page, setPage, totalPosts, limit}) {
         setPage(i+1)
         setBtnActive(i) // 버튼 활성화
     }
+
     const slicedPageArrayByLimit = (numPages, pageLimit) => { // 페이징 수 제한
         const totalPageArray = Array(numPages)
         .fill()
@@ -36,14 +39,14 @@ function LoungePagenation  ({page, setPage, totalPosts, limit}) {
         .fill()
         .map(()=> totalPageArray.splice(0, pageLimit))
     }
-    console.log(currentPagesArray)
+
 
     return(
         <>
             <LoungePageWrap>
                 <LoungeButton onClick={()=> setPage(page - 1)} disabled={page === 1}><span className="material-symbols-outlined">arrow_back_ios</span></LoungeButton> 
                 
-                {currentPagesArray?.map((page, i)=> { // 페이지 버튼
+                {currentPagesArray?.map((_ , i)=> { // 페이지 버튼
                     return(
                         <LoungeButton
                             key={i}
