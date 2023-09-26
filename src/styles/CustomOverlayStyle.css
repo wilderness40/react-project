@@ -31,6 +31,10 @@
     font-weight:bold;
     border-radius: 6px;
 }
+.customoverlay .title.active  {
+    background-color: #d95050;
+    color: white;
+}
 .customoverlay:after {
     content:'';
     position:absolute;

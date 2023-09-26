@@ -2,13 +2,13 @@ import React from "react";
 import FoodMenuData from "../FoodMenuData";
 function FoodMenu({addActive}) {
     return (
-        <div class="mapinfo-taplist">
+        <div className="mapinfo-taplist">
             <ul>
                 {FoodMenuData.map ( (data, index) => {
                     return (
                         <div key={index}>
                             <li onClick={addActive}>
-                                <span class="material-symbols-outlined">
+                                <span className="material-symbols-outlined">
                                     {data.iconTitle}
                                 </span>
                                 <span>{data.title}</span>
