@@ -1,6 +1,7 @@
 import { formToJSON } from 'axios';
 
 export { default as HomeMenubarButton } from './HomeMenubarButton';
+export { default as ScreenSaver } from './ScreenSaver';
 export { default as Footer } from './Footer';
 export { default as Header } from './Header';
 export { default as Icon } from './Icon';
