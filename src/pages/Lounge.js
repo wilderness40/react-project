@@ -1,21 +1,29 @@
 import React, { useState,useEffect,useRef } from "react";
-import { Header , Footer, LoungeInputEdit, LoungeModal, LoungeRegisterInput } from "../components"
+import { Header , Footer, LoungeInputEdit, LoungeModal, LoungeRegisterInput, LoungePagenation } from "../components"
 import "../styles/Lounge.css"
 import LoungeAPI from "../services/LoungeAPI";
 
 
 function Lounge(){
-    const [chat, setChat] = useState([])
-    const [modalPosition, setModalPosition] = useState(null);
-    const [clickData, setClickData] = useState(null);
-    const [passwordText, setPasswordText] = useState(null)
-    const [userNickname, setUserNickname] = useState(null)
-    const [passwordMatched, setPasswordMatched] = useState(false);
-    const [updateInputValue, setUpdateInputValue] = useState('')
-    const [dbCode, setDbCode] = useState('')
-    const [modalStyle, setModalStyle] = useState(false)
     const chatData = LoungeAPI()
+
+    const [chat, setChat] = useState([]) // db에서 가져온 데이터를 저장합니다
+    const [modalPosition, setModalPosition] = useState(null) // 모달창의 위치를 저장합니다
+    const [clickData, setClickData] = useState(null) // 수정, 삭제, 댓글 버튼을 클릭했을때 그 버튼의 정보를 저장합니다
+    const [passwordText, setPasswordText] = useState(null) // 비밀번호를 저장합니다
+    const [userNickname, setUserNickname] = useState(null) // 유저 닉네임을 저장합니다
+    const [passwordMatched, setPasswordMatched] = useState(false) // 비밀번호가 일치하는지 확인합니다
+    const [updateInputValue, setUpdateInputValue] = useState('') // 수정할때 입력창에 기존 글을 보여줍니다
+    const [dbCode, setDbCode] = useState('') // db에 저장된 데이터의 고유 코드를 저장합니다
+    const [modalStyle, setModalStyle] = useState(false) // 비밀번호가 일치하지 않을때 모달창의 스타일을 변경합니다
     
+    const [page, setPage] = useState(1) // 페이지네이션을 위한 페이지 번호를 저장합니다
+    const limit = 8 // 페이지네이션을 위한 페이지당 데이터 개수를 저장합니다    
+    const totalPosts = chat.length // 페이지네이션을 위한 전체 데이터 개수를 저장합니다
+    const offset = (page - 1) * limit // 페이지네이션을 위한 데이터의 시작점을 저장합니다
+    const currentPosts = chat.slice(offset, offset + limit) // 페이지네이션을 위한 현재 페이지에 보여줄 데이터를 저장합니다
+
+
     // DB데이터 가져오기
     const getChatData = async () => {
         await fetch('http://127.0.0.1:5300/lounge', { 
@@ -160,11 +168,12 @@ function Lounge(){
         
 }
 
-if(clickData.innerText === "댓글"){
-    <LoungeRegisterInput registerText={registerText} />
-} 
+// if(clickData.innerText === "댓글"){
+//     console.log(e.target)
+//     console.log('댓글')
+// } 
       }
-
+     
       // 모달창에서 비밀번호 일치 후 수정확정하거나 취소하기
     const comfirmEditText = (e, index) => {
         const editedText = document.querySelector(".editText").value
@@ -200,8 +209,7 @@ if(clickData.innerText === "댓글"){
     }
 }
 
-   
-    const onChange = (e) => {
+    const onChange = (e) => { // input창에 입력한 값을 상태값에 저장
         setUpdateInputValue(e.target.value)
     }
 
@@ -214,9 +222,8 @@ if(clickData.innerText === "댓글"){
                             <h3>Small Talk Lounge</h3>
                             <hr/>
                         </div>
-                
-                        
-                            {chat.length !==0 && chat.map((chat,index)=> {
+                                        
+                            {chat.length !==0 && chat.slice(offset, offset + limit).map((chat,index) => {
                                 return (
                             <div key={index}>
                             <div className="lounge__textOutput__text" >
@@ -224,6 +231,7 @@ if(clickData.innerText === "댓글"){
                                 <span><img src='images/loungeuser.png' alt='userProfile' />{chat.nickname} </span> <span className='paragraph-id'>{chat._id}</span>
                                 </div>
                             <div className="text__function" >
+                            {/* 수정, 삭제, 댓글 */}
                                 <LoungeInputEdit
                                 passwordMatched={passwordMatched}
                                 HandleModalEdit={(e, index)=>HandleModalEdit(e, index)}
@@ -251,6 +259,12 @@ if(clickData.innerText === "댓글"){
                             />
 
                     </div> 
+                            <LoungePagenation 
+                                page={page}
+                                setPage={setPage}
+                                limit={limit}
+                                totalPosts={totalPosts}
+                            />
                             <LoungeRegisterInput
                                 registerText={registerText}
                             />
@@ -261,3 +275,31 @@ if(clickData.innerText === "댓글"){
 }
 
 export default Lounge
+
+
+// {chat.length !==0 && chat.map((chat,index)=> {
+//     return (
+// <div key={index}>
+// <div className="lounge__textOutput__text" >
+//     <div className="nickname">
+//     <span><img src='images/loungeuser.png' alt='userProfile' />{chat.nickname} </span> <span className='paragraph-id'>{chat._id}</span>
+//     </div>
+// <div className="text__function" >
+// {/* 수정, 삭제, 댓글 */}
+//     <LoungeInputEdit
+//     passwordMatched={passwordMatched}
+//     HandleModalEdit={(e, index)=>HandleModalEdit(e, index)}
+//     comfirmEditText={(e)=>comfirmEditText(e, index)}
+//     modalPosition={modalPosition}
+//     clickData={clickData}
+//     onChange={onChange}
+//     updateInputValue={updateInputValue}
+//     chat={chat}
+//     dbCode={dbCode}
+//     />
+//  </div>
+//  </div>
+//  </div>
+ 
+//  )
+// })}      

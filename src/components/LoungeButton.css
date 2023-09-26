@@ -1,0 +1,12 @@
+
+.pagenation-btn{
+    all: unset;
+}
+.pagenation-btn:active{
+    all:unset;
+}
+
+.active{
+    background-color: rgb(15, 160, 218);
+    color: #fff;
+}
