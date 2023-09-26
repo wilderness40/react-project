@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Header , Footer, FoodMenu, FoodKeyword, FoodSearch,
+import { Header , Footer, FoodMenu, FoodSearch, FoodKeyword,
     FoodKakaoMap, FoodList, FoodSearchComponent} from "../components"
 import '../styles/Food.css'
 import axios from "axios";
 function Food({}){
     const [FoodListData, setFoodListData] = useState([])
     const [FoodSearchData, setFoodSearchData] = useState([])
+    const [Foodkeyword, setFoodkeyword] = useState(null)
     const [mapState, setMapState] = useState(false)
     const [loadState, setLoadState] = useState(false)
     const [menuSelectTitle, setMenuSelectTitle] = useState(null)
@@ -36,6 +37,7 @@ function Food({}){
                 const categoryKeywordupdate = '카페·디저트'
                 axios.get(`http://127.0.0.1:5300/food/category/${categoryKeywordupdate}`)
                 .then(res => {
+                    setFoodkeyword(categoryKeyword)
                     setFoodListData(res)
                     setLoadState(false)
                     setMapState(true)
@@ -43,6 +45,7 @@ function Food({}){
             } else {
                 axios.get(`http://127.0.0.1:5300/food/category/${categoryKeyword}`)
                 .then(res => {
+                    setFoodkeyword(categoryKeyword)
                     setFoodListData(res)
                     setLoadState(false)
                     setMapState(true)
@@ -54,13 +57,28 @@ function Food({}){
     }
     const keywordSearch = (e) => {
         const searchKeyword = document.querySelector('.keyword')
-        axios.get(`http://127.0.0.1:5300/food/search/${searchKeyword.value}`)
+        console.log(searchKeyword.value)
+        if(searchKeyword.value !== null && searchKeyword.value !== '') {
+            axios.get(`http://127.0.0.1:5300/food/search/${searchKeyword.value}`)
+            .then(res => {
+                setFoodSearchData(res)
+                setLoadState(true)
+                setMapState(false)
+            })
+        }
+    }
+
+    const hashTagSelect = (e) => {
+        const keyword = e.target.innerText
+        console.log(keyword)
+        axios.get(`http://127.0.0.1:5300/food/hashTag/type=${Foodkeyword}&tag=${keyword}`)
         .then(res => {
             setFoodSearchData(res)
             setLoadState(true)
             setMapState(false)
         })
     }
+
     const menuActive = (e, index) => {
         const markers = document.querySelectorAll('.title')
         const Active = e.target
@@ -79,11 +97,12 @@ function Food({}){
     return(
        <>
         <Header></Header>
-        <div className="map-container">
-            <div className="mapinfo">
+        <div className="food-container">
+            <div className="food-contents">
                 <h2>밥 먹자</h2>
-                <div className="mapinfo-body">
+                <div className="food-body">
                     <FoodMenu addActive={addActive}></FoodMenu>
+                    <FoodKeyword keyword={Foodkeyword} hashTagSelect={hashTagSelect}></FoodKeyword>
                     <FoodSearch keywordSearch={keywordSearch}></FoodSearch>
                     {!loadState ? 
                     <FoodList FoodList={FoodListData} ></FoodList> :

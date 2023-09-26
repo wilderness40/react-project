@@ -1,21 +1,23 @@
-import React, {useState, useRef} from "react";
+import React, {useState, useRef, useEffect} from "react";
 import axios from 'axios'
 import FoodDiscription from "./FoodDiscription"
+import '../styles/FoodList.css'
 function FoodList ({FoodList}) {
+    console.log(FoodList)
     const [discriptionState , setDiscriptionState] = useState(null)
     const [discription, setDiscription] = useState([])
+    const [open , setOpen] = useState('')
     const showDiscription = (e, list, index) => {
-        console.log(e.target)
-        setDiscription(list)
-        setDiscriptionState(index)
-        e.preventDefault()
+            setDiscription(list)
+            setDiscriptionState(index)
+            setOpen('open')
     }
     return (
         <>
-        <div className="mapinfo-container">
-            <div className="mapinfo-container-box">
-                <div className="mapinfo-container-boxBody">
-                    <div className="mapinfo-container-boxTitle">
+        <div className="foodlist-container">
+            <div className="foodlist-container-box">
+                <div className="foodlist-container-boxBody">
+                    <div className="foodlist-container-boxTitle">
                         {FoodList.length !==0 && FoodList.data.map( (list, index) => {
                             return (
                                 <div key={list.REST_ID} className='foodlist-contents' 
@@ -37,13 +39,20 @@ function FoodList ({FoodList}) {
                                             </span>
                                             <span>{list.OPEN_HR_INFO}</span>
                                         </div>
+                                        <div className="foodlist-call">
+                                            <span className="material-symbols-outlined">
+                                                deskphone
+                                            </span>
+                                            <span>{list.TELNO}</span>
+                                        </div>
                                     </div>
                                     {discriptionState === index ? 
                                         <FoodDiscription 
                                             key={list.SD_ID}
                                             foodData={discription}
                                             state={discriptionState}
-                                            num={index}>
+                                            num={index}
+                                            open={open}>
                                         </FoodDiscription> 
                                         : null
                                     }

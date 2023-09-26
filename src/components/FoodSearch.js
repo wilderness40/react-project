@@ -1,5 +1,5 @@
 import React from "react";
-
+import '../styles/FoodSearch.css'
 function FoodSearch({keywordSearch}) {
     return (
         <div className="foodSearch-container">

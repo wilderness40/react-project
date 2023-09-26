@@ -5,6 +5,7 @@
     border: 1px solid #ccc;
     border-bottom:2px solid #ddd;
     float:left;
+    cursor: pointer;
 }
 .customoverlay:nth-of-type(n) {
     border:0; 
