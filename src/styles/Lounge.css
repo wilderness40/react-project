@@ -23,7 +23,9 @@
     border-bottom: 0.5px solid rgb(243, 239, 239);
     margin-top: 1rem;
 }
-
+.lounge__textOutput__text .nickname{
+    display: flex;
+}
 .lounge__textOutput__text .nickname span{
     /* border: 1px solid #333; */
     font-weight: bold;
@@ -105,7 +107,6 @@
     border-radius: 1rem;
     width: 250px;
     height: 100px;
-
     bottom: 30%;
     left: 10%;
     /* display: none;/ */
@@ -147,3 +148,21 @@
     cursor: pointer;
     text-decoration: underline;    
 }
+.paragraph-id{
+    opacity: 0;
+}
+.password-incorrect-text{
+    color: rgb(235, 23, 23);
+}
+.password-incorrect{
+   animation: vibration 0.1s;
+}
+
+@keyframes vibration {
+    from {
+      transform: rotate(1deg);
+    }
+    to {
+      transform: rotate(-1deg);
+    }
+  }

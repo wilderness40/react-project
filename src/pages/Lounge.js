@@ -1,20 +1,29 @@
-import React, { useState,useEffect } from "react";
-import { Header , Footer, LoungeInputEdit } from "../components"
+import React, { useState,useEffect,useRef } from "react";
+import { Header , Footer, LoungeInputEdit, LoungeModal, LoungeRegisterInput, LoungePagenation } from "../components"
 import "../styles/Lounge.css"
 import LoungeAPI from "../services/LoungeAPI";
 
 
 function Lounge(){
-    const [chat, setChat] = useState([])
-    const [modalPosition, setModalPosition] = useState(null);
-    const [clickData, setClickData] = useState(null);
-    const [passwordText, setPasswordText] = useState(null)
-    const [userNickname, setUserNickname] = useState(null)
-    const [passwordMatched, setPasswordMatched] = useState(false);
-    const [updateInputValue, setUpdateInputValue] = useState('')
-
     const chatData = LoungeAPI()
+
+    const [chat, setChat] = useState([]) // db에서 가져온 데이터를 저장합니다
+    const [modalPosition, setModalPosition] = useState(null) // 모달창의 위치를 저장합니다
+    const [clickData, setClickData] = useState(null) // 수정, 삭제, 댓글 버튼을 클릭했을때 그 버튼의 정보를 저장합니다
+    const [passwordText, setPasswordText] = useState(null) // 비밀번호를 저장합니다
+    const [userNickname, setUserNickname] = useState(null) // 유저 닉네임을 저장합니다
+    const [passwordMatched, setPasswordMatched] = useState(false) // 비밀번호가 일치하는지 확인합니다
+    const [updateInputValue, setUpdateInputValue] = useState('') // 수정할때 입력창에 기존 글을 보여줍니다
+    const [dbCode, setDbCode] = useState('') // db에 저장된 데이터의 고유 코드를 저장합니다
+    const [modalStyle, setModalStyle] = useState(false) // 비밀번호가 일치하지 않을때 모달창의 스타일을 변경합니다
     
+    const [page, setPage] = useState(1) // 페이지네이션을 위한 페이지 번호를 저장합니다
+    const limit = 8 // 페이지네이션을 위한 페이지당 데이터 개수를 저장합니다    
+    const totalPosts = chat.length // 페이지네이션을 위한 전체 데이터 개수를 저장합니다
+    const offset = (page - 1) * limit // 페이지네이션을 위한 데이터의 시작점을 저장합니다
+    const currentPosts = chat.slice(offset, offset + limit) // 페이지네이션을 위한 현재 페이지에 보여줄 데이터를 저장합니다
+
+
     // DB데이터 가져오기
     const getChatData = async () => {
         await fetch('http://127.0.0.1:5300/lounge', { 
@@ -27,30 +36,24 @@ function Lounge(){
     .then(data => setChat(data))
     }
 
-    useEffect(() => {
-        // const body = document.querySelector('body')
-        // body.addEventListener('click', (e) => {
-        // console.log(e.target)
-
-        //     const modal = document.querySelector('.checkPasswordModal')
-        //     const inputWindow = document.querySelector('.editPassword')
-        //     const H5 = document.querySelector('.checkPasswordModal h5')
-
-        //     const editSpan =document.querySelector('.edit') // 첫번째 댓글 수정버튼
-        //     const deleteSpan = document.querySelector('.delete') // 첫번째 댓글 삭제버튼
-        //     const commentSpan = document.querySelector('.comment') // 첫번째 댓글 댓글달기버튼
-
-        //     if(e.target !== modal && e.target !== editSpan && e.target !== deleteSpan && e.target !== commentSpan && e.target !== inputWindow && e.target !== H5){
-        //         setModalPosition(null)
-        //     }
-        // })
-        getChatData()
-
-        // return () =>{ 
-        //     body.removeEventListener('click', (e) => {})
-        // }
-        
-    }, [])
+    useEffect(() => {     
+        getChatData()        
+        const clickModalOutside = (e) => { // 모달창 밖을 클릭하면 모달창이 닫힙니다
+            if(modalPosition && 
+                e.target.className !== "edit" && e.target.className !== "delete" 
+                && e.target.className !== "comment" && e.target.className !== "confirm" 
+                && e.target.className !== "text_function" 
+                && e.target.className !== "passwordCheck"
+                && e.target.className !== 'editPassword') {
+                setModalPosition(null)
+                setUpdateInputValue('')
+            }
+        }
+        document.addEventListener('click', clickModalOutside)
+        return () => {  // clean up
+            document.removeEventListener('click', clickModalOutside)
+        }
+    }, [modalPosition]) // modalPosition이 바뀔때마다 useEffect가 실행됩니다
 
     
     // 글 등록하기
@@ -71,32 +74,37 @@ function Lounge(){
             }) 
         })
         getChatData() // db에서 데이터 가져오기
+
+        // 입력창 초기화
+        document.querySelector("#nickname").value = "";
+        document.querySelector("#password").value = "";
+        document.querySelector("#text").value = "";
     }
 
 
     // 모달창 띄우기
-    const HandleModalEdit = async (e, index) => {
+    const HandleModalEdit = async (e, index) => {        
+        const pInnerText = e.target.parentNode.parentNode.firstChild.innerText
+        const mongoDbId = e.target.parentNode.parentNode.parentNode.firstChild.children[1].innerText
+
+        setModalStyle(false)
+        setDbCode(mongoDbId)
         setClickData(e.target)
         const rect = e.target.getBoundingClientRect();
         
-        // if(e.target.innerText === "수정" || e.target.innerText === "삭제"){
           setModalPosition({ 
             top : rect.top + rect.height, 
             left : rect.left, 
           }); 
-        // }else{
-        //     setModalPosition(null)
-        // }
     } 
 
 
     // 모달창에서 비밀번호 일치했을경우 -> 수정, 삭제하기
-      const editModalText = (e) => {
-        // console.log(clickData.parentNode.parentNode.firstChild.innerText)
+      const editModalText = (e ,index) => {
         const editPassword = document.querySelector("#editPassword").value
         const text = clickData.parentNode.parentNode.firstChild.innerText
         const id = clickData.parentNode.parentNode.previousSibling.innerText
-        // console.log(clickData.innerText)
+
         if(clickData.innerText === "수정"){
           try {
              fetch('http://127.0.0.1:5300/lounge/edit', { 
@@ -118,8 +126,11 @@ function Lounge(){
                     setModalPosition(null)
                     setPasswordText(editPassword)
                     setUserNickname(id)
+                    
                   } else {
                     setPasswordMatched(false);
+                    setModalStyle(true)
+                    setModalPosition(modalPosition)
                   }
                 }
             )
@@ -146,6 +157,8 @@ function Lounge(){
              getChatData()
              setModalPosition(null)
             }else{
+                setModalStyle(true)
+                setModalPosition(modalPosition)
                 console.log('삭제실패')
             }}
             )
@@ -154,14 +167,20 @@ function Lounge(){
            }
         
 }
-      }
 
+// if(clickData.innerText === "댓글"){
+//     console.log(e.target)
+//     console.log('댓글')
+// } 
+      }
+     
       // 모달창에서 비밀번호 일치 후 수정확정하거나 취소하기
     const comfirmEditText = (e, index) => {
-  
-        const editedText = document.querySelectorAll(".editText")[index].value
+        const editedText = document.querySelector(".editText").value
         console.log(e.target, index, editedText)
+        // console.log(e.target, index, editedText)
         setUpdateInputValue(editedText)
+    
     if(e.target.innerText === "확인"){
         fetch('http://127.0.0.1:5300/lounge/edit', {
             method: 'put',
@@ -190,8 +209,7 @@ function Lounge(){
     }
 }
 
-   
-    const onChange = (e) => {
+    const onChange = (e) => { // input창에 입력한 값을 상태값에 저장
         setUpdateInputValue(e.target.value)
     }
 
@@ -204,27 +222,26 @@ function Lounge(){
                             <h3>Small Talk Lounge</h3>
                             <hr/>
                         </div>
-                
-                        
-                            {chat.length !==0 && chat.map((chat,index)=> {
+                                        
+                            {chat.length !==0 && chat.slice(offset, offset + limit).map((chat,index) => {
                                 return (
-                            <div key={chat._id}>
+                            <div key={index}>
                             <div className="lounge__textOutput__text" >
                                 <div className="nickname">
-                                <span><img src='images/loungeuser.png' alt='userProfile' />{chat.nickname}</span>
+                                <span><img src='images/loungeuser.png' alt='userProfile' />{chat.nickname} </span> <span className='paragraph-id'>{chat._id}</span>
                                 </div>
                             <div className="text__function" >
+                            {/* 수정, 삭제, 댓글 */}
                                 <LoungeInputEdit
-                                
                                 passwordMatched={passwordMatched}
                                 HandleModalEdit={(e, index)=>HandleModalEdit(e, index)}
                                 comfirmEditText={(e)=>comfirmEditText(e, index)}
-                                index={index}
                                 modalPosition={modalPosition}
                                 clickData={clickData}
                                 onChange={onChange}
                                 updateInputValue={updateInputValue}
                                 chat={chat}
+                                dbCode={dbCode}
                                 />
                              </div>
                              </div>
@@ -233,34 +250,24 @@ function Lounge(){
                              )
                             })}      
                             {/* 모달 */}
-                                     {modalPosition ? (
-                                        <div className={`checkPasswordModal`} 
-                                        style={{
-                                                top: modalPosition.top + window.scrollY,
-                                                left: modalPosition.left + window.scrollX,
-                                            }} >
-                                               <h5>비밀번호 확인</h5>
-                                                <div className="passwordCheck">
-                                                    <input type='password' className='editPassword' id='editPassword' onChange={onChange} value={updateInputValue}/>
-                                                    <button type="button" className="submit" onClick={(e)=>editModalText(e)}>확인</button>
-                                                </div>
-                                          </div>
-                                     ) : null}                 
-                    </div> 
-                    <div className="lounge__input">
-                       <div className="lounge__input__nameAndPassword"> 
-                         <label htmlFor='nickname'>닉네임</label>
-                            <input type='text' id='nickname'></input>
-                         <label htmlFor='password'>비밀번호</label>    
-                            <input type='password' id='password'></input>
-                        </div>
+                            <LoungeModal
+                            modalPosition={modalPosition}
+                            updateInputValue={updateInputValue}
+                            editModalText={editModalText}
+                            onChange={onChange}
+                            modalStyle={modalStyle}
+                            />
 
-                        <div className="lounge__input__text__register">
-                            <label htmlFor="text">내용</label>
-                            <input type="text" placeholder="글을 입력하세요" id="text"></input>
-                            <button type="button" onClick={registerText}>등록</button>
-                        </div>
-                    </div>
+                    </div> 
+                            <LoungePagenation 
+                                page={page}
+                                setPage={setPage}
+                                limit={limit}
+                                totalPosts={totalPosts}
+                            />
+                            <LoungeRegisterInput
+                                registerText={registerText}
+                            />
                 </div>
             <Footer></Footer>
          </>
@@ -268,3 +275,31 @@ function Lounge(){
 }
 
 export default Lounge
+
+
+// {chat.length !==0 && chat.map((chat,index)=> {
+//     return (
+// <div key={index}>
+// <div className="lounge__textOutput__text" >
+//     <div className="nickname">
+//     <span><img src='images/loungeuser.png' alt='userProfile' />{chat.nickname} </span> <span className='paragraph-id'>{chat._id}</span>
+//     </div>
+// <div className="text__function" >
+// {/* 수정, 삭제, 댓글 */}
+//     <LoungeInputEdit
+//     passwordMatched={passwordMatched}
+//     HandleModalEdit={(e, index)=>HandleModalEdit(e, index)}
+//     comfirmEditText={(e)=>comfirmEditText(e, index)}
+//     modalPosition={modalPosition}
+//     clickData={clickData}
+//     onChange={onChange}
+//     updateInputValue={updateInputValue}
+//     chat={chat}
+//     dbCode={dbCode}
+//     />
+//  </div>
+//  </div>
+//  </div>
+ 
+//  )
+// })}      
