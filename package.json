@@ -47,8 +47,8 @@
   },
   "devDependencies": {
     "gh-pages": "^6.0.0"
-  },
+  }
   
-    "homepage": "https://wilderness40.github.io/react-project"
+
   
 }

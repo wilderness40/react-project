@@ -1,5 +1,5 @@
 import React from "react";
-import './LoungeButton.css'
+import '../styles/LoungeButton.css'
 
 function LoungeButton({key, onClick, children, className, disabled, ariaCurrent}){
 
