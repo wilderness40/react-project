@@ -1,150 +1,30 @@
-.map-container {
+
+.food-container {
     display: flex;
     width: 100%;
-    /* height: 800px; */
+    /* height: 940px; */
     /* margin: 0 auto; */
     padding: 0;
 }
-.mapinfo {
+.food-contents {
     width: 30%;
     background: white;
 }
-.mapinfo h2 {
+.food-contents h2 {
     width: 90%;
     padding: 10px;
     margin-left: 1rem ;
     border-bottom: 2px solid #585858;
 }
-.mapinfo-body {
+.food-body {
     display: flex;
     flex-wrap: wrap;
-    /* flex-direction: column; */
     align-items: center;
-}
-.mapinfo-taplist {
-    width: 100%;
-    border-bottom: 1px solid #e6e6e6;
-}
-.mapinfo-taplist ul {
-    display: flex;
-    justify-content: space-around;
-    padding: 10px;
-}
-.mapinfo-taplist ul li {
-    width: 50px;
-    height: 50px;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    padding: 10px;
-    margin-left: 15px;
-    border: 1px solid #e6e6e6;
-    border-radius: 50%;
-    cursor: pointer;
-    justify-content: center;
-    align-items: center;
-}
-.mapinfo-taplist ul li a {
-    font-weight: 700;
-}
-.mapinfo-taplist ul div:nth-child(1) li.active {
-    background-color: green;
-    color: white;
-}
-.mapinfo-taplist ul div:nth-child(2) li.active {
-    background-color: orange;
-    color: white;
-}
-.mapinfo-taplist ul div:nth-child(3) li.active {
-    background-color: pink;
-    color: white;
-}
-.mapinfo-taplist ul div:nth-child(4) li.active {
-    background-color: violet;
-    color: white;
-}
-.mapinfo-taplist ul div:nth-child(5) li.active {
-    background-color: var(--secondary-color);
-    color: white;
-}
-.mapinfo-container {
-    display: flex;
-    width: 100%;
-    height: 650px;
-    flex-wrap: wrap;
-    overflow: auto;
-}
-.mapinfo-container-box {
-    display: flex;
-    width: 100%;
-    height: 120px;
-    padding: 15px;
-    /* border-bottom: 1px solid #e6e6e6; */
-}
-/* .mapinfo-container-box:hover {
-    background-color: #f8f8f8;
-} */
-.mapinfo-container-box img {
-    border: 1px solid #585858;
-    border-radius: 5px;
-    width: 130px;
-    height: 89px;
-    object-fit: cover;
-    cursor: pointer;
-}
-.mapinfo-container-boxBody {
-    width: 80%;
-    display: flex;
-    flex-wrap: wrap;
-    margin-left: 10px;
-}
-.mapinfo-container-boxTitle {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
 }
 
-.mapinfo-container-boxTitle h3 {
-    margin: 0;
-    /* width: 70%; */
-}
-.mapinfo-container-boxTitle span {
-    margin-left: 1rem;
-}
+
 .mapinfo-container-boxDescript {
     width: 100%;
 }
-.foodlist-contents {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    padding: 1rem;
-    border-bottom: 1px solid #e6e6e6
-}
-.foodlist-contents:hover {
-    background: var(--secondary-color);
-}
-.foodlist-title {
-    display: flex;
-    align-items: center;
-}
-.foodlist-title > span {
-    margin-left: 3rem;
-}
-.foodlist-body {
-    display: inline-flex;
-    flex-direction: column;
-}
-.foodlist-body > span:nth-child(2) {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-.foodSearch-container {
-    /* display: flex; */
-    /* justify-content: center; */
-    /* align-items: center; */
-    width: 100%;
-    padding: 20px;
-    border-bottom: 1px solid #e6e6e6
-}
+
+

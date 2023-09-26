@@ -1,19 +1,28 @@
-import React, { useState, useEffect } from "react";
-import { Header , Footer, FoodMenu, 
+import React, { useState, useEffect, useRef } from "react";
+import { Header , Footer, FoodMenu, FoodSearch, FoodKeyword,
     FoodKakaoMap, FoodList, FoodSearchComponent} from "../components"
 import '../styles/Food.css'
 import axios from "axios";
 function Food({}){
     const [FoodListData, setFoodListData] = useState([])
     const [FoodSearchData, setFoodSearchData] = useState([])
+    const [Foodkeyword, setFoodkeyword] = useState(null)
     const [mapState, setMapState] = useState(false)
     const [loadState, setLoadState] = useState(false)
+    const [menuSelectTitle, setMenuSelectTitle] = useState(null)
     useEffect( ()=> {
         axios.get('http://127.0.0.1:5300/food')
         .then(res => {
             setFoodListData(res)
         })
     },[])
+    useEffect( (e) => {
+        document.addEventListener('keydown' , (event) => {
+           if(event.keyCode === 13) {
+                keywordSearch()
+           }
+        })
+    },[FoodSearchData])
     const addActive = (e) => {
         const activeLi = document.querySelectorAll('li')
         activeLi.forEach((li) => {
@@ -23,12 +32,12 @@ function Food({}){
         })
         if(e.target.tagName === 'LI' && e.target.className !== 'active') {
             e.target.classList.add('active')
-            // console.log(e.target.children[1].innerText)
             const categoryKeyword = e.target.children[1].innerText
             if(categoryKeyword === '카페') {
                 const categoryKeywordupdate = '카페·디저트'
                 axios.get(`http://127.0.0.1:5300/food/category/${categoryKeywordupdate}`)
                 .then(res => {
+                    setFoodkeyword(categoryKeyword)
                     setFoodListData(res)
                     setLoadState(false)
                     setMapState(true)
@@ -36,6 +45,7 @@ function Food({}){
             } else {
                 axios.get(`http://127.0.0.1:5300/food/category/${categoryKeyword}`)
                 .then(res => {
+                    setFoodkeyword(categoryKeyword)
                     setFoodListData(res)
                     setLoadState(false)
                     setMapState(true)
@@ -47,36 +57,62 @@ function Food({}){
     }
     const keywordSearch = (e) => {
         const searchKeyword = document.querySelector('.keyword')
-        axios.get(`http://127.0.0.1:5300/food/search/${searchKeyword.value}`)
+        console.log(searchKeyword.value)
+        if(searchKeyword.value !== null && searchKeyword.value !== '') {
+            axios.get(`http://127.0.0.1:5300/food/search/${searchKeyword.value}`)
+            .then(res => {
+                setFoodSearchData(res)
+                setLoadState(true)
+                setMapState(false)
+            })
+        }
+    }
+
+    const hashTagSelect = (e) => {
+        const keyword = e.target.innerText
+        console.log(keyword)
+        axios.get(`http://127.0.0.1:5300/food/hashTag/type=${Foodkeyword}&tag=${keyword}`)
         .then(res => {
-            console.log(res)
             setFoodSearchData(res)
             setLoadState(true)
             setMapState(false)
         })
     }
-    console.log(FoodSearchData)
+
+    const menuActive = (e, index) => {
+        const markers = document.querySelectorAll('.title')
+        const Active = e.target
+        const activeTitle = e.target.innerText
+        markers.forEach((marker) => {
+            if(marker.className === 'title active') {
+                marker.classList.remove('active')
+            }
+        })
+        console.log(Active.className)
+        if(Active.className !== 'title active') {
+            Active.classList.add('active')
+            setMenuSelectTitle(activeTitle)
+        }
+    }
     return(
        <>
         <Header></Header>
-        <div class="map-container">
-            <div class="mapinfo">
+        <div className="food-container">
+            <div className="food-contents">
                 <h2>밥 먹자</h2>
-                <div class="mapinfo-body">
+                <div className="food-body">
                     <FoodMenu addActive={addActive}></FoodMenu>
-                    <div className="foodSearch-container">
-                        <input type="text" className="keyword"></input>
-                        <button className="searchBtn" onClick={keywordSearch}>검색</button>
-                    </div>
-                    {loadState === false ? 
-                    <FoodList FoodList={FoodListData}></FoodList> :
-                    <FoodSearchComponent FoodList={FoodSearchData}></FoodSearchComponent>
+                    <FoodKeyword keyword={Foodkeyword} hashTagSelect={hashTagSelect}></FoodKeyword>
+                    <FoodSearch keywordSearch={keywordSearch}></FoodSearch>
+                    {!loadState ? 
+                    <FoodList FoodList={FoodListData} ></FoodList> :
+                    <FoodSearchComponent FoodList={FoodSearchData} 
+                    selectMenu={menuSelectTitle}></FoodSearchComponent>
                     }
-                    
                 </div>
             </div>
             <FoodKakaoMap FoodList={FoodListData} searchFood={FoodSearchData} 
-            mapState={mapState} loadState={loadState}></FoodKakaoMap>
+            mapState={mapState} loadState={loadState} selectMenu={menuActive}></FoodKakaoMap>
         </div>
         <Footer></Footer>
        </>

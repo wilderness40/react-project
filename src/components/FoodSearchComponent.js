@@ -1,17 +1,74 @@
-import React, {useEffect , useState} from "react";
-
-function FoodSearchComponent({FoodList}) {
+import React, {useEffect , useState, useRef} from "react";
+import FoodDiscription from "./FoodDiscription"
+function FoodSearchComponent({FoodList, selectMenu}) {
+    console.log(selectMenu)
+    const [discriptionState , setDiscriptionState] = useState(null)
+    const [discription, setDiscription] = useState([])
+    useEffect( () => {
+        const foodListContents = document.querySelectorAll('.foodlist-contents')
+        foodListContents.forEach( (content) => {
+            if(content.className === 'foodlist-contents active') {
+                content.classList.remove('active')
+            }
+        })
+        const foodListTitleH3 = document.querySelectorAll('.foodlist-title > h3')
+        foodListTitleH3.forEach( (contents, index) => {
+            if(contents.innerText === selectMenu) {
+                contents.parentNode.parentNode.classList.add('active')
+            }
+        })
+    },[selectMenu])
+    const showDiscription = (e, list, index) => {
+        console.log(e.target)
+        setDiscription(list)
+        setDiscriptionState(index)
+        e.preventDefault()
+    }
     return (
-        <div key={FoodList.data.REST_ID} className='foodlist-contents'>
-            <div className="foodlist-title">
-                <h3>{FoodList.data.REST_NM}</h3>
-                <span>{FoodList.data.TOB_INFO}</span>
+        <>
+            <div className="foodlist-container">
+                <div className="foodlist-container-box">
+                    <div className="foodlist-container-boxBody">
+                        <div className="foodlist-container-boxTitle">
+                            {FoodList.length !==0 && FoodList.data.map((list, index) => {
+                                return (
+                                    <div key={list.REST_ID} className='foodlist-contents' 
+                                    onClick={(e) => showDiscription(e, list, index)}>
+                                        <div className="foodlist-title">
+                                            <h3>{list.REST_NM}</h3>
+                                            <span>{list.TOB_INFO}</span>
+                                        </div>
+                                        <div className="foodlist-body">
+                                            <div className="foodlist-adress">
+                                                <span className="material-symbols-outlined">
+                                                    location_on
+                                                </span>
+                                                <span>{list.ADDR}</span>
+                                            </div>
+                                            <div className="foodlist-time">
+                                                <span className="material-symbols-outlined">
+                                                    Schedule
+                                                </span>
+                                                <span>{list.OPEN_HR_INFO}</span>
+                                            </div>
+                                        </div>
+                                        {discriptionState === index ? 
+                                            <FoodDiscription 
+                                                key={list.SD_ID}
+                                                foodData={discription}
+                                                state={discriptionState}
+                                                num={index}>
+                                            </FoodDiscription> 
+                                            : null
+                                        }
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    </div>    
+                </div>
             </div>
-            <div className="foodlist-body">
-                <span>{FoodList.data.ADDR}</span>
-                <span>{FoodList.data.OPEN_HR_INFO}</span>
-            </div>
-        </div>
+        </>
     )
 }
 export default FoodSearchComponent

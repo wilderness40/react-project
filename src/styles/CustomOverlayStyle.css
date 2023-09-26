@@ -5,6 +5,7 @@
     border: 1px solid #ccc;
     border-bottom:2px solid #ddd;
     float:left;
+    cursor: pointer;
 }
 .customoverlay:nth-of-type(n) {
     border:0; 
@@ -30,6 +31,10 @@
     font-size:14px;
     font-weight:bold;
     border-radius: 6px;
+}
+.customoverlay .title.active  {
+    background-color: #d95050;
+    color: white;
 }
 .customoverlay:after {
     content:'';
