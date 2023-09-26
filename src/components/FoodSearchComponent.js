@@ -1,7 +1,7 @@
 import React, {useEffect , useState, useRef} from "react";
 import FoodDiscription from "./FoodDiscription"
 function FoodSearchComponent({FoodList, selectMenu}) {
-    console.log(FoodList)
+    console.log(selectMenu)
     const [discriptionState , setDiscriptionState] = useState(null)
     const [discription, setDiscription] = useState([])
     useEffect( () => {
@@ -26,10 +26,10 @@ function FoodSearchComponent({FoodList, selectMenu}) {
     }
     return (
         <>
-            <div className="mapinfo-container">
-                <div className="mapinfo-container-box">
-                    <div className="mapinfo-container-boxBody">
-                        <div className="mapinfo-container-boxTitle">
+            <div className="foodlist-container">
+                <div className="foodlist-container-box">
+                    <div className="foodlist-container-boxBody">
+                        <div className="foodlist-container-boxTitle">
                             {FoodList.length !==0 && FoodList.data.map((list, index) => {
                                 return (
                                     <div key={list.REST_ID} className='foodlist-contents' 

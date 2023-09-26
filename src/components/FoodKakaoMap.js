@@ -13,6 +13,16 @@ function FoodKakaoMap({FoodList, mapState, searchFood,
     ])
     const [searchPositions, setSearchPositions] = useState([])
     const [check , setCheck] = useState(false)
+    // useEffect( () => {
+    //     console.log(navigator.geolocation.getCurrentPosition((pos) => {
+    //         console.log(pos)
+    //         var latitude = pos.coords.latitude;
+
+    //         var longitude = pos.coords.longitude;
+
+    //         console.log('lat' + latitude + ", "+ 'lng' +longitude);
+    //     }))
+    // },[])
     useEffect(()=> {
         if(loadState === true) {
             console.log('test')
@@ -35,17 +45,10 @@ function FoodKakaoMap({FoodList, mapState, searchFood,
                     }
                     array.push(data)
                 }
-                // array.push({
-                //     title : '학원',
-                //     latlng : new kakao.maps.LatLng(36.349184947679255, 127.37775416701282) ,
-                // })
             }
             setPositions(array)
         }
     },[FoodList])
-    // const menuAcive = (e) => {
-    //     console.log(e.target)
-    // }
     if(mapState === false) {
         return (
             <Map
@@ -63,6 +66,7 @@ function FoodKakaoMap({FoodList, mapState, searchFood,
                     return (
                         <>
                             <MapMarker
+                                key={`foodList-${index}-${position.LAT},${position.LOT}`}
                                 position={{
                                     lat : position.LAT ,
                                     lng : position.LOT
@@ -94,6 +98,7 @@ function FoodKakaoMap({FoodList, mapState, searchFood,
                     return(
                         <>
                             <MapMarker
+                                key={`foodList-${index}-${searchPosition.LAT},${searchPosition.LOT}`}
                                 position={{
                                     lat : searchPosition.LAT ,
                                     lng : searchPosition.LOT
@@ -127,7 +132,6 @@ function FoodKakaoMap({FoodList, mapState, searchFood,
         )
     } 
     else if(mapState === true){
-        console.log(positions)
         return (
             <Map
                 center={{
@@ -142,6 +146,7 @@ function FoodKakaoMap({FoodList, mapState, searchFood,
                 >
                 {positions.map((data, index) => (
                     <MapMarker
+                        key={`foodList-${index}-${data.LAT},${data.LOT}`}
                         position={{
                             lat : data.LAT,
                             lng : data.LOT,

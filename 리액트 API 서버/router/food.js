@@ -49,5 +49,17 @@ router.post('/discription/:id', async(req, res, next) => {
     res.json(discriptionFood)
 })
 
+router.get('/hashTag/type=:type&tag=:tag', async(req, res, next) => {
+    const hashTagFoodList = await Foods.find({
+        $and : [
+            { TOB_INFO : { $regex: req.params.type}},
+            { RPRS_MENU_NM : { $regex : req.params.tag }},
+            { ADDR : { $regex: /^대전광역시 서구 둔산동/ }},
+        ]
+    })
+    console.log(hashTagFoodList)
+    res.json(hashTagFoodList)
+})
+
 
 module.exports = router
