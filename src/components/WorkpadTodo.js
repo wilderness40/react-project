@@ -3,7 +3,7 @@ import '../styles/WorkpadTodo.css';
 import WorkpadTodoSetting from './WorkpadTodoSetting';
 import WorkpadTodoList from './WorkpadTodoList';
 
-function WorkpadTodo({ todoList, doneTodos, getTodoToDB }){
+function WorkpadTodo({ todoList, doneTodos, getTodoToDB, deadlineTodos }){
   const [newTodo, setNewTodo] = useState({
     title : '',
   })
@@ -42,12 +42,6 @@ function WorkpadTodo({ todoList, doneTodos, getTodoToDB }){
       })
     }
   }
-  // 데드라인 Todo 정렬
-  const deadlineTodos = todoList.filter(todo => todo.deadline).map(todo => {
-    const restTime = Math.floor((new Date(todo.deadline).getTime() - today_midnight_getTime) / 86400000);
-    // 기간이 지난 todo는 맨 밑 정렬
-    return { ...todo, rest : restTime < 0 ? 100 : restTime };
-  }).sort((a, b) => a.rest - b.rest);
 
   const [todoSettingMode, setTodoSettingMode] = useState({ mode : false, loc : { x : 0, y : 0 }, _id : null, modify : false });
    // todo 클릭시 설정
