@@ -105,7 +105,7 @@
     position: absolute;
     /* border: 1px solid #333; */
     background: rgb(241, 231, 231);   
-    border-radius: 1rem;
+    /* border-radius: 1rem; */
     width: 250px;
     height: 100px;
     bottom: 30%;
@@ -153,7 +153,13 @@
     opacity: 0;
 }
 .password-incorrect-text{
+    display: flex;
     color: rgb(235, 23, 23);
+}
+.password-incorrect-text img{
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;
 }
 .password-incorrect{
    animation: vibration 0.1s;

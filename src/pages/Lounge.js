@@ -56,18 +56,20 @@ function Lounge(){
     }, [modalPosition]) // modalPosition이 바뀔때마다 useEffect가 실행됩니다
 
     useEffect(() => { // 엔터키 누르면 글이 등록됩니다
-        document.addEventListener('keydown', (e) => { 
+        const lounge__input = document.querySelector(".lounge__input")
+        lounge__input.addEventListener('keydown', (e) => { 
             if(e.key === 'Enter'){
                 registerText()
             }
         })
         return(() => {
-            document.removeEventListener('keydown',(e)=> {
+            lounge__input.removeEventListener('keydown',(e)=> {
                 console.log('clean up')
             })
         })
-    }, [])
 
+        
+    }, [])
 
     // 글 등록하기
     const registerText = (e) => { // 등록 버튼 누르면 글이 서버에 저장되고 웹페이지에서 보여줍니다
@@ -98,8 +100,9 @@ function Lounge(){
     // 모달창 띄우기
     const HandleModalEdit = async (e, index) => {        
         const pInnerText = e.target.parentNode.parentNode.firstChild.innerText
-        const mongoDbId = e.target.parentNode.parentNode.parentNode.firstChild.children[1].innerText
-
+        const mongoDbId = e.target.parentNode.parentNode.parentNode.firstChild.children[2].innerText
+        console.log(mongoDbId)
+        
         setModalStyle(false)
         setDbCode(mongoDbId)
         setClickData(e.target)
@@ -119,6 +122,7 @@ function Lounge(){
         const id = clickData.parentNode.parentNode.previousSibling.innerText
 
         if(clickData.innerText === "수정"){
+            console.log(editPassword)
           try {
              fetch('http://127.0.0.1:5300/lounge/edit', { 
               method: 'post',
