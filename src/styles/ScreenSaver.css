@@ -7,11 +7,12 @@
     top: 0;
 }
 .screen-container.open {
-    z-index: 10;
+    z-index: 5;
     opacity: 1;
 }
 
 .screen-container.close { 
+    z-index: -5;
     opacity: 0;
     z-index: -1;
 }
