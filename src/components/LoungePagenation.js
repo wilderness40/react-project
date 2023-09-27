@@ -25,10 +25,10 @@ function LoungePagenation  ({page, setPage, totalPosts, limit}) {
     }, [page])
 
     const handlePageChange = (e ,i,currentPage) => {
-        setPage(e.target.innerText)
-        setBtnActive(e.target.innerText) // 버튼 활성화
+        setPage(currentPage)
+        setBtnActive(currentPage) // 버튼 활성화
         console.dir(e.target)
-        console.log(page)
+        console.log(currentPage)
     }
 
     const slicedPageArrayByLimit = (numPages, pageLimit) => { // 페이징 수 제한
