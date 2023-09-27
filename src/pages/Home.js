@@ -23,11 +23,13 @@ function Home(){
         })
         const timer = setTimeout( () => {
             setScreenSaverState(true)
-        } ,5000)
+        } ,300000)
         return () => {
             clearTimeout(timer)
         }
     },[screenSaverState])
+
+
     return(
         <>
             <div className="Home">
