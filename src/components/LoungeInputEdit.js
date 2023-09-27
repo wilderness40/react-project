@@ -2,7 +2,7 @@ import React from "react";
 
 function LoungeInputEdit({chat, index, passwordMatched, modalPosition, HandleModalEdit, comfirmEditText, dbCode}){
 
-
+    console.log(dbCode)
     return (
         <>
           {passwordMatched && !modalPosition && dbCode == chat._id? 
