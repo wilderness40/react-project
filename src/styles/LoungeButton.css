@@ -3,11 +3,10 @@
     all: unset;
     cursor: pointer;
     display: flex;
-    
 }
 
 .pagenation-btn:active{
-    all:unset;
+    box-shadow: none;
     opacity: 0.3;
     scale: 1.2;
 }

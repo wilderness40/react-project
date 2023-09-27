@@ -13,4 +13,5 @@
 
 .screen-container.close { 
     opacity: 0;
+    z-index: -1;
 }
