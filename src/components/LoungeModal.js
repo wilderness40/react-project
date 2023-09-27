@@ -1,7 +1,22 @@
-import React from "react";
+import React,{useEffect} from "react";
 
 function LoungeModal({ editModalText, onChange, updateInputValue, modalPosition, modalStyle }){
     
+    useEffect(() => { // 비밀번호 입력 후 엔터키로 클릭
+        const editPassword = document.querySelector('.editPassword')
+        const handleKeyDown = (e) => {
+            if(e.key === 'Enter'){
+                editModalText(e)
+            }
+        }
+        if(editPassword !== null){
+            editPassword.addEventListener('keydown', handleKeyDown)
+        return () => {
+            editPassword.removeEventListener('keydown', handleKeyDown)
+        }
+    }
+    },[editModalText]) 
+
     return(
         <>
             {modalPosition ? (

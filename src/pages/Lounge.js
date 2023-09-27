@@ -55,22 +55,6 @@ function Lounge(){
         }
     }, [modalPosition]) // modalPosition이 바뀔때마다 useEffect가 실행됩니다
 
-    useEffect(() => { // 엔터키 누르면 글이 등록됩니다
-        const lounge__input = document.querySelector(".lounge__input")
-        lounge__input.addEventListener('keydown', (e) => { 
-            if(e.key === 'Enter'){
-                registerText()
-            }
-        })
-        return(() => {
-            lounge__input.removeEventListener('keydown',(e)=> {
-                console.log('clean up')
-            })
-        })
-
-        
-    }, [])
-
     // 글 등록하기
     const registerText = (e) => { // 등록 버튼 누르면 글이 서버에 저장되고 웹페이지에서 보여줍니다
         const id = document.querySelector("#nickname").value;
@@ -101,7 +85,7 @@ function Lounge(){
     const HandleModalEdit = async (e, index) => {        
         const pInnerText = e.target.parentNode.parentNode.firstChild.innerText
         const mongoDbId = e.target.parentNode.parentNode.parentNode.firstChild.children[2].innerText
-        console.log(mongoDbId)
+        const editPasswordInput = document.querySelector("#editPassword")
         
         setModalStyle(false)
         setDbCode(mongoDbId)
@@ -117,12 +101,13 @@ function Lounge(){
 
     // 모달창에서 비밀번호 일치했을경우 -> 수정, 삭제하기
       const editModalText = (e ,index) => {
+        
         const editPassword = document.querySelector("#editPassword").value
         const text = clickData.parentNode.parentNode.firstChild.innerText
         const id = clickData.parentNode.parentNode.previousSibling.innerText
 
+   
         if(clickData.innerText === "수정"){
-            console.log(editPassword)
           try {
              fetch('http://127.0.0.1:5300/lounge/edit', { 
               method: 'post',
@@ -194,8 +179,6 @@ function Lounge(){
       // 모달창에서 비밀번호 일치 후 수정확정하거나 취소하기
     const comfirmEditText = (e, index) => {
         const editedText = document.querySelector(".editText").value
-        console.log(e.target, index, editedText)
-        // console.log(e.target, index, editedText)
         setUpdateInputValue(editedText)
     
     if(e.target.innerText === "확인"){

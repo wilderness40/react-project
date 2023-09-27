@@ -1,7 +1,20 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "../styles/LoungeRegisterInput.css"
 
 function LoungeRegisterInput({registerText}){
+
+    useEffect(() => { // 엔터키 누르면 글이 등록됩니다
+        const lounge__input = document.querySelector(".lounge__input")
+        const handleKeydown = (e) => {
+            if(e.key === 'Enter'){
+                registerText()
+            }
+        }
+            lounge__input.addEventListener('keydown',handleKeydown)
+        return(() => {
+            lounge__input.removeEventListener('keydown', handleKeydown)
+        })
+    }, [])
 
     return (
         <>

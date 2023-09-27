@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react"
 import LoungeButton from "./LoungeButton"
 import LoungePageWrap from "./LoungePageWrap"
 
+
 function LoungePagenation  ({page, setPage, totalPosts, limit}) {
     const pageLimit = 5 // 페이지 버튼 수
     const numPages = Math.ceil(totalPosts / limit) // 총페이징 수
@@ -42,7 +43,9 @@ function LoungePagenation  ({page, setPage, totalPosts, limit}) {
 
     return(
         <>
-            <LoungePageWrap>
+        {currentPagesArray === undefined ? null : // 페이지가 없을때 버튼 안보이게
+            (<LoungePageWrap>
+
                 <LoungeButton 
                 onClick={()=> {
                     setPage(page - 1) 
@@ -62,7 +65,9 @@ function LoungePagenation  ({page, setPage, totalPosts, limit}) {
                             > { currentPage }
                         </LoungeButton> 
                     )
-                })}
+                })
+                
+                }
                 <LoungeButton 
                     onClick={()=>{ 
                         setPage(page + 1) 
@@ -71,7 +76,9 @@ function LoungePagenation  ({page, setPage, totalPosts, limit}) {
                     disabled={page === numPages}>
                         <span className="material-symbols-outlined">arrow_forward_ios</span>
                 </LoungeButton>
+
             </LoungePageWrap>
+            )}
               <span className="pagenation__text">Page {page} of {numPages}</span>
               <span className="pagenation__text">Total {totalPosts} Posts</span>
         </>

@@ -49,6 +49,9 @@
     position: relative;
 }
 
+.lounge__textOutput .text__function p { 
+    width: 800px; 
+}
 .lounge__input{
     max-width: 80%;
     width: 100%;
