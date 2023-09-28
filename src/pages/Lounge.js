@@ -18,6 +18,7 @@ function Lounge(){
     const [dbCode, setDbCode] = useState('') // db에 저장된 데이터의 고유 코드를 저장합니다
     const [modalStyle, setModalStyle] = useState(false) // 비밀번호가 일치하지 않을때 모달창의 스타일을 변경합니다
     
+    
     const [page, setPage] = useState(1) // 페이지네이션을 위한 페이지 번호를 저장합니다
     const limit = 8 // 페이지네이션을 위한 페이지당 데이터 개수를 저장합니다    
     const totalPosts = chat.length // 페이지네이션을 위한 전체 데이터 개수를 저장합니다
@@ -36,8 +37,11 @@ function Lounge(){
     .then(data => setChat(data))
     }
 
-    useEffect(() => {     
+    useEffect(() => {
         getChatData()        
+    }, [chat])
+
+    useEffect(() => {     
         const clickModalOutside = (e) => { // 모달창 밖을 클릭하면 모달창이 닫힙니다
             if(modalPosition && 
                 e.target.className !== "edit" && e.target.className !== "delete" 
@@ -86,7 +90,8 @@ function Lounge(){
         const pInnerText = e.target.parentNode.parentNode.firstChild.innerText
         const mongoDbId = e.target.parentNode.parentNode.parentNode.firstChild.children[2].innerText
         const editPasswordInput = document.querySelector("#editPassword")
-        
+        console.log(mongoDbId)
+
         setModalStyle(false)
         setDbCode(mongoDbId)
         setClickData(e.target)
@@ -100,30 +105,28 @@ function Lounge(){
 
 
     // 모달창에서 비밀번호 일치했을경우 -> 수정, 삭제하기
-      const editModalText = (e ,index) => {
+      const editModalText = async (e ,index) => {
         
+        const id = clickData.parentNode.parentNode.previousSibling.firstChild.innerText
         const editPassword = document.querySelector("#editPassword").value
         const text = clickData.parentNode.parentNode.firstChild.innerText
-        const id = clickData.parentNode.parentNode.previousSibling.innerText
+
 
    
         if(clickData.innerText === "수정"){
           try {
-             fetch('http://127.0.0.1:5300/lounge/edit', { 
+             const response = await fetch('http://127.0.0.1:5300/lounge/edit', { 
               method: 'post',
               headers: {
                 'Content-Type': 'application/json'
               },
               body: JSON.stringify({
-                nickname: id,
+                _id : dbCode,
                 password : editPassword,
-                text: text
               }) 
             })   
-            .then(res => 
-                {
-                    console.log(res.status)
-                    if (res.status === 200 && editPassword !== "") {
+
+                    if (response.status === 200 && editPassword !== "") {
                     setPasswordMatched(true);
                     setModalPosition(null)
                     setPasswordText(editPassword)
@@ -135,8 +138,8 @@ function Lounge(){
                     setModalPosition(modalPosition)
                   }
                 }
-            )
-          } catch (error) {
+            
+           catch (error) {
             console.log(error);
           }
 }
@@ -179,6 +182,7 @@ function Lounge(){
       // 모달창에서 비밀번호 일치 후 수정확정하거나 취소하기
     const comfirmEditText = (e, index) => {
         const editedText = document.querySelector(".editText").value
+    
         setUpdateInputValue(editedText)
     
     if(e.target.innerText === "확인"){
@@ -188,7 +192,7 @@ function Lounge(){
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                nickname: userNickname,
+                _id : dbCode,
                 password : passwordText,
                 text: editedText
         })
