@@ -14,7 +14,7 @@ function TvContainer({}){
     const [slideIndex, setSlideIndex] = useState(0)
     const [bacSlideIndex, setBacSlideIndex] = useState(null)
     const youtubeContents = document.querySelectorAll('.youtube-content')
-    useEffect( () => {
+    useEffect( () => { // 3초마다 슬라이드가 이동하는 코드
         const increaseIndex = () => {
             setSlideIndex(slideIndex + 1)
         }
@@ -25,7 +25,7 @@ function TvContainer({}){
         
     })
     console.log(slideIndex)
-    const slideStyle = {
+    const slideStyle = { // 슬라이드 애니메이션
         transition: "all 1s ease-in-out",
         transform: `translateX(${
             -1 * (600/youtubeContents.length * slideIndex)
@@ -40,7 +40,7 @@ function TvContainer({}){
             slideStyle.transition = "all 500ms ease-in-out"
         })
     }
-    const tvShow = (e) => {
+    const tvShow = (e) => { // 리스트를 누르면 윗상단에 있는 tv에 누른 리스트가 보여지는 함수
         const tvifram = document.querySelector('.Tv-body-container > iframe')
         tvifram.classList.add('hide')
         if (youTubeApiData.length !==0) {
