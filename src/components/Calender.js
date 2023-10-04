@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 function Calendar() {
-    const [selecDate, setSelctDate] = useState({ 
+    const [selectDate, setSelectDate] = useState({ 
         year : new Date().getFullYear(), 
         month : new Date().getMonth()
     })
@@ -62,7 +62,7 @@ function Calendar() {
 
     useEffect(() => {
         // 오늘 날짜에 하이라이트 효과 적용
-        if(selecDate.year === new Date().getFullYear() && selecDate.month === new Date().getMonth()){
+        if(selectDate.year === new Date().getFullYear() && selectDate.month === new Date().getMonth()){
             const td = document.querySelectorAll('.Calendar-container tbody tr td');
 
             td.forEach(td => {
@@ -82,28 +82,28 @@ function Calendar() {
                     td.style.fontWeight = '';
             })
         }
-    },[selecDate])
+    },[selectDate])
 
     const decreaseMonth = () => {
-        const year = selecDate.month <= 0 ? selecDate.year - 1 : selecDate.year;
-        const month = selecDate.month <= 0 ? 11 : selecDate.month - 1;
-        setSelctDate({ year, month })
+        const year = selectDate.month <= 0 ? selectDate.year - 1 : selectDate.year;
+        const month = selectDate.month <= 0 ? 11 : selectDate.month - 1;
+        setSelectDate({ year, month })
     }
 
     const increaseMonth = () => {
-        const year = selecDate.month >= 11 ? selecDate.year + 1 : selecDate.year;
-        const month = selecDate.month >= 11 ? 0 : selecDate.month + 1;
-        setSelctDate({ year, month })
+        const year = selectDate.month >= 11 ? selectDate.year + 1 : selectDate.year;
+        const month = selectDate.month >= 11 ? 0 : selectDate.month + 1;
+        setSelectDate({ year, month })
     }
 
     return (
         <div className="Calendar-container">
             <div className="Calendar-select-container">
                 <button onClick={decreaseMonth}className='Calendar-btn'>◀</button>
-                <span>{`${selecDate.year}년 ${selecDate.month+1}월`}</span>
+                <span>{`${selectDate.year}년 ${selectDate.month+1}월`}</span>
                 <button onClick={increaseMonth} className='Calendar-btn'>▶</button>
             </div>
-            {makeCalendar(selecDate.year, selecDate.month)}
+            {makeCalendar(selectDate.year, selectDate.month)}
         </div>
     )
 }
