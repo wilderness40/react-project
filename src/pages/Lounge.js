@@ -1,18 +1,13 @@
 import React, { useState,useEffect } from "react";
 import { Header , Footer, LoungeInputEdit, LoungeModal, LoungeRegisterInput, LoungePagenation, SnsTimeFormat } from "../components"
 import "../styles/Lounge.css"
-import LoungeAPI from "../services/LoungeAPI";
-
 
 function Lounge(){
-    const chatData = LoungeAPI()
-    const TimeFormat = SnsTimeFormat()
-
+    
     const [chat, setChat] = useState([]) // db에서 가져온 데이터를 저장합니다
     const [modalPosition, setModalPosition] = useState(null) // 모달창의 위치를 저장합니다
     const [clickData, setClickData] = useState(null) // 수정, 삭제, 댓글 버튼을 클릭했을때 그 버튼의 정보를 저장합니다
     const [passwordText, setPasswordText] = useState(null) // 비밀번호를 저장합니다
-    const [userNickname, setUserNickname] = useState(null) // 유저 닉네임을 저장합니다
     const [passwordMatched, setPasswordMatched] = useState(false) // 비밀번호가 일치하는지 확인합니다
     const [updateInputValue, setUpdateInputValue] = useState('') // 수정할때 입력창에 기존 글을 보여줍니다
     const [dbCode, setDbCode] = useState('') // db에 저장된 데이터의 고유 코드를 저장합니다
@@ -60,7 +55,7 @@ function Lounge(){
     }, [modalPosition]) // modalPosition이 바뀔때마다 useEffect가 실행됩니다
 
     // 글 등록하기
-    const registerText = (e) => { // 등록 버튼 누르면 글이 서버에 저장되고 웹페이지에서 보여줍니다
+    const registerText = () => { // 등록 버튼 누르면 글이 서버에 저장되고 웹페이지에서 보여줍니다
         const id = document.querySelector("#nickname").value;
         const password = document.querySelector("#password").value;
         const text = document.querySelector("#text").value;
@@ -86,10 +81,8 @@ function Lounge(){
 
 
     // 모달창 띄우기
-    const HandleModalEdit = async (e, index) => {        
-        const pInnerText = e.target.parentNode.parentNode.firstChild.innerText
+    const HandleModalEdit = async (e) => {        
         const mongoDbId = e.target.parentNode.parentNode.parentNode.firstChild.children[2].innerText
-        const editPasswordInput = document.querySelector("#editPassword")
         console.log(mongoDbId)
 
         setModalStyle(false)
@@ -105,14 +98,12 @@ function Lounge(){
 
 
     // 모달창에서 비밀번호 일치했을경우 -> 수정, 삭제하기
-      const editModalText = async (e ,index) => {
+      const editModalText = async () => {
         
         const id = clickData.parentNode.parentNode.previousSibling.firstChild.innerText
         const editPassword = document.querySelector("#editPassword").value
         const text = clickData.parentNode.parentNode.firstChild.innerText
 
-
-   
         if(clickData.innerText === "수정"){
           try {
              const response = await fetch('http://127.0.0.1:5300/lounge/edit', { 
@@ -125,13 +116,10 @@ function Lounge(){
                 password : editPassword,
               }) 
             })   
-
-                    if (response.status === 200 && editPassword !== "") {
+                    if (response.ok === true && editPassword !== "") {
                     setPasswordMatched(true);
                     setModalPosition(null)
-                    setPasswordText(editPassword)
-                    setUserNickname(id)
-                    
+                    setPasswordText(editPassword)                    
                   } else {
                     setPasswordMatched(false);
                     setModalStyle(true)
@@ -153,14 +141,15 @@ function Lounge(){
                  'Content-Type':'application/json'
                },
                body : JSON.stringify({
-                 nickname:id,
+                 _id : dbCode,
                  password : editPassword,
-                 text:text
                 }) 
              })
-             .then(res => {if(res.status === 200){
-             getChatData()
-             setModalPosition(null)
+             .then(res => {
+                if(res.ok === true){
+                getChatData()
+                setModalPosition(null)
+                setModalStyle(false)
             }else{
                 setModalStyle(true)
                 setModalPosition(modalPosition)

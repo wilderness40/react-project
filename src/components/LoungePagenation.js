@@ -9,7 +9,7 @@ function LoungePagenation  ({page, setPage, totalPosts, limit}) {
 
     const [totalPageArray, setTotalPageArray] = useState([]) // 총 페이지 배열
     const [currentPagesArray, setCurrentPagesArray] = useState([]) // 현재 페이지 배열, 5개 단위로 끊어서 보여줌
-    const [btnActive, setBtnActive] = useState(page) 
+    const [btnActive, setBtnActive] = useState(page) // 하단 페이지 버튼 활성화 스타일링
     
     useEffect(()=> {
         const slicedPageArray = slicedPageArrayByLimit(numPages ,pageLimit) // 페이징 수 제한
@@ -18,14 +18,14 @@ function LoungePagenation  ({page, setPage, totalPosts, limit}) {
     }, [numPages])
 
     useEffect(()=> { 
-        if(page % pageLimit === 1){
+        if(page % pageLimit === 1){ 
             setCurrentPagesArray(totalPageArray[Math.floor(page / pageLimit)]) 
         }else if(page % pageLimit === 0){
             setCurrentPagesArray(totalPageArray[Math.floor(page / pageLimit) - 1]) 
         }
-    }, [page])
+    }, [page, totalPageArray])
 
-    const handlePageChange = (e ,i,currentPage) => {
+    const handlePageChange = (e ,currentPage) => {
         setPage(currentPage)
         setBtnActive(currentPage) // 버튼 활성화
         e.stopPropagation()
@@ -60,7 +60,7 @@ function LoungePagenation  ({page, setPage, totalPosts, limit}) {
                         <LoungeButton
                             key={i+1}
                             className={ currentPage === btnActive ? 'active' : ''} 
-                            onClick={(e)=>handlePageChange(e, i, currentPage)} // 페이지 클릭시
+                            onClick={(e)=>handlePageChange(e, currentPage)} // 페이지 클릭시
                             aria-current={page === i + 1 ? 'page' : undefined} // 현재 페이지
                             > { currentPage }
                         </LoungeButton> 

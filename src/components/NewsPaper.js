@@ -3,7 +3,7 @@ import "../styles/NewsPaper.css"
 import NewsPaperAPI from "../services/NewspaperAPI"
 import { NewsPaperHeadline, NewsPaperLoading } from "../components"
 
-function NewsPaper({}) {
+function NewsPaper() {
     // API 데이터 변수 설정
     const data = NewsPaperAPI()
     const news = data[0] // 중앙기사
