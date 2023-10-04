@@ -8,15 +8,18 @@ function WorkpadTodo({ todoList, doneTodos, getTodoToDB, deadlineTodos }){
     title : '',
   })
 
+  // 인풋 체크 박스에 하나만 체크되게 하고 체크된 내용을 state값에 저장
   const handleCheck = (e) => {
     const name = e.target.name;
     const { title } = newTodo;
     setNewTodo({ title, [name] : name? !newTodo[name] : true });
   }
 
+  // 기한 투두 날짜 설정
   const selectDeadline = (e) => {
     setNewTodo({ ...newTodo, deadline : newTodo?.isDeadline ? e.target.value : null });
   }
+
   // 오늘의 자정 시간을 저장(기한 todo에서 시간을 제외하기 위함)
   const today_midnight_getTime = new Date(new Date().getFullYear(),new Date().getMonth(), new Date().getDate(), 0, 0, 0, 0).getTime();
 
@@ -30,6 +33,7 @@ function WorkpadTodo({ todoList, doneTodos, getTodoToDB, deadlineTodos }){
         },
         body : JSON.stringify({
           title : e.target.form[0].value,
+          // 오늘 부터 설정한 기한 날짜 후의 ms 값을 전송
           deadline : newTodo.deadline ? today_midnight_getTime + (86400000 * newTodo.deadline) : null,
           primary : newTodo.primary,
           routine : newTodo.routine
@@ -38,17 +42,23 @@ function WorkpadTodo({ todoList, doneTodos, getTodoToDB, deadlineTodos }){
       .catch(e => console.log(e))
       .then(() => {
         getTodoToDB();
-        e.target.form[0].value = ''
+        e.target.form[0].value = '';
       })
     }
   }
-
-  const [todoSettingMode, setTodoSettingMode] = useState({ mode : false, loc : { x : 0, y : 0 }, _id : null, modify : false });
+  // 투두 설정 관련 state
+  const [todoSettingMode, setTodoSettingMode] = useState({ 
+    mode : false, 
+    loc : { x : 0, y : 0 }, 
+    _id : null, 
+    modify : false });
    // todo 클릭시 설정
   const handleClickTodoCard = (e) => {
     if(e.target.parentNode.className.includes('WorkpadTodo-list-card')){
+      // 클릭 시 애니메이션 적용
       document.querySelectorAll('.WorkpadTodo-list-card').forEach(card => card.classList.remove('move-todo-card'));
       e.target.parentNode.classList.add('move-todo-card');
+      // 해당 todo의 db 아이디 값과 위치 정보를 저장
       const _id = e.target.parentNode.id;
       const { x, y } = e.target.parentNode.getBoundingClientRect();
       if(_id !== todoSettingMode._id){
@@ -56,12 +66,12 @@ function WorkpadTodo({ todoList, doneTodos, getTodoToDB, deadlineTodos }){
       }
     }
   }
-
-  const [modifyTodoTitle, setModifyTodoTitle] = useState('')
+  // 수정 할 투두 title 값 저장 state
+  const [modifyTodoTitle, setModifyTodoTitle] = useState('');
   const changeModifyTodo = (e) => {
     setModifyTodoTitle(e.target.value);
   }
-  // 보여줄 투두 리스트 변경
+  // 보여줄 투두 리스트 변경(초기값 '중요' 탭)
   const [showingTodoList, setShowingTodoList] = useState('select-primary');
 
   const selectShowingTodoList = (e) => {
@@ -84,6 +94,7 @@ function WorkpadTodo({ todoList, doneTodos, getTodoToDB, deadlineTodos }){
       default:
         return;
     }
+    // 이전 탭 상태에서의 초기화
     document.querySelectorAll('.WorkpadTodo-list-card').forEach(card => card.classList.remove('move-todo-card'));
     setTodoSettingMode({ mode : false });
   }
@@ -129,35 +140,39 @@ function WorkpadTodo({ todoList, doneTodos, getTodoToDB, deadlineTodos }){
               중요 TODO</WorkpadTodoList>}
           
           {showingTodoList === 'select-routine' && 
-          <WorkpadTodoList todos={todoList.filter(todo => todo.routine)} 
+          <WorkpadTodoList 
+            todos={todoList.filter(todo => todo.routine)} 
             todoType='routine' 
             todoSettingMode={todoSettingMode} 
             changeModifyTodo={changeModifyTodo}>
               루틴 TODO</WorkpadTodoList>}
           
           {showingTodoList === 'select-deadline' && 
-          <WorkpadTodoList todos={deadlineTodos} 
+          <WorkpadTodoList 
+            todos={deadlineTodos} 
             todoType='deadline' 
             todoSettingMode={todoSettingMode} 
             changeModifyTodo={changeModifyTodo}>
               기한 TODO</WorkpadTodoList>}
           
           {showingTodoList === 'select-noDone' && 
-          <WorkpadTodoList todos={todoList.filter(todo => !todo.isDone)} 
+          <WorkpadTodoList 
+            todos={todoList.filter(todo => !todo.isDone)} 
             todoType='noDone' 
             todoSettingMode={todoSettingMode} 
             changeModifyTodo={changeModifyTodo}>
               아직 해야 할 TODO</WorkpadTodoList>}
           
           {showingTodoList === 'select-done' && 
-          <WorkpadTodoList todos={doneTodos} 
+          <WorkpadTodoList 
+            todos={doneTodos} 
             todoType='done' 
             todoSettingMode={todoSettingMode} 
             changeModifyTodo={changeModifyTodo}>
               완료된 TODO</WorkpadTodoList>}
         </div>
       </div>
-      
+      {/* 선택한 투두 설정 */}
       {todoSettingMode.mode && <WorkpadTodoSetting 
         todoSettingMode={todoSettingMode} 
         showingTodoList={showingTodoList} 

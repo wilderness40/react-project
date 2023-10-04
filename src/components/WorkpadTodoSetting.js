@@ -2,6 +2,7 @@ import { useEffect } from "react";
 
 function WorkpadTodoSetting({ todoSettingMode, showingTodoList, getTodoToDB, setTodoSettingMode, modifyTodoTitle, setModifyTodoTitle }){
   const { loc , _id } = todoSettingMode;
+  // 투두 클릭 시 나오는 설정 탭 기능 함수
   const handleTodoSetting = (e) => {
     if(e.target.tagName === 'BUTTON'){
       switch(e.target.textContent){
@@ -63,12 +64,6 @@ function WorkpadTodoSetting({ todoSettingMode, showingTodoList, getTodoToDB, set
       }
     }
   }
-
-  useEffect(() => {
-    if(document.getElementById(_id)?.firstChild.tagName === 'INPUT'){
-      document.getElementById(_id)?.firstChild.focus();
-    }
-  },[todoSettingMode.modify])
 
   const style = {
     top : loc.y,

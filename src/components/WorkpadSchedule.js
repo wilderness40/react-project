@@ -8,14 +8,18 @@ import { json } from 'react-router-dom';
 
 
 function WorkpadSchedule({ scheduleList, getScheduleToDB }) {
-  // 등록할 시작날짜와 종료날짜 state에 저장
+  // 등록할 시작날짜와 종료날짜 state
+  // 초기값 변수
+  const defaultDate = `${new Date().getFullYear()}-${new Date().getMonth() + 1 < 10 ? '0' + (new Date().getMonth() + 1) : new Date().getMonth() + 1}-${new Date().getDate() < 10 ? '0' + (new Date().getDate()) : new Date().getDate()}`;
+
   const [selectedDate, setSelectedDate] = useState({
-    start: `${new Date().getFullYear()}-${new Date().getMonth() + 1 < 10 ? '0' + (new Date().getMonth() + 1) : new Date().getMonth() + 1}-${new Date().getDate()}`,
-    end: `${new Date().getFullYear()}-${new Date().getMonth() + 1 < 10 ? '0' + (new Date().getMonth() + 1) : new Date().getMonth() + 1}-${new Date().getDate()}`
+    start: defaultDate,
+    end: defaultDate
   });
+
   // 시작날짜를 변경할지 종료날짜를 변경할지 여부
   const [dateSelectMode, setDateSelectMode] = useState(true);
-
+  // 스케줄 등록 api 전송 함수
   const registerSchedule = (e) => {
     e.preventDefault();
     if (e.target.form[2].value.trim()) {
@@ -32,6 +36,7 @@ function WorkpadSchedule({ scheduleList, getScheduleToDB }) {
         })
       })
         .then(() => {
+          // 초기화와 스케줄 다시 불러옴
           e.target.form[2].value = '';
           e.target.form[3].value = '';
           getScheduleToDB();
@@ -39,9 +44,11 @@ function WorkpadSchedule({ scheduleList, getScheduleToDB }) {
     }
   }
 
+  // 시작날짜, 종료날짜 설정
   const handleDateClick = (arg) => {
-    console.log(arg.view.getCurrentData())
+    // 달력 라이브러리에서 지원하는 파라미터
     const date = arg.dateStr;
+    // dateSelectMode 가 true 인경우 시작날짜 변경 false는 종료날짜 변경
     if (dateSelectMode) {
       // 끝 날짜 보다 시작날짜가 늦지 않게 설정
       if (selectedDate.end >= date) {
@@ -54,6 +61,7 @@ function WorkpadSchedule({ scheduleList, getScheduleToDB }) {
       }
     }
   }
+
   // 시작 날짜와 종료 날짜 선택 플래그
   const ChangeDateSelectMode = (e) => {
     if (e.target.id === 'selectDate-start') {
@@ -66,8 +74,8 @@ function WorkpadSchedule({ scheduleList, getScheduleToDB }) {
   const [detailEvent, setDetailEvent] = useState();
   // 스케줄 클릭시 이벤트
   const handleEventClick = (e) => {
-    console.log(e)
     const eventId = e.event._def.extendedProps._id;
+    // 클릭한 스케줄 조회
     fetch(`http://127.0.0.1:4000/api/schedule/${eventId}`, {
       method: 'GET'
     })
@@ -75,7 +83,7 @@ function WorkpadSchedule({ scheduleList, getScheduleToDB }) {
       .then(res => res.json())
       .then(res => setDetailEvent(res.schedule))
   }
-
+  // 스케줄 삭제 함수
   const deleteEvent = () => {
     fetch(`http://127.0.0.1:4000/api/schedule/${detailEvent._id}`, {
       method: 'DELETE'
@@ -92,6 +100,7 @@ function WorkpadSchedule({ scheduleList, getScheduleToDB }) {
     description: ''
   })
 
+  // 스케줄 수정 인풋 벨류 저장 함수
   const changeModifyInput = (e) => {
     switch (e.target.name) {
       case 'modify-title':
@@ -104,7 +113,7 @@ function WorkpadSchedule({ scheduleList, getScheduleToDB }) {
         return;
     }
   }
-
+  // 수정 
   const modifyEvent = () => {
     if(modifyMode) {
       fetch(`http://127.0.0.1:4000/api/schedule/${detailEvent._id}`, {
@@ -123,11 +132,6 @@ function WorkpadSchedule({ scheduleList, getScheduleToDB }) {
           getScheduleToDB();
           setDetailEvent(res.schedule);
         })
-    }else {
-      setModifySchedule({
-        title: '',
-        description: ''
-      })
     }
     setModifyMode(!modifyMode);
   }
