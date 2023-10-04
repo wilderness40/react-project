@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {HomeMenubarButton , ScheduleBar, Sidebar, FooterBar, MinimizeTab} from "../components"
+import {HomeMenubarButton , ScheduleBar, Sidebar, FooterBar} from "../components"
 import homeIcons from "../HomeIconsData";
 import "../styles/Footer.css"
 

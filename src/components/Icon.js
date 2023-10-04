@@ -1,19 +1,19 @@
-import React, {useState, useEffect, Children} from "react";
+import React, {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import '../styles/Icons.css'
 import OptionModal from "../components/OptionModal";
 
 function Icon({ src, children, href }) {
     
-    const [iconActiveFlag, setIconActiveFlag] = useState('');
-    const [optionModalState , setOptionModalState] = useState(false)
+    const [iconActiveFlag, setIconActiveFlag] = useState(''); // Icon 한번 클릭시 보라색으로 스타일 변경을 위한 state
+    const [optionModalState , setOptionModalState] = useState(false) // OptionModal을 위한 state
 
-    const changeIconFlag = (e) => {
+    const changeIconFlag = (e) => { // Icon 클릭시 css active 설정하기 위해 state값을 변경한다.
         setIconActiveFlag('clicked');
         removeAndAddActiveClass(e);
     };
   
-    const removeAndAddActiveClass = (e) => {
+    const removeAndAddActiveClass = (e) => { // Icon 클릭시 기존에 active 설정된 icon은 active를 제거하고, 클릭한 icon에 active를 추가한다.
         const icons = document.querySelectorAll('.main-icons');
         const h5 = document.querySelectorAll('h5');
         icons.forEach((icon) => {
@@ -25,9 +25,8 @@ function Icon({ src, children, href }) {
         e.currentTarget.classList.add('blurred');
         e.currentTarget.lastChild.classList.add('active');
     }
-    const handleClickOutside = (e) => {
+    const handleClickOutside = (e) => { // Icon 외부를 클릭하면 active를 제거한다.
       if (
-        // e.currentTarget.className !== 'main-icons' 
         e.target.className !== 'icon-image' &&
         e.target.className !== 'main-icons' &&
         e.target.tagName !== 'IMG' &&
@@ -59,7 +58,7 @@ function Icon({ src, children, href }) {
       <>
         <div
           className={`main-icons ${iconActiveFlag ==='clicked' ? 'blurred' : ''}`}
-          onClick={changeIconFlag} onDoubleClick={moveToPage}
+          onClick={changeIconFlag} onDoubleClick={moveToPage} // onClick은 한번클릭시 스타일링, onDoubleClick은 더블클릭시 페이지 이동
         >
           <div className="icon-image">
             <img src={src} alt="" />

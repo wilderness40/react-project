@@ -5,8 +5,6 @@ import "../styles/Home.css"
 import HelpMemo from '../components/HelpMemo'
 import ScreenSaver from '../components/ScreenSaver'
 
-// 아이콘은 더블클릭으로 한다 ondbclick, onclick하면 active해서 배경 보라색 활성화, 더블클릭하면 페이지이동
-
 function Home(){
     // 메모 창 오픈 토글
     const [memoToggle, setMemoToggle] = useState(true);

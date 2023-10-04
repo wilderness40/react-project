@@ -184,7 +184,7 @@
 }
 .left__article__img{
     width: 400px;
-    height: 250px;
+    /* height: 250px; */
 }
 .left__article__img img{
     width: 100%;
@@ -260,7 +260,6 @@
 /* 오른쪽기사 */
 .right__article{
     width: 100%;
-
     display: flex;
     /* align-items: flex-start; */
     flex-direction: column;
@@ -268,13 +267,14 @@
 }
 .right__article__img{
     width: 400px;
-    height: 250px;
+    /* height: 250px; */
 }
 .right__article__img img{
     width: 100%;
     height: 100%;
     object-fit: contain;
     transition: all .3s ease-in-out;
+
 }
 .right__article__img img:hover{
     scale: 1.01;

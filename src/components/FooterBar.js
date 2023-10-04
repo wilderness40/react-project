@@ -1,7 +1,7 @@
 import '../styles/FooterBar.css'
 
-import React, {useState} from 'react'
-import { useNavigate, useLocation } from "react-router-dom"
+import React from 'react'
+import { useLocation } from "react-router-dom"
 
 function FooterBar({handleMemoToggle, memoToggle, homeIcons}){
     const iconText = useLocation() // Icon 컴포넌트의 useNavigate state 값(icon.title)과 Sidebar 컴포넌트의 state값(icon.title)을 iconText로 모두 반환한다
