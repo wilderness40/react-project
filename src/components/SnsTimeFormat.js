@@ -1,6 +1,5 @@
 import React from "react"
 
-
 function SnsTimeFormat(chatTime){
 
     const SimpleDateTimeFormat = (date, pattern) => {
@@ -52,15 +51,15 @@ function SnsTimeFormat(chatTime){
                     matchString = match;
                     break;
             }
-            if (match == "SSS") {
+            if (match === "SSS") {
                 if (matchString < 10) {
                     matchString = "00" + matchString;
                 } else if (matchString < 100) {
                     matchString = "0" + matchString;
                 }
             } else {
-                if (match != "M" && match != "d" && match != "H" && match != "h" && match != "m" && match != "s"
-                    && match != "a" && match != "EEE" && match != "eee") {
+                if (match !== "M" && match !== "d" && match !== "H" && match !== "h" && match !== "m" && match !== "s"
+                    && match !== "a" && match !== "EEE" && match !== "eee") {
                     if ((typeof(matchString) == "number" && matchString < 10)) {
                         matchString = "0" + matchString;
                     }
@@ -103,7 +102,6 @@ function SnsTimeFormat(chatTime){
     }
     return (
         <>
-        {/* setInterVal로 갱신을 해줘야 할까? 아니면 등록된 시간이 페이지 고침시마다 자동으로 변경될까? */}
             <span className="written-time">{elapsedText(new Date(chatTime ? chatTime.chatTime : null))}</span>  
         </>
     )
