@@ -2,8 +2,11 @@ import React, {useEffect, useState} from 'react'
 import FoodKeywordData from '../FoodKeywordData'
 import '../styles/FoodKeyword.css'
 function FoodKeyword({keyword, hashTagSelect}) {
+
+    // 선택된 메뉴 키워드를 저장하기 위한 스테이트 값
     const [keywordData, setKeywordData] = useState([])
-    useEffect(() => {
+
+    useEffect(() => { // 선택된 메뉴 키워드를 기준으로 임의의 추천해주는 해쉬태크를 보여주기 위한 코드
         FoodKeywordData.filter((data) => {
             if(data.title === keyword) {
                 setKeywordData(data.keyword)

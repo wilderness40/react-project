@@ -4,7 +4,8 @@ function FoodSearchComponent({FoodList, selectMenu}) {
     console.log(selectMenu)
     const [discriptionState , setDiscriptionState] = useState(null)
     const [discription, setDiscription] = useState([])
-    useEffect( () => {
+
+    useEffect( () => { // 선택된 마커에 해당하는 데이터에 리스트에 css를 입히는 코드
         const foodListContents = document.querySelectorAll('.foodlist-contents')
         foodListContents.forEach( (content) => {
             if(content.className === 'foodlist-contents active') {
@@ -18,7 +19,8 @@ function FoodSearchComponent({FoodList, selectMenu}) {
             }
         })
     },[selectMenu])
-    const showDiscription = (e, list, index) => {
+
+    const showDiscription = (e, list, index) => {  // 선택된 리스트에 상세정보가 나오는 코드
         console.log(e.target)
         setDiscription(list)
         setDiscriptionState(index)

@@ -1,5 +1,6 @@
 import React from "react";
 import '../styles/FoodSearch.css'
+// 검색창 컴포넌트
 function FoodSearch({keywordSearch}) {
     return (
         <div className="foodSearch-container">

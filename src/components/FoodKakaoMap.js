@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Map, MapMarker, CustomOverlayMap } from "react-kakao-maps-sdk"
 import "../styles/CustomOverlayStyle.css"
-const { kakao } = window
+const { kakao } = window // 자바스크립트 형태로 카카오 라이브러리 사용할 때 필요한 코드
 function FoodKakaoMap({FoodList, mapState, searchFood, 
     loadState, selectMenu, selectRef}) {
+    // 첫 페이지 로딩시 보여주는 초기데이터 및 위치정보가 들어있는 스테이트 값
     const [positions, setPositions] = useState([
         {   
             REST_NM : '학원',
@@ -11,19 +12,13 @@ function FoodKakaoMap({FoodList, mapState, searchFood,
             LOT : 127.37775416701282
         }
     ])
+    // 검색된 결과를 저장해놓는 스테이트 값
     const [searchPositions, setSearchPositions] = useState([])
+
+    // 검색된 결과의 상태를 저장하는 스테이트 값
     const [check , setCheck] = useState(false)
-    // useEffect( () => {
-    //     console.log(navigator.geolocation.getCurrentPosition((pos) => {
-    //         console.log(pos)
-    //         var latitude = pos.coords.latitude;
 
-    //         var longitude = pos.coords.longitude;
-
-    //         console.log('lat' + latitude + ", "+ 'lng' +longitude);
-    //     }))
-    // },[])
-    useEffect(()=> {
+    useEffect(()=> { // 검색된 결과에 따라 맵을 셋팅하기 위한 코드
         if(loadState === true) {
             console.log('test')
             setSearchPositions([searchFood.data])
@@ -32,7 +27,7 @@ function FoodKakaoMap({FoodList, mapState, searchFood,
         console.log(searchPositions)
     },[searchFood])
 
-    useEffect(()=>  {
+    useEffect(()=>  { // 가게 리스트를 저장하기 위한 코드
         if(mapState === true){
             const array = []
             if(FoodList.length !== 0 ) {
@@ -49,6 +44,7 @@ function FoodKakaoMap({FoodList, mapState, searchFood,
             setPositions(array)
         }
     },[FoodList])
+    // 오버레이 마커를 사용하기 위한 코드
     if(mapState === false) {
         return (
             <Map
@@ -61,8 +57,8 @@ function FoodKakaoMap({FoodList, mapState, searchFood,
                     height : "930px",
                 }}
                 level={3}
-            >
-                {check === false ? positions.map((position, index) => {
+            >   
+                {check === false ? positions.map((position, index) => {  {/* 초기로딩시 보여줄 지도 및 마커 */}
                     return (
                         <>
                             <MapMarker
@@ -94,7 +90,7 @@ function FoodKakaoMap({FoodList, mapState, searchFood,
                         </>
                     )
                 }) : 
-                searchPositions[0].map( (searchPosition, index) => {
+                searchPositions[0].map( (searchPosition, index) => { // 검색된 결과를 보여주기위한 맵 및 마커
                     return(
                         <>
                             <MapMarker
@@ -131,7 +127,7 @@ function FoodKakaoMap({FoodList, mapState, searchFood,
             </Map>
         )
     } 
-    else if(mapState === true){
+    else if(mapState === true){ // 메뉴 선택에 따른 리스트를 보여주기 위한 맵 및 마커
         return (
             <Map
                 center={{
