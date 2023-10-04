@@ -1,11 +1,12 @@
-import React, { useState,useEffect,useRef } from "react";
-import { Header , Footer, LoungeInputEdit, LoungeModal, LoungeRegisterInput, LoungePagenation } from "../components"
+import React, { useState,useEffect } from "react";
+import { Header , Footer, LoungeInputEdit, LoungeModal, LoungeRegisterInput, LoungePagenation, SnsTimeFormat } from "../components"
 import "../styles/Lounge.css"
 import LoungeAPI from "../services/LoungeAPI";
 
 
 function Lounge(){
     const chatData = LoungeAPI()
+    const TimeFormat = SnsTimeFormat()
 
     const [chat, setChat] = useState([]) // db에서 가져온 데이터를 저장합니다
     const [modalPosition, setModalPosition] = useState(null) // 모달창의 위치를 저장합니다
@@ -21,9 +22,8 @@ function Lounge(){
     const limit = 8 // 페이지네이션을 위한 페이지당 데이터 개수를 저장합니다    
     const totalPosts = chat.length // 페이지네이션을 위한 전체 데이터 개수를 저장합니다
     const offset = (page - 1) * limit // 페이지네이션을 위한 데이터의 시작점을 저장합니다
-    const currentPosts = chat.slice(offset, offset + limit) // 페이지네이션을 위한 현재 페이지에 보여줄 데이터를 저장합니다
-
-
+    const currentPosts = chat.slice(0).reverse().slice(offset, offset + limit) // 시간 역순으로 데이터를 정렬하여 1페이지에 보여줄 데이터만큼 잘라냅니다.
+       
     // DB데이터 가져오기
     const getChatData = async () => {
         await fetch('http://127.0.0.1:5300/lounge', { 
@@ -55,7 +55,22 @@ function Lounge(){
         }
     }, [modalPosition]) // modalPosition이 바뀔때마다 useEffect가 실행됩니다
 
-    
+    useEffect(() => { // 엔터키 누르면 글이 등록됩니다
+        const lounge__input = document.querySelector(".lounge__input")
+        lounge__input.addEventListener('keydown', (e) => { 
+            if(e.key === 'Enter'){
+                registerText()
+            }
+        })
+        return(() => {
+            lounge__input.removeEventListener('keydown',(e)=> {
+                console.log('clean up')
+            })
+        })
+
+        
+    }, [])
+
     // 글 등록하기
     const registerText = (e) => { // 등록 버튼 누르면 글이 서버에 저장되고 웹페이지에서 보여줍니다
         const id = document.querySelector("#nickname").value;
@@ -85,8 +100,9 @@ function Lounge(){
     // 모달창 띄우기
     const HandleModalEdit = async (e, index) => {        
         const pInnerText = e.target.parentNode.parentNode.firstChild.innerText
-        const mongoDbId = e.target.parentNode.parentNode.parentNode.firstChild.children[1].innerText
-
+        const mongoDbId = e.target.parentNode.parentNode.parentNode.firstChild.children[2].innerText
+        console.log(mongoDbId)
+        
         setModalStyle(false)
         setDbCode(mongoDbId)
         setClickData(e.target)
@@ -106,6 +122,7 @@ function Lounge(){
         const id = clickData.parentNode.parentNode.previousSibling.innerText
 
         if(clickData.innerText === "수정"){
+            console.log(editPassword)
           try {
              fetch('http://127.0.0.1:5300/lounge/edit', { 
               method: 'post',
@@ -212,7 +229,7 @@ function Lounge(){
     const onChange = (e) => { // input창에 입력한 값을 상태값에 저장
         setUpdateInputValue(e.target.value)
     }
-
+  
     return(
         <>
             <Header></Header>  
@@ -223,12 +240,12 @@ function Lounge(){
                             <hr/>
                         </div>
                                         
-                            {chat.length !==0 && chat.slice(offset, offset + limit).map((chat,index) => {
+                            {chat.length !==0 && currentPosts.map((chat,index) => {
                                 return (
                             <div key={index}>
                             <div className="lounge__textOutput__text" >
                                 <div className="nickname">
-                                <span><img src='images/loungeuser.png' alt='userProfile' />{chat.nickname} </span> <span className='paragraph-id'>{chat._id}</span>
+                                <span><img src='images/loungeuser.png' alt='userProfile' />{chat.nickname} </span> <SnsTimeFormat chatTime={chat.date}/> <span className='paragraph-id'>{chat._id}</span>
                                 </div>
                             <div className="text__function" >
                             {/* 수정, 삭제, 댓글 */}
@@ -276,30 +293,3 @@ function Lounge(){
 
 export default Lounge
 
-
-// {chat.length !==0 && chat.map((chat,index)=> {
-//     return (
-// <div key={index}>
-// <div className="lounge__textOutput__text" >
-//     <div className="nickname">
-//     <span><img src='images/loungeuser.png' alt='userProfile' />{chat.nickname} </span> <span className='paragraph-id'>{chat._id}</span>
-//     </div>
-// <div className="text__function" >
-// {/* 수정, 삭제, 댓글 */}
-//     <LoungeInputEdit
-//     passwordMatched={passwordMatched}
-//     HandleModalEdit={(e, index)=>HandleModalEdit(e, index)}
-//     comfirmEditText={(e)=>comfirmEditText(e, index)}
-//     modalPosition={modalPosition}
-//     clickData={clickData}
-//     onChange={onChange}
-//     updateInputValue={updateInputValue}
-//     chat={chat}
-//     dbCode={dbCode}
-//     />
-//  </div>
-//  </div>
-//  </div>
- 
-//  )
-// })}      

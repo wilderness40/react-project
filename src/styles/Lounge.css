@@ -27,11 +27,12 @@
     display: flex;
 }
 .lounge__textOutput__text .nickname span{
-    /* border: 1px solid #333; */
-    font-weight: bold;
     display: flex;
     align-items: center;
     gap: 10px;
+}
+.lounge__textOutput__text .nickname span:first-child{
+    font-weight: bold;
     font-size: .8rem;
 }
 .lounge__textOutput__text .nickname span img{
@@ -104,7 +105,7 @@
     position: absolute;
     /* border: 1px solid #333; */
     background: rgb(241, 231, 231);   
-    border-radius: 1rem;
+    /* border-radius: 1rem; */
     width: 250px;
     height: 100px;
     bottom: 30%;
@@ -152,10 +153,23 @@
     opacity: 0;
 }
 .password-incorrect-text{
+    display: flex;
     color: rgb(235, 23, 23);
+}
+.password-incorrect-text img{
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;
 }
 .password-incorrect{
    animation: vibration 0.1s;
+}
+
+.written-time{
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: rgb(153, 153, 153);
+    margin-left: 10px;
 }
 
 @keyframes vibration {

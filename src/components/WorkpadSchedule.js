@@ -185,7 +185,7 @@ function WorkpadSchedule({ scheduleList, getScheduleToDB }) {
 
 function renderEventContent(eventInfo) {
   return (
-    <div style={{ textAlign: 'center' }}>
+    <div style={{ textAlign: 'center' , cursor: 'pointer' }}>
       {/* <b>{eventInfo.timeText}</b> */}
       <i >{eventInfo.event.title}</i>
     </div>

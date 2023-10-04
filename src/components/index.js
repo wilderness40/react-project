@@ -34,6 +34,7 @@ export { default as LoungeRegisterInput} from  './LoungeRegisterInput'
 export { default as LoungePagenation} from  './LoungePagenation'
 export { default as LoungeButton} from  './LoungeButton'
 export { default as LoungePageWrap} from  './LoungePageWrap'
+export { default as SnsTimeFormat} from  './SnsTimeFormat'
 
 
 
