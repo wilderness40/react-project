@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 import FoodMenuData from "../FoodMenuData";
 import '../styles/FoodMenu.css'
+
+// 메뉴 보여주기 위한 컴포넌트
 function FoodMenu({addActive}) {
     return (
         <>

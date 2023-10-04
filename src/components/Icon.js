@@ -38,9 +38,8 @@ function Icon({ src, children, href }) {
     
     const navigate = useNavigate() // useNavigate hook을 이용해 페이지 이동을 구현한다.
     const moveToPage = () => { // Icon 컴포넌트를 더블클릭하면 해당 페이지로 이동한다.
-      if(children === '설정') {
-        console.log('test')
-        setOptionModalState(true)
+      if(children === '설정') { // 설정 아이콘을 더블클릭하면 바탕화면 바꾸는 모달창 나오게 하는 코드
+        setOptionModalState(true) 
       } else {
         navigate(href, {state:children})
       }

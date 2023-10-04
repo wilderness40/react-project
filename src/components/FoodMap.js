@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 const { kakao } = window;
 
+// 자바스크립트 카카오톡 맵 보여주기
 function FoodMap({FoodList, mapState}) {
         useEffect( ()=> {
             const mapContainer = document.getElementById('map')

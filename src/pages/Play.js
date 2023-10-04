@@ -8,8 +8,8 @@ function Play({}){
          <Header></Header>
          <div className="Play">
             <TvContainer></TvContainer>
-            <Footer></Footer>
          </div>
+         <Footer></Footer>
        </>
     )
 }

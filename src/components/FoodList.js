@@ -4,14 +4,21 @@ import FoodDiscription from "./FoodDiscription"
 import '../styles/FoodList.css'
 function FoodList ({FoodList}) {
     console.log(FoodList)
+    // 선택된 가게의 상태를 저장하기 위한 스테이트 값
     const [discriptionState , setDiscriptionState] = useState(null)
+
+    // 선택된 가게의 정보를 저장하기 위한 스테이트 값
     const [discription, setDiscription] = useState([])
+
+    // 상세정보보기의 css를 사용하기 위한 스테이트 값 
     const [open , setOpen] = useState('')
-    const showDiscription = (e, list, index) => {
+
+    const showDiscription = (e, list, index) => { // 클릭시 선택된 가게의 데이터를 셋팅하기 위한 함수
             setDiscription(list)
             setDiscriptionState(index)
             setOpen('open')
     }
+    // 가게 리스트를 보여주기 위한 코드
     return (
         <>
         <div className="foodlist-container">
@@ -46,6 +53,7 @@ function FoodList ({FoodList}) {
                                             <span>{list.TELNO}</span>
                                         </div>
                                     </div>
+                                    {/* 선택한 가게의 데이터 상세정보를 보여주기위한 코드 */}
                                     {discriptionState === index ? 
                                         <FoodDiscription 
                                             key={list.SD_ID}

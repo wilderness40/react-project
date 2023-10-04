@@ -4,7 +4,8 @@ import "../styles/OptionModal.css"
 function OptionModal({ state, modalStateChange}) {
     const [fileName, setFileName] = useState('')
     const [fileURL, setFileURL] = useState('')
-    const fileUpload = (e) => {
+     
+    const fileUpload = (e) => { // 배경화면 바꿀 파일 업로드 함수
           const file = e.target.files[0]
           console.log(file)
           if(file) {
@@ -14,13 +15,20 @@ function OptionModal({ state, modalStateChange}) {
           }
           setFileName(file.name)
     }
+    
+    const backgroundApply = () => { // 업로드된 파일로 배경화면 바꾸기 함수
+        const home = document.querySelector('.Home')
+        console.log(typeof(fileURL))
+        home.style.background = `url(${fileURL})`
+        home.style.backgroundSize = 'cover'
+    }
     return (
         <>
             <div className={`modal ${state ? 'open' : 'close'}`}>
                 <div className="modal-container">
                     <div className="modal-title">
                         <span>바탕 화면 설정</span>
-                        <button className='modalClose-btn' onChange={modalStateChange}>X</button>
+                        <button className='modalClose-btn' onClick={modalStateChange}>X</button>
                     </div>
                     <div className="modal-body">
                         {fileURL !== '' &&
@@ -33,7 +41,7 @@ function OptionModal({ state, modalStateChange}) {
                     <div className="modal-footer">
                         <button className="modalSuccess-btn">확인</button>
                         <button className="modalfail-btn" onClick={modalStateChange}>취소</button>
-                        <button className="modalApply-btn">적용</button>
+                        <button className="modalApply-btn" onClick={backgroundApply}>적용</button>
                     </div>
                 </div>
             </div>
