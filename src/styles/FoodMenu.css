@@ -17,16 +17,11 @@
     margin-left: 15px;
     border: 1px solid #e6e6e6;
     border-radius: 50%;
-    cursor: pointer;
     justify-content: center;
     align-items: center;
 }
-.foodMenu-taplist ul li a {
-    /* font-weight: 700; */
-    /* display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column; */
+.foodMenu-taplist ul li span {
+    cursor: pointer;
 }
 
 .foodMenu-taplist ul div:nth-child(1) li.active {
