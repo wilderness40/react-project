@@ -38,7 +38,7 @@ function WorkpadTodoList({ children, todos, todoType, todoSettingMode, changeMod
         {todos && todos.map(todo => {
           return (
             <React.Fragment key={todo._id}>
-              {todoSettingMode?.mode && todo._id === todoSettingMode._id && <span style={{ width: '172px', margin: '0', height:'20px'}}></span>}
+              {/* {todoSettingMode?.mode && todo._id === todoSettingMode._id && <span style={{ width: '172px', margin: '0', height:'20px'}}></span>} */}
               <div id={todo._id} className={`WorkpadTodo-list-card ${todoType} ${todo.todostyle? todo.todostyle : ''} ${todoSettingMode?.mode && todo._id === todoSettingMode._id && 'move-todo-card'}`}>
                 {/* 수정 할 투두와 안할 투두 렌더링 */}
                 {!todoSettingMode?.modify && <p>{todo.typeImg}{todo.title}{todo.dDay ? ` (${todo.dDay})` : null}</p>}

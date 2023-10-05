@@ -106,8 +106,7 @@ function WorkpadTodo({ todoList, doneTodos, getTodoToDB, deadlineTodos }){
           <input type='text' placeholder="잊지말고 해야 할 일을 적어보세요!" maxLength='50'/>
           <label htmlFor="todo-primary">중요</label><input type='checkbox' name="primary" className="checkbox" id='todo-primary' checked={newTodo.primary? true : false} onChange={handleCheck}/>
           <label htmlFor="todo-routine">매일 루틴</label><input type='checkbox' name="routine" className="checkbox" id='todo-routine' checked={newTodo.routine? true : false} onChange={handleCheck}/>
-          <label htmlFor="todo-deadline">기한(최대7일)</label><input type='checkbox' name="isDeadline" className="checkbox" id='todo-deadline' checked={newTodo.isDeadline? true : false} onChange={handleCheck}/>
-          {newTodo.isDeadline && <select onChange={selectDeadline}>
+          <label htmlFor="todo-deadline">기한(최대7일){newTodo.isDeadline && <select onChange={selectDeadline}>
             <option value={false}>없음</option>
             <option value={1}>1일</option>
             <option value={2}>2일</option>
@@ -116,18 +115,19 @@ function WorkpadTodo({ todoList, doneTodos, getTodoToDB, deadlineTodos }){
             <option value={5}>5일</option>
             <option value={6}>6일</option>
             <option value={7}>7일</option>
-          </select>}
+          </select>}</label><input type='checkbox' name="isDeadline" className="checkbox" id='todo-deadline' checked={newTodo.isDeadline? true : false} onChange={handleCheck}/>
+          
           <button type='submit' onClick={registerTodo}>할 일 등록</button>
         </form>
       </div>
       {/* Todo 리스트 */}
       <div className='WorkpadTodo-todolist-wrap'>
+        <h2>Todo 리스트 선택</h2>
         <div className='WorkpadTodo-select-list' onClick={selectShowingTodoList}>
-          <h2>Todo 리스트 선택</h2>
           <div className='primary' id='select-primary'>중요 TODO{` (${todoList.filter(todo => todo.primary).length})`}</div>
           <div className='routine' id='select-routine'>루틴 TODO{` (${todoList.filter(todo => todo.routine).length})`}</div>
           <div className='' id='select-deadline'>기한 TODO{` (${deadlineTodos.length})`}</div>
-          <div className='noDone' id='select-noDone'>아직 해야 할 TODO{` (${todoList.filter(todo => !todo.isDone).length})`}</div>
+          <div className='noDone' id='select-noDone'>해야 할 TODO{` (${todoList.filter(todo => !todo.isDone).length})`}</div>
           <div className='done' id='select-done'>완료된 TODO{` (${doneTodos.length})`}</div>
         </div>
         <div className="WorkpadTodo-list-container" onClick={handleClickTodoCard}>

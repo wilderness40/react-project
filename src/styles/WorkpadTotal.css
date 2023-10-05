@@ -54,7 +54,7 @@
   .WorkpadTotal-calendar-container{
     width: 90%;
   }
-  .fc .fc-toolbar.fc-header-toolbar{
+  .WorkpadTotal-calendar-container .fc .fc-toolbar.fc-header-toolbar{
     margin: .3rem;
   }
   /* 캘린더 년도 월 타이틀 */
