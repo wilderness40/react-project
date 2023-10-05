@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-function WorkpadTodoSetting({ todoSettingMode, showingTodoList, getTodoToDB, setTodoSettingMode, modifyTodoTitle, setModifyTodoTitle }){
+function WorkpadTodoSetting({ todoSettingMode, showingTodoList, getTodoToDB, setTodoSettingMode, modifyTodoTitle, setModifyTodoTitle, modifyInput }){
   const { loc , _id } = todoSettingMode;
   // 투두 클릭 시 나오는 설정 탭 기능 함수
   const handleTodoSetting = (e) => {
@@ -27,7 +27,6 @@ function WorkpadTodoSetting({ todoSettingMode, showingTodoList, getTodoToDB, set
           });
           break;
         case '수정':
-            setModifyTodoTitle(document.getElementById(_id)?.firstChild.innerText)
             setTodoSettingMode({ ...todoSettingMode, modify : true });
           break;
         case '적용':
@@ -43,7 +42,6 @@ function WorkpadTodoSetting({ todoSettingMode, showingTodoList, getTodoToDB, set
             })
             .catch(e => console.log(e))
             .then(() =>{
-              // document.querySelectorAll('.WorkpadTodo-list-card').forEach(card => card.classList.remove('move-todo-card'));
               getTodoToDB();
               setTodoSettingMode({ ...todoSettingMode, modify : false });
             })

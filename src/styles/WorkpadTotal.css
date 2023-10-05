@@ -41,3 +41,61 @@
   background-color: grey;
   cursor: auto;
 }
+
+@media (max-width: 280px) {
+  .WorkpadTotal-container{
+    padding: 0;
+    flex-direction: column;
+    align-items: center;
+    margin-top: .5rem;
+    gap: .5rem;
+  }
+  /* 캘린더 */
+  .WorkpadTotal-calendar-container{
+    width: 90%;
+  }
+  .fc .fc-toolbar.fc-header-toolbar{
+    margin: .3rem;
+  }
+  /* 캘린더 년도 월 타이틀 */
+  .WorkpadTotal-calendar-container .fc .fc-toolbar-title{
+    font-size: .75rem;
+  }
+  /* today버튼 */
+  .WorkpadTotal-calendar-container .fc .fc-button-primary{
+    font-size: .5rem;
+  }
+  /* 월 선택 화살표 버튼 */
+  .WorkpadTotal-calendar-container .fc .fc-button .fc-icon{
+    font-size: .5rem;
+    line-height: .5rem;
+  }
+  .WorkpadTotal-calendar-container .fc-prev-button .fc-button .fc-button-primary{
+    padding: 0.2rem 0.4rem;
+  }
+  .WorkpadTotal-calendar-container .fc table{
+    font-size: .5rem;
+  }
+  /* TODO */
+  .WorkpadTotal-todo-container{
+    margin: 0;
+    width: 90%;
+    font-size: .5rem;
+  }
+  .WorkpadTotal-todo-container h3{
+    font-size: .8rem;
+    margin: .3rem 0;
+  }
+  /* 보여질 투두 선택 탭 */
+  .WorkpadTotal-todo-select{
+    
+    text-align: center;
+  }
+  /* 투두 선택 탭 버튼 */
+  .WorkpadTotal-todo-select button{
+    padding: .3rem 1rem;
+  }
+  .WorkpadTotal-todo-container .WorkpadTodo-list-card{
+    min-width: 85%;
+  }
+}

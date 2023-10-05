@@ -1,6 +1,7 @@
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
+import WorkpadTodoSetting from './WorkpadTodoSetting';
 
-function WorkpadTodoList({ children, todos, todoType, todoSettingMode, changeModifyTodo }){
+function WorkpadTodoList({ children, todos, todoType, todoSettingMode, changeModifyTodo, setModifyTodoTitle, modifyTodoTitle, setTodoSettingMode, showingTodoList, getTodoToDB }){
   // let deadlineStyle = [];
   // 기한 투두 관련 데이터 가공
   if(todoType === 'deadline'){
@@ -20,11 +21,12 @@ function WorkpadTodoList({ children, todos, todoType, todoSettingMode, changeMod
     todos = deadlineStyle;
   }
   // 투두 수정 인풋 창 열리면 포커스
-  const modifyInput = useRef()
+  const modifyInput = useRef();
 
   useEffect(() => {
     if(modifyInput.current){
       modifyInput.current.focus();
+      setModifyTodoTitle(modifyInput.current.defaultValue);
     }
   },[todoSettingMode?.modify])
   
@@ -35,12 +37,15 @@ function WorkpadTodoList({ children, todos, todoType, todoSettingMode, changeMod
         
         {todos && todos.map(todo => {
           return (
-            <div key={todo._id} id={todo._id} className={`WorkpadTodo-list-card ${todoType} ${todo.todostyle? todo.todostyle : ''}`}>
-              {/* 수정 할 투두와 안할 투두 렌더링 */}
-              {!todoSettingMode?.modify && <p>{todo.typeImg}{todo.title}{todo.dDay ? ` (${todo.dDay})` : null}</p>}
-              {todoSettingMode?.modify && (todo._id === todoSettingMode._id ?
-                <input ref={modifyInput} type='text' defaultValue={todo.title} onChange={changeModifyTodo}/> : <p>{todo.typeImg}{todo.title}{todo.dDay ? ` (${todo.dDay})` : null}</p>)}
-            </div>
+            <React.Fragment key={todo._id}>
+              {todoSettingMode?.mode && todo._id === todoSettingMode._id && <span style={{ width: '172px', margin: '0', height:'20px'}}></span>}
+              <div id={todo._id} className={`WorkpadTodo-list-card ${todoType} ${todo.todostyle? todo.todostyle : ''} ${todoSettingMode?.mode && todo._id === todoSettingMode._id && 'move-todo-card'}`}>
+                {/* 수정 할 투두와 안할 투두 렌더링 */}
+                {!todoSettingMode?.modify && <p>{todo.typeImg}{todo.title}{todo.dDay ? ` (${todo.dDay})` : null}</p>}
+                {todoSettingMode?.modify && (todo._id === todoSettingMode._id ?
+                  <input ref={modifyInput} type='text' defaultValue={todo.title} onChange={changeModifyTodo}/> : <p>{todo.typeImg}{todo.title}{todo.dDay ? ` (${todo.dDay})` : null}</p>)}
+              </div>
+            </React.Fragment>
           )
         })}
       </div>
