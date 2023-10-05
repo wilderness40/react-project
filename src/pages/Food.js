@@ -45,9 +45,16 @@ function Food({}){
                 li.classList.remove('active')
             }
         })
-        if(e.target.tagName === 'LI' && e.target.className !== 'active') {
-            e.target.classList.add('active')
-            const categoryKeyword = e.target.children[1].innerText
+        const parentLI = e.target.parentNode
+        if(e.target.tagName === 'SPAN' && e.target.className !== 'active') {
+            parentLI.classList.add('active')
+            const keywordContents = document.querySelectorAll('.food-keywordContents')
+            keywordContents.forEach( (div) => {
+                if(div.className === 'food-keywordContents active') {
+                    div.classList.remove('active')
+                }
+            })
+            const categoryKeyword = parentLI.children[1].innerText
             if(categoryKeyword === '카페') {
                 const categoryKeywordupdate = '카페·디저트'
                 axios.get(`http://127.0.0.1:5300/food/category/${categoryKeywordupdate}`)
@@ -67,10 +74,9 @@ function Food({}){
                 })
             }
         } else {
-            e.target.classList.remove('active')
+            parentLI.classList.remove('active')
         }
     }
-
     // 키워드에 따라 가게 데이터를 저장하기 위한 함수
     const keywordSearch = (e) => {
         const searchKeyword = document.querySelector('.keyword')

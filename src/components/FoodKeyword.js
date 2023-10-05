@@ -13,9 +13,24 @@ function FoodKeyword({keyword, hashTagSelect}) {
             }
         })
     },[keyword])
+
+    const keywordActive = (e) => {
+        const keywordContents = document.querySelectorAll('.food-keywordContents')
+        keywordContents.forEach( (div) => {
+            if(div.className === 'food-keywordContents active') {
+                div.classList.remove('active')
+            }
+        })
+        if(e.target.tagName === 'SPAN' && e.target.className !== 'active') {
+            e.target.parentNode.classList.add('active')
+        } else {
+            e.target.parentNode.classList.remove('active')
+        }
+    } 
+    
     return (
         <>
-            <div className='food-keywordContainer'>
+            <div className='food-keywordContainer' onClick={keywordActive}>
                 {keywordData.map( (keyword) => {
                     return (
                         <div className='food-keywordContents' onClick={hashTagSelect}>

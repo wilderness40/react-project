@@ -12,7 +12,8 @@ function WorkpadTodo({ todoList, doneTodos, getTodoToDB, deadlineTodos }){
   const handleCheck = (e) => {
     const name = e.target.name;
     const { title } = newTodo;
-    setNewTodo({ title, [name] : name? !newTodo[name] : true });
+    console.log(newTodo)
+    setNewTodo({ title, [name] : true });
   }
 
   // 기한 투두 날짜 설정

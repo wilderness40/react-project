@@ -23,7 +23,7 @@ function TvContainer({}){
             clearTimeout(TimerID)
         }
         
-    })
+    },[slideIndex])
     console.log(slideIndex)
     const slideStyle = { // 슬라이드 애니메이션
         transition: "all 1s ease-in-out",
@@ -50,7 +50,7 @@ function TvContainer({}){
                     setTimeout( () => {
                         tvifram.classList.remove('hide')
                         tvifram.src = movieSrc
-                    }, 1000)
+                    }, 5000)
                 }
             },[])
         }
