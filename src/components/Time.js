@@ -10,9 +10,7 @@ function Time({ handleTimeClick }) {
   
 
   useEffect(() => {
-    
-
-    const timeId = setInterval(() => {
+    const timeId = setTimeout(() => {
       const getTime = () => {
         return { 
           hours : new Date().getHours(), 
@@ -25,7 +23,7 @@ function Time({ handleTimeClick }) {
       setTime({ hours, minutes, seconds });
     }, 1000)
 
-    // return clearInterval(timeId);
+    return clearTimeout(timeId);
   },[time])
 
   
