@@ -4,6 +4,7 @@ import WorkpadTodoSetting from './WorkpadTodoSetting';
 import WorkpadTodoList from './WorkpadTodoList';
 
 function WorkpadTodo({ todoList, doneTodos, getTodoToDB, deadlineTodos }){
+  // 등록 할 투두
   const [newTodo, setNewTodo] = useState({
     title : '',
   })
@@ -12,7 +13,7 @@ function WorkpadTodo({ todoList, doneTodos, getTodoToDB, deadlineTodos }){
   const handleCheck = (e) => {
     const name = e.target.name;
     const { title } = newTodo;
-    setNewTodo({ title, [name] : name? !newTodo[name] : true });
+    setNewTodo({ title, [name] : name? !newTodo[name] : true }); // 삼항으로 안하면 체크 한번더 누르면 체크 해제가 안됨
   }
 
   // 기한 투두 날짜 설정
@@ -61,7 +62,7 @@ function WorkpadTodo({ todoList, doneTodos, getTodoToDB, deadlineTodos }){
       const _id = e.target.parentNode.id;
       const { x, y } = e.target.parentNode.getBoundingClientRect();
       if(_id !== todoSettingMode._id){
-        setTodoSettingMode({ mode : true , loc : { x , y }, _id })
+        setTodoSettingMode({...todoSettingMode, mode : true , loc : { x , y }, _id })
       }
     }
   }
@@ -134,7 +135,8 @@ function WorkpadTodo({ todoList, doneTodos, getTodoToDB, deadlineTodos }){
           {showingTodoList === 'select-primary' && 
           <WorkpadTodoList 
             todos={todoList.filter(todo => todo.primary)} 
-            todoType='primary' todoSettingMode={todoSettingMode} 
+            todoType='primary' 
+            todoSettingMode={todoSettingMode} 
             changeModifyTodo={changeModifyTodo}
             setModifyTodoTitle={setModifyTodoTitle}
             setTodoSettingMode={setTodoSettingMode}
@@ -196,14 +198,7 @@ function WorkpadTodo({ todoList, doneTodos, getTodoToDB, deadlineTodos }){
               완료된 TODO</WorkpadTodoList>}
         </div>
       </div>
-      {/* 선택한 투두 설정 */}
-      {todoSettingMode.mode && <WorkpadTodoSetting 
-        todoSettingMode={todoSettingMode} 
-        showingTodoList={showingTodoList} 
-        getTodoToDB={getTodoToDB} 
-        setTodoSettingMode={setTodoSettingMode} 
-        modifyTodoTitle={modifyTodoTitle} 
-        setModifyTodoTitle={setModifyTodoTitle}/>}
+      
     </div>
   )
 }

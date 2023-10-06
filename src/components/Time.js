@@ -23,7 +23,7 @@ function Time({ handleTimeClick }) {
       setTime({ hours, minutes, seconds });
     }, 1000)
 
-    return clearTimeout(timeId);
+    return () => clearTimeout(timeId);
   },[time])
 
   

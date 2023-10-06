@@ -68,12 +68,12 @@ function WorkpadTodoSetting({ todoSettingMode, showingTodoList, getTodoToDB, set
     left : loc.x
   }
   return (
-    <div className='WorkpadTodo-todo-card-set' style={style} onClick={handleTodoSetting}>
+    <span className='WorkpadTodo-todo-card-set'  onClick={handleTodoSetting}>
       {/* todo 카드 세팅 탭 */}
       <button>{showingTodoList !== 'select-done'? '일끝' : '다시'}</button>
       <button>{!todoSettingMode.modify? '수정' : '적용'}</button>
       <button>삭제</button>
-    </div>
+    </span>
   )
 }
 
