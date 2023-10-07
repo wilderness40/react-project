@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-function WorkpadTodoSetting({ todoSettingMode, showingTodoList, getTodoToDB, setTodoSettingMode, modifyTodoTitle, setModifyTodoTitle }){
+function WorkpadTodoSetting({ todoSettingMode, showingTodoList, getTodoToDB, setTodoSettingMode, modifyTodoTitle, setModifyTodoTitle, modifyInput }){
   const { loc , _id } = todoSettingMode;
   // 투두 클릭 시 나오는 설정 탭 기능 함수
   const handleTodoSetting = (e) => {
@@ -27,7 +27,6 @@ function WorkpadTodoSetting({ todoSettingMode, showingTodoList, getTodoToDB, set
           });
           break;
         case '수정':
-            setModifyTodoTitle(document.getElementById(_id)?.firstChild.innerText)
             setTodoSettingMode({ ...todoSettingMode, modify : true });
           break;
         case '적용':
@@ -43,7 +42,6 @@ function WorkpadTodoSetting({ todoSettingMode, showingTodoList, getTodoToDB, set
             })
             .catch(e => console.log(e))
             .then(() =>{
-              // document.querySelectorAll('.WorkpadTodo-list-card').forEach(card => card.classList.remove('move-todo-card'));
               getTodoToDB();
               setTodoSettingMode({ ...todoSettingMode, modify : false });
             })
@@ -70,12 +68,12 @@ function WorkpadTodoSetting({ todoSettingMode, showingTodoList, getTodoToDB, set
     left : loc.x
   }
   return (
-    <div className='WorkpadTodo-todo-card-set' style={style} onClick={handleTodoSetting}>
+    <span className='WorkpadTodo-todo-card-set'  onClick={handleTodoSetting}>
       {/* todo 카드 세팅 탭 */}
       <button>{showingTodoList !== 'select-done'? '일끝' : '다시'}</button>
       <button>{!todoSettingMode.modify? '수정' : '적용'}</button>
       <button>삭제</button>
-    </div>
+    </span>
   )
 }
 

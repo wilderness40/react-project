@@ -2,7 +2,7 @@ import '../styles/WorkpadSchedule.css';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from "@fullcalendar/interaction";
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { json } from 'react-router-dom';
 
 
@@ -155,8 +155,8 @@ function WorkpadSchedule({ scheduleList, getScheduleToDB }) {
         {/* 스케줄 등록 부분 */}
         <div className="WorkpadSchedule-input-container">
           <form>
-            <label htmlFor='selectDate-start'>시작날짜: </label><input name="selectDate-start" id='selectDate-start' value={selectedDate.start} readOnly onClick={ChangeDateSelectMode} />
-            <label htmlFor='selectDate-end'>종료날짜: </label><input name="selectDate-end" id='selectDate-end' value={selectedDate.end} readOnly onClick={ChangeDateSelectMode} />
+            <label htmlFor='selectDate-start'>시작날짜: </label><input name="selectDate-start" className={dateSelectMode? 'selectDate-foucs' : ''} id='selectDate-start' value={selectedDate.start} readOnly onClick={ChangeDateSelectMode} />
+            <label htmlFor='selectDate-end'>종료날짜: </label><input name="selectDate-end" className={dateSelectMode? '': 'selectDate-foucs'} id='selectDate-end' value={selectedDate.end} readOnly onClick={ChangeDateSelectMode} />
             <label htmlFor='schedule-title'>title:</label><input name="schedule-title" id='schedule-title' />
             <label htmlFor='schedule-description'>description:</label><input type='text' name="schedule-description" id='schedule-description'/>
             <button onClick={registerSchedule}>스케줄 등록</button>
@@ -168,8 +168,11 @@ function WorkpadSchedule({ scheduleList, getScheduleToDB }) {
             <>
               <h3>{detailEvent.title}</h3>
               <p>{detailEvent.description}</p>
+              <div className='WorkpadSchedule-detail-button-container'>
               <button onClick={modifyEvent}>수정</button>
               <button onClick={deleteEvent}>삭제</button>
+              </div>
+              
             </>
             :
             <>
@@ -177,8 +180,10 @@ function WorkpadSchedule({ scheduleList, getScheduleToDB }) {
                 <input type='text' defaultValue={detailEvent.title} name='modify-title' onChange={changeModifyInput} />
                 <input type='text' defaultValue={detailEvent.description} name='modify-description' onChange={changeModifyInput}/>
               </div>
+              <div className='WorkpadSchedule-detail-button-container'>
               <button onClick={modifyEvent} id={detailEvent._id}>수정</button>
               <button onClick={modifyEvent}>취소</button>
+              </div>
             </>)}
         </div>
       </div>
