@@ -1,13 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TvContainer, Header, Footer } from "../components/index"
+import YoutubeAPI from "../services/YoutubeAPI";
 import "../styles/Play.css"
-
 function Play({}){
+   const youTubeApiData = YoutubeAPI()
+   const [data , setData] = useState([])
+   useEffect( () => {
+      setData(youTubeApiData)
+   },[youTubeApiData])
     return(
        <>
          <Header></Header>
          <div className="Play">
-            <TvContainer></TvContainer>
+            <TvContainer youTubeApiData={data}></TvContainer>
          </div>
          <Footer></Footer>
        </>

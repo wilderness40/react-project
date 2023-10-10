@@ -22,6 +22,10 @@ function OptionModal({ state, modalStateChange}) {
         home.style.background = `url(${fileURL})`
         home.style.backgroundSize = 'cover'
     }
+    const successBackgroundApply = () => {
+        backgroundApply()
+        modalStateChange()
+    }
     return (
         <>
             <div className={`modal ${state ? 'open' : 'close'}`}>
@@ -39,7 +43,7 @@ function OptionModal({ state, modalStateChange}) {
                         </form> */}
                     </div>
                     <div className="modal-footer">
-                        <button className="modalSuccess-btn">확인</button>
+                        <button className="modalSuccess-btn" onClick={successBackgroundApply}>확인</button>
                         <button className="modalfail-btn" onClick={modalStateChange}>취소</button>
                         <button className="modalApply-btn" onClick={backgroundApply}>적용</button>
                     </div>

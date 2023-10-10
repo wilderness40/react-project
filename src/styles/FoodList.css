@@ -4,6 +4,7 @@
     height: 650px;
     flex-wrap: wrap;
     overflow: auto;
+    margin-bottom: 3rem;
 }
 .foodlist-container-box {
     display: flex;
