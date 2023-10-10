@@ -3,20 +3,30 @@ import "../styles/LoungeCommentRegister.css"
 
 function LoungeCommentRegister({commentRegister, dbCode, chat}){
    
-    const registerComment = () => { // 등록 버튼을 누르면 글이 등록됩니다
+    const registerComment = (e) => { // 등록 버튼을 누르면 글이 등록됩니다
+
     }
 
     useEffect(() => { // 엔터키 누르면 글이 등록됩니다
-        const lounge__input = document.querySelector(".lounge__input")
         const handleKeydown = (e) => {
+            console.log(e.target)
+            console.log(e.key)
             if(e.key === 'Enter'){
                 registerComment()
             }
         }
-            lounge__input.addEventListener('keydown',handleKeydown)
-        return(() => {
-            lounge__input.removeEventListener('keydown', handleKeydown)
+        const comment__input = document.querySelectorAll(".comment__input")
+        if(comment__input !== null && chat._id === dbCode){
+            comment__input.forEach((ele) => {
+                console.log(ele)
+                ele.addEventListener('keydown',handleKeydown)
+            return(() => {
+                ele.removeEventListener('keydown', handleKeydown)
+            })
         })
+        }
+        console.log(comment__input)
+       
     }, [])
 
     return (

@@ -15,7 +15,7 @@ function LoungePagenation  ({page, setPage, totalPosts, limit}) {
         const slicedPageArray = slicedPageArrayByLimit(numPages ,pageLimit) // 페이징 수 제한
         setTotalPageArray(slicedPageArray) 
         setCurrentPagesArray(slicedPageArray[0]) 
-        console.log(numPages, slicedPageArray, currentPagesArray) // 디버깅용
+        // console.log(numPages, slicedPageArray, currentPagesArray) // 디버깅용
     }, [numPages])
 
     useEffect(()=> {  // 페이지 버튼 클릭시 특정 조건이 되면 currentPagesArray 변경
