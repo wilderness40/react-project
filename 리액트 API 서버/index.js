@@ -22,10 +22,12 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
 // 라우터 설정
+const loginRouter = require('./router/user')
 const foodRouter = require('./router/food')
 const loungeChat = require('./router/loungeChats')
 
 // 라우터 적용
+app.use('/login', loginRouter)
 app.use('/food', foodRouter)
 app.use('/lounge', loungeChat)
 
