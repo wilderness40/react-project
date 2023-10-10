@@ -192,7 +192,7 @@ function Lounge(){
     })
     .then(res => res.json()) // 서버에서 응답한 데이터를 json형태로 변환
     .then(data => { // json형태로 변환된 데이터를 data라는 이름의 매개변수로 받아옴
-        const updatedChat = chat.map(c => { // 
+        const updatedChat = chat.map(c => { 
             if(chat._id === dbCode) {
                 return { ...chat , text : editedText} // 수정된 데이터를 화면에 보여주기 위해 상태값을 업데이트
             }else{
