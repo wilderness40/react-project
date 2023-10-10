@@ -15,11 +15,11 @@ function LoungePagenation  ({page, setPage, totalPosts, limit}) {
         const slicedPageArray = slicedPageArrayByLimit(numPages ,pageLimit) // 페이징 수 제한
         setTotalPageArray(slicedPageArray) 
         setCurrentPagesArray(slicedPageArray[0]) 
-        console.log(numPages, slicedPageArray) // 디버깅용
+        console.log(numPages, slicedPageArray, currentPagesArray) // 디버깅용
     }, [numPages])
 
     useEffect(()=> {  // 페이지 버튼 클릭시 특정 조건이 되면 currentPagesArray 변경
-        console.log(totalPageArray, currentPagesArray) // 디버깅용
+        // console.log(totalPageArray, currentPagesArray) // 디버깅용
         if(page % pageLimit === 1){  // 배열 내 시작이나 끝나는 값이 5로 나누었을때 1이 되는 값이 되므로 해당 조건식이 설정됨  
             setCurrentPagesArray(totalPageArray[Math.floor(page / pageLimit)])  
         }else if(page % pageLimit === 0){ // pageLimit의 배수가 totalpageArray 배열의 index가 됨, index가 0부터 시작하므로 -1설정
