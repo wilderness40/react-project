@@ -28,7 +28,7 @@ function TvContainer({}){
     const slideStyle = { // 슬라이드 애니메이션
         transition: "all 1s ease-in-out",
         transform: `translateX(${
-            -1 * (600/youtubeContents.length * slideIndex)
+            -1 * (youtubeContents.length * slideIndex)
         }%)`,
     }
     if(slideIndex === 7) {
@@ -87,4 +87,4 @@ function TvContainer({}){
     )
 }
 
-export default TvContainer
+export default React.memo(TvContainer)
