@@ -3,7 +3,7 @@ function YoutubeAPI() {
     const [youTubeData , setYouTubeData] = useState([])
     const API_KEY = process.env.REACT_APP_Youtube_API_KEY;
     useEffect( ()=> {
-        fetch(`https://www.googleapis.com/youtube/v3/search?&key=${API_KEY}&part=snippet&type=video&q=Alan Walker&maxResults=50`)
+        fetch(`https://www.googleapis.com/youtube/v3/search?&key=${API_KEY}&part=snippet&type=video&q=운동&maxResults=50`)
         .then( res => res.json())
         .then(response => {
             console.log(response)

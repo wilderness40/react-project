@@ -1,10 +1,8 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import { RemoteControl } from '../components'
-import YoutubeAPI from "../services/YoutubeAPI";
 import "../styles/TvContainer.css"
 
-function TvContainer({}){
-    const youTubeApiData = YoutubeAPI()
+function TvContainer({youTubeApiData}){
     const iframeStyle = {
         width: "100%" ,
         height: '100%' ,
@@ -12,33 +10,54 @@ function TvContainer({}){
         border : 'none',
     }
     const [slideIndex, setSlideIndex] = useState(0)
-    const [bacSlideIndex, setBacSlideIndex] = useState(null)
+    const [slideStateIndex, setSlideStateIndex] = useState(false)
+    const Timer = useRef(0)
     const youtubeContents = document.querySelectorAll('.youtube-content')
-    useEffect( () => { // 3초마다 슬라이드가 이동하는 코드
-        const increaseIndex = () => {
-            setSlideIndex(slideIndex + 1)
+    useEffect( (e) => { // n초마다 슬라이드가 이동하는 코드
+        const increaseIndex = (e) => {
+            if(slideIndex >= 10) {
+                setSlideIndex(0)
+            } else {
+                setSlideIndex(slideIndex + 1)
+            }
         }
-        const TimerID = setTimeout(increaseIndex,3000)
+        const TimerID = setTimeout(increaseIndex,5000)
+        Timer.current = TimerID
         return () => {
             clearTimeout(TimerID)
         }
         
     },[slideIndex])
-    console.log(slideIndex)
     const slideStyle = { // 슬라이드 애니메이션
-        transition: "all 1s ease-in-out",
+        transition: `${slideStateIndex ? "" : "all 1s ease-in-out"}`,
         transform: `translateX(${
-            -1 * (youtubeContents.length * slideIndex)
-        }%)`,
+            -1 * (1400 * slideIndex)
+        }px)`,
     }
-    if(slideIndex === 7) {
-        slideStyle.transition = ''
+    // if(slideIndex === 7) {
+    //     slideStyle.transition = ''
 
-        setSlideIndex(0)
+    //     setSlideIndex(0)
 
-        setTimeout( ()=> {
-            slideStyle.transition = "all 500ms ease-in-out"
-        })
+    //     setTimeout( ()=> {
+    //         slideStyle.transition = "all 500ms ease-in-out"
+    //     })
+    // }
+    console.log(slideIndex)
+    const maxIndex = 10
+    const prevMove = () => {
+        if(slideIndex <= 0) {
+            setSlideIndex(maxIndex)
+        } else {
+            setSlideIndex(slideIndex -1)
+        }
+    }
+    const nextMove = () => {
+        if(slideIndex >= maxIndex) {
+            setSlideIndex(0)
+        } else {
+            setSlideIndex(slideIndex +1)
+        }
     }
     const tvShow = (e) => { // 리스트를 누르면 윗상단에 있는 tv에 누른 리스트가 보여지는 함수
         const tvifram = document.querySelector('.Tv-body-container > iframe')
@@ -55,6 +74,20 @@ function TvContainer({}){
             },[])
         }
     }
+    const slideStop = () => {
+        setSlideStateIndex(true)
+        clearTimeout(Timer.current)
+    }
+
+    const slideStart = (e) => {
+        setSlideStateIndex(false)
+        if(slideIndex >= 10) {
+            setSlideIndex(0)
+        } else {
+            setSlideIndex(slideIndex + 1)
+        }
+        e.stopPropagation()
+    }
     return(
         <>       
             <div className="TvContainer">
@@ -69,10 +102,21 @@ function TvContainer({}){
                         {/* <iframe style={iframeStyle} src='https://youtu.be/vrfJF5QYLfQ'/> */}
                     </div>
                 </div>
-                <div className="youtube-container">
+                <button className="preveBtn" onClick={prevMove}>
+                    <span class="material-symbols-outlined">
+                        arrow_back
+                    </span>
+                </button>
+                <button className="nextBtn" onClick={nextMove}>
+                    <span class="material-symbols-outlined">
+                        arrow_forward
+                    </span>
+                </button>
+                <div className="youtube-container" >
                     {youTubeApiData.length !==0 && youTubeApiData.items.map( (youtube, id) => {
                         return (
-                            <div key={id} className="youtube-content" style={slideStyle}>
+                            <div key={id} className="youtube-content" style={slideStyle}
+                            onMouseOver={slideStop} onMouseLeave={slideStart}>
                                 <img src={youtube.snippet.thumbnails.medium.url} onClick={tvShow}/>
                                 <div className="youtube-description">
                                     <span>{youtube.snippet.title}</span>
