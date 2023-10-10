@@ -27,7 +27,7 @@ const foodRouter = require('./router/food')
 const loungeChat = require('./router/loungeChats')
 
 // 라우터 적용
-app.use('/login', loginRouter)
+app.use('/user', loginRouter)
 app.use('/food', foodRouter)
 app.use('/lounge', loungeChat)
 

@@ -14,6 +14,7 @@ router.post('/register', expressAsyncHandler( async(req, res, next) => {
         address : req.body.address ,
     })
     const newUser = await user.save()
+
     if(!newUser) {
         res.status(401).json({ code : 401 , message : 'Invalid User Data' })
     } else {
@@ -32,8 +33,9 @@ router.post('/login',expressAsyncHandler( async (req, res, next) => {
         userId : req.body.userId ,
         password : req.body.password ,
     })
+    
     if(!loginUser) {
-        res.status(401).json({ code : 401, message : 'Invalid Email or Password'})
+        res.status(401).json({ code : 401, message : '이메일이 존재하지 않거나 비밀번호가 일치하지 않습니다'})
     } else {
         const { userId, keyword, address } =loginUser
         res.json({
