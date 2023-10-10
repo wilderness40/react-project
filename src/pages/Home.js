@@ -19,6 +19,9 @@ function Home(){
         document.addEventListener('mousemove', (e)=> {
             setScreenSaverState(false)
         })
+        document.addEventListener('keydown', (e) => {
+            setScreenSaverState(false)
+        })
         const timer = setTimeout( () => {
             setScreenSaverState(true)
         } ,300000)
