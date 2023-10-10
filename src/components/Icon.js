@@ -2,11 +2,13 @@ import React, {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import '../styles/Icons.css'
 import OptionModal from "../components/OptionModal";
+import LoginModal from "../components/LoginModal";
 
 function Icon({ src, children, href }) {
     
     const [iconActiveFlag, setIconActiveFlag] = useState(''); // Icon 한번 클릭시 보라색으로 스타일 변경을 위한 state
     const [optionModalState , setOptionModalState] = useState(false) // OptionModal을 위한 state
+    const [loginModalState, setLoginModalState] = useState(false); // 로그인 모달창 열림 상태 state
 
     const changeIconFlag = (e) => { // Icon 클릭시 css active 설정하기 위해 state값을 변경한다.
         setIconActiveFlag('clicked');
@@ -40,6 +42,8 @@ function Icon({ src, children, href }) {
     const moveToPage = () => { // Icon 컴포넌트를 더블클릭하면 해당 페이지로 이동한다.
       if(children === '설정') { // 설정 아이콘을 더블클릭하면 바탕화면 바꾸는 모달창 나오게 하는 코드
         setOptionModalState(true) 
+      } else if(children === '로그인'){
+        setLoginModalState(true);
       } else {
         navigate(href, {state:children})
       }
@@ -65,6 +69,7 @@ function Icon({ src, children, href }) {
           <h5 className={`${iconActiveFlag==='clicked' ? 'active' : ''}`}>{children}</h5>
         </div>
         <OptionModal key={src} state={optionModalState} modalStateChange={modalStateChange}></OptionModal>
+        {loginModalState && <LoginModal></LoginModal>}
       </>
     );
   }
