@@ -1,6 +1,6 @@
 import './App.css';
 import {Routes, Route} from "react-router-dom"
-import { Home, Play, Work, Food, News, BackHome, Lounge} from './pages'
+import { Home, Play, Work, Food, News, BackHome, Lounge, Register} from './pages'
 
 function App() {
   return (
@@ -13,6 +13,8 @@ function App() {
          <Route exact path='/news' element={<News />} />
          <Route exact path='/BackHome' element={<BackHome />} />
          <Route exact path='/lounge' element={<Lounge />} />
+         <Route exact path='/register' element={<Register />} />
+         <Route path='/' element={<Home />} />
       </Routes>
     </div>
   )
