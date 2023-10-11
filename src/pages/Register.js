@@ -1,5 +1,6 @@
 import '../styles/Register.css';
 import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 
 function Register(){
   // 회원가입 할 유저의 정보 스테이트
@@ -25,25 +26,22 @@ function Register(){
 
   const handleRegister = (event) => {
     event.preventDefault();
-    if(inputRegisterData.userPassword && inputRegisterData.CheckingUserPassword && inputRegisterData.userPassword !== inputRegisterData.CheckingUserPassword ){
+
+    if(!inputRegisterData.userId
+      || !inputRegisterData.userPassword
+      || !inputRegisterData.CheckingUserPassword){
+        setErrorInputData({ err : 'emptyData', message : '아이디 혹은 비밀번호를 입력해주세요!'});
+    } else if (inputRegisterData.userPassword !== inputRegisterData.CheckingUserPassword ){
       setErrorInputData({ err : 'passwordMatching', message : '비밀번호가 다릅니다.'});
       return ;
-    }
-
-    if(inputRegisterData.userId
-       && inputRegisterData.userPassword
-       && inputRegisterData.CheckingUserPassword
-       && inputRegisterData.userKeyword
-       && inputRegisterData.userAddress
-       && inputRegisterData.userPassword === inputRegisterData.CheckingUserPassword){
-        console.log('가입직전')
+    } else {
         fetch('http://127.0.0.1:5300/user/register', {
           method : 'POST',
           headers : {
             'Content-Type' : 'application/json'
           },
           body : JSON.stringify({
-            userId : inputRegisterData.userId,
+            userId : inputRegisterData.userId + '@' + inputRegisterData.userEmail,
             password : inputRegisterData.userPassword,
             keyword : inputRegisterData.userKeyword,
             address : inputRegisterData.userAddress
@@ -51,8 +49,7 @@ function Register(){
         })
         .catch(e => console.log(e))
         .then((res) => {
-          console.log(res, '가입?')
-          if(res.ok){
+          if(res?.ok){
             setInputRegisterData({
               userId : '',
               userPassword : '',
@@ -60,17 +57,23 @@ function Register(){
               userKeyword : '',
               userAddress : ''
             })
+            moveToHomePage();
           }
         })
       }
   }
-  console.log(inputRegisterData)
+
+  const navigate = useNavigate();
+  const moveToHomePage = () => {
+    navigate('/');
+  }
+
   return (
     <div className="Register-container">
       <div className="Register-header">
         <h5>회원가입</h5>
         <div className='Register-button-container'>
-          <button>X</button>
+          <button onClick={moveToHomePage}>X</button>
         </div>
       </div>
       <div className='Register-form-container'>
@@ -87,6 +90,7 @@ function Register(){
           {errorInputData.err === 'passwordMatching' && <span style={{color:'red'}}>{errorInputData.message}</span>}
           <label><span>관심 키워드 : </span><input type='text' maxLength='15' name='userKeyword' onChange={changeRegisterData} value={inputRegisterData.userKeyword}/></label>
           <label><span>직장 주소 : </span><input type='text' name='userAddress' onChange={changeRegisterData} value={inputRegisterData.userAddress}/></label>
+          {errorInputData.err === 'emptyData' && <span style={{color:'red'}}>{errorInputData.message}</span>}
           <button onClick={handleRegister}>가입하기</button>
         </form>
       </div>

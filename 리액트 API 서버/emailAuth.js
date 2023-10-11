@@ -1,12 +1,12 @@
 const nodeMailer = require('nodemailer')
 
-const mailPoster = nodeMailer.createTransport({
-    service: 'gmail' ,
-    auth : {
-        user : 'dbrnjsdlfma@gmail.com' ,
-        pass : 'amal aoqg pafc xysa' ,
-    }
-})
+// const mailPoster = nodeMailer.createTransport({
+//     service: 'gmail' ,
+//     auth : {
+//         user : 'dbrnjsdlfma@gmail.com' ,
+//         pass : 'amal aoqg pafc xysa' ,
+//     }
+// })
 
 const mailOpt = (user) => {
     console.log(user)
