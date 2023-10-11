@@ -1,0 +1,37 @@
+const nodeMailer = require('nodemailer')
+
+const mailPoster = nodeMailer.createTransport({
+    service: 'gmail' ,
+    auth : {
+        user : 'dbrnjsdlfma@gmail.com' ,
+        pass : 'amal aoqg pafc xysa' ,
+    }
+})
+
+const mailOpt = (user) => {
+    console.log(user)
+    console.log(user.userId)
+    console.log(user.password)
+    const mailOptions = {
+        from : 'dbrnjsdlfma@gmail.com' , 
+        to : user.userId ,
+        subject : "비밀번호 변경 코드 입니다. 꼭 다시 변경해 주시기 바랍니다." ,
+        text : user.password ,
+    }
+    return mailOptions
+}
+
+const sendMail = (mailOptions) => {
+    mailPoster.sendMail(mailOptions, function(error, info){
+        if(error) {
+            console.log(' 에러 ' , error)
+        } 
+        else {
+            console.log(' 전송 완료 ' , info.response)
+        }
+    })
+}
+module.exports = {
+    mailOpt ,
+    sendMail ,
+}
