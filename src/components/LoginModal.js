@@ -41,10 +41,6 @@ function LoginModal({loginModalStateChange}){
   }
   console.log(user.email, user.password)
 
-    const passwordSearch = (event) => {
-      event.preventDefault(); // 임시로 막아둠
-    }
-  
   const navigate = useNavigate();
   const moveToRegisterPage = () => {
     navigate('/register');
@@ -86,7 +82,7 @@ function LoginModal({loginModalStateChange}){
             <button onClick={moveToRegisterPage}>회원가입</button>
           </div>
         </> : 
-        <PasswordSearchComponent passwordSearch={passwordSearch}></PasswordSearchComponent>
+        <PasswordSearchComponent></PasswordSearchComponent>
         }
     </div>
   )
