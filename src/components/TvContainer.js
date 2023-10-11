@@ -60,7 +60,7 @@ function TvContainer({youTubeApiData}){
         setTimeout( () => {
             tvifram.classList.remove('hide')
             tvifram.src = movieSrc
-        }, 5000)
+        }, 500)
 
     }
     const slideStop = () => {

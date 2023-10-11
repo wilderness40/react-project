@@ -25,7 +25,8 @@ function Food({}){
     useEffect( ()=> { // 첫 로딩시 사용할 list 불러오기
         axios.get('http://127.0.0.1:5300/food')
         .then(res => {
-            setFoodListData(res)
+            console.log(res)
+            setFoodListData(res.data.foodList)
         })
     },[])
 
@@ -60,7 +61,7 @@ function Food({}){
                 axios.get(`http://127.0.0.1:5300/food/category/${categoryKeywordupdate}`)
                 .then(res => {
                     setFoodkeyword(categoryKeyword)
-                    setFoodListData(res)
+                    setFoodListData(res.data.categoryFoodList)
                     setLoadState(false)
                     setMapState(true)
                 })
@@ -68,7 +69,7 @@ function Food({}){
                 axios.get(`http://127.0.0.1:5300/food/category/${categoryKeyword}`)
                 .then(res => {
                     setFoodkeyword(categoryKeyword)
-                    setFoodListData(res)
+                    setFoodListData(res.data.categoryFoodList)
                     setLoadState(false)
                     setMapState(true)
                 })
@@ -84,7 +85,7 @@ function Food({}){
         if(searchKeyword.value !== null && searchKeyword.value !== '') {
             axios.get(`http://127.0.0.1:5300/food/search/${searchKeyword.value}`)
             .then(res => {
-                setFoodSearchData(res)
+                setFoodSearchData(res.data.searchFoodList)
                 setLoadState(true)
                 setMapState(false)
             })
@@ -96,7 +97,7 @@ function Food({}){
         console.log(keyword)
         axios.get(`http://127.0.0.1:5300/food/hashTag/type=${Foodkeyword}&tag=${keyword}`)
         .then(res => {
-            setFoodSearchData(res)
+            setFoodSearchData(res.data.hashTagFoodList)
             setLoadState(true)
             setMapState(false)
         })

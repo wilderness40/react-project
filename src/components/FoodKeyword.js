@@ -31,9 +31,9 @@ function FoodKeyword({keyword, hashTagSelect}) {
     return (
         <>
             <div className='food-keywordContainer' onClick={keywordActive}>
-                {keywordData.map( (keyword) => {
+                {keywordData.map( (keyword, index) => {
                     return (
-                        <div className='food-keywordContents' onClick={hashTagSelect}>
+                        <div className='food-keywordContents' key={index} onClick={hashTagSelect}>
                             <span>{keyword}</span>
                         </div>
                     )
