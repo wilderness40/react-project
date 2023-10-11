@@ -3,15 +3,12 @@ const nodeMailer = require('nodemailer')
 const mailPoster = nodeMailer.createTransport({
     service: 'gmail' ,
     auth : {
-        user : 'inyo0506@gmail.com' ,
-        pass : '' ,
+        user : '' , // 본인 구글 아이디
+        pass : '' , // 본인 구글 비밀번호
     }
 })
 
 const mailOpt = (user) => {
-    console.log(user)
-    console.log(user.userId)
-    console.log(user.password)
     const mailOptions = {
         from : 'inyo0506@gmail.com' , 
         to : user.userId ,
