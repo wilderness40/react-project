@@ -16,12 +16,13 @@ function LoginModal(){
   // 유저 로그인 정보 전송
   const handleLogin = (event) => {
     event.preventDefault();
+    console.log(inputLoginData)
     fetch('http://127.0.0.1:5300/user/login', {
       method : 'POST',
       headers : {
         'Content-Type' : 'application/json'
       },
-      body : JSON({
+      body : JSON.stringify({
         userId : inputLoginData.userId,
         password : inputLoginData.userPassword
       })
@@ -29,6 +30,7 @@ function LoginModal(){
     .catch(e => console.log(e))
     .then((res) => {
       if(res.ok){
+        console.log('로그인 성공!')
         setInpudLoginData({
           userId : '',
           userPassword : ''
@@ -51,8 +53,8 @@ function LoginModal(){
       </div>
       <form>
         <div className="LoginModal-input-container">
-          <label><span><u>U</u>ser email:</span><input type='text' onChange={changeLoginData} name='userId'/></label>
-          <label><span><u>P</u>assword:</span><input type='password' onChange={changeLoginData} name='userPassword'/></label>
+          <label><span><u>U</u>ser email:</span><input type='text' onChange={changeLoginData} name='userId' value={inputLoginData.userId}/></label>
+          <label><span><u>P</u>assword:</span><input type='password' onChange={changeLoginData} name='userPassword' value={inputLoginData.userPassword}/></label>
         </div>
         <div className="LoginModal-login-btn-container"><button type='submit' onClick={handleLogin}>로그인</button></div>
       </form>
