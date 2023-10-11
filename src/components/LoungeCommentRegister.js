@@ -1,13 +1,49 @@
-import React, {useEffect} from "react";
+import React, {useState,useEffect} from "react";
 import "../styles/LoungeCommentRegister.css"
+import LoungeCommentOutput from "./LoungeCommentOutput";
 
 function LoungeCommentRegister({commentRegister, dbCode, chat}){
-   
+    const [comment, setComment] = useState([])
+    const getCommentData = async () => {
+        await fetch('http://127.0.0.1:5300/loungeComment', { 
+        method: 'get',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(res => res.json())
+    .then(data => setComment(data))
+    }
+    useEffect(() => {
+        getCommentData()    
+          
+    }, [])
     const registerComment = (e) => { // 등록 버튼을 누르면 글이 등록됩니다
+        const id = document.querySelector("#comment__nickname").value;
+        const password = document.querySelector("#comment__password").value;
+        const text = document.querySelector("#comment__text").value;
 
+        fetch('http://127.0.0.1:5300/loungeComment', { // db에 저장
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                nickname: id,
+                password: password,
+                text: text,
+                parent: dbCode,
+            }) 
+        })
+        getCommentData() // db에서 데이터 가져오기
+
+        // 입력창 초기화
+        document.querySelector("#comment__nickname").value = "";
+        document.querySelector("#comment__password").value = "";
+        document.querySelector("#comment__text").value = "";
     }
 
-    useEffect(() => { // 엔터키 누르면 글이 등록됩니다
+    useEffect(() => { // 엔터키 누르면 글이 등록됩니다, 아직 동작 안함 e.key가 안먹힘
         const handleKeydown = (e) => {
             console.log(e.target)
             console.log(e.key)
@@ -24,13 +60,11 @@ function LoungeCommentRegister({commentRegister, dbCode, chat}){
                 ele.removeEventListener('keydown', handleKeydown)
             })
         })
-        }
-        console.log(comment__input)
-       
+        }       
     }, [])
 
     return (
-        <>
+        <> 
             { commentRegister && dbCode === chat._id ?
                 <div className="comment__input" >
                         <div className="comment__input__nameAndPassword"> 
@@ -48,6 +82,10 @@ function LoungeCommentRegister({commentRegister, dbCode, chat}){
                         </div>
             
         : null}
+        <LoungeCommentOutput 
+            comment={comment}
+            dbCode={dbCode}
+        />
         </>
     )
         
