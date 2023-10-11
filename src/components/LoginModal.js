@@ -23,6 +23,7 @@ function LoginModal({loginModalStateChange}){
     await fetch('http://127.0.0.1:5300/user/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
       body : JSON.stringify({
         userId: user.email,
         password: user.password
@@ -39,7 +40,6 @@ function LoginModal({loginModalStateChange}){
 
     })
   }
-  console.log(user.email, user.password)
 
     const passwordSearch = (event) => {
       event.preventDefault(); // 임시로 막아둠

@@ -2,12 +2,13 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const mongoose = require('mongoose')
+const cookieParser = require('cookie-parser')
 
 const config = require('./config')
 const port = 5300
 const corsOptions = {
-    origin : 'http://localhost:3000' ,
-    credential : true ,
+    origin : 'http://localhost:3000',
+    credentials : true ,
 }
 
 // 몽고디비 연결
@@ -18,8 +19,8 @@ mongoose.connect(config.MONGODB_URL)
 // 미들웨어 설정
 app.use(cors(corsOptions))
 app.use(express.json())
-
 app.use(express.urlencoded({extended:true}))
+app.use(cookieParser())
 
 // 라우터 설정
 const loginRouter = require('./router/user')

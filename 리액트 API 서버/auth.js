@@ -16,11 +16,13 @@ const generateToken = (user) => {
 }
 
 const isAuth = (req, res, next) => {
-    const bearToken = req.headers.authorization
-    if(!bearToken) {
+    const Token = req
+    console.log(Token.cookies.accessToken)
+    
+    if(!Token) {
         res.status(401).json({ message : '토큰이 생성되지 않았습니다'})
     } else {
-        const token = bearToken.slice(7, bearToken.length) // jwt 토큰
+        const token = Token // jwt 토큰
         jwt.verify(token, config.JWT_SECRET, (err, userInfo) => {
             if(err && err.name === 'TokenExpiredError') { // 토큰이 만료된 경우
                 res.status(419).json({ code : 419 , message : '토큰이 만료되었습니다!'})
