@@ -20,23 +20,21 @@ function FoodKakaoMap({FoodList, mapState, searchFood,
 
     useEffect(()=> { // 검색된 결과에 따라 맵을 셋팅하기 위한 코드
         if(loadState === true) {
-            console.log('test')
-            setSearchPositions([searchFood.data])
+            setSearchPositions([searchFood])
             setCheck(true)
         }
-        console.log(searchPositions)
     },[searchFood])
 
     useEffect(()=>  { // 가게 리스트를 저장하기 위한 코드
         if(mapState === true){
             const array = []
             if(FoodList.length !== 0 ) {
-                for(let i=0; i<FoodList.data.length; i++) {
+                for(let i=0; i<FoodList.length; i++) {
                     const data = {
-                        REST_NM : FoodList.data[i].REST_NM ,
-                        LAT : FoodList.data[i].LAT,
-                        LOT : FoodList.data[i].LOT,
-                        content : `<div className="customoverlay" key=${i}><a><span className="title">${FoodList.data[i].REST_NM}</span></a></div>`
+                        REST_NM : FoodList[i].REST_NM ,
+                        LAT : FoodList[i].LAT,
+                        LOT : FoodList[i].LOT,
+                        content : `<div className="customoverlay" key=${i}><a><span className="title">${FoodList[i].REST_NM}</span></a></div>`
                     }
                     array.push(data)
                 }
@@ -48,13 +46,14 @@ function FoodKakaoMap({FoodList, mapState, searchFood,
     if(mapState === false) {
         return (
             <Map
+                key={1}
                 center={{
                     lat: 36.349184947679255, 
                     lng: 127.37775416701282
                 }}
                 style={{
                     width : "70%",
-                    height : "930px",
+                    height : "990px",
                 }}
                 level={3}
             >   
@@ -77,6 +76,7 @@ function FoodKakaoMap({FoodList, mapState, searchFood,
                                 title={position.REST_NM}
                             />
                             <CustomOverlayMap
+                                key={`${position.LAT},${position.LOT}`}
                                 position={{
                                     lat : position.LAT ,
                                     lng : position.LOT
@@ -109,6 +109,7 @@ function FoodKakaoMap({FoodList, mapState, searchFood,
                                 title={searchPosition.REST_NM}
                             />
                             <CustomOverlayMap
+                                key={`${searchPosition.LAT},${searchPosition.LOT}`}
                                 position={{
                                     lat : searchPosition.LAT ,
                                     lng : searchPosition.LOT
@@ -136,7 +137,7 @@ function FoodKakaoMap({FoodList, mapState, searchFood,
                 }}
                 style={{
                     width : "70%",
-                    height : "930px",
+                    height : "990px",
                 }}
                 level={4}
                 >

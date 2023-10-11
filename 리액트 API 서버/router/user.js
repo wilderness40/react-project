@@ -27,7 +27,7 @@ router.post('/register', expressAsyncHandler( async(req, res, next) => {
     }
 }))
 
-router.post('/login',expressAsyncHandler( async (req, res, next) => {
+router.post('/login',expressAsyncHandler( async (req, res) => {
     console.log(req.body)
     const loginUser = await User.findOne({
         userId : req.body.userId ,
@@ -46,7 +46,7 @@ router.post('/login',expressAsyncHandler( async (req, res, next) => {
     }
 }))
 
-router.post('/logout', (req, res, next) => {
+router.post('/logout', (req, res) => {
     res.json('로그아웃')
 })
 

@@ -11,6 +11,7 @@ function TvContainer({youTubeApiData}){
     }
     const [slideIndex, setSlideIndex] = useState(0)
     const [slideStateIndex, setSlideStateIndex] = useState(false)
+    const [videoSrc, setVideoSrc] = useState('')
     const Timer = useRef(0)
     const youtubeContents = document.querySelectorAll('.youtube-content')
     useEffect( (e) => { // n초마다 슬라이드가 이동하는 코드
@@ -34,16 +35,6 @@ function TvContainer({youTubeApiData}){
             -1 * (1400 * slideIndex)
         }px)`,
     }
-    // if(slideIndex === 7) {
-    //     slideStyle.transition = ''
-
-    //     setSlideIndex(0)
-
-    //     setTimeout( ()=> {
-    //         slideStyle.transition = "all 500ms ease-in-out"
-    //     })
-    // }
-    console.log(slideIndex)
     const maxIndex = 10
     const prevMove = () => {
         if(slideIndex <= 0) {
@@ -62,17 +53,15 @@ function TvContainer({youTubeApiData}){
     const tvShow = (e) => { // 리스트를 누르면 윗상단에 있는 tv에 누른 리스트가 보여지는 함수
         const tvifram = document.querySelector('.Tv-body-container > iframe')
         tvifram.classList.add('hide')
-        if (youTubeApiData.length !==0) {
-            youTubeApiData.items.map( (youtube) => {
-                if(e.target.src === youtube.snippet.thumbnails.medium.url) {
-                    const movieSrc = `https://www.youtube.com/embed/${youtube.id.videoId}`
-                    setTimeout( () => {
-                        tvifram.classList.remove('hide')
-                        tvifram.src = movieSrc
-                    }, 5000)
-                }
-            },[])
-        }
+        setVideoSrc(e.target.id)
+        console.log(e.target.id)
+        console.log(videoSrc)
+        const movieSrc = `https://www.youtube.com/embed/${videoSrc}`
+        setTimeout( () => {
+            tvifram.classList.remove('hide')
+            tvifram.src = movieSrc
+        }, 500)
+
     }
     const slideStop = () => {
         setSlideStateIndex(true)
@@ -86,20 +75,18 @@ function TvContainer({youTubeApiData}){
         } else {
             setSlideIndex(slideIndex + 1)
         }
-        e.stopPropagation()
     }
     return(
         <>       
             <div className="TvContainer">
                 <div className="Tv">
                     <div className="Tv-body-container">
-                        {youTubeApiData.length !==0 && youTubeApiData.items.map( (youtube, index, id) => {
-                            // console.log(youtube)
+                        {/* {youTubeApiData.length !==0 && youTubeApiData.items.map( (youtube, index, id) => {
                             if(index === 0) {
                                 return <iframe key={id} style={iframeStyle} src={`https://www.youtube.com/embed/${youtube.id.videoId}`}/>
                             }
-                        })}
-                        {/* <iframe style={iframeStyle} src='https://youtu.be/vrfJF5QYLfQ'/> */}
+                        })} */}
+                        <iframe style={iframeStyle} src={`https://www.youtube.com/embed/${videoSrc}`}/>
                     </div>
                 </div>
                 <button className="preveBtn" onClick={prevMove}>
@@ -112,12 +99,12 @@ function TvContainer({youTubeApiData}){
                         arrow_forward
                     </span>
                 </button>
-                <div className="youtube-container" >
+                <div className="youtube-container" onMouseEnter={slideStop} onMouseLeave={slideStart}>
                     {youTubeApiData.length !==0 && youTubeApiData.items.map( (youtube, id) => {
                         return (
-                            <div key={id} className="youtube-content" style={slideStyle}
-                            onMouseOver={slideStop} onMouseLeave={slideStart}>
-                                <img src={youtube.snippet.thumbnails.medium.url} onClick={tvShow}/>
+                            <div key={id} className="youtube-content" style={slideStyle}>
+                                <img src={youtube.snippet.thumbnails.medium.url} 
+                                id={youtube.id.videoId} onClick={tvShow}/>
                                 <div className="youtube-description">
                                     <span>{youtube.snippet.title}</span>
                                 </div>

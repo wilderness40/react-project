@@ -3,7 +3,6 @@ import axios from 'axios'
 import FoodDiscription from "./FoodDiscription"
 import '../styles/FoodList.css'
 function FoodList ({FoodList}) {
-    console.log(FoodList)
     // 선택된 가게의 상태를 저장하기 위한 스테이트 값
     const [discriptionState , setDiscriptionState] = useState(null)
 
@@ -25,7 +24,7 @@ function FoodList ({FoodList}) {
             <div className="foodlist-container-box">
                 <div className="foodlist-container-boxBody">
                     <div className="foodlist-container-boxTitle">
-                        {FoodList.length !==0 && FoodList.data.map( (list, index) => {
+                        {FoodList.length !==0 && FoodList.map( (list, index) => {
                             return (
                                 <div key={list.REST_ID} className='foodlist-contents' 
                                 onClick={(e) => showDiscription(e, list, index)}>
