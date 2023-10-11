@@ -2,15 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import Browser from './Browser'
-import YoutubeAPI from './services/YoutubeAPI';
-import createkakaoMap from './services/Map'
 import reportWebVitals from './reportWebVitals';
-import DaejeonFoodAPI from './services/DaejeonFoodAPI'
+import { CookiesProvider } from 'react-cookie';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
-    <Browser />
-    // <DaejeonFoodAPI/>
+    <CookiesProvider>
+      <Browser />
+    </CookiesProvider>
   // </React.StrictMode>
 );
 

@@ -25,11 +25,14 @@ app.use(express.urlencoded({extended:true}))
 const loginRouter = require('./router/user')
 const foodRouter = require('./router/food')
 const loungeChat = require('./router/loungeChats')
+const loungeComment = require('./router/loungeComments')
+
 
 // 라우터 적용
 app.use('/user', loginRouter)
 app.use('/food', foodRouter)
 app.use('/lounge', loungeChat)
+app.use('/loungeComment', loungeComment)
 
 
 // 에러처리 미들웨어
