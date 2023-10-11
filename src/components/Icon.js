@@ -4,7 +4,7 @@ import '../styles/Icons.css'
 import OptionModal from "../components/OptionModal";
 import LoginModal from "../components/LoginModal";
 
-function Icon({ src, children, href }) {
+function Icon({ src, children, href, user }) {
     
     const [iconActiveFlag, setIconActiveFlag] = useState(''); // Icon 한번 클릭시 보라색으로 스타일 변경을 위한 state
     const [optionModalState , setOptionModalState] = useState(false) // OptionModal을 위한 state
@@ -69,7 +69,7 @@ function Icon({ src, children, href }) {
           <h5 className={`${iconActiveFlag==='clicked' ? 'active' : ''}`}>{children}</h5>
         </div>
         <OptionModal key={src} state={optionModalState} modalStateChange={modalStateChange}></OptionModal>
-        {loginModalState && <LoginModal setLoginModalState={setLoginModalState}></LoginModal>}
+        {loginModalState && <LoginModal setLoginModalState={setLoginModalState} user={{...user}}></LoginModal>}
       </>
     );
   }

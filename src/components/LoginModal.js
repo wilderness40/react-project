@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
 import '../styles/LoginModal.css';
 
-function LoginModal({ setLoginModalState }){
+function LoginModal({ setLoginModalState, user }){
   // 유저 로그인 정보 스테이트
   const [inputLoginData, setInpudLoginData] = useState({
     userId : '',
@@ -16,7 +16,6 @@ function LoginModal({ setLoginModalState }){
   // 유저 로그인 정보 전송
   const handleLogin = (event) => {
     event.preventDefault();
-    console.log(inputLoginData)
     fetch('http://127.0.0.1:5300/user/login', {
       method : 'POST',
       headers : {
@@ -28,15 +27,18 @@ function LoginModal({ setLoginModalState }){
       })
     })
     .catch(e => console.log(e))
-    .then((res) => {
-      if(res?.ok){
-        console.log('로그인 성공!')
-        setInpudLoginData({
-          userId : '',
-          userPassword : ''
-        });
-        setLoginModalState(false);
-      }
+    .then((res) => res.json())
+    .then(res => {
+      console.log(res);
+      setInpudLoginData({
+        userId : '',
+        userPassword : ''
+      });
+      setLoginModalState(false);
+      console.log(user)
+      user.setUser({
+        userId : res.userId,
+      });
     })
   }
 
