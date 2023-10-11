@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
 import '../styles/LoginModal.css';
 
-function LoginModal(){
+function LoginModal({ setLoginModalState }){
   // 유저 로그인 정보 스테이트
   const [inputLoginData, setInpudLoginData] = useState({
     userId : '',
@@ -29,12 +29,13 @@ function LoginModal(){
     })
     .catch(e => console.log(e))
     .then((res) => {
-      if(res.ok){
+      if(res?.ok){
         console.log('로그인 성공!')
         setInpudLoginData({
           userId : '',
           userPassword : ''
-        })
+        });
+        setLoginModalState(false);
       }
     })
   }
@@ -45,23 +46,54 @@ function LoginModal(){
     navigate('/register');
   }
 
+  // 비밀번호 찾기
+  const [searchPassword, setSearchPassword] = useState(false);
+
+  const handleSearchPasswordToggle = () => {
+    setSearchPassword(!searchPassword);
+  }
+
+  const handleSearchPassword = (event) => {
+    event.preventDefault();
+    console.log('비멀번호 찾기 중');
+  }
+
+
   return (
     <div className='LoginModal-container'>
       <div className="modal-title">
         <span>로그인</span>
         <button className='modalClose-btn' >X</button>
       </div>
-      <form>
-        <div className="LoginModal-input-container">
-          <label><span><u>U</u>ser email:</span><input type='text' onChange={changeLoginData} name='userId' value={inputLoginData.userId}/></label>
-          <label><span><u>P</u>assword:</span><input type='password' onChange={changeLoginData} name='userPassword' value={inputLoginData.userPassword}/></label>
+      {!searchPassword &&
+      <>
+        <form>
+          <div className="LoginModal-input-container">
+            <label><span><u>U</u>ser email:</span><input type='text' onChange={changeLoginData} name='userId' value={inputLoginData.userId}/></label>
+            <label><span><u>P</u>assword:</span><input type='password' onChange={changeLoginData} name='userPassword' value={inputLoginData.userPassword}/></label>
+          </div>
+          <div className="LoginModal-login-btn-container"><button type='submit' onClick={handleLogin}>로그인</button></div>
+        </form>
+        <div className="LoginModal-footer">
+          <button onClick={handleSearchPasswordToggle}>비밀번호 찾기</button>
+          <button onClick={moveToRegisterPage}>회원가입</button>
         </div>
-        <div className="LoginModal-login-btn-container"><button type='submit' onClick={handleLogin}>로그인</button></div>
-      </form>
-      <div className="LoginModal-footer">
-        <button>비밀번호 찾기</button>
-        <button onClick={moveToRegisterPage}>회원가입</button>
-      </div>
+      </>
+      }
+      {searchPassword &&
+        <>
+          <form>
+            <div className="LoginModal-input-container">
+              <label><span><u>U</u>ser email:</span><input type='text' onChange={changeLoginData} name='userId' value={inputLoginData.userId}/></label>
+            </div>
+            <div className="LoginModal-login-btn-container"><button type='submit' onClick={handleSearchPassword}>비밀번호 찾기</button></div>
+          </form>
+          <div className="LoginModal-footer">
+            <button onClick={handleSearchPasswordToggle}>취소</button>
+            <button onClick={moveToRegisterPage}>회원가입</button>
+          </div>
+        </>
+      }
     </div>
   )
 }

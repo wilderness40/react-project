@@ -69,7 +69,7 @@ function Icon({ src, children, href }) {
           <h5 className={`${iconActiveFlag==='clicked' ? 'active' : ''}`}>{children}</h5>
         </div>
         <OptionModal key={src} state={optionModalState} modalStateChange={modalStateChange}></OptionModal>
-        {loginModalState && <LoginModal></LoginModal>}
+        {loginModalState && <LoginModal setLoginModalState={setLoginModalState}></LoginModal>}
       </>
     );
   }
