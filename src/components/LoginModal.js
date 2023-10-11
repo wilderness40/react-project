@@ -34,7 +34,8 @@ function LoginModal({loginModalStateChange}){
     .then((res) => {
       console.log(res)
       setCookie('id', res.token, { 
-        path: '/'    })
+        path: '/'    
+      })
 
     })
   }
