@@ -4,7 +4,7 @@ import '../styles/Icons.css'
 import OptionModal from "../components/OptionModal";
 import LoginModal from "../components/LoginModal";
 
-function Icon({ src, children, href, user }) {
+function Icon({ src, children, href, setUserInfo }) {
     
     const [iconActiveFlag, setIconActiveFlag] = useState(''); // Icon 한번 클릭시 보라색으로 스타일 변경을 위한 state
     const [optionModalState , setOptionModalState] = useState(false) // OptionModal을 위한 state
@@ -74,7 +74,7 @@ function Icon({ src, children, href, user }) {
         {optionModalState &&
           <OptionModal key={src} state={optionModalState} optionModalStateChange={optionModalStateChange}></OptionModal>
         }
-        {loginModalState && <LoginModal loginModalStateChange={loginModalStateChange}></LoginModal>}
+        {loginModalState && <LoginModal loginModalStateChange={loginModalStateChange} setUserInfo={setUserInfo}></LoginModal>}
       </>
     );
   }

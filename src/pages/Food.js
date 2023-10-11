@@ -3,7 +3,8 @@ import { Header , Footer, FoodMenu, FoodSearch, FoodKeyword,
     FoodKakaoMap, FoodList, FoodSearchComponent} from "../components"
 import '../styles/Food.css'
 import axios from "axios";
-function Food({}){
+function Food({userInfo}){
+    console.log(userInfo)
     // 전체 가게 리스트를 저장하기 위한 스테이트 값
     const [FoodListData, setFoodListData] = useState([])
 
