@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const { Types: { ObjectId } } = Schema;
 
-const loungeChatSchema = new Schema({
+const loungeCommentSchema = new Schema({
     nickname: {
         type: String,
         reuired: true,
@@ -23,12 +23,17 @@ const loungeChatSchema = new Schema({
     lastModifiedAt: {
         type: Date,
         default: Date.now,
-    },
+    },   
     depth: {
         type: Number,
-        default: 0,
-    }
+        default: 1,
+    },
+    parent: {
+        type:  ObjectId,
+        ref: 'LoungeChat', // 프론트에서 fetch로 parent: dbCode를 보내주고 router에서 req.body.parent로 받아준다. 그리고 db에 저장할 때는 parent: req.body.parent로 저장한다.
+    },
 })
 
-const LoungeChat = mongoose.model('loungeChats', loungeChatSchema);
-module.exports = LoungeChat
+
+const LoungeComment = mongoose.model('lougeComments', loungeCommentSchema);
+module.exports = LoungeComment

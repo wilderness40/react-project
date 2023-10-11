@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from "react";
-import { Header , Footer, LoungeInputEdit, LoungeModal, LoungeRegisterInput, LoungePagenation, SnsTimeFormat, LoungeCommentRegister } from "../components"
+import { Header , Footer, LoungeInputEdit, LoungeModal, LoungeRegisterInput, LoungePagenation, SnsTimeFormat, LoungeCommentRegister, LoungeCommentOutput } from "../components"
 import "../styles/Lounge.css"
 
 function Lounge(){
@@ -118,10 +118,7 @@ function Lounge(){
               }) 
             })
             
-            
                     if (response.ok === true && editPassword !== "") {
-
-
                     setPasswordMatched(true);
                     setModalPosition(null)
                     setPasswordText(editPassword)       
@@ -135,13 +132,9 @@ function Lounge(){
             
            catch (error) {
             console.log(error);
-          }
-          
-          
+          }          
 }
-
     if(clickData.innerText === "삭제"){ 
-      
            try {
               fetch('http://127.0.0.1:5300/lounge/delete', { 
                method:'delete',
@@ -187,7 +180,8 @@ function Lounge(){
             body: JSON.stringify({
                 _id : dbCode,
                 password : passwordText,
-                text: editedText
+                text: editedText,
+                lastModifiedAt : new Date()
         })
     })
     .then(res => res.json()) // 서버에서 응답한 데이터를 json형태로 변환
@@ -260,7 +254,6 @@ function Lounge(){
                                 dbCode={dbCode}
                                 chat={chat}
                              />
-
                                 </ React.Fragment>
                              )
                             })}      
