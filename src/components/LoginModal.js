@@ -5,7 +5,7 @@ import { useCookies } from 'react-cookie';
 import '../styles/LoginModal.css';
 
 function LoginModal({loginModalStateChange}){
-  const [ cookies, setCookie ] = useCookies(['id'])
+  const [ cookies, setCookie ] = useCookies(['accessToken'])
   const [user, setUser] = useState({ email : '', password : ''})
   const [passwordState, setPasswordState] = useState(false)
 
@@ -33,7 +33,7 @@ function LoginModal({loginModalStateChange}){
     .then(res => res.json())
     .then((res) => {
       console.log(res)
-      setCookie('id', res.token, { 
+      setCookie('accessToken', res.token, { 
         path: '/'    
       })
 
