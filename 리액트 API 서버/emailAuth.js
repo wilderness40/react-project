@@ -3,8 +3,8 @@ const nodeMailer = require('nodemailer')
 const mailPoster = nodeMailer.createTransport({
     service: 'gmail' ,
     auth : {
-        user : 'dbrnjsdlfma@gmail.com' ,
-        pass : 'amal aoqg pafc xysa' ,
+        user : 'inyo0506@gmail.com' ,
+        pass : '' ,
     }
 })
 
@@ -13,7 +13,7 @@ const mailOpt = (user) => {
     console.log(user.userId)
     console.log(user.password)
     const mailOptions = {
-        from : 'dbrnjsdlfma@gmail.com' , 
+        from : 'inyo0506@gmail.com' , 
         to : user.userId ,
         subject : "비밀번호 변경 코드 입니다. 꼭 다시 변경해 주시기 바랍니다." ,
         text : user.password ,
