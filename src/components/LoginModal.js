@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
 import '../styles/LoginModal.css';
 
-function LoginModal({ setLoginModalState, user }){
+function LoginModal({ setLoginModalState, loginModalStateChange, user }){
   // 유저 로그인 정보 스테이트
   const [inputLoginData, setInpudLoginData] = useState({
     userId : '',
@@ -41,7 +41,9 @@ function LoginModal({ setLoginModalState, user }){
       });
     })
   }
-
+  const passwordSearch = (event) => {
+    event.preventDefault(); // 임시로 막아둠
+  }
   // 회원가입 클릭 시 회원가입 페이지로 이동 
   const navigate = useNavigate();
   const moveToRegisterPage = () => {

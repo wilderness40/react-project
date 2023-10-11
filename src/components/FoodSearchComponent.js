@@ -32,7 +32,7 @@ function FoodSearchComponent({FoodList, selectMenu}) {
                 <div className="foodlist-container-box">
                     <div className="foodlist-container-boxBody">
                         <div className="foodlist-container-boxTitle">
-                            {FoodList.length !==0 && FoodList.data.map((list, index) => {
+                            {FoodList.length !==0 && FoodList.map((list, index) => {
                                 return (
                                     <div key={list.REST_ID} className='foodlist-contents' 
                                     onClick={(e) => showDiscription(e, list, index)}>

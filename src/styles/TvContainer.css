@@ -6,16 +6,11 @@
 body::-webkit-scrollbar {
     display: none;
 }
-/* .test {
-    background: url('../../public/images/지지직.gif');
-} */
 .TvContainer {
     display: flex;
     justify-content: center;
-    /* align-items: center; */
     flex-direction: column;
-    /* padding: 3rem; */
-    width: 2500px;
+    width: 100vw;
     /* background: url('https://mblogthumb-phinf.pstatic.net/MjAxNzAzMTZfMTA4/MDAxNDg5NjcyOTUzOTc2.BV87bXTpxENcTBg9ovkIrjULnYSVWX4UMgiFI9i_OC4g.BU2qzDQJSSSy0tpGs8dJNRk5RDpWt0SGStrVPnDuP-sg.PNG.johnoh125/%ED%85%8C%EC%8A%A4%ED%8A%B8_%ED%8C%A8%ED%84%B4.png?type=w800'); */
     background: black;
     background-size: cover;
@@ -25,8 +20,7 @@ body::-webkit-scrollbar {
     height: 500px;
     background-image: url('../../public/images/retrotv.png');
     background-size: cover;
-    margin-left: 700px;
-    /* background-repeat: no-repeat; */
+    margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -48,7 +42,6 @@ body::-webkit-scrollbar {
     width: 3000px;
     margin: 2rem 0;
     background: rgba(95 85 85)
-    /* background: whitesmoke */
     /* background: url('https://mblogthumb-phinf.pstatic.net/MjAxNzAzMTZfMTA4/MDAxNDg5NjcyOTUzOTc2.BV87bXTpxENcTBg9ovkIrjULnYSVWX4UMgiFI9i_OC4g.BU2qzDQJSSSy0tpGs8dJNRk5RDpWt0SGStrVPnDuP-sg.PNG.johnoh125/%ED%85%8C%EC%8A%A4%ED%8A%B8_%ED%8C%A8%ED%84%B4.png?type=w800'); */
 }
 .youtube-container::-webkit-scrollbar {

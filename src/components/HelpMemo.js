@@ -1,6 +1,6 @@
 import '../styles/HelpMemo.css';
 
-function HelpMemo({ memoToggle, handleMemoToggle, user }){
+function HelpMemo({ memoToggle, handleMemoToggle }){
   return (
     <div className={`HelpMemo-container ${memoToggle? 'Memo-open' : 'Memo-hidden'}`}>
       <div className="HelpMemo-header">
@@ -10,7 +10,7 @@ function HelpMemo({ memoToggle, handleMemoToggle, user }){
         </div>
       </div>
       <div className='HelpMemo-textarea'>
-          <p>{user.user.userId && <>{`안녕하세요 ${user.user.userId}님`}<br/></>}
+          <p>
             아이콘을 더블클릭 하거나 왼쪽 하단 시작 버튼을 클릭하여 컨텐츠를 이용해보세요.<br/><br/>
             오른쪽 하단 시계 버튼을 클릭하면 스케쥴에 관한 자세한 내용을 확인 할 수 있습니다.
           </p>

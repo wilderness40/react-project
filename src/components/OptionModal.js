@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../styles/OptionModal.css"
 
-function OptionModal({ state, modalStateChange}) {
+function OptionModal({ state, optionModalStateChange}) {
     const [fileName, setFileName] = useState('')
     const [fileURL, setFileURL] = useState('')
      
@@ -24,7 +24,7 @@ function OptionModal({ state, modalStateChange}) {
     }
     const successBackgroundApply = () => {
         backgroundApply()
-        modalStateChange()
+        optionModalStateChange()
     }
     return (
         <>
@@ -32,7 +32,7 @@ function OptionModal({ state, modalStateChange}) {
                 <div className="modal-container">
                     <div className="modal-title">
                         <span>바탕 화면 설정</span>
-                        <button className='modalClose-btn' onClick={modalStateChange}>X</button>
+                        <button className='modalClose-btn' onClick={optionModalStateChange}>X</button>
                     </div>
                     <div className="modal-body">
                         {fileURL !== '' &&
@@ -44,7 +44,7 @@ function OptionModal({ state, modalStateChange}) {
                     </div>
                     <div className="modal-footer">
                         <button className="modalSuccess-btn" onClick={successBackgroundApply}>확인</button>
-                        <button className="modalfail-btn" onClick={modalStateChange}>취소</button>
+                        <button className="modalfail-btn" onClick={optionModalStateChange}>취소</button>
                         <button className="modalApply-btn" onClick={backgroundApply}>적용</button>
                     </div>
                 </div>

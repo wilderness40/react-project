@@ -48,8 +48,11 @@ function Icon({ src, children, href, user }) {
         navigate(href, {state:children})
       }
     }
-    const modalStateChange = () => {
+    const optionModalStateChange = () => {
       setOptionModalState(!optionModalState)
+    }
+    const loginModalStateChange = () => {
+      setLoginModalState(!loginModalState);
     }
     useEffect(() => { // Icon 컴포넌트가 생성될 때 이벤트 리스너를 추가한다.
       document.addEventListener('click', handleClickOutside);
@@ -68,8 +71,10 @@ function Icon({ src, children, href, user }) {
           </div>
           <h5 className={`${iconActiveFlag==='clicked' ? 'active' : ''}`}>{children}</h5>
         </div>
-        <OptionModal key={src} state={optionModalState} modalStateChange={modalStateChange}></OptionModal>
-        {loginModalState && <LoginModal setLoginModalState={setLoginModalState} user={{...user}}></LoginModal>}
+        {optionModalState &&
+          <OptionModal key={src} state={optionModalState} optionModalStateChange={optionModalStateChange}></OptionModal>
+        }
+        {loginModalState && <LoginModal loginModalStateChange={loginModalStateChange} setLoginModalState={setLoginModalState}></LoginModal>}
       </>
     );
   }

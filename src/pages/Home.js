@@ -30,12 +30,6 @@ function Home(){
         }
     },[screenSaverState])
 
-    const [user, setUser] = useState({
-        userId : '',
-        userKeyword : '',
-        userAddress : ''
-    })
-
 
     return(
         <>
@@ -43,11 +37,11 @@ function Home(){
                 <main>
                     {homeIcons.map((icon, id) => {
                     return (
-                        <Icon key={id} src={icon.iconSrc} href={icon.url} user={{user, setUser}}>{icon.iconTitle}</Icon>) 
+                        <Icon key={id} src={icon.iconSrc} href={icon.url}>{icon.iconTitle}</Icon>) 
                     })} 
                 </main>
             </div>
-            <HelpMemo memoToggle={memoToggle} handleMemoToggle={handleMemoToggle} user={{user, setUser}}/>
+            <HelpMemo memoToggle={memoToggle} handleMemoToggle={handleMemoToggle}/>
             <ScreenSaver state={screenSaverState}></ScreenSaver>
             <Footer handleMemoToggle={handleMemoToggle} memoToggle={memoToggle}></Footer>
         </>
