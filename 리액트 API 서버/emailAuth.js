@@ -4,7 +4,7 @@ const mailPoster = nodeMailer.createTransport({
     service: 'gmail' ,
     auth : {
         user : 'inyo0506@gmail.com' ,
-        pass : '' ,
+        pass : 'lfpy owux ncdo ihjz' ,
     }
 })
 

@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import './App.css';
 import {Routes, Route} from "react-router-dom"
 import { Home, Play, Work, Food, News, BackHome, Lounge, Register} from './pages'
-import { useCookies } from 'react-cookie';
 
 
 function App() {
@@ -15,8 +14,7 @@ function App() {
         })
         .then(res => res.json())
         .then((res) => {
-          console.log('islogin')
-          setUserInfo({ keyword : res.keyword})
+          setUserInfo({ keyword : res.keyword, address : res.address})
           })
      }, [])
      
