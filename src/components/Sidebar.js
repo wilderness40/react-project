@@ -2,7 +2,6 @@ import React, {useEffect} from "react";
 import '../styles/Sidebar.css'
 import { Link } from "react-router-dom"
 
-
 function Sidebar({homeIcons, buttonFlag, flagChange}){
     // 미해결사항 : 사이드바가 열려있을 때 하단 시계버튼을 클릭하면 사이드바가 사라지지 않는다.
     const anotheClickHideSidebar = (e) => { // 다른 곳을 클릭하면 사이드바가 사라지게 하는 함수
@@ -22,6 +21,7 @@ function Sidebar({homeIcons, buttonFlag, flagChange}){
       { 
         flagChange() // 상위 컴포넌트 footer에서 buttonFlag를 false로 바꿔주는 함수를 props로 받아와서 실행한다.
     }
+    
 }
 
 useEffect(() => { // 다른 곳을 클릭하면 사이드바가 사라지게 하는 함수를 실행한다.
@@ -30,7 +30,6 @@ useEffect(() => { // 다른 곳을 클릭하면 사이드바가 사라지게 하
       document.removeEventListener('click', anotheClickHideSidebar);  
     };
   }, []);
-
 
     return(
         <>

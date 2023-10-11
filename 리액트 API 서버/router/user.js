@@ -2,7 +2,8 @@ const express = require('express')
 const User = require('../models/User')
 const expressAsyncHandler = require('express-async-handler')
 const { generateToken, isAuth } = require('../auth')
-
+const { v4 : uuidv4 } = require('uuid'); 
+const { mailOpt, sendMail } = require('../emailAuth')
 const router = express.Router()
 
 router.post('/register', expressAsyncHandler( async(req, res, next) => {
@@ -57,6 +58,24 @@ router.post('/login',expressAsyncHandler( async (req, res) => {
 router.post('/logout', (req, res) => {
     res.json('로그아웃')
 })
+
+router.post('/searchPassword',expressAsyncHandler(async(req, res) => {
+    const user = await User.findOne({
+        userId : req.body.userId ,
+    })
+    if(!user) {
+        res.status(401).json({ code : 401 , message : 'Invalid User Data' })
+    } else {
+        const uuid = uuidv4()
+        console.log(uuid)
+        user.password = uuid || user.password
+        const passwordSearchUser = await user.save()
+        const { userId, password }= passwordSearchUser
+        const mailOption = mailOpt(passwordSearchUser)
+        sendMail(mailOption)
+        res.status(200).json({ code : 200 , userId, password})
+    }
+}))
 
 router.put('/:id' ,isAuth , expressAsyncHandler ( async (req, res, next) => {
     const user = await User.findById(req.params.id)
