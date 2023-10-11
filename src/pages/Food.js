@@ -28,6 +28,7 @@ function Food({}){
             console.log(res)
             setFoodListData(res.data.foodList)
         })
+        console.log(document.cookie)
     },[])
 
     useEffect( (e) => { // 키보드 엔터를 누를시 검색되게 하는 코드
