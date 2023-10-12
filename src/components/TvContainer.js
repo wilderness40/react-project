@@ -56,7 +56,7 @@ function TvContainer({youTubeApiData}){
         setVideoSrc(e.target.id)
         console.log(e.target.id)
         console.log(videoSrc)
-        const movieSrc = `https://www.youtube.com/embed/${videoSrc}`
+        const movieSrc = `https://www.youtube.com/embed/${e.target.id}`
         setTimeout( () => {
             tvifram.classList.remove('hide')
             tvifram.src = movieSrc
