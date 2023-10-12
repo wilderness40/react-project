@@ -28,6 +28,8 @@ const loginRouter = require('./router/user')
 const foodRouter = require('./router/food')
 const loungeChat = require('./router/loungeChats')
 const loungeComment = require('./router/loungeComments')
+const scheduleRoute = require('./router/schedule')
+const todoRoute = require('./router/todo')
 
 
 // 라우터 적용
@@ -35,6 +37,8 @@ app.use('/user', loginRouter)
 app.use('/food', foodRouter)
 app.use('/lounge', loungeChat)
 app.use('/loungeComment', loungeComment)
+app.use('/api/schedule', scheduleRoute);
+app.use('/api/todo', todoRoute)
 
 // 에러처리 미들웨어
 app.get('/error', (req, res, next) => {

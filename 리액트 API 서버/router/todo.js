@@ -2,9 +2,12 @@ const express = require('express');
 const router = express.Router();
 const Todo = require('../models/Todo');
 const expressAsyncHandler = require('express-async-handler');
+const { isAuth } = require('../auth');
+const { Types : { ObjectId } } = require('mongoose');
+
 // 투두 등록
-router.post('/', expressAsyncHandler(async (req, res) => {
-  const todos = await Todo.find({});
+router.post('/', isAuth, expressAsyncHandler(async (req, res) => {
+  const todos = await Todo.find({ userId : req.user._id });
   const id = todos[todos.length - 1]?.id + 1 || 0;
   let typeImg = '';
   if(req.body.deadline){
@@ -20,7 +23,8 @@ router.post('/', expressAsyncHandler(async (req, res) => {
     deadline : req.body.deadline? new Date(req.body.deadline + 32400000) : req.body.deadline,
     primary : req.body.primary,
     routine : req.body.routine,
-    typeImg : typeImg
+    typeImg : typeImg,
+    userId : new ObjectId(req.user._id)
   })
 
   const newTodo = await todo.save();
@@ -31,8 +35,10 @@ router.post('/', expressAsyncHandler(async (req, res) => {
   }
 }))
 // 투두 전체 조회
-router.get('/', expressAsyncHandler(async (req, res) => {
-  const SearchDoneTodos = await Todo.find({ isDone : true });
+router.get('/', isAuth, expressAsyncHandler(async (req, res) => {
+  const SearchDoneTodos = await Todo.find({ 
+    userId : req.user._id,
+    isDone : true });
   const initRoutine = SearchDoneTodos.map(todo => {
     if(todo.routine && todo.routineDoneTime?.getDate() !== new Date(new Date().getTime() + 32400000).getDate()){
       todo.isDone = false;
@@ -45,8 +51,10 @@ router.get('/', expressAsyncHandler(async (req, res) => {
   res.json({ todos, doneTodos });
 }))
 // 투두 완료
-router.put('/done/:id', expressAsyncHandler(async (req, res) => {
-  const todo = await Todo.findOne({ _id : req.params.id });
+router.put('/done/:id', isAuth, expressAsyncHandler(async (req, res) => {
+  const todo = await Todo.findOne({ 
+    userId : req.user._id,
+     _id : req.params.id });
   todo.isDone = !todo.isDone;
   if(todo.routine){
     const today = new Date();
@@ -60,7 +68,7 @@ router.put('/done/:id', expressAsyncHandler(async (req, res) => {
   }
 }))
 // 투두 삭제
-router.delete('/:id', expressAsyncHandler(async (req, res) => {
+router.delete('/:id', isAuth, expressAsyncHandler(async (req, res) => {
   const todo = await Todo.findByIdAndDelete({ _id : req.params.id });
   if(!todo){
     res.status(401).json({ code : 401, messgae : 'Invalid delete todo'});
@@ -69,8 +77,10 @@ router.delete('/:id', expressAsyncHandler(async (req, res) => {
   }
 }))
 // 투두 수정
-router.put('/:id', expressAsyncHandler(async (req, res) => {
-  const todo = await Todo.findById({ _id : req.params.id });
+router.put('/:id', isAuth, expressAsyncHandler(async (req, res) => {
+  const todo = await Todo.findById({ 
+    userId : req.user._id,
+    _id : req.params.id });
   todo.title = req.body.title;
   const updateTodo = await todo.save();
   if(!updateTodo){
