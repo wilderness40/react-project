@@ -64,17 +64,22 @@ router.post('/searchPassword',expressAsyncHandler(async(req, res) => {
     const user = await User.findOne({
         userId : req.body.userId ,
     })
-    if(!user) {
-        res.status(401).json({ code : 401 , message : 'Invalid User Data' })
-    } else {
-        const uuid = uuidv4()
-        console.log(uuid)
-        user.password = uuid || user.password
-        const passwordSearchUser = await user.save()
-        const { userId, password }= passwordSearchUser
-        const mailOption = mailOpt(passwordSearchUser)
-        sendMail(mailOption)
-        res.status(200).json({ code : 200 , userId, password})
+    console.log(user)
+    try {
+        if(!user || user === '' || user === null) {
+            return res.status(401).json({ code : 401 , message : 'Invalid User Data'})
+        } else {
+            const uuid = uuidv4()
+            console.log(uuid)
+            user.password = uuid || user.password
+            const passwordSearchUser = await user.save()
+            const { userId, password }= passwordSearchUser
+            const mailOption = mailOpt(passwordSearchUser)
+            sendMail(mailOption)
+            return res.status(200).json({ code : 200 , userId, password})
+        }
+    } catch(error) {
+        console.log(error)
     }
 }))
 
