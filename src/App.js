@@ -10,7 +10,6 @@ function App() {
      useEffect(() => {
         fetch('http://127.0.0.1:5300/user/isLogin', {
           method: 'GET',
-          headers: { 'Content-Type': 'application/json' },
           credentials : 'include'
         })
         .then(res => res.json())

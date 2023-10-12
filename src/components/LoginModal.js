@@ -35,7 +35,8 @@ function LoginModal({loginModalStateChange ,setUserInfo}){
     .then((res) => {
       console.log(res)
       setCookie('accessToken', res.token, { 
-        path: '/'    
+        path: '/',
+        httpOnly: false,
       })
       setUserInfo({ keyword : res.keyword, address : res.address})  
     })
