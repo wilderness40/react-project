@@ -6,23 +6,22 @@ import axios from "axios";
 const { kakao } = window
 
 function Food({userInfo}){
-    console.log(userInfo)
     const [address, setAddress] = useState([])
-        useEffect( () => {
-            const geo = new kakao.maps.services.Geocoder();
-            geo.addressSearch(userInfo.address , function(result , status) {
-                if(status === kakao.maps.services.Status.OK) {
-                    const LatLng = new kakao.maps.LatLng(result[0].y, result[0].x)
-                    setAddress([
-                        {
-                            REST_NM : '현재 위치',
-                            LAT : LatLng.Ma,
-                            LOT : LatLng.La,
-                        }
-                    ])
-                }
-            })
-        },[userInfo])
+    useEffect( () => {
+        const geo = new kakao.maps.services.Geocoder();
+        geo.addressSearch(userInfo.address , function(result , status) {
+            if(status === kakao.maps.services.Status.OK) {
+                const LatLng = new kakao.maps.LatLng(result[0].y, result[0].x)
+                setAddress([
+                    {
+                        REST_NM : '현재 위치',
+                        LAT : LatLng.Ma,
+                        LOT : LatLng.La,
+                    }
+                ])
+            }
+        })
+    },[userInfo])
     // 전체 가게 리스트를 저장하기 위한 스테이트 값
     const [FoodListData, setFoodListData] = useState([])
 
@@ -100,7 +99,6 @@ function Food({userInfo}){
     // 키워드에 따라 가게 데이터를 저장하기 위한 함수
     const keywordSearch = (e) => {
         const searchKeyword = document.querySelector('.keyword')
-        console.log(searchKeyword.value)
         if(searchKeyword.value !== null && searchKeyword.value !== '') {
             axios.get(`http://127.0.0.1:5300/food/search/${searchKeyword.value}/${userInfo.address}`)
             .then(res => {
@@ -108,6 +106,13 @@ function Food({userInfo}){
                 setLoadState(true)
                 setMapState(false)
             })
+            .catch(function(error) {
+                if(error.response.data.code === 400) {
+                    alert(error.response.data.message)
+                }
+            })
+        } else {
+            alert('다시 검색해 주세요!!')
         }
     }
 

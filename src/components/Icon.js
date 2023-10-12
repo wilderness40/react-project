@@ -74,7 +74,8 @@ function Icon({ src, children, href, setUserInfo }) {
         {optionModalState &&
           <OptionModal key={src} state={optionModalState} optionModalStateChange={optionModalStateChange}></OptionModal>
         }
-        {loginModalState && <LoginModal loginModalStateChange={loginModalStateChange} setUserInfo={setUserInfo}></LoginModal>}
+        {loginModalState && <LoginModal loginModalStateChange={loginModalStateChange} setUserInfo={setUserInfo}
+        setLoginModalState={setLoginModalState}></LoginModal>}
       </>
     );
   }

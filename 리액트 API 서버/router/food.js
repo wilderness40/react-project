@@ -13,7 +13,6 @@ router.post('/' ,expressAsyncHandler (async(req, res, next)=> {
     const foodList = await Foods.find(
         { ADDR : { $regex: /^대전광역시 서구 둔산동 /}}
     ).limit(10)
-    console.log(req.body.address)
     if(!foodList) {
         res.status(400).json({code : 400 , message : "Request is invalid"})
     } else {
@@ -28,7 +27,6 @@ router.get('/category/:id/:address', expressAsyncHandler (async(req, res, next) 
             { ADDR : { $regex: req.params.address }}
         ]        
     })
-    console.log(req.params.address)
     if(!categoryFoodList) {
         res.status(400).json({code : 400 , message : "Request is invalid"})
     } else {
@@ -40,11 +38,11 @@ router.get('/search/:id/:address', expressAsyncHandler (async(req, res, next) =>
     const searchFoodList = await Foods.find({
         $and : [
             { REST_NM : { $regex : req.params.id }},
-            { ADDR : { $regex: req.params.address }}
+            // { ADDR : { $regex: req.params.address }}
         ]
     })
-    if(!searchFoodList) {
-        res.status(400).json({code : 400 , message : "Request is invalid"})
+    if(searchFoodList.length === 0) {
+        res.status(400).json({code : 400 , message : "검색데이터를 찾을 수 없습니다."})
     } else {
         res.status(200).json({code : 200 , searchFoodList})
     }
@@ -72,7 +70,6 @@ router.get('/hashTag/type=:type&tag=:tag/:address', expressAsyncHandler (async(r
             { ADDR : { $regex: req.params.address }},
         ]
     })
-    console.log(hashTagFoodList)
     if(!hashTagFoodList) {
         res.status(400).json({code : 400 , message : "Request is invalid"})
     } else {
