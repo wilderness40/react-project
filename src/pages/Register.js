@@ -1,6 +1,7 @@
 import '../styles/Register.css';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import daejeonRegionData from '../DaejeonRegionData';
 
 function Register(){
   // 회원가입 할 유저의 정보 스테이트
@@ -10,7 +11,7 @@ function Register(){
     userPassword : '',
     CheckingUserPassword : '',
     userKeyword : '',
-    userAddress : ''
+    userAddress : ['동구','']
   });
 
   const [errorInputData, setErrorInputData] = useState({
@@ -44,7 +45,7 @@ function Register(){
             userId : inputRegisterData.userId + '@' + inputRegisterData.userEmail,
             password : inputRegisterData.userPassword,
             keyword : inputRegisterData.userKeyword,
-            address : inputRegisterData.userAddress
+            address : '대전광역시' + ' ' + inputRegisterData.userAddress[0] + ' ' + inputRegisterData.userAddress[1]
           })
         })
         .catch(e => console.log(e))
@@ -67,7 +68,7 @@ function Register(){
   const moveToHomePage = () => {
     navigate('/');
   }
-
+  console.log(inputRegisterData.userAddress[0], daejeonRegionData[`${inputRegisterData.userAddress[0]}`])
   return (
     <div className="Register-container">
       <div className="Register-header">
@@ -89,7 +90,20 @@ function Register(){
           <label><span>password 확인 : </span><input type='password' name='CheckingUserPassword' onChange={changeRegisterData} value={inputRegisterData.CheckingUserPassword}/></label>
           {errorInputData.err === 'passwordMatching' && <span style={{color:'red'}}>{errorInputData.message}</span>}
           <label><span>관심 키워드 : </span><input type='text' maxLength='15' name='userKeyword' onChange={changeRegisterData} value={inputRegisterData.userKeyword}/></label>
-          <label><span>직장 주소 : </span><input type='text' name='userAddress' onChange={changeRegisterData} value={inputRegisterData.userAddress}/></label>
+          <label><span>직장 주소 : </span>
+            <select onChange={(e) => {setInputRegisterData({...inputRegisterData, userAddress : [e.target.value,'']})}}>
+              <option value='동구'>동구</option>
+              <option value='서구'>서구</option>
+              <option value='중구'>중구</option>
+              <option value='유성구'>유성구</option>
+              <option value='대덕구'>대덕구</option>
+            </select>
+            <select onChange={(e) => {setInputRegisterData({...inputRegisterData, userAddress : [inputRegisterData.userAddress[0], e.target.value] })}}>
+              {daejeonRegionData[`${inputRegisterData.userAddress[0]}`].map(d => {
+                return <option key={d} value={d}>{d}</option>
+              })}
+            </select>
+          </label>
           {errorInputData.err === 'emptyData' && <span style={{color:'red'}}>{errorInputData.message}</span>}
           <button onClick={handleRegister}>가입하기</button>
         </form>
