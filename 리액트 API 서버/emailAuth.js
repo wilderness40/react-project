@@ -3,8 +3,8 @@ const nodeMailer = require('nodemailer')
 const mailPoster = nodeMailer.createTransport({
     service: 'gmail' ,
     auth : {
-        user : 'dbrnjsdlfma@gmail.com' , // 본인 구글 아이디
-        pass : 'kavh sxlc yvxc znf' , // 본인 구글 비밀번호
+        user : '' , // 본인 구글 아이디
+        pass : '' , // 본인 구글 비밀번호
     }
 })
 

@@ -23,11 +23,12 @@ function WorkpadSchedule({ scheduleList, getScheduleToDB }) {
   const registerSchedule = (e) => {
     e.preventDefault();
     if (e.target.form[2].value.trim()) {
-      fetch('http://127.0.0.1:4000/api/schedule', {
+      fetch('http://127.0.0.1:5300/api/schedule', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
+        credentials : 'include',
         body: JSON.stringify({
           start: new Date(e.target.form[0].value),
           end: new Date(e.target.form[1].value),
@@ -76,8 +77,9 @@ function WorkpadSchedule({ scheduleList, getScheduleToDB }) {
   const handleEventClick = (e) => {
     const eventId = e.event._def.extendedProps._id;
     // 클릭한 스케줄 조회
-    fetch(`http://127.0.0.1:4000/api/schedule/${eventId}`, {
-      method: 'GET'
+    fetch(`http://127.0.0.1:5300/api/schedule/${eventId}`, {
+      method: 'GET',
+      credentials : 'include',
     })
       .catch(e => console.log(e))
       .then(res => res.json())
@@ -85,8 +87,9 @@ function WorkpadSchedule({ scheduleList, getScheduleToDB }) {
   }
   // 스케줄 삭제 함수
   const deleteEvent = () => {
-    fetch(`http://127.0.0.1:4000/api/schedule/${detailEvent._id}`, {
-      method: 'DELETE'
+    fetch(`http://127.0.0.1:5300/api/schedule/${detailEvent._id}`, {
+      method: 'DELETE',
+      credentials : 'include',
     })
       .then(() => {
         getScheduleToDB();
@@ -116,11 +119,12 @@ function WorkpadSchedule({ scheduleList, getScheduleToDB }) {
   // 수정 
   const modifyEvent = () => {
     if(modifyMode) {
-      fetch(`http://127.0.0.1:4000/api/schedule/${detailEvent._id}`, {
+      fetch(`http://127.0.0.1:5300/api/schedule/${detailEvent._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
         },
+        credentials : 'include',
         body: JSON.stringify({
           title: modifySchedule.title,
           description: modifySchedule.description
