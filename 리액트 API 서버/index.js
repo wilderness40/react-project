@@ -36,10 +36,6 @@ app.use('/food', foodRouter)
 app.use('/lounge', loungeChat)
 app.use('/loungeComment', loungeComment)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> cea50219eb3d385a2bd27751dbb2b1b3f499b662
 // 에러처리 미들웨어
 app.get('/error', (req, res, next) => {
     throw new Error('서버에 치명적인 에러가 발생했습니다.')

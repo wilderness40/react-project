@@ -36,7 +36,7 @@ router.post('/edit', expressAsyncHandler(async(req, res, next)=> {
     }
 }))
 
-router.put('/edit', expressAsyncHandler(async(req, res, next) => {  // 비밀번호로 검증해야되는데 이게 맞나?
+router.put('/edit', expressAsyncHandler(async(req, res, next) => {  
     const loungeChat = await LoungeChat.findOne({
         _id: req.body._id,
         password: req.body.password
@@ -53,6 +53,7 @@ router.put('/edit', expressAsyncHandler(async(req, res, next) => {  // 비밀번
 }))
 
 router.delete('/delete', expressAsyncHandler(async(req, res, next) => {
+    console.log(req.body)
     const loungeChat = await LoungeChat.findOneAndDelete({password: req.body.password})
     if(loungeChat){
         res.status(201).json({message: '글이 삭제되었습니다'})

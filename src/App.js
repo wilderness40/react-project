@@ -5,7 +5,6 @@ import { Home, Play, Work, Food, News, BackHome, Lounge, Register} from './pages
 
 
 function App() {
-  console.log()
      const [userInfo, setUserInfo] = useState({ keyword : '', address : ''})
      useEffect(() => {
         fetch('http://127.0.0.1:5300/user/isLogin', {

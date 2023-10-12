@@ -48,8 +48,6 @@ router.post('/login',expressAsyncHandler( async (req, res) => {
             token : generateToken(loginUser) ,
             userId, keyword, address ,
         })
-
-
     }
 }))
 

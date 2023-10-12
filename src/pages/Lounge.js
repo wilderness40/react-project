@@ -13,7 +13,8 @@ function Lounge(){
     const [dbCode, setDbCode] = useState('') // db에 저장된 데이터의 고유 코드를 저장합니다
     const [modalStyle, setModalStyle] = useState(false) // 비밀번호가 일치하지 않을때 모달창의 스타일을 변경합니다
     const [commentRegister, setCommentRegister] = useState(false) // 댓글 등록창을 보여줍니다
-    
+    const [ toggleComment, setToggleComment ] = useState(false)
+
     const [page, setPage] = useState(1) // 페이지네이션을 위한 페이지 번호를 저장합니다
     const limit = 8 // 페이지네이션을 위한 페이지당 데이터 개수를 저장합니다    
     const totalPosts = chat.length // 페이지네이션을 위한 전체 데이터 개수를 저장합니다
@@ -104,6 +105,7 @@ function Lounge(){
         const id = clickData.parentNode.parentNode.previousSibling.firstChild.innerText
         const editPassword = document.querySelector("#editPassword").value
         const text = clickData.parentNode.parentNode.firstChild.innerText
+        console.log(editPassword)
 
         if(clickData.innerText === "수정"){
           try {
@@ -213,8 +215,10 @@ function Lounge(){
         setDbCode(mongoDbId)
         if(e.target.innerText === "댓글" ){
             setCommentRegister(!commentRegister) 
+            setToggleComment(!toggleComment)
         }
     }
+
     return(
         <>
             <Header></Header>  
@@ -251,8 +255,16 @@ function Lounge(){
                              </div>
                              <LoungeCommentRegister  // 댓글 등록
                                 commentRegister={commentRegister}
+                                toggleComment={toggleComment}
                                 dbCode={dbCode}
                                 chat={chat}
+                                
+                                HandleModalEdit={HandleModalEdit}
+                                modalPosition={modalPosition}
+                                updateInputValue={updateInputValue}
+                                editModalText={editModalText}
+                                onChange={onChange}
+                                modalStyle={modalStyle}
                              />
                                 </ React.Fragment>
                              )
