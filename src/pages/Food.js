@@ -26,7 +26,7 @@ function Food({userInfo}){
     useEffect( ()=> { // 첫 로딩시 사용할 list 불러오기
         axios.get('http://127.0.0.1:5300/food')
         .then(res => {
-            console.log(res)
+            // console.log(res)
             setFoodListData(res.data.foodList)
         })
         console.log(document.cookie)
