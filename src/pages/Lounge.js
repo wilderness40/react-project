@@ -84,8 +84,9 @@ function Lounge(){
 
     // 모달창 띄우기
     const HandleModalEdit = async (e) => {        
-        const mongoDbId = e.target.parentNode.parentNode.parentNode.firstChild.children[2].innerText
+        const mongoDbId = e.target.parentNode.parentNode.children[2].innerText
         console.log(mongoDbId)
+        // console.log(e.target.closest('.lounge__textOutput__text').querySelector('.paragraph-id').innerText) // comment 와 공동사용 불가
 
         setModalStyle(false)
         setDbCode(mongoDbId)
@@ -212,6 +213,7 @@ function Lounge(){
     }
     const handleComment = (e) => {
         const mongoDbId = e.target.parentNode.parentNode.parentNode.firstChild.children[2].innerText
+
         setDbCode(mongoDbId)
         if(e.target.innerText === "댓글" ){
             setCommentRegister(!commentRegister) 
