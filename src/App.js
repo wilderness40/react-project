@@ -6,8 +6,8 @@ import { Home, Play, Work, Food, News, BackHome, Lounge, Register} from './pages
 
 function App() {
   console.log()
-     const [userInfo, setUserInfo] = useState({ keyword : '', address : ''})
-     useEffect(() => {
+     const [userInfo, setUserInfo] = useState({ keyword : '', address : '대전광역시 서구 둔산로 100'})
+     useEffect( () => {
         fetch('http://127.0.0.1:5300/user/isLogin', {
           method: 'GET',
           headers: { 

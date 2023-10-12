@@ -17,7 +17,6 @@ const generateToken = (user) => {
 
 const isAuth = (req, res, next) => {
     const Token = req.cookies.accessToken;
-    console.log(req.cookies)
     
     if(!Token) {
         res.status(401).json({ message : '토큰이 생성되지 않았습니다'})

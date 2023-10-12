@@ -54,14 +54,9 @@ function TvContainer({youTubeApiData}){
         const tvifram = document.querySelector('.Tv-body-container > iframe')
         tvifram.classList.add('hide')
         setVideoSrc(e.target.id)
-        console.log(e.target.id)
-        console.log(videoSrc)
-        const movieSrc = `https://www.youtube.com/embed/${e.target.id}`
         setTimeout( () => {
             tvifram.classList.remove('hide')
-            tvifram.src = movieSrc
         }, 500)
-
     }
     const slideStop = () => {
         setSlideStateIndex(true)
@@ -90,12 +85,12 @@ function TvContainer({youTubeApiData}){
                     </div>
                 </div>
                 <button className="preveBtn" onClick={prevMove}>
-                    <span class="material-symbols-outlined">
+                    <span className="material-symbols-outlined">
                         arrow_back
                     </span>
                 </button>
                 <button className="nextBtn" onClick={nextMove}>
-                    <span class="material-symbols-outlined">
+                    <span className="material-symbols-outlined">
                         arrow_forward
                     </span>
                 </button>

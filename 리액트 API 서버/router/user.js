@@ -12,7 +12,6 @@ router.get('/', expressAsyncHandler( async(req, res) => {
 }))
 
 router.post('/register', expressAsyncHandler( async(req, res, next) => {
-    console.log(req.body)
     const user = new User({
         userId : req.body.userId ,
         password : req.body.password ,
