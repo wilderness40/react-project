@@ -1,13 +1,14 @@
 const express = require('express')
-const app = express()
+const cookieParser = require('cookie-parser')
 const cors = require('cors')
 const mongoose = require('mongoose')
-const cookieParser = require('cookie-parser')
-
 const config = require('./config')
+
+const app = express()
+
 const port = 5300
 const corsOptions = {
-    origin : 'http://localhost:3000',
+    origin : 'http://127.0.0.1:3000',
     credentials : true ,
 }
 
@@ -17,10 +18,10 @@ mongoose.connect(config.MONGODB_URL)
 .catch(e => console.log(`faild to connect mongodb ${e}`))
 
 // 미들웨어 설정
+app.use(cookieParser())
 app.use(cors(corsOptions))
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
-app.use(cookieParser())
 
 // 라우터 설정
 const loginRouter = require('./router/user')
@@ -35,6 +36,24 @@ app.use('/food', foodRouter)
 app.use('/lounge', loungeChat)
 app.use('/loungeComment', loungeComment)
 
+// 쿠키 설정
+app.get('/setCookie', (req, res) => {
+    res.cookie('accessToken', res.token, {
+        path : '/',
+        expires : new Date(Date.now() + 900000),
+    })    
+    res.json
+})
+
+// 쿠키 읽기
+app.get('/getCookie', (req, res) => {
+    const accessToken = req.cookies.accessToken
+    if(accessToken){
+        res.send(`Access Token:${accessToken}`)
+    }else{
+        res.send('No Access Token')
+    }
+})
 
 // 에러처리 미들웨어
 app.get('/error', (req, res, next) => {

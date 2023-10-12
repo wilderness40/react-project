@@ -22,7 +22,9 @@ function LoginModal({loginModalStateChange ,setUserInfo}){
 
     await fetch('http://127.0.0.1:5300/user/login', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json', 
+    },
       credentials: 'include',
       body : JSON.stringify({
         userId: user.email,
@@ -35,7 +37,7 @@ function LoginModal({loginModalStateChange ,setUserInfo}){
     .then((res) => {
       console.log(res)
       setCookie('accessToken', res.token, { 
-        path: '/'    
+        path: '/',
       })
       setUserInfo({ keyword : res.keyword, address : res.address})  
     })

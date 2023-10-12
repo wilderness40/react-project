@@ -34,7 +34,6 @@ router.post('/register', expressAsyncHandler( async(req, res, next) => {
 }))
 
 router.post('/login',expressAsyncHandler( async (req, res) => {
-    console.log(req.cookies)
     const loginUser = await User.findOne({
         userId : req.body.userId ,
         password : req.body.password ,
@@ -51,6 +50,7 @@ router.post('/login',expressAsyncHandler( async (req, res) => {
         })
     }
 }))
+
 
 router.get('/isLogin',isAuth, (req, res) => {
     res.json({keyword : req.user.keyword, address : req.user.address})
