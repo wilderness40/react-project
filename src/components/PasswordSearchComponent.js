@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 function PasswordSearchComponent() {
+    const [test, setTest] = useState('')
     const passwordSearch = (e) => {
         e.preventDefault()
         const email = document.getElementById('search_email').value
@@ -10,13 +11,24 @@ function PasswordSearchComponent() {
         } else if(!email.match(email_check)) {
             alert('올바른 이메일 형식을 입력해주세요.')
         } else {
-            axios.post('http://127.0.0.1:5300/user/searchPassword', {
-                userId : email ,
-            }) .then(res => {
+            axios({
+                method : 'post' ,
+                url : 'http://127.0.0.1:5300/user/searchPassword' ,
+                data : {
+                    userId : email ,
+                } ,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            }).then(res => {
                 console.log(res)
+            }).catch(function(error) {
+                setTest(error.response.data)
+                console.log(error.response.data)
             })
         }
     }
+    console.log(test)
     return (
         <>
             <form>
