@@ -14,7 +14,11 @@ const ScheduleSchema = mongoose.Schema({
   },
   description : {
     type : String,
-  }
+  },
+  userId : {
+    type : mongoose.Types.ObjectId,
+    require : true,
+  },
 })
 
 const Schedule = mongoose.model('schedule', ScheduleSchema);

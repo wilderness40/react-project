@@ -6,8 +6,9 @@ function WorkpadContents({ workpadTabState }){
   const [scheduleList, setScheduleList] = useState([]);
   
   const getScheduleToDB = () => {
-    fetch('http://127.0.0.1:4000/api/schedule', {
-      method: 'GET'
+    fetch('http://127.0.0.1:5300/api/schedule', {
+      method: 'GET',
+      credentials : 'include',
     })
       .catch(e => console.log(e))
       .then(res => res.json())
@@ -19,8 +20,9 @@ function WorkpadContents({ workpadTabState }){
   const [todoList, setTodoList] = useState({ todos : [], doneTodos : [] });
 
   const getTodoToDB = () => {
-    fetch('http://127.0.0.1:4000/api/todo', {
-      method : 'GET'
+    fetch('http://127.0.0.1:5300/api/todo', {
+      method : 'GET',
+      credentials : 'include',
     })
     .catch(e => console.log(e))
     .then(res => res.json())

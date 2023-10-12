@@ -31,6 +31,10 @@ const TodoSchema = mongoose.Schema({
   typeImg : {
     type : String,
   },
+  userId : {
+    type : mongoose.Types.ObjectId,
+    require : true,
+  },
 })
 
 const Todo = mongoose.model('todo', TodoSchema);

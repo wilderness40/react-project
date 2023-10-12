@@ -27,11 +27,12 @@ function WorkpadTodo({ todoList, doneTodos, getTodoToDB, deadlineTodos }){
   const registerTodo = (e) => {
     e.preventDefault();
     if(e.target.form[0].value.trim()){
-      fetch('http://127.0.0.1:4000/api/todo',{
+      fetch('http://127.0.0.1:5300/api/todo',{
         method : 'POST',
         headers : {
           'Content-Type' : 'application/json'
         },
+        credentials : 'include',
         body : JSON.stringify({
           title : e.target.form[0].value,
           // 오늘 부터 설정한 기한 날짜 후의 ms 값을 전송

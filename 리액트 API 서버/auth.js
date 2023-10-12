@@ -16,7 +16,7 @@ const generateToken = (user) => {
 }
 
 const isAuth = (req, res, next) => {
-    const Token = req.headers.authorization
+    const Token = req.cookies.accessToken
     console.log(Token)
     
     if(!Token) {
