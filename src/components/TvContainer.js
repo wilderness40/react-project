@@ -57,6 +57,7 @@ function TvContainer({youTubeApiData}){
         console.log(e.target.id)
         console.log(videoSrc)
         const movieSrc = `https://www.youtube.com/embed/${videoSrc}`
+        console.log(movieSrc)
         setTimeout( () => {
             tvifram.classList.remove('hide')
             tvifram.src = movieSrc
@@ -90,17 +91,17 @@ function TvContainer({youTubeApiData}){
                     </div>
                 </div>
                 <button className="preveBtn" onClick={prevMove}>
-                    <span class="material-symbols-outlined">
+                    <span className="material-symbols-outlined">
                         arrow_back
                     </span>
                 </button>
                 <button className="nextBtn" onClick={nextMove}>
-                    <span class="material-symbols-outlined">
+                    <span className="material-symbols-outlined">
                         arrow_forward
                     </span>
                 </button>
                 <div className="youtube-container" onMouseEnter={slideStop} onMouseLeave={slideStart}>
-                    {youTubeApiData.length !==0 && youTubeApiData.items.map( (youtube, id) => {
+                    {youTubeApiData.length !==0 && youTubeApiData.items?.map( (youtube, id) => {
                         return (
                             <div key={id} className="youtube-content" style={slideStyle}>
                                 <img src={youtube.snippet.thumbnails.medium.url} 
