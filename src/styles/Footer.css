@@ -14,3 +14,9 @@ footer {
     align-items: center;
     z-index: 1;
 }
+.Login_status{
+    position: fixed;
+    z-index: 5;
+    right: 10%;
+    font-size: 2rem;
+}

@@ -6,7 +6,7 @@ import { Home, Play, Work, Food, News, BackHome, Lounge, Register} from './pages
 
 function App() {
   console.log()
-     const [userInfo, setUserInfo] = useState({ keyword : '', address : '대전광역시 서구 둔산로 100'})
+     const [userInfo, setUserInfo] = useState({ login: false, keyword : '', address : '대전광역시 서구 둔산로 100'})
      useEffect( () => {
         fetch('http://127.0.0.1:5300/user/isLogin', {
           method: 'GET',
@@ -18,7 +18,10 @@ function App() {
         })
         .then(res => res.json())
         .then((res) => {
-          setUserInfo({ keyword : res.keyword, address : res.address})
+          if(res.code === 200){
+            setUserInfo({ login: true , keyword : res.keyword, address : res.address})
+          }
+          
           })
      }, [])
      
@@ -26,13 +29,13 @@ function App() {
   return (
     <div className="App">
       <Routes>
-         <Route exact path='/' element={<Home setUserInfo={setUserInfo}/>} />
+         <Route exact path='/' element={<Home  setUserInfo={setUserInfo} userInfo={userInfo}/>} />
          <Route exact path='/play' element={<Play userInfo={userInfo}/>} />
          <Route exact path='/work' element={<Work userInfo={userInfo}/>} />
          <Route exact path='/food' element={<Food userInfo={userInfo}/>} />
-         <Route exact path='/news' element={<News />} />
-         <Route exact path='/BackHome' element={<BackHome />} />
-         <Route exact path='/lounge' element={<Lounge />} />
+         <Route exact path='/news' element={<News userInfo={userInfo}/>} />
+         <Route exact path='/BackHome' element={<BackHome userInfo={userInfo}/>} />
+         <Route exact path='/lounge' element={<Lounge userInfo={userInfo}/>} />
          <Route exact path='/register' element={<Register />} />
          <Route path='/' element={<Home />} />
       </Routes>

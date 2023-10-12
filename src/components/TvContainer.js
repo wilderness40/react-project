@@ -103,7 +103,7 @@ function TvContainer({youTubeApiData}){
                     </span>
                 </button>
                 <div className="youtube-container" onMouseEnter={slideStop} onMouseLeave={slideStart}>
-                    {youTubeApiData.length !==0 && youTubeApiData.items.map( (youtube, id) => {
+                    {youTubeApiData.length !==0 && youTubeApiData.items?.map( (youtube, id) => {
                         return (
                             <div key={id} className="youtube-content" style={slideStyle}>
                                 <img src={youtube.snippet.thumbnails.medium.url} 

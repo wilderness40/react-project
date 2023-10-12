@@ -28,18 +28,20 @@ function LoginModal({loginModalStateChange ,setUserInfo , setLoginModalState}){
       credentials: 'include',
       body : JSON.stringify({
         userId: user.email,
-        password: user.password
-
+        password: user.password  
       })
 
     })
     .then(res => res.json())
     .then((res) => {
       console.log(res)
+      
       setCookie('accessToken', res.token, { 
         path: '/',
       })
-      setUserInfo({ keyword : res.keyword, address : res.address})  
+      setUserInfo({ login: res.code === 200 ? true : false , keyword : res.keyword, address : res.address})  
+      loginModalStateChange()
+      alert('로그인 되었습니다.')
     })
   }
 
