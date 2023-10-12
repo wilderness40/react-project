@@ -6,6 +6,11 @@ const { v4 : uuidv4 } = require('uuid');
 const { mailOpt, sendMail } = require('../emailAuth')
 const router = express.Router()
 
+router.get('/', expressAsyncHandler( async(req, res) => {
+    const users = await User.find({})
+    res.json(users)
+}))
+
 router.post('/register', expressAsyncHandler( async(req, res, next) => {
     console.log(req.body)
     const user = new User({
@@ -29,7 +34,7 @@ router.post('/register', expressAsyncHandler( async(req, res, next) => {
 }))
 
 router.post('/login',expressAsyncHandler( async (req, res) => {
-    console.log(req.body)
+    console.log(req.cookies)
     const loginUser = await User.findOne({
         userId : req.body.userId ,
         password : req.body.password ,
@@ -46,6 +51,10 @@ router.post('/login',expressAsyncHandler( async (req, res) => {
         })
     }
 }))
+
+router.get('/isLogin',isAuth, (req, res) => {
+    res.json({keyword : req.user.keyword, address : req.user.address})
+})
 
 router.post('/logout', (req, res) => {
     res.json('로그아웃')
