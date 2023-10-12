@@ -5,7 +5,7 @@ import "../styles/Home.css"
 import HelpMemo from '../components/HelpMemo'
 import ScreenSaver from '../components/ScreenSaver'
 
-function Home(){
+function Home({setUserInfo}){
     // 메모 창 오픈 토글
     const [memoToggle, setMemoToggle] = useState(true);
     // 메모 창 토글 반전 함수
@@ -30,14 +30,13 @@ function Home(){
         }
     },[screenSaverState])
 
-
     return(
         <>
             <div className="Home">
                 <main>
                     {homeIcons.map((icon, id) => {
                     return (
-                        <Icon key={id} src={icon.iconSrc} href={icon.url}>{icon.iconTitle}</Icon>) 
+                        <Icon key={id} src={icon.iconSrc} href={icon.url} setUserInfo={setUserInfo}>{icon.iconTitle}</Icon>) 
                     })} 
                 </main>
             </div>

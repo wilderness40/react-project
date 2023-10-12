@@ -4,7 +4,7 @@ import PasswordSearchComponent from "../components/PasswordSearchComponent"
 import { useCookies } from 'react-cookie';
 import '../styles/LoginModal.css';
 
-function LoginModal({loginModalStateChange}){
+function LoginModal({loginModalStateChange ,setUserInfo}){
   const [ cookies, setCookie ] = useCookies(['accessToken'])
   const [user, setUser] = useState({ email : '', password : ''})
   const [passwordState, setPasswordState] = useState(false)
@@ -22,7 +22,10 @@ function LoginModal({loginModalStateChange}){
 
     await fetch('http://127.0.0.1:5300/user/login', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json', 
+    },
+      credentials: 'include',
       body : JSON.stringify({
         userId: user.email,
         password: user.password
@@ -34,17 +37,17 @@ function LoginModal({loginModalStateChange}){
     .then((res) => {
       console.log(res)
       setCookie('accessToken', res.token, { 
-        path: '/'    
+        path: '/',
       })
-
+      setUserInfo({ keyword : res.keyword, address : res.address})  
     })
   }
-  console.log(user.email, user.password)
 
   const navigate = useNavigate();
   const moveToRegisterPage = () => {
     navigate('/register');
   }
+  
 
   // 비밀번호 찾기
   const [searchPassword, setSearchPassword] = useState(false);

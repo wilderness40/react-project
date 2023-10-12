@@ -3,7 +3,8 @@ import { Header , Footer, FoodMenu, FoodSearch, FoodKeyword,
     FoodKakaoMap, FoodList, FoodSearchComponent} from "../components"
 import '../styles/Food.css'
 import axios from "axios";
-function Food({}){
+function Food({userInfo}){
+    console.log(userInfo)
     // 전체 가게 리스트를 저장하기 위한 스테이트 값
     const [FoodListData, setFoodListData] = useState([])
 
@@ -25,7 +26,7 @@ function Food({}){
     useEffect( ()=> { // 첫 로딩시 사용할 list 불러오기
         axios.get('http://127.0.0.1:5300/food')
         .then(res => {
-            console.log(res)
+            // console.log(res)
             setFoodListData(res.data.foodList)
         })
         console.log(document.cookie)
