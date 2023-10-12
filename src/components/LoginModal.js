@@ -4,7 +4,7 @@ import PasswordSearchComponent from "../components/PasswordSearchComponent"
 import { useCookies } from 'react-cookie';
 import '../styles/LoginModal.css';
 
-function LoginModal({loginModalStateChange ,setUserInfo}){
+function LoginModal({loginModalStateChange ,setUserInfo , setLoginModalState}){
   const [ cookies, setCookie ] = useCookies(['accessToken'])
   const [user, setUser] = useState({ email : '', password : ''})
   const [passwordState, setPasswordState] = useState(false)
@@ -87,7 +87,7 @@ function LoginModal({loginModalStateChange ,setUserInfo}){
             <button onClick={moveToRegisterPage}>회원가입</button>
           </div>
         </> : 
-        <PasswordSearchComponent></PasswordSearchComponent>
+        <PasswordSearchComponent setLoginModalState={setLoginModalState}></PasswordSearchComponent>
         }
     </div>
   )
