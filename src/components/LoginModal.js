@@ -22,23 +22,26 @@ function LoginModal({loginModalStateChange ,setUserInfo}){
 
     await fetch('http://127.0.0.1:5300/user/login', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json', 
+    },
       credentials: 'include',
       body : JSON.stringify({
         userId: user.email,
-        password: user.password
-
+        password: user.password  
       })
 
     })
     .then(res => res.json())
     .then((res) => {
       console.log(res)
+      
       setCookie('accessToken', res.token, { 
         path: '/',
-        httpOnly: false,
       })
-      setUserInfo({ keyword : res.keyword, address : res.address})  
+      setUserInfo({ login: res.code === 200 ? true : false , keyword : res.keyword, address : res.address})  
+      loginModalStateChange()
+      alert('로그인 되었습니다.')
     })
   }
 

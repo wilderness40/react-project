@@ -2,7 +2,7 @@ import React, { useState,useEffect } from "react";
 import { Header , Footer, LoungeInputEdit, LoungeModal, LoungeRegisterInput, LoungePagenation, SnsTimeFormat, LoungeCommentRegister, LoungeCommentOutput } from "../components"
 import "../styles/Lounge.css"
 
-function Lounge(){
+function Lounge({userInfo}){
     
     const [chat, setChat] = useState([]) // db에서 가져온 데이터를 저장합니다
     const [modalPosition, setModalPosition] = useState(null) // 모달창의 위치를 저장합니다
@@ -13,7 +13,8 @@ function Lounge(){
     const [dbCode, setDbCode] = useState('') // db에 저장된 데이터의 고유 코드를 저장합니다
     const [modalStyle, setModalStyle] = useState(false) // 비밀번호가 일치하지 않을때 모달창의 스타일을 변경합니다
     const [commentRegister, setCommentRegister] = useState(false) // 댓글 등록창을 보여줍니다
-    
+    const [ toggleComment, setToggleComment ] = useState(false)
+
     const [page, setPage] = useState(1) // 페이지네이션을 위한 페이지 번호를 저장합니다
     const limit = 8 // 페이지네이션을 위한 페이지당 데이터 개수를 저장합니다    
     const totalPosts = chat.length // 페이지네이션을 위한 전체 데이터 개수를 저장합니다
@@ -83,8 +84,9 @@ function Lounge(){
 
     // 모달창 띄우기
     const HandleModalEdit = async (e) => {        
-        const mongoDbId = e.target.parentNode.parentNode.parentNode.firstChild.children[2].innerText
+        const mongoDbId = e.target.parentNode.parentNode.children[2].innerText
         console.log(mongoDbId)
+        // console.log(e.target.closest('.lounge__textOutput__text').querySelector('.paragraph-id').innerText) // comment 와 공동사용 불가
 
         setModalStyle(false)
         setDbCode(mongoDbId)
@@ -104,6 +106,7 @@ function Lounge(){
         const id = clickData.parentNode.parentNode.previousSibling.firstChild.innerText
         const editPassword = document.querySelector("#editPassword").value
         const text = clickData.parentNode.parentNode.firstChild.innerText
+        console.log(editPassword)
 
         if(clickData.innerText === "수정"){
           try {
@@ -210,11 +213,14 @@ function Lounge(){
     }
     const handleComment = (e) => {
         const mongoDbId = e.target.parentNode.parentNode.parentNode.firstChild.children[2].innerText
+
         setDbCode(mongoDbId)
         if(e.target.innerText === "댓글" ){
             setCommentRegister(!commentRegister) 
+            setToggleComment(!toggleComment)
         }
     }
+
     return(
         <>
             <Header></Header>  
@@ -251,8 +257,16 @@ function Lounge(){
                              </div>
                              <LoungeCommentRegister  // 댓글 등록
                                 commentRegister={commentRegister}
+                                toggleComment={toggleComment}
                                 dbCode={dbCode}
                                 chat={chat}
+                                
+                                HandleModalEdit={HandleModalEdit}
+                                modalPosition={modalPosition}
+                                updateInputValue={updateInputValue}
+                                editModalText={editModalText}
+                                onChange={onChange}
+                                modalStyle={modalStyle}
                              />
                                 </ React.Fragment>
                              )
@@ -276,7 +290,7 @@ function Lounge(){
                                 registerText={registerText}
                             />
                 </div>
-            <Footer></Footer>
+            <Footer userInfo={userInfo}></Footer>
          </>
     )
 }

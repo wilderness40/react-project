@@ -34,15 +34,15 @@ function WorkpadTotal({ scheduleList, todoList, deadlineTodos }){
         <div className='WorkpadTotal-todo-select' onClick={selectTotalTodoList}>
           {/* 투두가 없는 탭은 비활성화 처리 */}
           <button id="select-primary" 
-          className={`primary ${(todoList.filter(todo => todo.primary).length === 0 && 'noTodo')}`} 
-          disabled={todoList.filter(todo => todo.primary).length === 0 ? true : false}>중요</button>
+          className={`primary ${(todoList?.filter(todo => todo.primary).length === 0 && 'noTodo')}`} 
+          disabled={todoList?.filter(todo => todo.primary).length === 0 ? true : false}>중요</button>
           <button id="select-routine" 
-          className={`routine ${(todoList.filter(todo => todo.routine).length === 0 && 'noTodo')}`} 
-          disabled={todoList.filter(todo => todo.routine).length === 0 ? true : false}>루틴</button>
+          className={`routine ${(todoList?.filter(todo => todo.routine).length === 0 && 'noTodo')}`} 
+          disabled={todoList?.filter(todo => todo.routine).length === 0 ? true : false}>루틴</button>
           <button id="select-deadline" 
-          className={`deadline ${(deadlineTodos.length === 0 && 'noTodo')}`} 
-          disabled={deadlineTodos.length === 0 ? true : false}>기한</button>
-          <button id="select-noDone" className={`noDone ${(todoList.filter(todo => !todo.isDone).length === 0 && 'noTodo')}`} disabled={todoList.filter(todo => !todo.isDone).length === 0 ? true : false}>할일</button>
+          className={`deadline ${(deadlineTodos?.length === 0 && 'noTodo')}`} 
+          disabled={deadlineTodos?.length === 0 ? true : false}>기한</button>
+          <button id="select-noDone" className={`noDone ${(todoList?.filter(todo => !todo.isDone).length === 0 && 'noTodo')}`} disabled={todoList?.filter(todo => !todo.isDone).length === 0 ? true : false}>할일</button>
         </div>
         {totalShowingTodoList === 'select-primary' && 
           <WorkpadTodoList 

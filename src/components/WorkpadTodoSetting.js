@@ -7,8 +7,9 @@ function WorkpadTodoSetting({ todoSettingMode, showingTodoList, getTodoToDB, set
     if(e.target.tagName === 'BUTTON'){
       switch(e.target.textContent){
         case '일끝':
-          fetch(`http://127.0.0.1:4000/api/todo/done/${_id}`,{
+          fetch(`http://127.0.0.1:5300/api/todo/done/${_id}`,{
             method : 'PUT',
+            credentials : 'include',
           })
           .catch(e => console.log(e))
           .then(() => {
@@ -17,8 +18,9 @@ function WorkpadTodoSetting({ todoSettingMode, showingTodoList, getTodoToDB, set
           });
           break;
         case '다시':
-          fetch(`http://127.0.0.1:4000/api/todo/done/${_id}`,{
+          fetch(`http://127.0.0.1:5300/api/todo/done/${_id}`,{
             method : 'PUT',
+            credentials : 'include',
           })
           .catch(e => console.log(e))
           .then(() => {
@@ -31,11 +33,12 @@ function WorkpadTodoSetting({ todoSettingMode, showingTodoList, getTodoToDB, set
           break;
         case '적용':
             if(modifyTodoTitle){
-              fetch(`http://127.0.0.1:4000/api/todo/${_id}`,{
+              fetch(`http://127.0.0.1:5300/api/todo/${_id}`,{
               method : 'PUT',
               headers : {
                 'Content-Type' : 'application/json'
               },
+              credentials : 'include',
               body : JSON.stringify({
                 title : modifyTodoTitle
               })
@@ -48,8 +51,9 @@ function WorkpadTodoSetting({ todoSettingMode, showingTodoList, getTodoToDB, set
             }
           break;
         case '삭제':
-          fetch(`http://127.0.0.1:4000/api/todo/${_id}`,{
+          fetch(`http://127.0.0.1:5300/api/todo/${_id}`,{
             method : 'DELETE',
+            credentials : 'include',
           })
           .catch(e => console.log(e))
           .then(() => {

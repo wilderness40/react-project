@@ -12,7 +12,6 @@ router.get('/', expressAsyncHandler( async(req, res) => {
 }))
 
 router.post('/register', expressAsyncHandler( async(req, res, next) => {
-    console.log(req.body)
     const user = new User({
         userId : req.body.userId ,
         password : req.body.password ,
@@ -34,7 +33,6 @@ router.post('/register', expressAsyncHandler( async(req, res, next) => {
 }))
 
 router.post('/login',expressAsyncHandler( async (req, res) => {
-    console.log(req.cookies)
     const loginUser = await User.findOne({
         userId : req.body.userId ,
         password : req.body.password ,
@@ -52,8 +50,9 @@ router.post('/login',expressAsyncHandler( async (req, res) => {
     }
 }))
 
+
 router.get('/isLogin',isAuth, (req, res) => {
-    res.json({keyword : req.user.keyword})
+    res.status(200).json({code : 200, keyword : req.user.keyword, address : req.user.address})
 })
 
 router.post('/logout', (req, res) => {
@@ -64,17 +63,22 @@ router.post('/searchPassword',expressAsyncHandler(async(req, res) => {
     const user = await User.findOne({
         userId : req.body.userId ,
     })
-    if(!user) {
-        res.status(401).json({ code : 401 , message : 'Invalid User Data' })
-    } else {
-        const uuid = uuidv4()
-        console.log(uuid)
-        user.password = uuid || user.password
-        const passwordSearchUser = await user.save()
-        const { userId, password }= passwordSearchUser
-        const mailOption = mailOpt(passwordSearchUser)
-        sendMail(mailOption)
-        res.status(200).json({ code : 200 , userId, password})
+    console.log(user)
+    try {
+        if(!user || user === '' || user === null) {
+            return res.status(401).json({ code : 401 , message : 'Invalid User Data'})
+        } else {
+            const uuid = uuidv4()
+            console.log(uuid)
+            user.password = uuid || user.password
+            const passwordSearchUser = await user.save()
+            const { userId, password }= passwordSearchUser
+            const mailOption = mailOpt(passwordSearchUser)
+            sendMail(mailOption)
+            return res.status(200).json({ code : 200 , userId, password})
+        }
+    } catch(error) {
+        console.log(error)
     }
 }))
 

@@ -1,13 +1,14 @@
 const express = require('express')
-const app = express()
+const cookieParser = require('cookie-parser')
 const cors = require('cors')
 const mongoose = require('mongoose')
-const cookieParser = require('cookie-parser')
-
 const config = require('./config')
+
+const app = express()
+
 const port = 5300
 const corsOptions = {
-    origin : 'http://localhost:3000',
+    origin : 'http://127.0.0.1:3000',
     credentials : true ,
 }
 
@@ -17,16 +18,18 @@ mongoose.connect(config.MONGODB_URL)
 .catch(e => console.log(`faild to connect mongodb ${e}`))
 
 // 미들웨어 설정
+app.use(cookieParser())
 app.use(cors(corsOptions))
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
-app.use(cookieParser())
 
 // 라우터 설정
 const loginRouter = require('./router/user')
 const foodRouter = require('./router/food')
 const loungeChat = require('./router/loungeChats')
 const loungeComment = require('./router/loungeComments')
+const scheduleRoute = require('./router/schedule')
+const todoRoute = require('./router/todo')
 
 
 // 라우터 적용
@@ -34,7 +37,8 @@ app.use('/user', loginRouter)
 app.use('/food', foodRouter)
 app.use('/lounge', loungeChat)
 app.use('/loungeComment', loungeComment)
-
+app.use('/api/schedule', scheduleRoute);
+app.use('/api/todo', todoRoute)
 
 // 에러처리 미들웨어
 app.get('/error', (req, res, next) => {

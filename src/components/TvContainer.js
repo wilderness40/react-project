@@ -11,7 +11,7 @@ function TvContainer({youTubeApiData}){
     }
     const [slideIndex, setSlideIndex] = useState(0)
     const [slideStateIndex, setSlideStateIndex] = useState(false)
-    const [videoSrc, setVideoSrc] = useState('')
+    const [videoSrc, setVideoSrc] = useState()
     const Timer = useRef(0)
     const youtubeContents = document.querySelectorAll('.youtube-content')
     useEffect( (e) => { // n초마다 슬라이드가 이동하는 코드
@@ -50,19 +50,30 @@ function TvContainer({youTubeApiData}){
             setSlideIndex(slideIndex +1)
         }
     }
+
+    const [loading, setLoading] = useState(false)
     const tvShow = (e) => { // 리스트를 누르면 윗상단에 있는 tv에 누른 리스트가 보여지는 함수
-        const tvifram = document.querySelector('.Tv-body-container > iframe')
-        tvifram.classList.add('hide')
+        setLoading(true)
         setVideoSrc(e.target.id)
-        console.log(e.target.id)
-        console.log(videoSrc)
-        const movieSrc = `https://www.youtube.com/embed/${videoSrc}`
-        setTimeout( () => {
-            tvifram.classList.remove('hide')
-            tvifram.src = movieSrc
-        }, 500)
+        // console.log(e.target.id)
+        // console.log(videoSrc)
+        // const movieSrc = `https://www.youtube.com/embed/${e.target.id}`
+        // setTimeout( () => {
+        //     tvifram.classList.remove('hide')
+        //     tvifram.src = movieSrc
+        // }, 500)
 
     }
+
+    useEffect(() => {
+        const timeId = setTimeout( () => {
+            setLoading(false)
+        }, 500)
+        return () => {
+            clearTimeout(timeId)
+        }
+    },[videoSrc])
+
     const slideStop = () => {
         setSlideStateIndex(true)
         clearTimeout(Timer.current)
@@ -80,27 +91,27 @@ function TvContainer({youTubeApiData}){
         <>       
             <div className="TvContainer">
                 <div className="Tv">
-                    <div className="Tv-body-container">
+                    <div className='Tv-body-container' >
                         {/* {youTubeApiData.length !==0 && youTubeApiData.items.map( (youtube, index, id) => {
                             if(index === 0) {
                                 return <iframe key={id} style={iframeStyle} src={`https://www.youtube.com/embed/${youtube.id.videoId}`}/>
                             }
                         })} */}
-                        <iframe style={iframeStyle} src={`https://www.youtube.com/embed/${videoSrc}`}/>
+                        {!loading && <iframe style={iframeStyle} src={`https://www.youtube.com/embed/${videoSrc}`}/>}
                     </div>
                 </div>
                 <button className="preveBtn" onClick={prevMove}>
-                    <span class="material-symbols-outlined">
+                    <span className="material-symbols-outlined">
                         arrow_back
                     </span>
                 </button>
                 <button className="nextBtn" onClick={nextMove}>
-                    <span class="material-symbols-outlined">
+                    <span className="material-symbols-outlined">
                         arrow_forward
                     </span>
                 </button>
                 <div className="youtube-container" onMouseEnter={slideStop} onMouseLeave={slideStart}>
-                    {youTubeApiData.length !==0 && youTubeApiData.items.map( (youtube, id) => {
+                    {youTubeApiData.length !==0 && youTubeApiData.items?.map( (youtube, id) => {
                         return (
                             <div key={id} className="youtube-content" style={slideStyle}>
                                 <img src={youtube.snippet.thumbnails.medium.url} 
