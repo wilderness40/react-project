@@ -1,12 +1,12 @@
 import React from "react";
 import { Header , Footer, NewsPaper } from "../components"
 
-function News(){
+function News({userInfo}){
     return(
        <>
          <Header></Header>  
          <NewsPaper></NewsPaper>
-         <Footer></Footer>
+         <Footer userInfo={userInfo}></Footer>
        </>
     )
 }

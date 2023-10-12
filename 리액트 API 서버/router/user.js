@@ -12,7 +12,6 @@ router.get('/', expressAsyncHandler( async(req, res) => {
 }))
 
 router.post('/register', expressAsyncHandler( async(req, res, next) => {
-    console.log(req.body)
     const user = new User({
         userId : req.body.userId ,
         password : req.body.password ,
@@ -53,7 +52,7 @@ router.post('/login',expressAsyncHandler( async (req, res) => {
 
 
 router.get('/isLogin',isAuth, (req, res) => {
-    res.json({keyword : req.user.keyword, address : req.user.address})
+    res.status(200).json({code : 200, keyword : req.user.keyword, address : req.user.address})
 })
 
 router.post('/logout', (req, res) => {

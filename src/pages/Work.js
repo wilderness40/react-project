@@ -8,7 +8,7 @@ function Work({userInfo}) {
     <div className="work">
       <Header></Header>
       <Workpad></Workpad>
-      <Footer></Footer>
+      <Footer userInfo={userInfo}></Footer>
     </div>
   )
 }

@@ -2,7 +2,7 @@ import React, { useState,useEffect } from "react";
 import { Header , Footer, LoungeInputEdit, LoungeModal, LoungeRegisterInput, LoungePagenation, SnsTimeFormat, LoungeCommentRegister, LoungeCommentOutput } from "../components"
 import "../styles/Lounge.css"
 
-function Lounge(){
+function Lounge({userInfo}){
     
     const [chat, setChat] = useState([]) // db에서 가져온 데이터를 저장합니다
     const [modalPosition, setModalPosition] = useState(null) // 모달창의 위치를 저장합니다
@@ -290,7 +290,7 @@ function Lounge(){
                                 registerText={registerText}
                             />
                 </div>
-            <Footer></Footer>
+            <Footer userInfo={userInfo}></Footer>
          </>
     )
 }

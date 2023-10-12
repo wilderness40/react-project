@@ -3,8 +3,26 @@ import { Header , Footer, FoodMenu, FoodSearch, FoodKeyword,
     FoodKakaoMap, FoodList, FoodSearchComponent} from "../components"
 import '../styles/Food.css'
 import axios from "axios";
+const { kakao } = window
+
 function Food({userInfo}){
     console.log(userInfo)
+    const [address, setAddress] = useState([])
+        useEffect( () => {
+            const geo = new kakao.maps.services.Geocoder();
+            geo.addressSearch(userInfo.address , function(result , status) {
+                if(status === kakao.maps.services.Status.OK) {
+                    const LatLng = new kakao.maps.LatLng(result[0].y, result[0].x)
+                    setAddress([
+                        {
+                            REST_NM : '현재 위치',
+                            LAT : LatLng.Ma,
+                            LOT : LatLng.La,
+                        }
+                    ])
+                }
+            })
+        },[userInfo])
     // 전체 가게 리스트를 저장하기 위한 스테이트 값
     const [FoodListData, setFoodListData] = useState([])
 
@@ -22,16 +40,15 @@ function Food({userInfo}){
 
     // 메뉴 선택을 한 타이틀 값을 저장하기 위한 스테이트 값
     const [menuSelectTitle, setMenuSelectTitle] = useState(null)
-    
     useEffect( ()=> { // 첫 로딩시 사용할 list 불러오기
-        axios.get('http://127.0.0.1:5300/food')
+        axios.post(`http://127.0.0.1:5300/food`, {
+            address : userInfo.address
+        })
         .then(res => {
             // console.log(res)
             setFoodListData(res.data.foodList)
         })
-        console.log(document.cookie)
     },[])
-
     useEffect( (e) => { // 키보드 엔터를 누를시 검색되게 하는 코드
         document.addEventListener('keydown' , (event) => {
            if(event.keyCode === 13) {
@@ -60,7 +77,7 @@ function Food({userInfo}){
             const categoryKeyword = parentLI.children[1].innerText
             if(categoryKeyword === '카페') {
                 const categoryKeywordupdate = '카페·디저트'
-                axios.get(`http://127.0.0.1:5300/food/category/${categoryKeywordupdate}`)
+                axios.get(`http://127.0.0.1:5300/food/category/${categoryKeywordupdate}/${userInfo.address}`)
                 .then(res => {
                     setFoodkeyword(categoryKeyword)
                     setFoodListData(res.data.categoryFoodList)
@@ -68,7 +85,7 @@ function Food({userInfo}){
                     setMapState(true)
                 })
             } else {
-                axios.get(`http://127.0.0.1:5300/food/category/${categoryKeyword}`)
+                axios.get(`http://127.0.0.1:5300/food/category/${categoryKeyword}/${userInfo.address}`)
                 .then(res => {
                     setFoodkeyword(categoryKeyword)
                     setFoodListData(res.data.categoryFoodList)
@@ -85,7 +102,7 @@ function Food({userInfo}){
         const searchKeyword = document.querySelector('.keyword')
         console.log(searchKeyword.value)
         if(searchKeyword.value !== null && searchKeyword.value !== '') {
-            axios.get(`http://127.0.0.1:5300/food/search/${searchKeyword.value}`)
+            axios.get(`http://127.0.0.1:5300/food/search/${searchKeyword.value}/${userInfo.address}`)
             .then(res => {
                 setFoodSearchData(res.data.searchFoodList)
                 setLoadState(true)
@@ -97,7 +114,7 @@ function Food({userInfo}){
     const hashTagSelect = (e) => { // 해쉬태그를 클릭시 해당하는 메뉴를 포함하는 식당 데이터를 찾아 저장하기 위한 함수
         const keyword = e.target.innerText
         console.log(keyword)
-        axios.get(`http://127.0.0.1:5300/food/hashTag/type=${Foodkeyword}&tag=${keyword}`)
+        axios.get(`http://127.0.0.1:5300/food/hashTag/type=${Foodkeyword}&tag=${keyword}/${userInfo.address}`)
         .then(res => {
             setFoodSearchData(res.data.hashTagFoodList)
             setLoadState(true)
@@ -138,9 +155,10 @@ function Food({userInfo}){
                 </div>
             </div>
             <FoodKakaoMap FoodList={FoodListData} searchFood={FoodSearchData} 
-            mapState={mapState} loadState={loadState} selectMenu={customOverlayActive}></FoodKakaoMap>
+            mapState={mapState} loadState={loadState} selectMenu={customOverlayActive}
+            address={address}></FoodKakaoMap>
         </div>
-        <Footer></Footer>
+        <Footer userInfo={userInfo}></Footer>
        </>
     )
 }
