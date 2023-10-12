@@ -14,6 +14,7 @@ function Lounge({userInfo}){
     const [modalStyle, setModalStyle] = useState(false) // 비밀번호가 일치하지 않을때 모달창의 스타일을 변경합니다
     const [commentRegister, setCommentRegister] = useState(false) // 댓글 등록창을 보여줍니다
     const [ toggleComment, setToggleComment ] = useState(false)
+    const [ depth, setDepth ] = useState('') // 댓글의 깊이를 저장합니다
 
     const [page, setPage] = useState(1) // 페이지네이션을 위한 페이지 번호를 저장합니다
     const limit = 8 // 페이지네이션을 위한 페이지당 데이터 개수를 저장합니다    
@@ -85,12 +86,14 @@ function Lounge({userInfo}){
     // 모달창 띄우기
     const HandleModalEdit = async (e) => {        
         const mongoDbId = e.target.parentNode.parentNode.children[2].innerText
-        console.log(mongoDbId)
+        const depth = e.target.parentNode.parentNode.parentNode.firstChild.children[3].innerText
+        console.log(depth)
         // console.log(e.target.closest('.lounge__textOutput__text').querySelector('.paragraph-id').innerText) // comment 와 공동사용 불가
 
         setModalStyle(false)
         setDbCode(mongoDbId)
         setClickData(e.target)
+        setDepth(depth)
         const rect = e.target.getBoundingClientRect();
         
           setModalPosition({ 
@@ -108,7 +111,8 @@ function Lounge({userInfo}){
         const text = clickData.parentNode.parentNode.firstChild.innerText
         console.log(editPassword)
 
-        if(clickData.innerText === "수정"){
+        if(clickData.innerText === "수정" && depth === '0'){
+            console.log('수정')
           try {
              const response = await fetch('http://127.0.0.1:5300/lounge/edit', { 
               method: 'post',
@@ -136,6 +140,34 @@ function Lounge({userInfo}){
            catch (error) {
             console.log(error);
           }          
+}  else if(clickData.innerText === "수정" && depth === '1'){
+    try {
+        const response = await fetch('http://127.0.0.1:5300/loungeComment/edit', { 
+         method: 'post',
+         headers: {
+           'Content-Type': 'application/json'
+         },
+         body: JSON.stringify({
+           _id : dbCode,
+           password : editPassword,
+         }) 
+       })
+       
+               if (response.ok === true && editPassword !== "") {
+               setPasswordMatched(true);
+               setModalPosition(null)
+               setPasswordText(editPassword)       
+            //    getChatData()
+             } else {
+               setPasswordMatched(false);
+               setModalStyle(true)
+               setModalPosition(modalPosition)
+             }
+           }
+       
+      catch (error) {
+       console.log(error);
+     }          
 }
     if(clickData.innerText === "삭제"){ 
            try {
@@ -162,10 +194,34 @@ function Lounge({userInfo}){
             )
            } catch (error) {
              console.log(error);
-           }
-        
-}
-
+           }        
+    }else if(clickData.innerText === "삭제" && depth === '1'){
+        try {
+            fetch('http://127.0.0.1:5300/loungeComment/delete', { 
+             method:'delete',
+             headers:{
+               'Content-Type':'application/json'
+             },
+             body : JSON.stringify({
+               _id : dbCode,
+               password : editPassword,
+              }) 
+           })
+           .then(res => {
+              if(res.ok === true){
+              getChatData()
+              setModalPosition(null)
+              setModalStyle(false)
+          }else{
+              setModalStyle(true)
+              setModalPosition(modalPosition)
+              console.log('삭제실패')
+          }}
+          )
+         } catch (error) {
+           console.log(error);
+         }     
+    }
       }
      
       // 모달창에서 비밀번호 일치 후 수정확정하거나 취소하기
@@ -237,7 +293,7 @@ function Lounge({userInfo}){
                             <div >
                             <div className="lounge__textOutput__text" >
                                 <div className="nickname">
-                                <span><img src='images/loungeuser.png' alt='userProfile' />{chat.nickname} </span> <SnsTimeFormat chatTime={chat.date}/> <span className='paragraph-id'>{chat._id}</span>
+                                <span><img src='images/loungeuser.png' alt='userProfile' />{chat.nickname} </span> <SnsTimeFormat chatTime={chat.date}/> <span className='paragraph-id'>{chat._id}</span><span className="depth">0</span>
                                 </div>
                             <div className="text__function" >
                                 <LoungeInputEdit // 수정버튼 누르고 패스워드 일치시 input창이 나오도록 설정

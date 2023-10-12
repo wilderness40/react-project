@@ -6,7 +6,7 @@ import "../styles/Footer.css"
 
 function Footer({ handleMemoToggle, memoToggle,  userInfo }){
     const loginStatus = userInfo?.login
-    console.log(loginStatus)
+    // console.log(loginStatus)
     const [buttonFlag, setButtonFlag] = useState(false)
 
     const toggleMenubar = () => {

@@ -4,6 +4,7 @@
     background-color: #f8f7f7;
     margin-left: 2rem;
     padding: 3px 10px;
+    margin-bottom: 2px;
 }
 .nickname{
     display: flex;
@@ -11,6 +12,7 @@
 }
 .text__output{
     display: flex;
+    gap: 10px;
 }
 .comment__output p { 
     width: 800px; 
@@ -19,6 +21,7 @@
     display: flex;
     gap: 10px;
 }
+
 #nickname {
     width: 100px;
     border: 1px solid #333;
