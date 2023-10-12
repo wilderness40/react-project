@@ -7,13 +7,13 @@ const router = express.Router()
 
 app.use(express.json())
 
-router.get('/', expressAsyncHandler (async(req, res, next)=> {
+router.post('/' ,expressAsyncHandler (async(req, res, next)=> {
     // cors 오류 설정
     // res.header("Access-Control-Allow-Origin", "http://localhost:3000")
     const foodList = await Foods.find(
-        { ADDR : { $regex: /^대전광역시 서구 둔산동/}}
+        { ADDR : { $regex: /^대전광역시 서구 둔산동 /}}
     ).limit(10)
-    console.log(foodList)
+    console.log(req.body.address)
     if(!foodList) {
         res.status(400).json({code : 400 , message : "Request is invalid"})
     } else {
@@ -21,13 +21,14 @@ router.get('/', expressAsyncHandler (async(req, res, next)=> {
     }
 }))
 
-router.get('/category/:id', expressAsyncHandler (async(req, res, next) => {
+router.get('/category/:id/:address', expressAsyncHandler (async(req, res, next) => {
     const categoryFoodList = await Foods.find({
         $and : [
             { TOB_INFO : req.params.id },
-            { ADDR : { $regex: /^대전광역시 서구 둔산동/ }}
+            { ADDR : { $regex: req.params.address }}
         ]        
     })
+    console.log(req.params.address)
     if(!categoryFoodList) {
         res.status(400).json({code : 400 , message : "Request is invalid"})
     } else {
@@ -35,11 +36,11 @@ router.get('/category/:id', expressAsyncHandler (async(req, res, next) => {
     }
 }))
 
-router.get('/search/:id', expressAsyncHandler (async(req, res, next) => {
+router.get('/search/:id/:address', expressAsyncHandler (async(req, res, next) => {
     const searchFoodList = await Foods.find({
         $and : [
             { REST_NM : { $regex : req.params.id }},
-            { ADDR : { $regex: /^대전광역시 서구 둔산동/ }}
+            { ADDR : { $regex: req.params.address }}
         ]
     })
     if(!searchFoodList) {
@@ -49,11 +50,11 @@ router.get('/search/:id', expressAsyncHandler (async(req, res, next) => {
     }
 }))
 
-router.post('/discription/:id', expressAsyncHandler (async(req, res, next) => {
+router.post('/discription/:id/:address', expressAsyncHandler (async(req, res, next) => {
     const discriptionFood = await Foods.findOne({
         $and : [
             { REST_NM : { $regex : req.params.id }},
-            { ADDR : { $regex: req.body.addr}}
+            { ADDR : { $regex: req.params.address }}
         ]
     })
     if(!discriptionFood) {
@@ -63,12 +64,12 @@ router.post('/discription/:id', expressAsyncHandler (async(req, res, next) => {
     }
 }))
 
-router.get('/hashTag/type=:type&tag=:tag', expressAsyncHandler (async(req, res, next) => {
+router.get('/hashTag/type=:type&tag=:tag/:address', expressAsyncHandler (async(req, res, next) => {
     const hashTagFoodList = await Foods.find({
         $and : [
             { TOB_INFO : { $regex: req.params.type}},
             { RPRS_MENU_NM : { $regex : req.params.tag }},
-            { ADDR : { $regex: /^대전광역시 서구 둔산동/ }},
+            { ADDR : { $regex: req.params.address }},
         ]
     })
     console.log(hashTagFoodList)

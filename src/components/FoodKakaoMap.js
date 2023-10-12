@@ -3,13 +3,13 @@ import { Map, MapMarker, CustomOverlayMap } from "react-kakao-maps-sdk"
 import "../styles/CustomOverlayStyle.css"
 const { kakao } = window // 자바스크립트 형태로 카카오 라이브러리 사용할 때 필요한 코드
 function FoodKakaoMap({FoodList, mapState, searchFood, 
-    loadState, selectMenu, selectRef}) {
+    loadState, selectMenu, selectRef, address}) {
     // 첫 페이지 로딩시 보여주는 초기데이터 및 위치정보가 들어있는 스테이트 값
     const [positions, setPositions] = useState([
         {   
-            REST_NM : '학원',
-            LAT : 36.349184947679255,
-            LOT : 127.37775416701282
+            REST_NM : '대전 시청',
+            LAT : 36.3503849976553,
+            LOT : 127.384633005948
         }
     ])
     // 검색된 결과를 저장해놓는 스테이트 값
@@ -17,7 +17,6 @@ function FoodKakaoMap({FoodList, mapState, searchFood,
 
     // 검색된 결과의 상태를 저장하는 스테이트 값
     const [check , setCheck] = useState(false)
-
     useEffect(()=> { // 검색된 결과에 따라 맵을 셋팅하기 위한 코드
         if(loadState === true) {
             setSearchPositions([searchFood])
@@ -48,14 +47,14 @@ function FoodKakaoMap({FoodList, mapState, searchFood,
             <Map
                 key={1}
                 center={{
-                    lat: 36.349184947679255, 
-                    lng: 127.37775416701282
+                    lat : positions[0].LAT,
+                    lng : positions[0].LOT
                 }}
                 style={{
                     width : "70%",
                     height : "990px",
                 }}
-                level={3}
+                level={4}
             >   
                 {check === false ? positions.map((position, index) => {  {/* 초기로딩시 보여줄 지도 및 마커 */}
                     return (
@@ -132,8 +131,8 @@ function FoodKakaoMap({FoodList, mapState, searchFood,
         return (
             <Map
                 center={{
-                    lat: 36.349184947679255, 
-                    lng: 127.37775416701282
+                    lat: address[0].LAT, 
+                    lng: address[0].LOT
                 }}
                 style={{
                     width : "70%",

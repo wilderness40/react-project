@@ -55,14 +55,6 @@ function TvContainer({youTubeApiData}){
     const tvShow = (e) => { // 리스트를 누르면 윗상단에 있는 tv에 누른 리스트가 보여지는 함수
         setLoading(true)
         setVideoSrc(e.target.id)
-        // console.log(e.target.id)
-        // console.log(videoSrc)
-        // const movieSrc = `https://www.youtube.com/embed/${e.target.id}`
-        // setTimeout( () => {
-        //     tvifram.classList.remove('hide')
-        //     tvifram.src = movieSrc
-        // }, 500)
-
     }
 
     useEffect(() => {
