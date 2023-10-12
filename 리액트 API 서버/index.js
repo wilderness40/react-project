@@ -40,25 +40,6 @@ app.use('/loungeComment', loungeComment)
 app.use('/api/schedule', scheduleRoute);
 app.use('/api/todo', todoRoute)
 
-// 쿠키 설정
-app.get('/setCookie', (req, res) => {
-    res.cookie('accessToken', res.token, {
-        path : '/',
-        expires : new Date(Date.now() + 900000),
-    })    
-    res.json
-})
-
-// 쿠키 읽기
-app.get('/getCookie', (req, res) => {
-    const accessToken = req.cookies.accessToken
-    if(accessToken){
-        res.send(`Access Token:${accessToken}`)
-    }else{
-        res.send('No Access Token')
-    }
-})
-
 // 에러처리 미들웨어
 app.get('/error', (req, res, next) => {
     throw new Error('서버에 치명적인 에러가 발생했습니다.')
