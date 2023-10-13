@@ -1,4 +1,9 @@
-import React, { useState, useEffect } from "react";
+// 미해결 오류
+// 1. 댓글창 모달열리면 댓글창이 접히는 현상
+// 2. 게시글 댓글이 열린 상태에서 다른 게시글의 수정버튼을 누르면 기존 댓글이 접히면서 수정버튼 누른 곳의 댓글이 열린다
+
+
+import React, {  useEffect } from "react";
 import "../styles/LoungeCommentRegister.css"
 import LoungeCommentOutput from "./LoungeCommentOutput";
 
@@ -51,7 +56,7 @@ function LoungeCommentRegister({ comment, getCommentData, toggleComment, dbCode,
                 comment__input.removeEventListener('keydown', handleKeydown)
             })
         }
-    }, [])
+    }, [toggleComment]) // 이곳을 수정해야할 것 같다
 
     return (
         <>
