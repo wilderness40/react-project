@@ -10,8 +10,9 @@ function Register(){
     userEmail : 'gmail.com',
     userPassword : '',
     CheckingUserPassword : '',
+    userName : '',
     userKeyword : '',
-    userAddress : ['동구','']
+    userAddress : ['동구','중앙동']
   });
 
   const [errorInputData, setErrorInputData] = useState({
@@ -44,6 +45,7 @@ function Register(){
           body : JSON.stringify({
             userId : inputRegisterData.userId + '@' + inputRegisterData.userEmail,
             password : inputRegisterData.userPassword,
+            name : inputRegisterData.userName,
             keyword : inputRegisterData.userKeyword,
             address : '대전광역시' + ' ' + inputRegisterData.userAddress[0] + ' ' + inputRegisterData.userAddress[1]
           })
@@ -55,6 +57,7 @@ function Register(){
               userId : '',
               userPassword : '',
               CheckingUserPassword : '',
+              userName : '',
               userKeyword : '',
               userAddress : ''
             })
@@ -88,6 +91,7 @@ function Register(){
           </label>
           <label><span>password : </span><input type='password' name='userPassword' onChange={changeRegisterData} value={inputRegisterData.userPassword}/></label>
           <label><span>password 확인 : </span><input type='password' name='CheckingUserPassword' onChange={changeRegisterData} value={inputRegisterData.CheckingUserPassword}/></label>
+          <label><span>name : </span><input type='text' name='userName' onChange={changeRegisterData} value={inputRegisterData.userName}/></label>
           {errorInputData.err === 'passwordMatching' && <span style={{color:'red'}}>{errorInputData.message}</span>}
           <label><span>관심 키워드 : </span><input type='text' maxLength='15' name='userKeyword' onChange={changeRegisterData} value={inputRegisterData.userKeyword}/></label>
           <label><span>직장 주소 : </span>
