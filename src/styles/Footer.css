@@ -17,6 +17,14 @@ footer {
 .Login_status{
     position: fixed;
     z-index: 5;
-    right: 10%;
-    font-size: 2rem;
+    right: 120px;
+}
+.Login_status a{
+    display: flex;
+    height: 100%;
+    font-size: 1rem;
+    align-items: center;
+}
+.Login_status a img{
+    width: 40px;
 }
