@@ -60,11 +60,6 @@ function Icon({ src, children, href, setUserInfo, userInfo, setOptionModalState,
     }, []);
     return (
       <>
-        {optionModalState &&
-          <OptionModal key={src} state={optionModalState} optionModalStateChange={optionModalStateChange}></OptionModal>
-        }
-        {loginModalState && <LoginModal loginModalStateChange={loginModalStateChange} setUserInfo={setUserInfo}
-        setLoginModalState={setLoginModalState}></LoginModal>}
         <div
           className={`main-icons ${iconActiveFlag ==='clicked' ? 'blurred' : ''}`}
           onClick={changeIconFlag} onDoubleClick={moveToPage} // onClick은 한번클릭시 스타일링, onDoubleClick은 더블클릭시 페이지 이동

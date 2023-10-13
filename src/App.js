@@ -36,7 +36,7 @@ function App() {
          <Route exact path='/BackHome' element={<BackHome userInfo={userInfo}/>} />
          <Route exact path='/lounge' element={<Lounge userInfo={userInfo}/>} />
          <Route exact path='/register' element={<Register />} />
-         <Route exact path='/modify' element={<Modify />} />
+         <Route exact path='/modify' element={<Modify setUserInfo={setUserInfo} userInfo={userInfo}/>} />
          <Route path='/' element={<Home />} />
       </Routes>
     </div>
