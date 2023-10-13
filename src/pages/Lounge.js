@@ -317,6 +317,7 @@ function Lounge({ userInfo }) {
         const mongoDbId = e.target.parentNode.parentNode.parentNode.firstChild.children[2].innerText
         setDbCode(mongoDbId)
         if (e.target.innerText === "댓글") {
+            setClickData(e.target)
             setToggleComment(!toggleComment)
             if (toggleComment) {
                 setModalPosition(null)
@@ -374,7 +375,7 @@ function Lounge({ userInfo }) {
                                     onChange={onChange}
                                     modalStyle={modalStyle}
                                     confirmEditText={confirmEditText}
-
+                                    clickData={clickData}
                                 />
                             </ React.Fragment>
                         )
