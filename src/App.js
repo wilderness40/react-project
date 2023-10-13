@@ -6,7 +6,7 @@ import { Home, Play, Work, Food, News, BackHome, Lounge, Register} from './pages
 
 function App() {
   console.log()
-     const [userInfo, setUserInfo] = useState({ login: false, keyword : '', address : '대전광역시 서구 둔산로 100'})
+     const [userInfo, setUserInfo] = useState({ name: 'guest', keyword : '', address : '대전광역시 서구 둔산로 100'})
      useEffect( () => {
         fetch('http://127.0.0.1:5300/user/isLogin', {
           method: 'GET',
@@ -19,9 +19,8 @@ function App() {
         .then(res => res.json())
         .then((res) => {
           if(res.code === 200){
-            setUserInfo({ login: true , keyword : res.keyword, address : res.address})
+            setUserInfo({ name: res.name , keyword : res.keyword, address : res.address})
           }
-          
           })
      }, [])
      

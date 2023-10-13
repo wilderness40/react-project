@@ -56,7 +56,7 @@ router.get('/isLogin',isAuth, (req, res) => {
 })
 
 router.get('/logout', (req, res) => {
-    res.clearCookie('accessToken');
+    // res.clearCookie('accessToken');
     res.status(200).json({ code : 200, message: 'logout'});
 })
 

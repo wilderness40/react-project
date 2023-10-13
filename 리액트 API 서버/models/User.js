@@ -11,7 +11,11 @@ const userSchema = new Schema ({
     password : {
         type : String ,
         require : true , 
-    } ,
+    },
+    name :{
+        type : String ,
+        require : true ,
+    },
     keyword : {
         type : String ,
     } ,

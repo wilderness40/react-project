@@ -39,7 +39,7 @@ function LoginModal({loginModalStateChange ,setUserInfo , setLoginModalState}){
       setCookie('accessToken', res.token, { 
         path: '/',
       })
-      setUserInfo({ login: res.code === 200 ? true : false , keyword : res.keyword, address : res.address})  
+      setUserInfo({ name: res.code === 200 ? res.name : 'guest' , keyword : res.keyword, address : res.address})  
       loginModalStateChange()
       alert('로그인 되었습니다.')
     })
