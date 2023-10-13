@@ -29,9 +29,7 @@ router.get('/category/:id/:address', expressAsyncHandler (async(req, res, next) 
             { ADDR : { $regex: address }}
         ]        
     })
-    console.log(req.params.address.substr(0,startAddressIndex + 1))
-    console.log(req.params.address.search('동'))
-
+    console.log(categoryFoodList)
     if(!categoryFoodList) {
         res.status(400).json({code : 400 , message : "Request is invalid"})
     } else {
@@ -79,8 +77,11 @@ router.get('/hashTag/type=:type&tag=:tag/:address', expressAsyncHandler (async(r
             { ADDR : { $regex: address }},
         ]
     })
+    console.log(hashTagFoodList)
     if(!hashTagFoodList) {
         res.status(400).json({code : 400 , message : "Request is invalid"})
+    } else if(hashTagFoodList.length === 0){
+        res.status(204).json({code : 204 , message : "데이터를 찾을 수 없습니다"})
     } else {
         res.status(200).json({code : 200 , hashTagFoodList})
     }

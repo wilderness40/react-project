@@ -17,6 +17,7 @@ function FoodList ({FoodList}) {
             setDiscriptionState(index)
             setOpen('open')
     }
+    console.log(FoodList)
     // 가게 리스트를 보여주기 위한 코드
     return (
         <>
@@ -67,6 +68,7 @@ function FoodList ({FoodList}) {
                                 ) 
                             })
                         }
+                        {FoodList.length ===0 && <div className="foodErrorDiv">데이터를 찾을 수 없습니다</div>}
                     </div>
                 </div>
             </div>
