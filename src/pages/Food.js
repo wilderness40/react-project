@@ -6,12 +6,16 @@ import axios from "axios";
 const { kakao } = window
 
 function Food({userInfo}){
+    console.log(userInfo)
     const [address, setAddress] = useState([])
     useEffect( () => {
         const geo = new kakao.maps.services.Geocoder();
-        geo.addressSearch(userInfo.address , function(result , status) {
+        let startAddressIndex = userInfo.address.search('동')
+        const address = userInfo.address.substr(0,startAddressIndex + 1)
+        geo.addressSearch(address , function(result , status) {
             if(status === kakao.maps.services.Status.OK) {
                 const LatLng = new kakao.maps.LatLng(result[0].y, result[0].x)
+                console.log(LatLng)
                 setAddress([
                     {
                         REST_NM : '현재 위치',
@@ -22,6 +26,7 @@ function Food({userInfo}){
             }
         })
     },[userInfo])
+    console.log(address)
     // 전체 가게 리스트를 저장하기 위한 스테이트 값
     const [FoodListData, setFoodListData] = useState([])
 
