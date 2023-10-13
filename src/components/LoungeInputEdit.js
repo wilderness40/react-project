@@ -1,19 +1,19 @@
 import React from "react";
 
-function LoungeInputEdit({chat, index, passwordMatched, modalPosition, HandleModalEdit, comfirmEditText, dbCode, handleComment}){
+function LoungeInputEdit({chat, index, passwordMatched, modalPosition, HandleModalEdit, confirmEditText,  dbCode, handleComment,depth}){
     return (
         <>
             {/* 수정->비밀번호 입력->비밀번호가 일치 했을 때 */}
-            {passwordMatched && !modalPosition && dbCode === chat._id? // 비밀번호가 일치하고, 모달이 닫혀있고, db코멘트 아이디와 채팅 아이디가 일치할 때
+            {passwordMatched && !modalPosition && dbCode === chat._id && depth === '0' ? // 비밀번호가 일치하고, 모달이 닫혀있고, db코멘트 아이디와 채팅 아이디가 일치하고, depth=0(원글)일 때
             <>  
                 <div className="editInputDiv" >
                     <input type="text" className="editText" defaultValue={chat.text} />
                 </div>
 
                 <div className="text__function__edit">
-                    <span className="confirm" onClick={(e)=>comfirmEditText(e, index)}>확인</span>
+                    <span className="confirm" onClick={(e)=>confirmEditText(e, index)}>확인</span>
                 </div>
-                    <div className="text__function__cancle" ><span className="delete" onClick={(e)=>comfirmEditText(e, index)}>취소</span></div>
+                    <div className="text__function__cancle" ><span className="delete" onClick={(e)=>confirmEditText(e, index)}>취소</span></div>
             </>
         :  
         <>

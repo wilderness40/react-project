@@ -7,7 +7,7 @@ import React, {  useEffect } from "react";
 import "../styles/LoungeCommentRegister.css"
 import LoungeCommentOutput from "./LoungeCommentOutput";
 
-function LoungeCommentRegister({ comment, getCommentData, toggleComment, dbCode, chat, HandleModalEdit }) {
+function LoungeCommentRegister({ comment, getCommentData, toggleComment, commentCode, dbCode, chat, HandleModalEdit, passwordMatched, modalPosition , confirmEditText, depth}) {
 
     useEffect(() => {
         getCommentData()
@@ -41,8 +41,7 @@ function LoungeCommentRegister({ comment, getCommentData, toggleComment, dbCode,
 
     useEffect(() => { // 엔터키 누르면 글이 등록됩니다, 아직 동작 안함 e.key가 안먹힘
         const handleKeydown = (e) => {
-            console.log(e.target)
-            console.log(e.key)
+
             if (e.key === 'Enter') {
                 registerComment()
             }
@@ -50,27 +49,30 @@ function LoungeCommentRegister({ comment, getCommentData, toggleComment, dbCode,
         const comment__input = document.querySelector(".comment__input")
         // console.log(comment__input)
         if (comment__input !== null && chat._id === dbCode) {
-
             comment__input.addEventListener('keydown', handleKeydown)
             return (() => {
                 comment__input.removeEventListener('keydown', handleKeydown)
             })
         }
-    }, [toggleComment]) // 이곳을 수정해야할 것 같다
-
+    }, [toggleComment]) // toggleComment가 바뀔때마다 실행 (댓글접힌게 열리면 실행된다)
     return (
         <>
             {toggleComment && dbCode === chat._id ?
                 <>
                     <LoungeCommentOutput
                         comment={comment}
+                        commentCode={commentCode}
                         dbCode={dbCode}
                         toggleComment={toggleComment}
                         HandleModalEdit={HandleModalEdit}
+                        passwordMatched={passwordMatched}
+                        modalPosition={modalPosition}
+                        confirmEditText={confirmEditText}
+                        depth={depth}
                     />
                     <div className="comment__input" >
                         <div className="comment__input__nameAndPassword">
-                            <form onSubmit={() => { return false }}>
+                            <form onSubmit={(e) => { e.preventDefault(); return false }}>
                                 <label htmlFor='comment__nickname'>닉네임</label>
                                 <input type='text' id='comment__nickname' placeholder="닉네임 설정"></input>
                                 <label htmlFor='comment__password'>비밀번호</label>
