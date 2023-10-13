@@ -3,8 +3,10 @@ import { useNavigate } from "react-router-dom";
 import '../styles/Icons.css'
 import OptionModal from "../components/OptionModal";
 import LoginModal from "../components/LoginModal";
+import { useCookies } from 'react-cookie';
 
 function Icon({ src, children, href, setUserInfo, userInfo }) {
+    const [cookies, setCookie, removeCookie] = useCookies(['accessToken']);
     
     const [iconActiveFlag, setIconActiveFlag] = useState(''); // Icon 한번 클릭시 보라색으로 스타일 변경을 위한 state
     const [optionModalState , setOptionModalState] = useState(false) // OptionModal을 위한 state
@@ -44,7 +46,20 @@ function Icon({ src, children, href, setUserInfo, userInfo }) {
         setOptionModalState(true) 
       } else if(children === '로그인'){
         setLoginModalState(true);
-      } 
+      } else if(children === '로그아웃'){
+          removeCookie('accessToken');
+          window.location.reload()
+        console.log('out')
+        // fetch('http://127.0.0.1:5300/user/logout', {
+        //   method : 'GET',
+        //   credentials : 'include'
+        // })
+        // .then(() => {
+        //   setUserInfo({ login: false, keyword : '', address : '대전광역시 서구 둔산로 100'});
+        //   removeCookie('accessToken');
+        
+        // })
+      }
       else {
         navigate(href, {state:children})
       }
@@ -63,6 +78,11 @@ function Icon({ src, children, href, setUserInfo, userInfo }) {
     }, []);
     return (
       <>
+        {optionModalState &&
+          <OptionModal key={src} state={optionModalState} optionModalStateChange={optionModalStateChange}></OptionModal>
+        }
+        {loginModalState && <LoginModal loginModalStateChange={loginModalStateChange} setUserInfo={setUserInfo}
+        setLoginModalState={setLoginModalState}></LoginModal>}
         <div
           className={`main-icons ${iconActiveFlag ==='clicked' ? 'blurred' : ''}`}
           onClick={changeIconFlag} onDoubleClick={moveToPage} // onClick은 한번클릭시 스타일링, onDoubleClick은 더블클릭시 페이지 이동
@@ -72,11 +92,7 @@ function Icon({ src, children, href, setUserInfo, userInfo }) {
           </div>
           <h5 className={`${iconActiveFlag==='clicked' ? 'active' : ''}`}>{children}</h5>
         </div>
-        {optionModalState &&
-          <OptionModal key={src} state={optionModalState} optionModalStateChange={optionModalStateChange}></OptionModal>
-        }
-        {loginModalState && <LoginModal loginModalStateChange={loginModalStateChange} setUserInfo={setUserInfo}
-        setLoginModalState={setLoginModalState}></LoginModal>}
+
       </>
     );
   }

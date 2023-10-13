@@ -4,8 +4,11 @@ import { Icon , Footer } from "../components"
 import "../styles/Home.css"
 import HelpMemo from '../components/HelpMemo'
 import ScreenSaver from '../components/ScreenSaver'
+import { useCookies } from 'react-cookie';
 
 function Home({setUserInfo, userInfo}){
+    const [cookies, setCookie, removeCookie] = useCookies(['accessToken']);
+    const loginToken = cookies.accessToken
     // 메모 창 오픈 토글
     const [memoToggle, setMemoToggle] = useState(true);
     // 메모 창 토글 반전 함수
@@ -35,6 +38,10 @@ function Home({setUserInfo, userInfo}){
             <div className="Home">
                 <main>
                     {homeIcons.map((icon, id) => {
+                        if(loginToken && icon.iconTitle === '로그인'){
+                            icon.iconTitle = '로그아웃';
+                            icon.iconSrc = 'images/logout.png';
+                        }
                     return (
                         <Icon key={id} src={icon.iconSrc} href={icon.url} setUserInfo={setUserInfo} userInfo={userInfo} >{icon.iconTitle}</Icon>) 
                     })} 
