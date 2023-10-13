@@ -13,6 +13,7 @@ function WorkpadContents({ workpadTabState }){
       .catch(e => console.log(e))
       .then(res => res.json())
       .then(res => {
+        if(res.code === 200)
         setScheduleList(res.scheduleList)
       })
   }
@@ -27,6 +28,7 @@ function WorkpadContents({ workpadTabState }){
     .catch(e => console.log(e))
     .then(res => res.json())
     .then(res => {
+      if(res.code === 200)
       setTodoList({ todos : res.todos, doneTodos : res.doneTodos })
     })
   }
