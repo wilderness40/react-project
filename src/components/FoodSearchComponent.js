@@ -1,7 +1,7 @@
 import React, {useEffect , useState, useRef} from "react";
 import FoodDiscription from "./FoodDiscription"
 function FoodSearchComponent({FoodList, selectMenu}) {
-    console.log(selectMenu)
+    console.log(FoodList)
     const [discriptionState , setDiscriptionState] = useState(null)
     const [discription, setDiscription] = useState([])
 
@@ -32,7 +32,7 @@ function FoodSearchComponent({FoodList, selectMenu}) {
                 <div className="foodlist-container-box">
                     <div className="foodlist-container-boxBody">
                         <div className="foodlist-container-boxTitle">
-                            {FoodList.length !==0 && FoodList.map((list, index) => {
+                            {FoodList.length !==0 && FoodList[0].REST_NM !== '중심지' && FoodList.map((list, index) => {
                                 return (
                                     <div key={list.REST_ID} className='foodlist-contents' 
                                     onClick={(e) => showDiscription(e, list, index)}>
@@ -66,6 +66,7 @@ function FoodSearchComponent({FoodList, selectMenu}) {
                                     </div>
                                 )
                             })}
+                            {FoodList[0].REST_NM === '중심지' && <div className='foodErrorDiv'>데이터를 찾을 수 없습니다</div>}
                         </div>
                     </div>    
                 </div>
