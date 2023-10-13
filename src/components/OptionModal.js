@@ -40,7 +40,7 @@ function OptionModal({ state, optionModalStateChange}) {
                             <input type='file' name="img" id="upload"
                             onChange={fileUpload}></input>
                         {/* <form action="upload" method="post">
-                        </form> */}
+                         </form> */}
                     </div>
                     <div className="modal-footer">
                         <button className="modalSuccess-btn" onClick={successBackgroundApply}>확인</button>
