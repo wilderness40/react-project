@@ -42,6 +42,8 @@ function LoginModal({loginModalStateChange ,setUserInfo , setLoginModalState}){
       setUserInfo({ name: res.code === 200 ? res.name : 'guest' , keyword : res.keyword, address : res.address})  
       loginModalStateChange()
       alert('로그인 되었습니다.')
+    }else{
+      alert('아이디 또는 비밀번호가 일치하지 않습니다.')
     }
     })
   }
