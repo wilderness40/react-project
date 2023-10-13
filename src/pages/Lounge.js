@@ -5,6 +5,7 @@ import "../styles/Lounge.css"
 function Lounge({userInfo}){
     
     const [chat, setChat] = useState([]) // db에서 가져온 데이터를 저장합니다
+    const [comment, setComment] = useState([]) // db에서 가져온 댓글 데이터를 저장합니다
     const [modalPosition, setModalPosition] = useState(null) // 모달창의 위치를 저장합니다
     const [clickData, setClickData] = useState(null) // 수정, 삭제, 댓글 버튼을 클릭했을때 그 버튼의 정보를 저장합니다
     const [passwordText, setPasswordText] = useState(null) // 비밀번호를 저장합니다
@@ -12,8 +13,7 @@ function Lounge({userInfo}){
     const [updateInputValue, setUpdateInputValue] = useState('') // 수정할때 입력창에 기존 글을 보여줍니다
     const [dbCode, setDbCode] = useState('') // db에 저장된 데이터의 고유 코드를 저장합니다
     const [modalStyle, setModalStyle] = useState(false) // 비밀번호가 일치하지 않을때 모달창의 스타일을 변경합니다
-    const [commentRegister, setCommentRegister] = useState(false) // 댓글 등록창을 보여줍니다
-    const [ toggleComment, setToggleComment ] = useState(false)
+    const [ toggleComment, setToggleComment ] = useState(false) // 댓글을 보여줍니다
     const [ depth, setDepth ] = useState('') // 댓글의 깊이를 저장합니다
 
     const [page, setPage] = useState(1) // 페이지네이션을 위한 페이지 번호를 저장합니다
@@ -33,9 +33,20 @@ function Lounge({userInfo}){
     .then(res => res.json())
     .then(data => setChat(data))
     }
+    const getCommentData = async () => {
+        await fetch('http://127.0.0.1:5300/loungeComment', { 
+        method: 'get',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(res => res.json())
+    .then(data => setComment(data))
+    }
 
     useEffect(() => {
-        getChatData()        
+        getChatData()
+        getCommentData()        
     }, [])
     // console.log(chat)
 
@@ -85,15 +96,16 @@ function Lounge({userInfo}){
 
     // 모달창 띄우기
     const HandleModalEdit = async (e) => {        
-        const mongoDbId = e.target.parentNode.parentNode.children[2].innerText
+        console.log(e.target)
+        const mongoDbId = e.target.parentNode.parentNode.parentNode.firstChild.children[2].innerText
         const depth = e.target.parentNode.parentNode.parentNode.firstChild.children[3].innerText
-        console.log(depth)
         // console.log(e.target.closest('.lounge__textOutput__text').querySelector('.paragraph-id').innerText) // comment 와 공동사용 불가
 
         setModalStyle(false)
         setDbCode(mongoDbId)
         setClickData(e.target)
         setDepth(depth)
+        // console.log(depth, clickData.innerText)
         const rect = e.target.getBoundingClientRect();
         
           setModalPosition({ 
@@ -103,16 +115,15 @@ function Lounge({userInfo}){
     } 
 
 
-    // 모달창에서 비밀번호 일치했을경우 -> 수정, 삭제하기
+    // 수정, 삭제하기 (비밀번호 검증)
       const editModalText = async () => {
         
         const id = clickData.parentNode.parentNode.previousSibling.firstChild.innerText
         const editPassword = document.querySelector("#editPassword").value
         const text = clickData.parentNode.parentNode.firstChild.innerText
-        console.log(editPassword)
+        console.log(dbCode, editPassword)
 
         if(clickData.innerText === "수정" && depth === '0'){
-            console.log('수정')
           try {
              const response = await fetch('http://127.0.0.1:5300/lounge/edit', { 
               method: 'post',
@@ -124,7 +135,6 @@ function Lounge({userInfo}){
                 password : editPassword,
               }) 
             })
-            
                     if (response.ok === true && editPassword !== "") {
                     setPasswordMatched(true);
                     setModalPosition(null)
@@ -152,12 +162,11 @@ function Lounge({userInfo}){
            password : editPassword,
          }) 
        })
-       
                if (response.ok === true && editPassword !== "") {
                setPasswordMatched(true);
                setModalPosition(null)
                setPasswordText(editPassword)       
-            //    getChatData()
+               getCommentData()      
              } else {
                setPasswordMatched(false);
                setModalStyle(true)
@@ -169,7 +178,7 @@ function Lounge({userInfo}){
        console.log(error);
      }          
 }
-    if(clickData.innerText === "삭제"){ 
+    if(clickData.innerText === "삭제" && depth === '0'){ 
            try {
               fetch('http://127.0.0.1:5300/lounge/delete', { 
                method:'delete',
@@ -209,7 +218,7 @@ function Lounge({userInfo}){
            })
            .then(res => {
               if(res.ok === true){
-              getChatData()
+              getCommentData() 
               setModalPosition(null)
               setModalStyle(false)
           }else{
@@ -227,10 +236,10 @@ function Lounge({userInfo}){
       // 모달창에서 비밀번호 일치 후 수정확정하거나 취소하기
     const comfirmEditText = (e, index) => {
         const editedText = document.querySelector(".editText").value
-    
+        console.log(depth)
         setUpdateInputValue(editedText)
     
-    if(e.target.innerText === "확인"){
+    if(e.target.innerText === "확인" && depth === '0'){
         fetch('http://127.0.0.1:5300/lounge/edit', {
             method: 'put',
             headers: {
@@ -257,8 +266,35 @@ function Lounge({userInfo}){
         setPasswordMatched(false) 
         getChatData()
     })
-  
+    }else if(e.target.innerText === "확인" && depth === '1'){
+        fetch('http://127.0.0.1:5300/loungeComment/edit', {
+            method: 'put',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                _id : dbCode,
+                password : passwordText,
+                text: editedText,
+                lastModifiedAt : new Date()
+        })
+    })
+    .then(res => res.json()) // 서버에서 응답한 데이터를 json형태로 변환
+    .then(data => { // json형태로 변환된 데이터를 data라는 이름의 매개변수로 받아옴
+        const updatedChat = chat.map(c => { 
+            if(chat._id === dbCode) {
+                return { ...chat , text : editedText} // 수정된 데이터를 화면에 보여주기 위해 상태값을 업데이트
+            }else{
+                return {...chat}
+            }
+        })
+        setChat(updatedChat) // 수정된 데이터를 화면에 보여주기 위해 상태값을 업데이트
+        setUpdateInputValue('') // 수정된 데이터를 화면에 보여주고 나면 input창을 비워줌
+        setPasswordMatched(false) 
+        getCommentData() 
+    })
     }
+
     if(e.target.innerText === "취소"){
         setPasswordMatched(false) 
         setUpdateInputValue('') // 수정된 데이터를 화면에 보여주고 나면 input창을 비워줌
@@ -269,11 +305,13 @@ function Lounge({userInfo}){
     }
     const handleComment = (e) => {
         const mongoDbId = e.target.parentNode.parentNode.parentNode.firstChild.children[2].innerText
-
+        console.log(e.target)
         setDbCode(mongoDbId)
         if(e.target.innerText === "댓글" ){
-            setCommentRegister(!commentRegister) 
             setToggleComment(!toggleComment)
+            if(toggleComment){
+                setModalPosition(null)
+            }
         }
     }
 
@@ -312,11 +350,11 @@ function Lounge({userInfo}){
                              </div>
                              </div>
                              <LoungeCommentRegister  // 댓글 등록
-                                commentRegister={commentRegister}
+                                comment={comment}
                                 toggleComment={toggleComment}
                                 dbCode={dbCode}
                                 chat={chat}
-                                
+                                getCommentData={getCommentData}
                                 HandleModalEdit={HandleModalEdit}
                                 modalPosition={modalPosition}
                                 updateInputValue={updateInputValue}
