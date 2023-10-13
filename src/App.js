@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import './App.css';
 import {Routes, Route} from "react-router-dom"
-import { Home, Play, Work, Food, News, BackHome, Lounge, Register} from './pages'
+import { Home, Play, Work, Food, News, BackHome, Lounge, Register, Modify} from './pages'
 
 
 function App() {
@@ -36,6 +36,7 @@ function App() {
          <Route exact path='/BackHome' element={<BackHome userInfo={userInfo}/>} />
          <Route exact path='/lounge' element={<Lounge userInfo={userInfo}/>} />
          <Route exact path='/register' element={<Register />} />
+         <Route exact path='/modify' element={<Modify />} />
          <Route path='/' element={<Home />} />
       </Routes>
     </div>
