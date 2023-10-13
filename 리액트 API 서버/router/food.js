@@ -21,12 +21,17 @@ router.post('/' ,expressAsyncHandler (async(req, res, next)=> {
 }))
 
 router.get('/category/:id/:address', expressAsyncHandler (async(req, res, next) => {
+    let startAddressIndex = req.params.address.search('동')
+    const address = req.params.address.substr(0,startAddressIndex + 1)
     const categoryFoodList = await Foods.find({
         $and : [
             { TOB_INFO : req.params.id },
-            { ADDR : { $regex: req.params.address }}
+            { ADDR : { $regex: address }}
         ]        
     })
+    console.log(req.params.address.substr(0,startAddressIndex + 1))
+    console.log(req.params.address.search('동'))
+
     if(!categoryFoodList) {
         res.status(400).json({code : 400 , message : "Request is invalid"})
     } else {
@@ -49,10 +54,12 @@ router.get('/search/:id/:address', expressAsyncHandler (async(req, res, next) =>
 }))
 
 router.post('/discription/:id/:address', expressAsyncHandler (async(req, res, next) => {
+    let startAddressIndex = req.params.address.search('동')
+    const address = req.params.address.substr(0,startAddressIndex + 1)
     const discriptionFood = await Foods.findOne({
         $and : [
             { REST_NM : { $regex : req.params.id }},
-            { ADDR : { $regex: req.params.address }}
+            { ADDR : { $regex: address }}
         ]
     })
     if(!discriptionFood) {
@@ -63,11 +70,13 @@ router.post('/discription/:id/:address', expressAsyncHandler (async(req, res, ne
 }))
 
 router.get('/hashTag/type=:type&tag=:tag/:address', expressAsyncHandler (async(req, res, next) => {
+    let startAddressIndex = req.params.address.search('동')
+    const address = req.params.address.substr(0,startAddressIndex + 1)
     const hashTagFoodList = await Foods.find({
         $and : [
             { TOB_INFO : { $regex: req.params.type}},
             { RPRS_MENU_NM : { $regex : req.params.tag }},
-            { ADDR : { $regex: req.params.address }},
+            { ADDR : { $regex: address }},
         ]
     })
     if(!hashTagFoodList) {
