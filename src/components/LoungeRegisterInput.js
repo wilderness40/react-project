@@ -20,10 +20,12 @@ function LoungeRegisterInput({registerText}){
         <>
              <div className="lounge__input">
                        <div className="lounge__input__nameAndPassword"> 
+                            <form onSubmit={()=>{return false}}>
                          <label htmlFor='nickname'>닉네임</label>
                             <input type='text' id='nickname' placeholder="닉네임 설정"></input>
                          <label htmlFor='password'>비밀번호</label>    
-                            <input type='password' id='password' placeholder="비밀번호 입력"></input>
+                            <input type='password' id='password' placeholder="비밀번호 입력" autoComplete="on"></input>
+                            </form>
                         </div>
 
                         <div className="lounge__input__text__register">

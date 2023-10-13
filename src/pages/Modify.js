@@ -4,7 +4,7 @@ import daejeonRegionData from '../DaejeonRegionData';
 import '../styles/userModify.css';
 import { useCookies } from 'react-cookie';
 
-function Modify() {
+function Modify({ setUserInfo, userInfo }) {
   const [ cookies, setCookie ] = useCookies(['accessToken'])
   // 회원 정보 수정 전 유저 확인
   const [modifyVerified, setModifyVerified] = useState(false);
@@ -95,6 +95,10 @@ function Modify() {
         setCookie('accessToken', res.token, { 
           path: '/',
         });
+        setUserInfo({
+          name : inputModifyData.userName.trim() , 
+          keyword : inputModifyData.userKeyword.trim(), 
+          address : `대전광역시 ${inputModifyData.userAddress[0]} ${inputModifyData.userAddress[1]}`})
         setInputModifyData({
           userId : '',
           userPassword : '',

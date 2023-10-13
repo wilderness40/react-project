@@ -1,14 +1,12 @@
-import React, {useState} from "react";
+import React from "react"
 import { SnsTimeFormat } from "../components"
-import {LoungeModal} from "../components"
 import "../styles/LoungeCommentOutput.css"
 
-function LoungeCommentOutput({comment, dbCode, toggleComment,  modalPosition, modalStyle, editModalText, onChange, updateInputValue, HandleModalEdit}){
-
+function LoungeCommentOutput({comment, dbCode, HandleModalEdit}){
 
     return(
         <>
-            {comment !== null  && toggleComment ? comment.map((chat, index)=>{ 
+             { comment?.map((chat, index)=>{ 
                 {return chat.parent === dbCode  ?
                 <div className="comment__output" key={chat._id}>
                 <div className="nickname">
@@ -23,8 +21,7 @@ function LoungeCommentOutput({comment, dbCode, toggleComment,  modalPosition, mo
             </div> 
             : null}
             
-            }): null                    
-            }
+            })}
                         
                        
         </>

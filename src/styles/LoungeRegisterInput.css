@@ -10,7 +10,7 @@
     gap: 20px;
     flex-direction: column;
 }
-.lounge__input__nameAndPassword{
+.lounge__input__nameAndPassword form{
     display: flex;
     gap: 10px;
 }
