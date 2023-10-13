@@ -66,7 +66,7 @@ router.post('/searchPassword',expressAsyncHandler(async(req, res) => {
     console.log(user)
     try {
         if(!user || user === '' || user === null) {
-            return res.status(401).json({ code : 401 , message : 'Invalid User Data'})
+            return res.status(401).json({ code : 401 , message : '이메일을 찾을 수 없습니다.'})
         } else {
             const uuid = uuidv4()
             console.log(uuid)
@@ -75,7 +75,7 @@ router.post('/searchPassword',expressAsyncHandler(async(req, res) => {
             const { userId, password }= passwordSearchUser
             const mailOption = mailOpt(passwordSearchUser)
             sendMail(mailOption)
-            return res.status(200).json({ code : 200 , userId, password})
+            return res.status(200).json({ code : 200 , message : "입력하신 이메일로 임시 비밀번호를 전송 했습니다" , userId, password})
         }
     } catch(error) {
         console.log(error)

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-function PasswordSearchComponent() {
+function PasswordSearchComponent({setLoginModalState}) {
     const [test, setTest] = useState('')
     const passwordSearch = (e) => {
         e.preventDefault()
@@ -21,14 +21,15 @@ function PasswordSearchComponent() {
                     'Content-Type': 'application/json'
                 },
             }).then(res => {
+                alert(res.data.message)
+                setLoginModalState(false)
                 console.log(res)
             }).catch(function(error) {
                 setTest(error.response.data)
-                console.log(error.response.data)
+                alert(error.response.data.message)
             })
         }
     }
-    console.log(test)
     return (
         <>
             <form>
