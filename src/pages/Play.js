@@ -19,7 +19,7 @@ function Play({userInfo}){
          <div className="Play">
             <TvContainer youTubeApiData={data}></TvContainer>
          </div>
-         <Footer></Footer>
+         <Footer userInfo={userInfo}></Footer>
        </>
     )
 }

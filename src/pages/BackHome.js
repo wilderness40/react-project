@@ -3,7 +3,7 @@ import { Header , Footer } from "../components"
 import mapApi from "../services/Map";
 const { kakao } = window;
 
-function BackHome({}){
+function BackHome({userInfo}){
     // const mapData = mapApi()
     // console.log(mapData)
     useEffect( ()=> {
@@ -46,7 +46,7 @@ function BackHome({}){
        <>
             <Header></Header>
             <div id="map" style={mapStyle}></div>
-            <Footer></Footer>
+            <Footer userInfo={userInfo}></Footer>
        </>
     )
 }

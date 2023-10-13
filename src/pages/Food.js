@@ -158,7 +158,7 @@ function Food({userInfo}){
             mapState={mapState} loadState={loadState} selectMenu={customOverlayActive}
             address={address}></FoodKakaoMap>
         </div>
-        <Footer></Footer>
+        <Footer userInfo={userInfo}></Footer>
        </>
     )
 }

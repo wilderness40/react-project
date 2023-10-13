@@ -52,7 +52,7 @@ router.post('/login',expressAsyncHandler( async (req, res) => {
 
 
 router.get('/isLogin',isAuth, (req, res) => {
-    res.json({keyword : req.user.keyword, address : req.user.address})
+    res.status(200).json({code : 200, keyword : req.user.keyword, address : req.user.address})
 })
 
 router.post('/logout', (req, res) => {
