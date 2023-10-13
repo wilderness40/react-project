@@ -21,7 +21,7 @@ function Footer({ handleMemoToggle, memoToggle,  userInfo }){
             <Sidebar homeIcons={homeIcons} buttonFlag={buttonFlag} flagChange={handleSidebarFlag}></Sidebar>
             <HomeMenubarButton toggleMenubar={toggleMenubar} />
             <FooterBar handleMemoToggle={handleMemoToggle} memoToggle={memoToggle} homeIcons={homeIcons}></FooterBar>
-            {loginToken ? <div className="Login_status"><h5>로그인됨</h5></div> : <div className="Login_status"><h5>로그인필요</h5></div>}
+            {loginToken  &&  loginToken !== 'undefined' ? <div className="Login_status"><h5>로그인됨</h5></div> : <div className="Login_status"><h5>로그인필요</h5></div>}
             <ScheduleBar></ScheduleBar>
         </footer>
     )

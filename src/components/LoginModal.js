@@ -35,13 +35,14 @@ function LoginModal({loginModalStateChange ,setUserInfo , setLoginModalState}){
     .then(res => res.json())
     .then((res) => {
       console.log(res)
-      
+      if(res.code === 200){
       setCookie('accessToken', res.token, { 
         path: '/',
       })
       setUserInfo({ name: res.code === 200 ? res.name : 'guest' , keyword : res.keyword, address : res.address})  
       loginModalStateChange()
       alert('로그인 되었습니다.')
+    }
     })
   }
 
