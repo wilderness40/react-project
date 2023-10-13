@@ -163,7 +163,7 @@ function Modify({ setUserInfo, userInfo }) {
               </select>
               <select defaultValue={inputModifyData.userAddress[1]} onChange={(e) => {setInputModifyData({...inputModifyData, userAddress : [inputModifyData.userAddress[0], e.target.value] })}}>
                 {daejeonRegionData[`${inputModifyData.userAddress[0]}`]?.map((d, index) => {
-                  return <option key={index} value={d}>{d}</option>
+                  return <option key={index+d} value={d}>{d}</option>
                 })}
               </select>
             </label>
