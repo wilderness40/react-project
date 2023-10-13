@@ -55,8 +55,9 @@ router.get('/isLogin',isAuth, (req, res) => {
     res.status(200).json({code : 200, keyword : req.user.keyword, address : req.user.address})
 })
 
-router.post('/logout', (req, res) => {
-    res.json('로그아웃')
+router.get('/logout', (req, res) => {
+    res.clearCookie('accessToken');
+    res.status(200).json({ code : 200, message: 'logout'});
 })
 
 router.post('/searchPassword',expressAsyncHandler(async(req, res) => {

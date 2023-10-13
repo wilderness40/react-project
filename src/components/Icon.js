@@ -44,7 +44,16 @@ function Icon({ src, children, href, setUserInfo, userInfo }) {
         setOptionModalState(true) 
       } else if(children === '로그인'){
         setLoginModalState(true);
-      } 
+      } else if(children === '로그아웃'){
+        console.log('out')
+        fetch('http://127.0.0.1:5300/user/logout', {
+          method : 'GET',
+          credentials : 'include'
+        })
+        .then(() => {
+          setUserInfo({ login: false, keyword : '', address : '대전광역시 서구 둔산로 100'});
+        })
+      }
       else {
         navigate(href, {state:children})
       }

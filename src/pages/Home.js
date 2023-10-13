@@ -35,6 +35,11 @@ function Home({setUserInfo, userInfo}){
             <div className="Home">
                 <main>
                     {homeIcons.map((icon, id) => {
+                        console.log(userInfo.isLogin, icon.iconTitle === '로그인')
+                        if(userInfo.login && icon.iconTitle === '로그인'){
+                            icon.iconTitle = '로그아웃';
+                            icon.iconSrc = 'images/logout.png';
+                        }
                     return (
                         <Icon key={id} src={icon.iconSrc} href={icon.url} setUserInfo={setUserInfo} userInfo={userInfo} >{icon.iconTitle}</Icon>) 
                     })} 
