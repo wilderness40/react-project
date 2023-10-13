@@ -54,7 +54,10 @@ router.put('/edit', expressAsyncHandler(async(req, res) => {  // 비밀번호로
 }))
 
 router.delete('/delete', expressAsyncHandler(async(req, res) => {
-    const loungeComment = await LoungeComment.findOneAndDelete({password: req.body.password})
+    const loungeComment = await LoungeComment.findOneAndDelete({
+        _id: req.body._id,
+        password: req.body.password
+    })
     if(loungeComment){
         res.status(201).json({message: '글이 삭제되었습니다'})
 }else{

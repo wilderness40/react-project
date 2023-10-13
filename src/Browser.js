@@ -5,7 +5,6 @@ import App from './App.js'
 function Browser () {
     return (
     <CookiesProvider>
-
         <BrowserRouter>
             <App/>
         </BrowserRouter>

@@ -2,19 +2,8 @@ import React, {useState,useEffect} from "react";
 import "../styles/LoungeCommentRegister.css"
 import LoungeCommentOutput from "./LoungeCommentOutput";
 
-function LoungeCommentRegister({commentRegister,toggleComment, dbCode, chat, modalPosition, modalStyle, editModalText, onChange, updateInputValue, HandleModalEdit}){
-    const [comment, setComment] = useState([])
+function LoungeCommentRegister({comment, getCommentData, toggleComment, dbCode, chat, HandleModalEdit}){   
     
-    const getCommentData = async () => {
-        await fetch('http://127.0.0.1:5300/loungeComment', { 
-        method: 'get',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-    .then(res => res.json())
-    .then(data => setComment(data))
-    }
     useEffect(() => {
         getCommentData()    
           
@@ -53,40 +42,35 @@ function LoungeCommentRegister({commentRegister,toggleComment, dbCode, chat, mod
                 registerComment()
             }
         }
-        const comment__input = document.querySelectorAll(".comment__input")
-        if(comment__input !== null && chat._id === dbCode){
-            comment__input.forEach((ele) => {
-                ele.addEventListener('keydown',handleKeydown)
+        const comment__input = document.querySelector(".comment__input")
+        // console.log(comment__input)
+         if(comment__input !== null && chat._id === dbCode){
+
+            comment__input.addEventListener('keydown',handleKeydown)
             return(() => {
-                ele.removeEventListener('keydown', handleKeydown)
+                comment__input.removeEventListener('keydown', handleKeydown)
             })
-        })
         }       
     }, [])
 
     return (
         <> 
-        
-            { commentRegister  && dbCode === chat._id ?
+            { toggleComment  && dbCode === chat._id ?
                 <>
                     <LoungeCommentOutput 
                     comment={comment}
                     dbCode={dbCode}
                     toggleComment={toggleComment}
-
                     HandleModalEdit={HandleModalEdit}
-                    modalPosition={modalPosition}
-                    updateInputValue={updateInputValue}
-                    editModalText={editModalText}
-                    onChange={onChange}
-                    modalStyle={modalStyle}
                 />
                     <div className="comment__input" >
                             <div className="comment__input__nameAndPassword"> 
+                            <form onSubmit={()=>{return false}}>
                                 <label htmlFor='comment__nickname'>닉네임</label>
                                     <input type='text' id='comment__nickname' placeholder="닉네임 설정"></input> 
-                                <label htmlFor='comment__password'>비밀번호</label>    
-                                    <input type='password' id='comment__password' placeholder="비밀번호 입력"></input>
+                                <label htmlFor='comment__password'>비밀번호</label>
+                                    <input type='password' id='comment__password' placeholder="비밀번호 입력" autoComplete="on"></input>
+                                </form>
                                 </div>
 
                                 <div className="comment__input__text__register">
