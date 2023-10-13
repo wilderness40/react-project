@@ -1,17 +1,13 @@
 import React, {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import '../styles/Icons.css'
-import OptionModal from "../components/OptionModal";
-import LoginModal from "../components/LoginModal";
+
 import { useCookies } from 'react-cookie';
 
-function Icon({ src, children, href, setUserInfo, userInfo }) {
+function Icon({ src, children, href, setUserInfo, userInfo, setOptionModalState, setLoginModalState }) {
     const [cookies, setCookie, removeCookie] = useCookies(['accessToken']);
     
     const [iconActiveFlag, setIconActiveFlag] = useState(''); // Icon 한번 클릭시 보라색으로 스타일 변경을 위한 state
-    const [optionModalState , setOptionModalState] = useState(false) // OptionModal을 위한 state
-    const [loginModalState, setLoginModalState] = useState(false); // 로그인 모달창 열림 상태 state
-
     const changeIconFlag = (e) => { // Icon 클릭시 css active 설정하기 위해 state값을 변경한다.
         setIconActiveFlag('clicked');
         removeAndAddActiveClass(e);
@@ -50,26 +46,12 @@ function Icon({ src, children, href, setUserInfo, userInfo }) {
           removeCookie('accessToken');
           window.location.reload()
         console.log('out')
-        // fetch('http://127.0.0.1:5300/user/logout', {
-        //   method : 'GET',
-        //   credentials : 'include'
-        // })
-        // .then(() => {
-        //   setUserInfo({ login: false, keyword : '', address : '대전광역시 서구 둔산로 100'});
-        //   removeCookie('accessToken');
-        
-        // })
       }
       else {
         navigate(href, {state:children})
       }
     }
-    const optionModalStateChange = () => {
-      setOptionModalState(!optionModalState)
-    }
-    const loginModalStateChange = () => {
-      setLoginModalState(!loginModalState);
-    }
+
     useEffect(() => { // Icon 컴포넌트가 생성될 때 이벤트 리스너를 추가한다.
       document.addEventListener('click', handleClickOutside);
       return () => {
@@ -92,7 +74,6 @@ function Icon({ src, children, href, setUserInfo, userInfo }) {
           </div>
           <h5 className={`${iconActiveFlag==='clicked' ? 'active' : ''}`}>{children}</h5>
         </div>
-
       </>
     );
   }
