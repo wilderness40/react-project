@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import '../styles/Sidebar.css'
 import { Link } from "react-router-dom"
-import LoginModal from "./LoginModal";
-import OptionModal from './OptionModal';
+import { useCookies } from 'react-cookie';
+
 
 function Sidebar({ homeIcons, buttonFlag, flagChange, setLoginModalState, setOptionModalState }) {
-    // 미해결사항 : 사이드바가 열려있을 때 하단 시계버튼을 클릭하면 사이드바가 사라지지 않는다.
+    const [cookies, setCookie, removeCookie] = useCookies(['accessToken']);
     const anotheClickHideSidebar = (e) => { // 다른 곳을 클릭하면 사이드바가 사라지게 하는 함수
 
         const sidebarmenu = document.querySelector('.window-bar') // 사이드바 
@@ -37,6 +37,11 @@ function Sidebar({ homeIcons, buttonFlag, flagChange, setLoginModalState, setOpt
     const handleOptionModal = () => {
         setOptionModalState(true)
     }
+    const handleLogout = () => {
+        removeCookie('accessToken');
+        window.location.reload()
+    }
+
     return (
         <>
             <div className={`window-bar ${buttonFlag ? 'showSidebar' : ''}`}>  {/* buttonFlag가 true일때 sidebar가 나타난다 */}
@@ -55,14 +60,19 @@ function Sidebar({ homeIcons, buttonFlag, flagChange, setLoginModalState, setOpt
                                         <img src={icon.iconSrc} alt="" />
                                         {icon.iconTitle}
                                     </div>
-                                ) : (
-                                    <Link to={icon.url} state={icon.iconTitle}>
-                                        <div>
-                                            <img src={icon.iconSrc} alt="" />
-                                            {icon.iconTitle}
-                                        </div>
-                                    </Link>
-                                )}
+                                ) : icon.iconTitle === '로그아웃' ? (
+                                    <div onClick={handleLogout}>
+                                        <img src={icon.iconSrc} alt="" />
+                                        {icon.iconTitle}
+                                    </div>)
+                                    : (
+                                        <Link to={icon.url} state={icon.iconTitle}>
+                                            <div>
+                                                <img src={icon.iconSrc} alt="" />
+                                                {icon.iconTitle}
+                                            </div>
+                                        </Link>
+                                    )}
                             </React.Fragment>
                         )
                     })}
