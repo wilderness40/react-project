@@ -13,7 +13,7 @@ function Lounge({ userInfo }) {
     const [updateInputValue, setUpdateInputValue] = useState('') // 수정할때 입력창에 기존 글을 보여줍니다
     const [dbCode, setDbCode] = useState('') // db에 저장된 데이터의 고유 코드를 저장합니다
     const [commentCode, setCommentCode] = useState('') // db에 저장된 댓글 데이터의 고유 코드를 저장합니다
-
+    
     const [modalStyle, setModalStyle] = useState(false) // 비밀번호가 일치하지 않을때 모달창의 스타일을 변경합니다
     const [toggleComment, setToggleComment] = useState(false) // 댓글을 보여줍니다
     const [depth, setDepth] = useState('') // 댓글의 깊이를 저장합니다
@@ -102,7 +102,6 @@ function Lounge({ userInfo }) {
         e.stopPropagation() // 댓글 수정,삭제 비밀번호 입력후 부모글의 수정,삭제를 누르면 부모글이 수정창이 나오는것을 방지합니다(버블링)
         const mongoDbId = e.target.parentNode.parentNode.parentNode.firstChild.children[2].innerText
         const depth = e.target.parentNode.parentNode.parentNode.firstChild.children[3].innerText
-        console.log(depth)
 
         // console.log(e.target.closest('.lounge__textOutput__text').querySelector('.paragraph-id').innerText) // comment 와 공동사용 불가
         setModalStyle(false)
@@ -114,6 +113,7 @@ function Lounge({ userInfo }) {
         if (depth === '1') {
             setCommentCode(mongoDbId) // 댓글의 db코드를 저장합니다
         }
+    
         const rect = e.target.getBoundingClientRect();
 
         setModalPosition({
@@ -315,10 +315,12 @@ function Lounge({ userInfo }) {
     const handleComment = (e) => {
         e.stopPropagation()
         const mongoDbId = e.target.parentNode.parentNode.parentNode.firstChild.children[2].innerText
+        const depth = e.target.parentNode.parentNode.parentNode.firstChild.children[3].innerText
         setDbCode(mongoDbId)
         if (e.target.innerText === "댓글") {
             setClickData(e.target)
             setToggleComment(!toggleComment)
+            setDepth(depth)
             if (toggleComment) {
                 setModalPosition(null)
             }
@@ -376,6 +378,7 @@ function Lounge({ userInfo }) {
                                     modalStyle={modalStyle}
                                     confirmEditText={confirmEditText}
                                     clickData={clickData}
+                                    depth={depth}
                                 />
                             </ React.Fragment>
                         )

@@ -3,13 +3,12 @@
 // 2. 게시글 댓글이 열린 상태에서 다른 게시글의 수정버튼을 누르면 기존 댓글이 접히면서 수정버튼 누른 곳의 댓글이 열린다
 
 
-import { click } from "@testing-library/user-event/dist/click";
-import React, {  useEffect } from "react";
+import React, {  useState,useEffect } from "react";
 import "../styles/LoungeCommentRegister.css"
 import LoungeCommentOutput from "./LoungeCommentOutput";
 
 function LoungeCommentRegister({ comment, getCommentData, toggleComment, commentCode, dbCode, chat, HandleModalEdit, passwordMatched, modalPosition , confirmEditText, depth, clickData }) {
-    console.log(clickData)
+    
     useEffect(() => {
         getCommentData()
 
@@ -56,9 +55,12 @@ function LoungeCommentRegister({ comment, getCommentData, toggleComment, comment
             })
         }
     }, [toggleComment]) // toggleComment가 바뀔때마다 실행 (댓글접힌게 열리면 실행된다)
+    console.log(depth)
     return (
         <>
-            {toggleComment && dbCode === chat._id  ?
+            {
+            (toggleComment && dbCode === chat._id && (depth =='0' && clickData.innerText === '댓글')) || 
+            (toggleComment && dbCode === chat._id && (depth =='1' && clickData.innerText === '수정'|| depth =='1' && clickData.innerText === '삭제')) ?
                 <>
                     <LoungeCommentOutput
                         comment={comment}
@@ -90,6 +92,8 @@ function LoungeCommentRegister({ comment, getCommentData, toggleComment, comment
                 </>
 
                 : null}
+
+               
         </>
     )
 
