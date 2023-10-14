@@ -21,7 +21,7 @@ function Footer({ handleMemoToggle, memoToggle,  userInfo }){
             <Sidebar homeIcons={homeIcons} buttonFlag={buttonFlag} flagChange={handleSidebarFlag}></Sidebar>
             <HomeMenubarButton toggleMenubar={toggleMenubar} />
             <FooterBar handleMemoToggle={handleMemoToggle} memoToggle={memoToggle} homeIcons={homeIcons}></FooterBar>
-            {loginToken && <div className="Login_status"><a href="/modify">회원정보 수정</a></div>}
+            {loginToken && <div className="Login_status"><a href="/modify"><img src="/images/user.png" alt='userModify'/>회원정보 수정</a></div>}
             <ScheduleBar></ScheduleBar>
         </footer>
     )
