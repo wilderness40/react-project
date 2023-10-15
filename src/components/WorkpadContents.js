@@ -29,6 +29,7 @@ function WorkpadContents({ workpadTabState }){
     .then(res => res.json())
     .then(res => {
       if(res.code === 200)
+      console.log(res.todos,res.doneTodos)
       setTodoList({ todos : res.todos, doneTodos : res.doneTodos })
     })
   }

@@ -48,6 +48,7 @@ router.get('/', isAuth, expressAsyncHandler(async (req, res) => {
   initRoutine.forEach(async todo => {await todo.save()});
   const todos = await Todo.find({ isDone : false });
   const doneTodos = await Todo.find({ isDone : true });
+  console.log(todos, doneTodos)
   res.json({ todos, doneTodos });
 }))
 // 투두 완료
