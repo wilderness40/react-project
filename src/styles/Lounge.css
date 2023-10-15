@@ -134,6 +134,9 @@
 .paragraph-id{
     opacity: 0;
 }
+.depth{
+    opacity: 0;
+}
 .password-incorrect-text{
     display: flex;
     color: rgb(235, 23, 23);

@@ -6,15 +6,18 @@ import axios from "axios";
 const { kakao } = window
 
 function Food({userInfo}){
+    console.log(userInfo)
     const [address, setAddress] = useState([])
     useEffect( () => {
         const geo = new kakao.maps.services.Geocoder();
-        geo.addressSearch(userInfo.address , function(result , status) {
+        let startAddressIndex = userInfo.address.search('동')
+        const address = userInfo.address.substr(0,startAddressIndex + 1)
+        geo.addressSearch(address , function(result , status) {
             if(status === kakao.maps.services.Status.OK) {
                 const LatLng = new kakao.maps.LatLng(result[0].y, result[0].x)
                 setAddress([
                     {
-                        REST_NM : '현재 위치',
+                        REST_NM : '중심지',
                         LAT : LatLng.Ma,
                         LOT : LatLng.La,
                     }
@@ -121,12 +124,17 @@ function Food({userInfo}){
         console.log(keyword)
         axios.get(`http://127.0.0.1:5300/food/hashTag/type=${Foodkeyword}&tag=${keyword}/${userInfo.address}`)
         .then(res => {
-            setFoodSearchData(res.data.hashTagFoodList)
-            setLoadState(true)
-            setMapState(false)
+            if(res.status === 200) {
+                setFoodSearchData(res.data.hashTagFoodList)
+                setLoadState(true)
+                setMapState(false)
+            } else if(res.status === 204) {
+                setFoodSearchData(address)
+                setLoadState(true)
+                setMapState(false)
+            }
         })
     }
-    
     const customOverlayActive = (e, index) => { // 커스텀 오버레이 마커 선택을 위한 함수
         const markers = document.querySelectorAll('.title')
         const Active = e.target

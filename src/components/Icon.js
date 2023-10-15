@@ -1,15 +1,13 @@
 import React, {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import '../styles/Icons.css'
-import OptionModal from "../components/OptionModal";
-import LoginModal from "../components/LoginModal";
 
-function Icon({ src, children, href, setUserInfo, userInfo }) {
+import { useCookies } from 'react-cookie';
+
+function Icon({ src, children, href, setUserInfo, userInfo, setOptionModalState, setLoginModalState }) {
+    const [cookies, setCookie, removeCookie] = useCookies(['accessToken']);
     
     const [iconActiveFlag, setIconActiveFlag] = useState(''); // Icon 한번 클릭시 보라색으로 스타일 변경을 위한 state
-    const [optionModalState , setOptionModalState] = useState(false) // OptionModal을 위한 state
-    const [loginModalState, setLoginModalState] = useState(false); // 로그인 모달창 열림 상태 state
-
     const changeIconFlag = (e) => { // Icon 클릭시 css active 설정하기 위해 state값을 변경한다.
         setIconActiveFlag('clicked');
         removeAndAddActiveClass(e);
@@ -44,17 +42,16 @@ function Icon({ src, children, href, setUserInfo, userInfo }) {
         setOptionModalState(true) 
       } else if(children === '로그인'){
         setLoginModalState(true);
-      } 
+      } else if(children === '로그아웃'){
+          removeCookie('accessToken');
+          window.location.reload()
+        console.log('out')
+      }
       else {
         navigate(href, {state:children})
       }
     }
-    const optionModalStateChange = () => {
-      setOptionModalState(!optionModalState)
-    }
-    const loginModalStateChange = () => {
-      setLoginModalState(!loginModalState);
-    }
+
     useEffect(() => { // Icon 컴포넌트가 생성될 때 이벤트 리스너를 추가한다.
       document.addEventListener('click', handleClickOutside);
       return () => {
@@ -72,11 +69,6 @@ function Icon({ src, children, href, setUserInfo, userInfo }) {
           </div>
           <h5 className={`${iconActiveFlag==='clicked' ? 'active' : ''}`}>{children}</h5>
         </div>
-        {optionModalState &&
-          <OptionModal key={src} state={optionModalState} optionModalStateChange={optionModalStateChange}></OptionModal>
-        }
-        {loginModalState && <LoginModal loginModalStateChange={loginModalStateChange} setUserInfo={setUserInfo}
-        setLoginModalState={setLoginModalState}></LoginModal>}
       </>
     );
   }

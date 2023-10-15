@@ -15,6 +15,7 @@ router.post('/register', expressAsyncHandler( async(req, res, next) => {
     const user = new User({
         userId : req.body.userId ,
         password : req.body.password ,
+        name : req.body.name,
         keyword : req.body.keyword ,
         address : req.body.address ,
     })
@@ -55,8 +56,9 @@ router.get('/isLogin',isAuth, (req, res) => {
     res.status(200).json({code : 200, keyword : req.user.keyword, address : req.user.address})
 })
 
-router.post('/logout', (req, res) => {
-    res.json('로그아웃')
+router.get('/logout', (req, res) => {
+    // res.clearCookie('accessToken');
+    res.status(200).json({ code : 200, message: 'logout'});
 })
 
 router.post('/searchPassword',expressAsyncHandler(async(req, res) => {
@@ -82,21 +84,47 @@ router.post('/searchPassword',expressAsyncHandler(async(req, res) => {
     }
 }))
 
-router.put('/:id' ,isAuth , expressAsyncHandler ( async (req, res, next) => {
-    const user = await User.findById(req.params.id)
-    if(!user) {
-        res.status(404).json({ code : 404 , message : 'User not Found'})
+// router.put('/:id' ,isAuth , expressAsyncHandler ( async (req, res, next) => {
+//     const user = await User.findById(req.params.id)
+//     if(!user) {
+//         res.status(404).json({ code : 404 , message : 'User not Found'})
+//     } else {
+//         user.password = req.body.password || user.password
+//         user.keyword = req.body.keyword || user.keyword
+//         user.address = req.body.address || user.address
+//         const updatedUser = await user.save()
+//         const { keyword , address } = updatedUser
+//         res.json({
+//             code : 200 ,
+//             token : generateToken(updatedUser) ,
+//             keyword , address
+//         })
+//     }
+// }))
+
+// 회원정보 수정 전 유저 확인
+router.post('/passwrodVerify', isAuth, expressAsyncHandler(async (req, res) => {
+    const searchUser = await User.findOne({ userId : req.user.userId, password : req.body.password });
+
+    if(!searchUser){
+        res.status(401).json({ code : 401, message : 'Invalid modify user' })
     } else {
-        user.password = req.body.password || user.password
-        user.keyword = req.body.keyword || user.keyword
-        user.address = req.body.address || user.address
-        const updatedUser = await user.save()
-        const { keyword , address } = updatedUser
-        res.json({
-            code : 200 ,
-            token : generateToken(updatedUser) ,
-            keyword , address
-        })
+        const { name, keyword, address } = searchUser;
+        res.status(200).json({ code : 200, name, keyword, address });
+    }
+}))
+
+router.put('/modify', isAuth, expressAsyncHandler(async (req, res) => {
+    const searhUser = await User.findOne({ userId : req.user.userId });
+    if(!searhUser){
+        res.status(401).json({ code : 401, message : 'Invalid modify user'});
+    } else {
+        searhUser.name = req.body.name || searhUser.name;
+        searhUser.password = req.body.password || searhUser.password;
+        searhUser.keyword = req.body.keyword || searhUser.keyword;
+        searhUser.address = req.body.address || searhUser.address;
+        const updatedUser = await searhUser.save();
+        res.status(200).json({ code : 200, token : generateToken(updatedUser)});
     }
 }))
 

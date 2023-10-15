@@ -11,7 +11,7 @@ router.get('/', isAuth, expressAsyncHandler(async (req, res) => {
   if(!scheduleList){
     res.status(404).json({ code : 404, message : 'not found schedule list'})
   }else{
-    res.json({scheduleList})
+    res.json({ code : 200, scheduleList})
   }
   
 }))

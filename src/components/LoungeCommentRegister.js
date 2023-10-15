@@ -1,23 +1,17 @@
-import React, {useState,useEffect} from "react";
+// 미해결 오류
+// 1. 댓글창 모달열리면 댓글창이 접히는 현상
+// 2. 게시글 댓글이 열린 상태에서 다른 게시글의 수정버튼을 누르면 기존 댓글이 접히면서 수정버튼 누른 곳의 댓글이 열린다
+
+
+import React, {  useEffect } from "react";
 import "../styles/LoungeCommentRegister.css"
 import LoungeCommentOutput from "./LoungeCommentOutput";
 
-function LoungeCommentRegister({commentRegister,toggleComment, dbCode, chat, modalPosition, modalStyle, editModalText, onChange, updateInputValue, HandleModalEdit}){
-    const [comment, setComment] = useState([])
-    
-    const getCommentData = async () => {
-        await fetch('http://127.0.0.1:5300/loungeComment', { 
-        method: 'get',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-    .then(res => res.json())
-    .then(data => setComment(data))
-    }
+function LoungeCommentRegister({ comment, getCommentData, toggleComment, dbCode, chat, HandleModalEdit }) {
+
     useEffect(() => {
-        getCommentData()    
-          
+        getCommentData()
+
     }, [])
     const registerComment = (e) => { // 등록 버튼을 누르면 글이 등록됩니다
         const id = document.querySelector("#comment__nickname").value;
@@ -34,7 +28,7 @@ function LoungeCommentRegister({commentRegister,toggleComment, dbCode, chat, mod
                 password: password,
                 text: text,
                 parent: dbCode,
-            }) 
+            })
         })
         getCommentData() // db에서 데이터 가져오기
 
@@ -49,59 +43,54 @@ function LoungeCommentRegister({commentRegister,toggleComment, dbCode, chat, mod
         const handleKeydown = (e) => {
             console.log(e.target)
             console.log(e.key)
-            if(e.key === 'Enter'){
+            if (e.key === 'Enter') {
                 registerComment()
             }
         }
-        const comment__input = document.querySelectorAll(".comment__input")
-        if(comment__input !== null && chat._id === dbCode){
-            comment__input.forEach((ele) => {
-                ele.addEventListener('keydown',handleKeydown)
-            return(() => {
-                ele.removeEventListener('keydown', handleKeydown)
+        const comment__input = document.querySelector(".comment__input")
+        // console.log(comment__input)
+        if (comment__input !== null && chat._id === dbCode) {
+
+            comment__input.addEventListener('keydown', handleKeydown)
+            return (() => {
+                comment__input.removeEventListener('keydown', handleKeydown)
             })
-        })
-        }       
-    }, [])
+        }
+    }, [toggleComment]) // 이곳을 수정해야할 것 같다
 
     return (
-        <> 
-        
-            { commentRegister  && dbCode === chat._id ?
+        <>
+            {toggleComment && dbCode === chat._id ?
                 <>
-                    <LoungeCommentOutput 
-                    comment={comment}
-                    dbCode={dbCode}
-                    toggleComment={toggleComment}
-
-                    HandleModalEdit={HandleModalEdit}
-                    modalPosition={modalPosition}
-                    updateInputValue={updateInputValue}
-                    editModalText={editModalText}
-                    onChange={onChange}
-                    modalStyle={modalStyle}
-                />
+                    <LoungeCommentOutput
+                        comment={comment}
+                        dbCode={dbCode}
+                        toggleComment={toggleComment}
+                        HandleModalEdit={HandleModalEdit}
+                    />
                     <div className="comment__input" >
-                            <div className="comment__input__nameAndPassword"> 
+                        <div className="comment__input__nameAndPassword">
+                            <form onSubmit={() => { return false }}>
                                 <label htmlFor='comment__nickname'>닉네임</label>
-                                    <input type='text' id='comment__nickname' placeholder="닉네임 설정"></input> 
-                                <label htmlFor='comment__password'>비밀번호</label>    
-                                    <input type='password' id='comment__password' placeholder="비밀번호 입력"></input>
-                                </div>
+                                <input type='text' id='comment__nickname' placeholder="닉네임 설정"></input>
+                                <label htmlFor='comment__password'>비밀번호</label>
+                                <input type='password' id='comment__password' placeholder="비밀번호 입력" autoComplete="on"></input>
+                            </form>
+                        </div>
 
-                                <div className="comment__input__text__register">
-                                    <label htmlFor="comment__text">내용</label>
-                                    <input type="text" placeholder="글을 입력하세요" id="comment__text"></input>
-                                    <button type="button" onClick={registerComment}>등록</button>
-                                </div>
-                            </div>
-                            </>
-                
-            : null}
-            </>
+                        <div className="comment__input__text__register">
+                            <label htmlFor="comment__text">내용</label>
+                            <input type="text" placeholder="글을 입력하세요" id="comment__text"></input>
+                            <button type="button" onClick={registerComment}>등록</button>
+                        </div>
+                    </div>
+                </>
+
+                : null}
+        </>
     )
-        
-    
+
+
 }
 
 export default LoungeCommentRegister

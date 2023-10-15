@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import './App.css';
 import {Routes, Route} from "react-router-dom"
-import { Home, Play, Work, Food, News, BackHome, Lounge, Register} from './pages'
+import { Home, Play, Work, Food, News, BackHome, Lounge, Register, Modify} from './pages'
 
 
 function App() {
   console.log()
-     const [userInfo, setUserInfo] = useState({ login: false, keyword : '', address : '대전광역시 서구 둔산로 100'})
+     const [userInfo, setUserInfo] = useState({ name: 'guest', keyword : '', address : '대전광역시 서구 둔산동'})
      useEffect( () => {
         fetch('http://127.0.0.1:5300/user/isLogin', {
           method: 'GET',
@@ -19,9 +19,8 @@ function App() {
         .then(res => res.json())
         .then((res) => {
           if(res.code === 200){
-            setUserInfo({ login: true , keyword : res.keyword, address : res.address})
+            setUserInfo({ name: res.name , keyword : res.keyword, address : res.address})
           }
-          
           })
      }, [])
      
@@ -37,6 +36,7 @@ function App() {
          <Route exact path='/BackHome' element={<BackHome userInfo={userInfo}/>} />
          <Route exact path='/lounge' element={<Lounge userInfo={userInfo}/>} />
          <Route exact path='/register' element={<Register />} />
+         <Route exact path='/modify' element={<Modify setUserInfo={setUserInfo} userInfo={userInfo}/>} />
          <Route path='/' element={<Home />} />
       </Routes>
     </div>

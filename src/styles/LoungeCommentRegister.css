@@ -7,15 +7,18 @@
     margin: 2rem 0rem;
 }
 
-.comment__input__nameAndPassword{
+.comment__input__nameAndPassword form{
     display: flex;
     gap: 10px;
 }
 #comment__nickname{
     width: 100px;
+    padding: 3px 0;
+
 }
 #comment__password{
     width: 100px;
+    padding: 3px 0;
 }
 #comment__text{
     width: 450px;

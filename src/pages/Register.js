@@ -10,8 +10,9 @@ function Register(){
     userEmail : 'gmail.com',
     userPassword : '',
     CheckingUserPassword : '',
+    userName : '',
     userKeyword : '',
-    userAddress : ['동구','']
+    userAddress : ['동구','중앙동']
   });
 
   const [errorInputData, setErrorInputData] = useState({
@@ -22,17 +23,18 @@ function Register(){
   const changeRegisterData = (event) => {
     const { name } = event.target;
     setErrorInputData({ err : null , message : ''});
-    setInputRegisterData({ ...inputRegisterData, [name] : event.target.value });
+    setInputRegisterData({ ...inputRegisterData, [name] : event.target.value.trim() });
   }
 
   const handleRegister = (event) => {
     event.preventDefault();
 
-    if(!inputRegisterData.userId
-      || !inputRegisterData.userPassword
-      || !inputRegisterData.CheckingUserPassword){
-        setErrorInputData({ err : 'emptyData', message : '아이디 혹은 비밀번호를 입력해주세요!'});
-    } else if (inputRegisterData.userPassword !== inputRegisterData.CheckingUserPassword ){
+    if(!inputRegisterData.userId.trim()
+      || !inputRegisterData.userPassword.trim()
+      || !inputRegisterData.CheckingUserPassword.trim()
+      || !inputRegisterData.userName.trim()){
+        setErrorInputData({ err : 'emptyData', message : '필수입력 사항을 입력해 주세요!'});
+    } else if (inputRegisterData.userPassword.trim() !== inputRegisterData.CheckingUserPassword.trim() ){
       setErrorInputData({ err : 'passwordMatching', message : '비밀번호가 다릅니다.'});
       return ;
     } else {
@@ -42,19 +44,23 @@ function Register(){
             'Content-Type' : 'application/json'
           },
           body : JSON.stringify({
-            userId : inputRegisterData.userId + '@' + inputRegisterData.userEmail,
-            password : inputRegisterData.userPassword,
-            keyword : inputRegisterData.userKeyword,
+            userId : inputRegisterData.userId.trim() + '@' + inputRegisterData.userEmail,
+            password : inputRegisterData.userPassword.trim(),
+            name : inputRegisterData.userName.trim(),
+            keyword : inputRegisterData.userKeyword.trim(),
             address : '대전광역시' + ' ' + inputRegisterData.userAddress[0] + ' ' + inputRegisterData.userAddress[1]
           })
         })
         .catch(e => console.log(e))
         .then((res) => {
+          console.log(res.ok)
           if(res?.ok){
+            alert('회원가입이 완료되었습니다!')
             setInputRegisterData({
               userId : '',
               userPassword : '',
               CheckingUserPassword : '',
+              userName : '',
               userKeyword : '',
               userAddress : ''
             })
@@ -68,7 +74,6 @@ function Register(){
   const moveToHomePage = () => {
     navigate('/');
   }
-  console.log(inputRegisterData.userAddress[0], daejeonRegionData[`${inputRegisterData.userAddress[0]}`])
   return (
     <div className="Register-container">
       <div className="Register-header">
@@ -79,16 +84,17 @@ function Register(){
       </div>
       <div className='Register-form-container'>
         <form>
-          <label><span>emali : </span><input type='text' name='userId' onChange={changeRegisterData} value={inputRegisterData.userId}/>
+          <label><span>*emali : </span><input type='text' name='userId' onChange={changeRegisterData} value={inputRegisterData.userId}/>
           <select onChange={(e) => {setInputRegisterData({...inputRegisterData, userEmail : e.target.value})}}>
             <option value='gmail.com'>gmail.com</option>
             <option value='naver.com'>naver.com</option>
             <option value='daum.net'>daum.net</option>
           </select>
           </label>
-          <label><span>password : </span><input type='password' name='userPassword' onChange={changeRegisterData} value={inputRegisterData.userPassword}/></label>
-          <label><span>password 확인 : </span><input type='password' name='CheckingUserPassword' onChange={changeRegisterData} value={inputRegisterData.CheckingUserPassword}/></label>
+          <label><span>*password : </span><input type='password' name='userPassword' onChange={changeRegisterData} value={inputRegisterData.userPassword}/></label>
+          <label><span>*password 확인 : </span><input type='password' name='CheckingUserPassword' onChange={changeRegisterData} value={inputRegisterData.CheckingUserPassword}/></label>
           {errorInputData.err === 'passwordMatching' && <span style={{color:'red'}}>{errorInputData.message}</span>}
+          <label><span>*name : </span><input type='text' name='userName' onChange={changeRegisterData} value={inputRegisterData.userName}/></label>
           <label><span>관심 키워드 : </span><input type='text' maxLength='15' name='userKeyword' onChange={changeRegisterData} value={inputRegisterData.userKeyword}/></label>
           <label><span>직장 주소 : </span>
             <select onChange={(e) => {setInputRegisterData({...inputRegisterData, userAddress : [e.target.value,'']})}}>

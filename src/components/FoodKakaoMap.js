@@ -23,7 +23,6 @@ function FoodKakaoMap({FoodList, mapState, searchFood,
             setCheck(true)
         }
     },[searchFood])
-
     useEffect(()=>  { // 가게 리스트를 저장하기 위한 코드
         if(mapState === true){
             const array = []
@@ -37,6 +36,8 @@ function FoodKakaoMap({FoodList, mapState, searchFood,
                     }
                     array.push(data)
                 }
+            } else {
+                array.push(address[0])
             }
             setPositions(array)
         }
@@ -47,7 +48,7 @@ function FoodKakaoMap({FoodList, mapState, searchFood,
             <Map
                 key={1}
                 center={{
-                    lat : positions[0].LAT,
+                    lat : positions[0].LAT ,
                     lng : positions[0].LOT
                 }}
                 style={{
