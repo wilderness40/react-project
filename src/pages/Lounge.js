@@ -12,6 +12,8 @@ function Lounge({ userInfo }) {
     const [passwordMatched, setPasswordMatched] = useState(false) // 비밀번호가 일치하는지 확인합니다
     const [updateInputValue, setUpdateInputValue] = useState('') // 수정할때 입력창에 기존 글을 보여줍니다
     const [dbCode, setDbCode] = useState('') // db에 저장된 데이터의 고유 코드를 저장합니다
+    const [commentCode, setCommentCode] = useState('') // db에 저장된 댓글 데이터의 고유 코드를 저장합니다
+    
     const [modalStyle, setModalStyle] = useState(false) // 비밀번호가 일치하지 않을때 모달창의 스타일을 변경합니다
     const [toggleComment, setToggleComment] = useState(false) // 댓글을 보여줍니다
     const [depth, setDepth] = useState('') // 댓글의 깊이를 저장합니다
@@ -52,6 +54,7 @@ function Lounge({ userInfo }) {
 
     useEffect(() => {
         const clickModalOutside = (e) => { // 모달창 밖을 클릭하면 모달창이 닫힙니다
+            e.stopPropagation()
             if (modalPosition &&
                 e.target.className !== "edit" && e.target.className !== "delete"
                 && e.target.className !== "comment" && e.target.className !== "confirm"
@@ -96,16 +99,21 @@ function Lounge({ userInfo }) {
 
     // 모달창 띄우기
     const HandleModalEdit = async (e) => {
-        console.log(e.target)
+        e.stopPropagation() // 댓글 수정,삭제 비밀번호 입력후 부모글의 수정,삭제를 누르면 부모글이 수정창이 나오는것을 방지합니다(버블링)
         const mongoDbId = e.target.parentNode.parentNode.parentNode.firstChild.children[2].innerText
         const depth = e.target.parentNode.parentNode.parentNode.firstChild.children[3].innerText
-        // console.log(e.target.closest('.lounge__textOutput__text').querySelector('.paragraph-id').innerText) // comment 와 공동사용 불가
 
+        // console.log(e.target.closest('.lounge__textOutput__text').querySelector('.paragraph-id').innerText) // comment 와 공동사용 불가
         setModalStyle(false)
-        setDbCode(mongoDbId)
         setClickData(e.target)
         setDepth(depth)
-        // console.log(depth, clickData.innerText)
+        if (depth === '0') {
+            setDbCode(mongoDbId) // 부모글의 db코드를 저장합니다
+        }
+        if (depth === '1') {
+            setCommentCode(mongoDbId) // 댓글의 db코드를 저장합니다
+        }
+    
         const rect = e.target.getBoundingClientRect();
 
         setModalPosition({
@@ -114,15 +122,13 @@ function Lounge({ userInfo }) {
         });
     }
 
-
-    // 수정, 삭제하기 (비밀번호 검증)
-    const editModalText = async () => {
-
+    // 수정, 삭제하기 (비밀번호 일치했을경우)
+    const editModalText = async (e) => {
+        e.stopPropagation()
         const id = clickData.parentNode.parentNode.previousSibling.firstChild.innerText
         const editPassword = document.querySelector("#editPassword").value
         const text = clickData.parentNode.parentNode.firstChild.innerText
-        console.log(dbCode, editPassword)
-
+        console.log(editPassword)
         if (clickData.innerText === "수정" && depth === '0') {
             try {
                 const response = await fetch('http://127.0.0.1:5300/lounge/edit', {
@@ -158,7 +164,7 @@ function Lounge({ userInfo }) {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        _id: dbCode,
+                        _id: commentCode,
                         password: editPassword,
                     })
                 })
@@ -213,7 +219,7 @@ function Lounge({ userInfo }) {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        _id: dbCode,
+                        _id: commentCode,
                         password: editPassword,
                     })
                 })
@@ -236,7 +242,8 @@ function Lounge({ userInfo }) {
     }
 
     // 모달창에서 비밀번호 일치 후 수정확정하거나 취소하기
-    const comfirmEditText = (e, index) => {
+    const confirmEditText = (e, index) => {
+        e.stopPropagation()
         const editedText = document.querySelector(".editText").value
         console.log(depth)
         setUpdateInputValue(editedText)
@@ -275,7 +282,7 @@ function Lounge({ userInfo }) {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    _id: dbCode,
+                    _id: commentCode,
                     password: passwordText,
                     text: editedText,
                     lastModifiedAt: new Date()
@@ -284,13 +291,13 @@ function Lounge({ userInfo }) {
                 .then(res => res.json()) // 서버에서 응답한 데이터를 json형태로 변환
                 .then(data => { // json형태로 변환된 데이터를 data라는 이름의 매개변수로 받아옴
                     const updatedChat = chat.map(c => {
-                        if (chat._id === dbCode) {
+                        if (chat._id === commentCode) {
                             return { ...chat, text: editedText } // 수정된 데이터를 화면에 보여주기 위해 상태값을 업데이트
                         } else {
                             return { ...chat }
                         }
                     })
-                    setChat(updatedChat) // 수정된 데이터를 화면에 보여주기 위해 상태값을 업데이트
+                    setComment(updatedChat) // 수정된 데이터를 화면에 보여주기 위해 상태값을 업데이트
                     setUpdateInputValue('') // 수정된 데이터를 화면에 보여주고 나면 input창을 비워줌
                     setPasswordMatched(false)
                     getCommentData()
@@ -306,11 +313,14 @@ function Lounge({ userInfo }) {
         setUpdateInputValue(e.target.value)
     }
     const handleComment = (e) => {
+        e.stopPropagation()
         const mongoDbId = e.target.parentNode.parentNode.parentNode.firstChild.children[2].innerText
-        console.log(e.target)
+        const depth = e.target.parentNode.parentNode.parentNode.firstChild.children[3].innerText
         setDbCode(mongoDbId)
         if (e.target.innerText === "댓글") {
+            setClickData(e.target)
             setToggleComment(!toggleComment)
+            setDepth(depth)
             if (toggleComment) {
                 setModalPosition(null)
             }
@@ -339,7 +349,7 @@ function Lounge({ userInfo }) {
                                             <LoungeInputEdit // 수정버튼 누르고 패스워드 일치시 input창이 나오도록 설정
                                                 passwordMatched={passwordMatched}
                                                 HandleModalEdit={(e, index) => HandleModalEdit(e, index)}
-                                                comfirmEditText={(e) => comfirmEditText(e, index)}
+                                                confirmEditText={(e) => confirmEditText(e, index)}
                                                 modalPosition={modalPosition}
                                                 clickData={clickData}
                                                 onChange={onChange}
@@ -347,22 +357,28 @@ function Lounge({ userInfo }) {
                                                 chat={chat}
                                                 dbCode={dbCode}
                                                 handleComment={handleComment}
+                                                depth={depth}
                                             />
                                         </div>
                                     </div>
                                 </div>
                                 <LoungeCommentRegister  // 댓글 등록
+                                    passwordMatched={passwordMatched}
+                                    modalPosition={modalPosition}
                                     comment={comment}
                                     toggleComment={toggleComment}
                                     dbCode={dbCode}
+                                    commentCode={commentCode}
                                     chat={chat}
                                     getCommentData={getCommentData}
                                     HandleModalEdit={HandleModalEdit}
-                                    modalPosition={modalPosition}
                                     updateInputValue={updateInputValue}
                                     editModalText={editModalText}
                                     onChange={onChange}
                                     modalStyle={modalStyle}
+                                    confirmEditText={confirmEditText}
+                                    clickData={clickData}
+                                    depth={depth}
                                 />
                             </ React.Fragment>
                         )

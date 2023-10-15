@@ -5,7 +5,7 @@ import "../styles/Footer.css"
 import { useCookies } from 'react-cookie';
 
 
-function Footer({ handleMemoToggle, memoToggle,  userInfo }){
+function Footer({ handleMemoToggle, memoToggle,  userInfo, setLoginModalState, setOptionModalState }){
     const [cookies, setCookie, removeCookie] = useCookies(['accessToken']);
     const loginToken = cookies.accessToken
     const [buttonFlag, setButtonFlag] = useState(false)
@@ -18,7 +18,7 @@ function Footer({ handleMemoToggle, memoToggle,  userInfo }){
     }
     return(
         <footer>
-            <Sidebar homeIcons={homeIcons} buttonFlag={buttonFlag} flagChange={handleSidebarFlag}></Sidebar>
+            <Sidebar homeIcons={homeIcons} buttonFlag={buttonFlag} flagChange={handleSidebarFlag} setLoginModalState={setLoginModalState} setOptionModalState={setOptionModalState}></Sidebar>
             <HomeMenubarButton toggleMenubar={toggleMenubar} />
             <FooterBar handleMemoToggle={handleMemoToggle} memoToggle={memoToggle} homeIcons={homeIcons}></FooterBar>
             {loginToken && <div className="Login_status"><a href="/modify"><img src="/images/user.png" alt='userModify'/>회원정보 수정</a></div>}

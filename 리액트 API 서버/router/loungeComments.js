@@ -7,12 +7,12 @@ const expressAsyncHandler = require('express-async-handler')
 
 app.use(express.json())
 
-router.get('/', expressAsyncHandler (async(req, res) => { // 모든 글을 가져온다.
+router.get('/', expressAsyncHandler (async(req, res) => { // 모든 댓글을 가져온다.
     const loungeComments = await LoungeComment.find({})
     res.json(loungeComments)
 }))
 
-router.post('/', expressAsyncHandler(async(req, res)=> {
+router.post('/', expressAsyncHandler(async(req, res)=> { // 댓글등록
     const loungeComments = new LoungeComment({
         nickname: req.body.nickname,
         password: req.body.password,
@@ -23,7 +23,7 @@ router.post('/', expressAsyncHandler(async(req, res)=> {
     res.status(201).json(createdLoungeComment)
 }))
 
-router.post('/edit', expressAsyncHandler(async(req, res)=> {
+router.post('/edit', expressAsyncHandler(async(req, res)=> { // 비밀번호검증
     const loungeComment = await LoungeComment.findOne({
         _id : req.body._id,
         password: req.body.password
@@ -37,7 +37,7 @@ router.post('/edit', expressAsyncHandler(async(req, res)=> {
     }
 }))
 
-router.put('/edit', expressAsyncHandler(async(req, res) => {  // 비밀번호로 검증해야되는데 이게 맞나?
+router.put('/edit', expressAsyncHandler(async(req, res) => {  // 댓글수정
     const loungeComment = await LoungeComment.findOne({
         _id: req.body._id,
         password: req.body.password
@@ -46,14 +46,14 @@ router.put('/edit', expressAsyncHandler(async(req, res) => {  // 비밀번호로
     if(loungeComment){
         loungeComment.text = req.body.text || loungeComment.text
 
-        const updatedLoungeComment = await LoungeComment.save()
+        const updatedLoungeComment = await loungeComment.save()
         res.status(201).json(updatedLoungeComment)
     }else{
         res.status(404).json({message: '비밀번호가 일치하지 않습니다.'})
     }
 }))
 
-router.delete('/delete', expressAsyncHandler(async(req, res) => {
+router.delete('/delete', expressAsyncHandler(async(req, res) => { // 댓글삭제
     const loungeComment = await LoungeComment.findOneAndDelete({
         _id: req.body._id,
         password: req.body.password

@@ -24,11 +24,11 @@ router.post('/register', expressAsyncHandler( async(req, res, next) => {
     if(!newUser) {
         res.status(401).json({ code : 401 , message : 'Invalid User Data' })
     } else {
-        const { userId, keyword, address } = newUser
+        const { userId, keyword, address, name } = newUser
         res.json({
             code : 200 ,
             token : generateToken(newUser) ,
-            userId, keyword, address
+            userId, keyword, address, name
         })
     }
 }))
@@ -42,11 +42,11 @@ router.post('/login',expressAsyncHandler( async (req, res) => {
     if(!loginUser) {
         res.status(401).json({ code : 401, message : '이메일이 존재하지 않거나 비밀번호가 일치하지 않습니다'})
     } else {
-        const { userId, keyword, address } =loginUser
+        const { userId, keyword, address, name } =loginUser
         res.json({
             code : 200 , 
             token : generateToken(loginUser) ,
-            userId, keyword, address ,
+            userId, keyword, address , name
         })
     }
 }))

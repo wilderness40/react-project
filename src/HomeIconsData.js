@@ -39,7 +39,7 @@ const homeIcons = [
     {
         iconTitle: '로그인',
         iconSrc: 'images/users.png',
-        url: '/login'
+        url: '' // url 안바꾸고 모달로 로그인창 띄우기
     }
 ]
 

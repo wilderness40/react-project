@@ -76,7 +76,7 @@ function Home({setUserInfo, userInfo}){
             </div>
             <HelpMemo memoToggle={memoToggle} handleMemoToggle={handleMemoToggle}/>
             <ScreenSaver state={screenSaverState}></ScreenSaver>
-            <Footer handleMemoToggle={handleMemoToggle} memoToggle={memoToggle} userInfo={userInfo}></Footer>
+            <Footer handleMemoToggle={handleMemoToggle} memoToggle={memoToggle} userInfo={userInfo} setLoginModalState={setLoginModalState} setOptionModalState={setOptionModalState}></Footer>
         </>
     )
 }
