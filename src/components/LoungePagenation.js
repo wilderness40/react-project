@@ -81,8 +81,10 @@ function LoungePagenation  ({page, setPage, totalPosts, limit}) {
 
             </LoungePageWrap>
             )}
+            <div className="pagenation__summary">
               <span className="pagenation__text">Page {page} of {numPages}</span>
               <span className="pagenation__text">Total {totalPosts} Posts</span>
+            </div>   
         </>
     )
 

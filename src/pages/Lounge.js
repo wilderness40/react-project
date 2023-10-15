@@ -110,7 +110,7 @@ function Lounge({ userInfo }) {
         if (depth === '0') {
             setDbCode(mongoDbId) // 부모글의 db코드를 저장합니다
             if(dbCode !== mongoDbId){
-                setToggleComment(false)
+                setToggleComment(false) 
             }
         }
         if (depth === '1') {
@@ -395,14 +395,14 @@ function Lounge({ userInfo }) {
                     />
 
                 </div>
+                <LoungeRegisterInput
+                    registerText={registerText}
+                />
                 <LoungePagenation
                     page={page}
                     setPage={setPage}
                     limit={limit}
                     totalPosts={totalPosts}
-                />
-                <LoungeRegisterInput
-                    registerText={registerText}
                 />
             </div>
             <Footer userInfo={userInfo}></Footer>

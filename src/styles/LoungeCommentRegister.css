@@ -11,6 +11,9 @@
     display: flex;
     gap: 10px;
 }
+.comment__input__text__register{
+    display: inline-flex;
+}
 #comment__nickname{
     width: 100px;
     padding: 3px 0;
@@ -28,6 +31,6 @@
     margin-left: 10px;
 }
 .comment__input__text__register button{
-
+    position: static;
     margin-left: 10px;
 }
