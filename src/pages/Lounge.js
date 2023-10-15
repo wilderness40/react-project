@@ -109,6 +109,9 @@ function Lounge({ userInfo }) {
         setDepth(depth)
         if (depth === '0') {
             setDbCode(mongoDbId) // 부모글의 db코드를 저장합니다
+            if(dbCode !== mongoDbId){
+                setToggleComment(false)
+            }
         }
         if (depth === '1') {
             setCommentCode(mongoDbId) // 댓글의 db코드를 저장합니다

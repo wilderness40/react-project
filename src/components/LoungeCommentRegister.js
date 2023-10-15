@@ -59,8 +59,10 @@ function LoungeCommentRegister({ comment, getCommentData, toggleComment, comment
     return (
         <>
             {
-            (toggleComment && dbCode === chat._id && (depth =='0' && clickData.innerText === '댓글')) || 
-            (toggleComment && dbCode === chat._id && (depth =='1' && clickData.innerText === '수정'|| depth =='1' && clickData.innerText === '삭제')) ?
+            // (toggleComment && dbCode === chat._id && (depth =='0' && clickData.innerText === '댓글')) || 
+            // (toggleComment && dbCode === chat._id && (depth =='1' && clickData.innerText === '수정'|| depth =='1' && clickData.innerText === '삭제')) 
+            toggleComment && dbCode === chat._id
+            ?
                 <>
                     <LoungeCommentOutput
                         comment={comment}

@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 
 const LoungeChat = require('../models/LoungeChat')
+const LoungeComments = require('../models/LoungeComment')
 const router = express.Router()
 const expressAsyncHandler = require('express-async-handler')
 
@@ -55,7 +56,8 @@ router.put('/edit', expressAsyncHandler(async(req, res, next) => {
 router.delete('/delete', expressAsyncHandler(async(req, res, next) => {
     console.log(req.body)
     const loungeChat = await LoungeChat.findOneAndDelete({password: req.body.password})
-    if(loungeChat){
+    const loungeComment = await LoungeComments.deleteMany({parent: req.body._id}) // 원글 하위의 댓글들도 삭제
+    if(loungeChat && loungeComment){
         res.status(201).json({message: '글이 삭제되었습니다'})
 }else{
     res.status(404).json({message: '비밀번호가 일치하지 않습니다.'})
