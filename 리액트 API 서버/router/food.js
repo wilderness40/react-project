@@ -22,7 +22,7 @@ router.post('/' ,expressAsyncHandler (async(req, res, next)=> {
 
 router.get('/category/:id/:address', expressAsyncHandler (async(req, res, next) => {
     let startAddressIndex = req.params.address.search('동')
-    const address = req.params.address.substr(0,startAddressIndex + 1)
+    const address = req.params.address.substr(5,startAddressIndex + 1)
     const categoryFoodList = await Foods.find({
         $and : [
             { TOB_INFO : req.params.id },
@@ -53,7 +53,7 @@ router.get('/search/:id/:address', expressAsyncHandler (async(req, res, next) =>
 
 router.post('/discription/:id/:address', expressAsyncHandler (async(req, res, next) => {
     let startAddressIndex = req.params.address.search('동')
-    const address = req.params.address.substr(0,startAddressIndex + 1)
+    const address = req.params.address.substr(5,startAddressIndex + 1)
     const discriptionFood = await Foods.findOne({
         $and : [
             { REST_NM : { $regex : req.params.id }},
@@ -69,7 +69,7 @@ router.post('/discription/:id/:address', expressAsyncHandler (async(req, res, ne
 
 router.get('/hashTag/type=:type&tag=:tag/:address', expressAsyncHandler (async(req, res, next) => {
     let startAddressIndex = req.params.address.search('동')
-    const address = req.params.address.substr(0,startAddressIndex + 1)
+    const address = req.params.address.substr(5,startAddressIndex + 1)
     const hashTagFoodList = await Foods.find({
         $and : [
             { TOB_INFO : { $regex: req.params.type}},

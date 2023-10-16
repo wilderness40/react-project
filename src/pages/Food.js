@@ -11,7 +11,8 @@ function Food({userInfo}){
     useEffect( () => {
         const geo = new kakao.maps.services.Geocoder();
         let startAddressIndex = userInfo.address.search('동')
-        const address = userInfo.address.substr(0,startAddressIndex + 1)
+        const address = userInfo.address.substr(5,startAddressIndex + 1)
+        console.log(address)
         geo.addressSearch(address , function(result , status) {
             if(status === kakao.maps.services.Status.OK) {
                 const LatLng = new kakao.maps.LatLng(result[0].y, result[0].x)
