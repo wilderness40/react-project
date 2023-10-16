@@ -8,7 +8,7 @@ const app = express()
 
 const port = 5300
 const corsOptions = {
-    origin : 'http://127.0.0.1:3000',
+    origin : 'https://wilderness40.github.io/react-project/',
     credentials : true ,
 }
 
