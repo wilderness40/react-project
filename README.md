@@ -171,7 +171,19 @@ mongosh 1.10.3
 2. .env 파일에 사용자의 API KEY를 등록합니다. (카카오, 유튜브, 뉴스)
 3. backend 폴더의 경로 터미널에서 nodemon을 실행합니다.
 4. frontend 폴더의 경로에서 리액트를 실행합니다.
-5. 사이트 내 조작법은 상단 동영상(gif)을 참고해주세요.   
+5. 사이트 내 조작법은 하단 동영상(gif)을 참고해주세요.   
+
+![회원가입](https://github.com/wilderness40/react-project/assets/124757916/3237269f-6b35-48ae-8b40-93a33270f4a4)
+
+![로그인](https://github.com/wilderness40/react-project/assets/124757916/9f433f76-2017-4f9f-aa09-8498946abe75)
+
+![스케쥴](https://github.com/wilderness40/react-project/assets/124757916/0bbc7513-5a84-49f2-84ff-420c49afa410)
+
+![todo](https://github.com/wilderness40/react-project/assets/124757916/fd9df1e5-5980-4591-8f4c-e51d3ccbfb70)
+
+![대쉬보드](https://github.com/wilderness40/react-project/assets/124757916/9d5d5df2-af1f-4c18-8838-26f2edb097ff)
+
+![밥먹자](https://github.com/wilderness40/react-project/assets/124757916/db46634b-e4f2-4d61-86a8-ab51ee105568)
 
 
    
