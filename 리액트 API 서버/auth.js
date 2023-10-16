@@ -6,7 +6,8 @@ const generateToken = (user) => {
         _id : user._id ,
         userId : user.userId , 
         keyword : user.keyword ,
-        address : user.address  ,
+        address : user.address,
+        name : user.name,
     
     }, config.JWT_SECRET ,
     {

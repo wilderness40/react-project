@@ -1,5 +1,4 @@
 import React, {useState, useEffect, useRef} from "react";
-import { RemoteControl } from '../components'
 import "../styles/TvContainer.css"
 
 function TvContainer({youTubeApiData}){
@@ -115,7 +114,6 @@ function TvContainer({youTubeApiData}){
                         ) 
                     })}
                 </div>
-                <RemoteControl></RemoteControl>
             </div>
        </>
     )

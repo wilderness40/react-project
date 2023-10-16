@@ -6,7 +6,7 @@ import '../styles/LoginModal.css';
 
 function LoginModal({loginModalStateChange ,setUserInfo , setLoginModalState}){
   const [ cookies, setCookie ] = useCookies(['accessToken'])
-  const [user, setUser] = useState({ email : '', password : ''})
+  const [user, setUser] = useState({ name: '', email : '', password : ''})
   const [passwordState, setPasswordState] = useState(false)
 
   const onChange = async (event) => {

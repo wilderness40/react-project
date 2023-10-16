@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Header, Footer, LoungeInputEdit, LoungeModal, LoungeRegisterInput, LoungePagenation, SnsTimeFormat, LoungeCommentRegister, LoungeCommentOutput } from "../components"
+import {
+    Header, 
+    Footer,
+    LoungeInputEdit,
+    LoungeModal, 
+    LoungeRegisterInput, 
+    LoungePagenation, 
+    SnsTimeFormat, 
+    LoungeCommentRegister, 
+} from "../components"
 import "../styles/Lounge.css"
 
 function Lounge({ userInfo }) {
@@ -13,7 +22,7 @@ function Lounge({ userInfo }) {
     const [updateInputValue, setUpdateInputValue] = useState('') // 수정할때 입력창에 기존 글을 보여줍니다
     const [dbCode, setDbCode] = useState('') // db에 저장된 데이터의 고유 코드를 저장합니다
     const [commentCode, setCommentCode] = useState('') // db에 저장된 댓글 데이터의 고유 코드를 저장합니다
-    
+
     const [modalStyle, setModalStyle] = useState(false) // 비밀번호가 일치하지 않을때 모달창의 스타일을 변경합니다
     const [toggleComment, setToggleComment] = useState(false) // 댓글을 보여줍니다
     const [depth, setDepth] = useState('') // 댓글의 깊이를 저장합니다
@@ -108,15 +117,15 @@ function Lounge({ userInfo }) {
         setClickData(e.target)
         setDepth(depth)
         if (depth === '0') {
-            setDbCode(mongoDbId) // 부모글의 db코드를 저장합니다
-            if(dbCode !== mongoDbId){
-                setToggleComment(false) 
+            if (dbCode !== mongoDbId) {
+                setToggleComment(false)
             }
+            setDbCode(mongoDbId) // 부모글의 db코드를 저장합니다
         }
         if (depth === '1') {
             setCommentCode(mongoDbId) // 댓글의 db코드를 저장합니다
         }
-    
+
         const rect = e.target.getBoundingClientRect();
 
         setModalPosition({
