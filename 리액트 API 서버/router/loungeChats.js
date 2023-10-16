@@ -55,7 +55,10 @@ router.put('/edit', expressAsyncHandler(async(req, res, next) => {
 
 router.delete('/delete', expressAsyncHandler(async(req, res, next) => {
     console.log(req.body)
-    const loungeChat = await LoungeChat.findOneAndDelete({password: req.body.password})
+    const loungeChat = await LoungeChat.findOneAndDelete({
+        _id: req.body._id,
+        password: req.body.password
+    })
     const loungeComment = await LoungeComments.deleteMany({parent: req.body._id}) // 원글 하위의 댓글들도 삭제
     if(loungeChat && loungeComment){
         res.status(201).json({message: '글이 삭제되었습니다'})
