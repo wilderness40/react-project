@@ -172,7 +172,7 @@ mongosh 1.10.3
 3. backend 폴더의 경로 터미널에서 nodemon을 실행합니다.
 4. frontend 폴더의 경로에서 리액트를 실행합니다.
 5. 사이트 내 조작법은 하단 동영상(gif)을 참고해주세요.   
-
+-------------
 **회원가입**   
 
 ![회원가입](https://github.com/wilderness40/react-project/assets/124757916/3237269f-6b35-48ae-8b40-93a33270f4a4)
