@@ -3,6 +3,7 @@ const cookieParser = require('cookie-parser')
 const cors = require('cors')
 const mongoose = require('mongoose')
 const config = require('./config')
+const logger = require('morgan')
 
 const app = express()
 
@@ -22,6 +23,7 @@ app.use(cookieParser())
 app.use(cors(corsOptions))
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
+app.use(logger('tiny')) // Logger 설정
 
 // 라우터 설정
 const loginRouter = require('./router/user')
