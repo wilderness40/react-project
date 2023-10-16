@@ -200,6 +200,7 @@ mongosh 1.10.3
 ![밥먹자](https://github.com/wilderness40/react-project/assets/124757916/db46634b-e4f2-4d61-86a8-ab51ee105568)
 
 
+** 기타 페이지 내 기능은 직접 체험해보세요!
    
 ### 출처 및 참고사이트
 ------------
