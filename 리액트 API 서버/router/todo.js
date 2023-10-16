@@ -48,7 +48,7 @@ router.get('/', isAuth, expressAsyncHandler(async (req, res) => {
   initRoutine.forEach(async todo => {await todo.save()});
   const todos = await Todo.find({ isDone : false });
   const doneTodos = await Todo.find({ isDone : true });
-  res.json({ todos, doneTodos });
+  res.status(200).json({ code : 200, todos, doneTodos });
 }))
 // 투두 완료
 router.put('/done/:id', isAuth, expressAsyncHandler(async (req, res) => {
