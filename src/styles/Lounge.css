@@ -1,11 +1,10 @@
 @import url('./Globar.css');
 
-body{
-    background: #fff;
-}
+
 .loung__body{
     width: 100vw;
     min-height: calc(100vh - 65px);
+    height: 100vh;
     background: #fff;
     overflow-y: scroll;
     display: flex;
