@@ -6,7 +6,7 @@ import '../styles/LoginModal.css';
 
 function LoginModal({loginModalStateChange ,setUserInfo , setLoginModalState}){
   const [ cookies, setCookie ] = useCookies(['accessToken'])
-  const [user, setUser] = useState({ name: '', email : '', password : ''})
+  const [user, setUser] = useState({ email : '', password : '' })
   const [passwordState, setPasswordState] = useState(false)
 
   const onChange = async (event) => {
@@ -34,12 +34,11 @@ function LoginModal({loginModalStateChange ,setUserInfo , setLoginModalState}){
     })
     .then(res => res.json())
     .then((res) => {
-      console.log(res)
       if(res.code === 200){
       setCookie('accessToken', res.token, { 
         path: '/',
       })
-      setUserInfo({ name: res.code === 200 ? res.name : 'guest' , keyword : res.keyword, address : res.address})  
+      setUserInfo({ name: res.name , keyword : res.keyword, address : res.address})  
       loginModalStateChange()
       alert(`${res.name}님의 방문을 환영합니다.`)
     }else{
@@ -55,16 +54,6 @@ function LoginModal({loginModalStateChange ,setUserInfo , setLoginModalState}){
   
 
   // 비밀번호 찾기
-  const [searchPassword, setSearchPassword] = useState(false);
-
-  const handleSearchPasswordToggle = () => {
-    setSearchPassword(!searchPassword);
-  }
-
-  const handleSearchPassword = (event) => {
-    event.preventDefault();
-    console.log('비밀번호 찾기 중');
-  }
   const passwordSearchChange = () => {
     setPasswordState(true)
   }
