@@ -3,7 +3,7 @@
 const homeIcons = [
     {
         iconTitle: '재밌게놀자', // '놀멍쉬멍'으로 변경?
-        iconSrc: `${process.env.PUBLIC_URL}/images/tv.png`, // 'images/play.png'에서 변경
+        iconSrc: './assets/images/play.png', // 'images/play.png'에서 변경
         url: '/play'
     },
     {

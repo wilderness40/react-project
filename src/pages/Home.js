@@ -58,7 +58,7 @@ function Home({setUserInfo, userInfo}){
                     return (
                         <Icon 
                         key={id} 
-                        src={icon.iconSrc} 
+                        src={require(icon.iconSrc)} 
                         href={icon.url} 
                         setUserInfo={setUserInfo} 
                         userInfo={userInfo} 
