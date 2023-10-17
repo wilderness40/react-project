@@ -14,6 +14,7 @@
     padding: 3px 1px;
     cursor: pointer;
 }
+
 .food-keywordContents.active {
     background: dodgerblue;
     color: white;

@@ -26,9 +26,6 @@
 /* 스케줄 등록 부분 스타일 */
 .WorkpadSchedule-input-container{
   padding-top: 2rem;
-  /* display: flex;
-  flex-direction: column;
-  gap: 2rem; */
   width: 20%;
 }
 .WorkpadSchedule-input-container form{
@@ -51,9 +48,6 @@
   text-align: center;
   width: 20%;
 }
-/* .WorkpadSchedule-detail button{
-  all: unset;
-} */
 .WorkpadSchedule-modify-input-container input{
   display: block;
   margin: 1rem auto;

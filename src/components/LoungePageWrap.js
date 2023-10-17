@@ -1,9 +1,9 @@
 import React from 'react';
 import '../styles/LoungePageWrap.css'
 
-function LoungePageWrap({children}){
+function LoungePageWrap({ children }) {
 
-    return(
+    return (
         <>
             <div className="pagenation__wrap">
                 {children}

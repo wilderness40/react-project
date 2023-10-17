@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import {
-    Header, 
+    Header,
     Footer,
     LoungeInputEdit,
-    LoungeModal, 
-    LoungeRegisterInput, 
-    LoungePagenation, 
-    SnsTimeFormat, 
-    LoungeCommentRegister, 
+    LoungeModal,
+    LoungeRegisterInput,
+    LoungePagenation,
+    SnsTimeFormat,
+    LoungeCommentRegister,
 } from "../components"
 import "../styles/Lounge.css"
 

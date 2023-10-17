@@ -1,7 +1,7 @@
 @import url('./Globar.css');
 
 
-.loung__body{
+.loung__body {
     width: 100vw;
     min-height: calc(100vh - 65px);
     height: 100vh;
@@ -11,37 +11,43 @@
     flex-direction: column;
     align-items: center;
 }
-.lounge__textOutput{
+
+.lounge__textOutput {
     max-width: 80%;
     width: 100%;
     height: 100%;
     margin-top: 2rem;
     margin-bottom: 1rem;
 }
-.lounge__textOutput__text{
+
+.lounge__textOutput__text {
     display: flex;
     flex-direction: column;
     border-bottom: 0.5px solid rgb(243, 239, 239);
     margin-top: 1rem;
 }
-.lounge__textOutput__text .nickname{
+
+.lounge__textOutput__text .nickname {
     display: flex;
 }
-.lounge__textOutput__text .nickname span{
+
+.lounge__textOutput__text .nickname span {
     display: flex;
     align-items: center;
     gap: 10px;
 }
-.lounge__textOutput__text .nickname span:first-child{
+
+.lounge__textOutput__text .nickname span:first-child {
     font-weight: bold;
     font-size: .8rem;
 }
-.lounge__textOutput__text .nickname span img{
+
+.lounge__textOutput__text .nickname span img {
     width: 25px;
     height: 25px;
 }
 
-.lounge__textOutput .text__function{
+.lounge__textOutput .text__function {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -50,41 +56,47 @@
     position: relative;
 }
 
-.lounge__textOutput .text__function p { 
-    width: 800px; 
+.lounge__textOutput .text__function p {
+    width: 800px;
 }
 
 #nickname {
     width: 100px;
     border: 1px solid #333;
 }
-#password{
+
+#password {
     width: 100px;
     border: 1px solid #333;
 }
 
-.edit{
+.edit {
     color: rgb(75, 73, 218);
 }
-.delete{
+
+.delete {
     color: rgb(218, 73, 73);
 }
-.edit:hover{
+
+.edit:hover {
     cursor: pointer;
     text-decoration: underline;
 }
-.delete:hover{
+
+.delete:hover {
     cursor: pointer;
     text-decoration: underline;
 }
-.comment:hover{
+
+.comment:hover {
     cursor: pointer;
     text-decoration: underline;
 }
-.checkPasswordModal{
+
+.checkPasswordModal {
     position: absolute;
     /* border: 1px solid #333; */
-    background: rgb(241, 231, 231);   
+    background: rgb(241, 231, 231);
     /* border-radius: 1rem; */
     width: 250px;
     height: 100px;
@@ -92,70 +104,85 @@
     left: 10%;
     /* display: none;/ */
 }
-.checkPasswordModal input{
+
+.checkPasswordModal input {
     height: 20px;
- }
-.checkPasswordModal h5{
+}
+
+.checkPasswordModal h5 {
     font-size: .8rem;
     margin-left: 10px;
 }
-.Modalshow{
+
+.Modalshow {
     display: block;
 }
-.passwordCheck{
+
+.passwordCheck {
     margin-left: 10px;
     margin-top: -10px;
 }
-.passwordCheck button{
+
+.passwordCheck button {
     width: 50px;
     height: 25px;
 }
-.editInputDiv{
+
+.editInputDiv {
     display: flex;
     justify-content: flex-end;
 }
-.editInputDiv input{
+
+.editInputDiv input {
     height: 20px;
 }
-.editInputDiv button{
+
+.editInputDiv button {
     width: 60px;
     height: 25px;
 }
-.confirm:hover{
+
+.confirm:hover {
     cursor: pointer;
-    text-decoration: underline;    
+    text-decoration: underline;
 }
-.cancel:hover{
+
+.cancel:hover {
     cursor: pointer;
-    text-decoration: underline;    
+    text-decoration: underline;
 }
-.paragraph-id{
+
+.paragraph-id {
     opacity: 0;
 }
-.depth{
+
+.depth {
     opacity: 0;
 }
-.password-incorrect-text{
+
+.password-incorrect-text {
     display: flex;
     color: rgb(235, 23, 23);
 }
-.password-incorrect-text img{
+
+.password-incorrect-text img {
     width: 20px;
     height: 20px;
     margin-left: 5px;
 }
-.password-incorrect{
-   animation: vibration 0.1s;
+
+.password-incorrect {
+    animation: vibration 0.1s;
 }
 
-.written-time{
+.written-time {
     font-size: 0.75rem;
     font-weight: bold;
     color: rgb(153, 153, 153);
     margin-left: 10px;
 }
 
-.pagenation__summary{
+.pagenation__summary {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -167,9 +194,10 @@
 
 @keyframes vibration {
     from {
-      transform: rotate(1deg);
+        transform: rotate(1deg);
     }
+
     to {
-      transform: rotate(-1deg);
+        transform: rotate(-1deg);
     }
-  }
+}

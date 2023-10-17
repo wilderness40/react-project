@@ -1,11 +1,11 @@
-import React, {useState} from "react";
-import {HomeMenubarButton , ScheduleBar, Sidebar, FooterBar} from "../components"
+import React, { useState } from "react";
+import { HomeMenubarButton, ScheduleBar, Sidebar, FooterBar } from "../components"
 import homeIcons from "../HomeIconsData";
 import "../styles/Footer.css"
 import { useCookies } from 'react-cookie';
 
 
-function Footer({ handleMemoToggle, memoToggle,  userInfo, setLoginModalState, setOptionModalState }){
+function Footer({ handleMemoToggle, memoToggle, userInfo, setLoginModalState, setOptionModalState }) {
     const [cookies, setCookie, removeCookie] = useCookies(['accessToken']);
     const loginToken = cookies.accessToken
     const [buttonFlag, setButtonFlag] = useState(false)
@@ -16,12 +16,12 @@ function Footer({ handleMemoToggle, memoToggle,  userInfo, setLoginModalState, s
     const handleSidebarFlag = () => {
         setButtonFlag(false)
     }
-    return(
+    return (
         <footer>
             <Sidebar homeIcons={homeIcons} buttonFlag={buttonFlag} flagChange={handleSidebarFlag} setLoginModalState={setLoginModalState} setOptionModalState={setOptionModalState}></Sidebar>
             <HomeMenubarButton toggleMenubar={toggleMenubar} />
             <FooterBar handleMemoToggle={handleMemoToggle} memoToggle={memoToggle} homeIcons={homeIcons}></FooterBar>
-            {loginToken && <div className="Login_status"><a href="/modify"><img src="/images/user.png" alt='userModify'/>회원정보 수정</a></div>}
+            {loginToken && <div className="Login_status"><a href="/modify"><img src={`${process.env.PUBLIC_URL}/images/user.png`} alt='userModify' />회원정보 수정</a></div>}
             <ScheduleBar></ScheduleBar>
         </footer>
     )

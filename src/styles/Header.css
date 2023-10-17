@@ -1,4 +1,4 @@
-.header{
+.header {
     width: 100%;
     height: 25px;
     background: #020183;
@@ -6,19 +6,21 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-
     position: fixed;
     top: 0;
     z-index: 5;
 }
-.header h5{
+
+.header h5 {
     padding-left: 1rem;
     font-size: 1.1rem;
 }
-.button-container{
+
+.button-container {
     width: 25px;
     height: 100%;
 }
-.button-container button{
+
+.button-container button {
     font-weight: bold;
 }

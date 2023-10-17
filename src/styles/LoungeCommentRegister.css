@@ -1,6 +1,4 @@
-
-
-.comment__input{
+.comment__input {
     width: 100%;
     display: flex;
     gap: 20px;
@@ -8,30 +6,36 @@
     margin-left: 2rem;
 }
 
-.comment__input__nameAndPassword form{
+.comment__input__nameAndPassword form {
     display: flex;
     gap: 10px;
 }
-.comment__input__text__register{
+
+.comment__input__text__register {
     display: inline-flex;
 }
-#comment__nickname{
+
+#comment__nickname {
     width: 100px;
     padding: 3px 0;
 
 }
-#comment__password{
+
+#comment__password {
     width: 100px;
     padding: 3px 0;
 }
-#comment__text{
+
+#comment__text {
     width: 450px;
     padding: 3px 0;
 }
-.comment__input__text__register input{
+
+.comment__input__text__register input {
     margin-left: 10px;
 }
-.comment__input__text__register button{
+
+.comment__input__text__register button {
     position: static;
     margin-left: 10px;
 }

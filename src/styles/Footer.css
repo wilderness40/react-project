@@ -1,9 +1,10 @@
 @import url('./Globar.css');
 
-a{
+a {
     text-decoration: none;
     color: #333;
 }
+
 footer {
     position: fixed;
     bottom: 0;
@@ -14,17 +15,20 @@ footer {
     align-items: center;
     z-index: 1;
 }
-.Login_status{
+
+.Login_status {
     position: fixed;
     z-index: 5;
     right: 120px;
 }
-.Login_status a{
+
+.Login_status a {
     display: flex;
     height: 100%;
     font-size: 1rem;
     align-items: center;
 }
-.Login_status a img{
+
+.Login_status a img {
     width: 40px;
 }

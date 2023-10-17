@@ -13,7 +13,7 @@ function FooterBar({handleMemoToggle, memoToggle, homeIcons}){
             <img src={icon[0].iconSrc}/><h5>{icon[0].iconTitle}</h5>
         </div>)
         :   (<div className={`Minimize-tab ${memoToggle ? '' :  'Minimize-tab-off'}`} onClick={handleMemoToggle}>
-        <img src="/images/notepadIcon.png" alt="minimize-icon"/> 
+        <img src={`${process.env.PUBLIC_URL}/images/notepadIcon.png`} alt="minimize-icon"/> 
          사이트 사용법
       </div>   )
     )

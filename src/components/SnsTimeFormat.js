@@ -1,12 +1,12 @@
 import React from "react"
 
-function SnsTimeFormat(chatTime){
+function SnsTimeFormat(chatTime) {
 
     const SimpleDateTimeFormat = (date, pattern) => {
         var days = ["일", "월", "화", "수", "목", "금", "토"];
-        var dateString = pattern.replace(/(yyyy|MM|M|dd|d|HH|H|hh|h|mm|m|ss|s|SSS|a|EEE|eee)/g, function(match) {
+        var dateString = pattern.replace(/(yyyy|MM|M|dd|d|HH|H|hh|h|mm|m|ss|s|SSS|a|EEE|eee)/g, function (match) {
             var matchString = "";
-            switch(match) {
+            switch (match) {
                 case "yyyy":
                     matchString = date.getFullYear();
                     break;
@@ -47,7 +47,7 @@ function SnsTimeFormat(chatTime){
                 case "eee":
                     matchString = days[date.getDay()];
                     break;
-                default :
+                default:
                     matchString = match;
                     break;
             }
@@ -60,14 +60,14 @@ function SnsTimeFormat(chatTime){
             } else {
                 if (match !== "M" && match !== "d" && match !== "H" && match !== "h" && match !== "m" && match !== "s"
                     && match !== "a" && match !== "EEE" && match !== "eee") {
-                    if ((typeof(matchString) == "number" && matchString < 10)) {
+                    if ((typeof (matchString) == "number" && matchString < 10)) {
                         matchString = "0" + matchString;
                     }
                 }
             }
             return matchString;
         });
-    
+
         return dateString;
     }
 
@@ -80,10 +80,10 @@ function SnsTimeFormat(chatTime){
         const hour = minute * 60;
         // 일
         const day = hour * 24;
-        
+
         var today = new Date();
         var elapsedTime = Math.trunc((today.getTime() - date.getTime()) / 1000);
-        
+
         var elapsedText = "";
         if (elapsedTime < seconds + 58) {
             elapsedText = "방금 전";
@@ -102,7 +102,7 @@ function SnsTimeFormat(chatTime){
     }
     return (
         <>
-            <span className="written-time">{elapsedText(new Date(chatTime ? chatTime.chatTime : null))}</span>  
+            <span className="written-time">{elapsedText(new Date(chatTime ? chatTime.chatTime : null))}</span>
         </>
     )
 }

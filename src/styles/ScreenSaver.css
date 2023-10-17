@@ -1,7 +1,7 @@
 .screen-container {
     width: 100vw;
     height: 100vh;
-    background-image: url('../assets/images/블루스크린.gif');
+    background-image: url('/public/images/블루스크린.gif');
     background-size: cover;
     position: fixed;
     top: 0;

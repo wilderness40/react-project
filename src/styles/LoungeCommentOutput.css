@@ -6,18 +6,22 @@
     padding: 3px 10px;
     margin-bottom: 2px;
 }
-.nickname{
+
+.nickname {
     display: flex;
     align-items: center;
 }
-.text__output{
+
+.text__output {
     display: flex;
     gap: 10px;
 }
-.comment__output p { 
-    width: 800px; 
+
+.comment__output p {
+    width: 800px;
 }
-.edit__box{
+
+.edit__box {
     display: flex;
     gap: 10px;
 }
@@ -26,48 +30,58 @@
     width: 100px;
     border: 1px solid #333;
 }
-#password{
+
+#password {
     width: 100px;
     border: 1px solid #333;
 }
-.edit{
+
+.edit {
     color: rgb(75, 73, 218);
 }
-.delete{
+
+.delete {
     color: rgb(218, 73, 73);
 }
-.edit:hover{
-    cursor: pointer;
-    text-decoration: underline;
-}
-.delete:hover{
-    cursor: pointer;
-    text-decoration: underline;
-}
-.comment:hover{
+
+.edit:hover {
     cursor: pointer;
     text-decoration: underline;
 }
 
-.comment__output__text{
+.delete:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.comment:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.comment__output__text {
     display: flex;
     flex-direction: column;
     border-bottom: 0.5px solid rgb(243, 239, 239);
     margin-top: 1rem;
 }
-.comment__output .nickname{
+
+.comment__output .nickname {
     display: flex;
 }
-.comment__output .nickname span{
+
+.comment__output .nickname span {
     display: flex;
     align-items: center;
     gap: 10px;
 }
-.comment__output .nickname span:first-child{
+
+.comment__output .nickname span:first-child {
     font-weight: bold;
     font-size: .8rem;
 }
-.comment__output .nickname span img{
+
+.comment__output .nickname span img {
     width: 25px;
     height: 25px;
 }

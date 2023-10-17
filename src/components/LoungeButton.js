@@ -1,16 +1,16 @@
 import React from "react";
 import '../styles/LoungeButton.css'
 
-function LoungeButton({onClick, children, className, disabled, ariaCurrent}){
+function LoungeButton({ onClick, children, className, disabled, ariaCurrent }) {
 
-    return(
+    return (
         <>
-            <button 
-                onClick={onClick} 
-                className={`pagenation-btn ${className}`} 
-                disabled={disabled} 
-                aria-current={ariaCurrent} 
-                >
+            <button
+                onClick={onClick}
+                className={`pagenation-btn ${className}`}
+                disabled={disabled}
+                aria-current={ariaCurrent}
+            >
                 {children}
             </button>
         </>

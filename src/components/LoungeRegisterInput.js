@@ -17,7 +17,7 @@ function LoungeRegisterInput({ registerText }) {
     }, [])
 
     return (
-        
+
         <>
             <div className="lounge__input">
                 <div className="lounge__input__nameAndPassword">

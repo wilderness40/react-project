@@ -10,7 +10,6 @@
 .Workpad-header{
   padding-left: 1rem;
   height: 40px;
-  /* width: 100%; */
   background-color: var(--secondary-color);
   display: flex;
   gap: 1rem;

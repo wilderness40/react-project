@@ -37,7 +37,7 @@ function Sidebar({ homeIcons, buttonFlag, flagChange, setLoginModalState, setOpt
     const handleOptionModal = () => {
         setOptionModalState(true)
     }
-    const handleLogout = () => { 
+    const handleLogout = () => {
         removeCookie('accessToken');
         window.location.reload()
     }
@@ -49,7 +49,7 @@ function Sidebar({ homeIcons, buttonFlag, flagChange, setLoginModalState, setOpt
                 <div className="window-menubar">
                     {homeIcons.map((icon, id) => {
                         return (
-                            <React.Fragment key={id}> 
+                            <React.Fragment key={id}>
                                 {icon.iconTitle === '로그인' ? (
                                     <div onClick={handleLoginModal}>
                                         <img src={icon.iconSrc} alt="" />

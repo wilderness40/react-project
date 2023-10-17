@@ -6,15 +6,15 @@ function LoungeCommentOutput({ comment, commentCode, dbCode, HandleModalEdit, mo
     return (
         <>
             {comment?.map((chat) => {
-     
+
                 {
-                    return chat.parent === dbCode  ? 
+                    return chat.parent === dbCode ?
                         <div className="comment__output" key={chat._id}>
                             <div className="nickname">
                                 <span><img src='images/loungeuser.png' alt='userProfile' />{chat.nickname} </span> <SnsTimeFormat chatTime={chat.date} /> <span className='paragraph-id'>{chat._id}</span><span className="depth">1</span>
                             </div>
                             <div className="text__output">
-                                {passwordMatched && !modalPosition && chat._id === commentCode && depth === '1'?
+                                {passwordMatched && !modalPosition && chat._id === commentCode && depth === '1' ?
                                     <>
                                         <div className="editInputDiv" >
                                             <input type="text" className="editText" defaultValue={chat.text} />

@@ -8,12 +8,14 @@
     animation: close 1s;
 }
 
-.food-discription > ul {
+.food-discription>ul {
     list-style: none;
 }
-.food-discription > ul > li {
+
+.food-discription>ul>li {
     margin: 1rem 0;
 }
+
 .foodErrorDiv {
     text-align: center;
 }

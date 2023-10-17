@@ -38,9 +38,6 @@ function PasswordSearchComponent({setLoginModalState}) {
                 </div>
                 <div className="PasswordSearch-search-btn-container"><button type='submit' onClick={passwordSearch}>찾기</button></div>
             </form>
-            {/* <div className="LoginModal-footer">
-                <button>비밀번호 찾기</button>
-            </div> */}
         </>
     )
 }
