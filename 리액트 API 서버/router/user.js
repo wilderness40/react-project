@@ -84,24 +84,6 @@ router.post('/searchPassword',expressAsyncHandler(async(req, res) => {
     }
 }))
 
-// router.put('/:id' ,isAuth , expressAsyncHandler ( async (req, res, next) => {
-//     const user = await User.findById(req.params.id)
-//     if(!user) {
-//         res.status(404).json({ code : 404 , message : 'User not Found'})
-//     } else {
-//         user.password = req.body.password || user.password
-//         user.keyword = req.body.keyword || user.keyword
-//         user.address = req.body.address || user.address
-//         const updatedUser = await user.save()
-//         const { keyword , address } = updatedUser
-//         res.json({
-//             code : 200 ,
-//             token : generateToken(updatedUser) ,
-//             keyword , address
-//         })
-//     }
-// }))
-
 // 회원정보 수정 전 유저 확인
 router.post('/passwrodVerify', isAuth, expressAsyncHandler(async (req, res) => {
     const searchUser = await User.findOne({ userId : req.user.userId, password : req.body.password });

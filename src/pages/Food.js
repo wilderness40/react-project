@@ -6,7 +6,6 @@ import axios from "axios";
 const { kakao } = window
 
 function Food({userInfo}){
-    console.log(userInfo)
     const [address, setAddress] = useState([])
     useEffect( () => {
         const geo = new kakao.maps.services.Geocoder();
