@@ -30,7 +30,7 @@ const loungeChat = require('./router/loungeChats')
 const loungeComment = require('./router/loungeComments')
 const scheduleRoute = require('./router/schedule')
 const todoRoute = require('./router/todo')
-
+const uploadRoute = require('./router/upload')
 
 // 라우터 적용
 app.use('/user', loginRouter)
@@ -39,6 +39,7 @@ app.use('/lounge', loungeChat)
 app.use('/loungeComment', loungeComment)
 app.use('/api/schedule', scheduleRoute);
 app.use('/api/todo', todoRoute)
+app.use('/api/upload', uploadRoute)
 
 // 에러처리 미들웨어
 app.get('/error', (req, res, next) => {
