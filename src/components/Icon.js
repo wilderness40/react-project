@@ -65,7 +65,7 @@ function Icon({ src, children, href, setUserInfo, userInfo, setOptionModalState,
           onClick={changeIconFlag} onDoubleClick={moveToPage} // onClick은 한번클릭시 스타일링, onDoubleClick은 더블클릭시 페이지 이동
         >
           <div className="icon-image">
-            <img src={require(src)} alt="" />
+            <img src={require(src).default} alt="" />
           </div>
           <h5 className={`${iconActiveFlag==='clicked' ? 'active' : ''}`}>{children}</h5>
         </div>
