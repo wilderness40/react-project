@@ -33,7 +33,7 @@ function Home({setUserInfo, userInfo}){
         })
         const timer = setTimeout( () => {
             setScreenSaverState(true)
-        } ,300000)
+        } ,50000)
         return () => {
             clearTimeout(timer)
         }

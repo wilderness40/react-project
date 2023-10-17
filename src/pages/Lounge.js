@@ -371,6 +371,7 @@ function Lounge({ userInfo }) {
                                                 dbCode={dbCode}
                                                 handleComment={handleComment}
                                                 depth={depth}
+                                                comment={comment}
                                             />
                                         </div>
                                     </div>
