@@ -15,7 +15,8 @@ function Register(){
     userName : '',
     userKeyword : '',
     userAddress : ['동구','중앙동'],
-    userAddresss : ''
+    userAddresss : '',
+    userAddresssDetail : ''
   });
 
   const [errorInputData, setErrorInputData] = useState({
@@ -51,7 +52,8 @@ function Register(){
             password : inputRegisterData.userPassword.trim(),
             name : inputRegisterData.userName.trim(),
             keyword : inputRegisterData.userKeyword.trim(),
-            address : inputRegisterData.userAddresss
+            address : inputRegisterData.userAddresss,
+            addressDetail : inputRegisterData.userAddresssDetail
             // address : '대전광역시' + ' ' + inputRegisterData.userAddress[0] + ' ' + inputRegisterData.userAddress[1]
           })
         })
@@ -82,7 +84,7 @@ function Register(){
 
   const addressSearchHandle = (data) => {
     console.log(data)
-    setInputRegisterData({ ...inputRegisterData, userAddresss : `대전광역시 ${data.sigungu} ${data.bname}`})
+    setInputRegisterData({ ...inputRegisterData, userAddresss : `대전광역시 ${data.sigungu} ${data.bname}`, userAddresssDetail : data.roadAddress })
   }
   const daumToggleHandler = (e) => {
     e.preventDefault();
