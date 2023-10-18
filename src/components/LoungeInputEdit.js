@@ -1,6 +1,6 @@
 import React from "react";
 
-function LoungeInputEdit({chat, index, passwordMatched, modalPosition, HandleModalEdit, confirmEditText,  dbCode, handleComment,depth}){
+function LoungeInputEdit({chat, index, passwordMatched, modalPosition, HandleModalEdit, confirmEditText,  dbCode, handleComment, depth, comment}){
     return (
         <>
             {/* 수정->비밀번호 입력->비밀번호가 일치 했을 때 */}
