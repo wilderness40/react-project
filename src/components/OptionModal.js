@@ -14,7 +14,6 @@ function OptionModal({ state, optionModalStateChange}) {
             setUploadFile(file)
             const fileSrc = URL.createObjectURL(file)
             setFileURL(fileSrc)
-            console.log(fileSrc)
           }
     }
     const backgroundApply = () => { // 업로드된 파일로 배경화면 바꾸기 함수
@@ -26,15 +25,11 @@ function OptionModal({ state, optionModalStateChange}) {
     const successBackgroundApply = (e) => {
         backgroundApply()
         optionModalStateChange()
-        upload()
     }
     const upload = async (e) => {
         e.preventDefault()
-        console.log(e)
-        console.log(e.target[0].files[0])
         const formData = new FormData()
         formData.append('img' , e.target[0].files[0])
-        console.log(formData)
         await axios.put('http://127.0.0.1:5300/api/upload' , formData ,
         {
             headers: {
@@ -43,6 +38,7 @@ function OptionModal({ state, optionModalStateChange}) {
             withCredentials : true ,
         }) .then(res => {
             console.log(res)
+            backgroundApply()
         }) .catch(function(err) {
             console.log(err)
         })
@@ -65,9 +61,9 @@ function OptionModal({ state, optionModalStateChange}) {
                             </form> */}
                         </div>
                         <div className="modal-footer">
-                            <button type='submit' className="modalSuccess-btn">테스트</button>
-                            <button type='button' className="modalfail-btn" onClick={successBackgroundApply}>확인</button>
-                            <button type='button' className="modalApply-btn" onClick={backgroundApply}>적용</button>
+                            <button type='button' className="modalSuccess-btn" onClick={successBackgroundApply}>확인</button>
+                            <button type='button' className="modalfail-btn" onClick={optionModalStateChange}>취소</button>
+                            <button type='submit' className="modalApply-btn">적용</button>
                         </div>
                     </form>
                 </div>

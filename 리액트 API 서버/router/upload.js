@@ -8,7 +8,15 @@ const { Types : { ObjectId } } = require('mongoose');
 const { isAuth } = require('../auth')
 const router = express.Router()
 
+const fs = require('fs')
+try {
+    fs.readdir('uploads')
+} catch(error) {
+    console.log(error)
+    fs.mkdirSync('uploads')
+} 
 const multer = require('multer')
+
 const storage = multer.diskStorage({
     destination : function(req, file, cb) {
         cb(null, 'uploads/')
@@ -23,11 +31,14 @@ const upload = multer({
     storage : storage , 
 })
 
-router.put('/', upload.single('img') , isAuth , expressAsyncHandler( async(req, res, next) => {
+router.put('/', upload.single('img') , isAuth , expressAsyncHandler( async(req, res, next) => { 
+    const filename = `${req.file.filename} + ${Date()}`
     const uploadData = new UploadData({
-        filename : req.file.filename ,
+        filename : filename ,
         path : req.file.path ,
         minetype : req.file.mimetype ,
+        size : req.file.size ,
+        date : new Date(),
         userId : req.user._id ,
     })
     const saveUpload = await uploadData.save()

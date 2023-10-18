@@ -19,6 +19,14 @@ const uploadSchema = new Schema ({
         trim : true ,
         required : true ,
     },
+    size : {
+        type : Number ,
+        required : true ,
+    },
+    date : {
+        type : Date , 
+        required : true ,
+    },
     userId : {
         type : ObjectId ,
         required : true ,
