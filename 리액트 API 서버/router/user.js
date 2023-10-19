@@ -18,6 +18,7 @@ router.post('/register', expressAsyncHandler( async(req, res, next) => {
         name : req.body.name,
         keyword : req.body.keyword ,
         address : req.body.address ,
+        addressDetail : req.body.addressDetail
     })
     const newUser = await user.save()
 

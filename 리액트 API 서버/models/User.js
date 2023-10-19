@@ -18,11 +18,14 @@ const userSchema = new Schema ({
     },
     keyword : {
         type : String ,
-    } ,
+    },
     address : {
         type : String , 
         require : true ,
-    } ,
+    },
+    addressDetail : {
+        type : String,
+    },
     isState : {
         type  : Boolean ,
         default : false , 

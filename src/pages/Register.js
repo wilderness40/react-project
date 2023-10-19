@@ -59,8 +59,8 @@ function Register(){
         })
         .catch(e => console.log(e))
         .then((res) => {
-          console.log(res.ok)
-          if(res?.ok){
+          console.log(res)
+          if(res?.status === 200){
             alert('회원가입이 완료되었습니다!')
             setInputRegisterData({
               userId : '',
@@ -71,6 +71,9 @@ function Register(){
               userAddress : ''
             })
             moveToHomePage();
+          } else {
+            alert('회원가입에 실패했습니다.');
+            window.location.reload();
           }
         })
       }
