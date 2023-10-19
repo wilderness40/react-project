@@ -7,7 +7,7 @@ function Play({userInfo}){
    const API_KEY = process.env.REACT_APP_Youtube_API_KEY;
    useEffect( ()=> {
       console.log(userInfo)
-       fetch(`https://www.googleapis.com/youtube/v3/search?&key=${API_KEY}&part=snippet&type=video&q=${userInfo.keyword}&maxResults=50`)
+       fetch('http://127.0.0.1:5300/youtube')
        .then( res => res.json())
        .then(response => {
            setData(response)
