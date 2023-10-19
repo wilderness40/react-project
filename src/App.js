@@ -2,12 +2,14 @@ import React, {useState, useEffect} from 'react';
 import './App.css';
 import {Routes, Route} from "react-router-dom"
 import { Home, Play, Work, Food, News, BackHome, Lounge, Register, Modify} from './pages'
+import { useCookies } from 'react-cookie';
 
 
 function App() {
-  console.log()
+  const [ cookies, setCookie ] = useCookies(['accessToken'])
      const [userInfo, setUserInfo] = useState({ name: 'guest', keyword : '', address : '대전광역시 서구 둔산동'})
      useEffect( () => {
+      if(cookies.accessToken){
         fetch('http://127.0.0.1:5300/user/isLogin', {
           method: 'GET',
           headers: { 
@@ -22,6 +24,7 @@ function App() {
             setUserInfo({ name: res.name , keyword : res.keyword, address : res.address})
           }
           })
+      }
      }, [])
      
 

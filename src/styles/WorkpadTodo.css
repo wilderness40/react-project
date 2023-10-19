@@ -149,6 +149,77 @@
   background-color: #e35f5f;
 }
 
+@media (max-width: 480px){
+  .WorkpadTodo-container{
+    width: 100%;
+    padding: 0;
+  }
+  /* 투두 등록 */
+  .WorkpadTodo-register-container{
+    width: 100%;
+    margin-top: .8rem;
+    font-size: .8rem;
+  }
+  .WorkpadTodo-container .WorkpadTodo-register-container form{
+    width: 100%;
+    align-items: center;
+  }
+  .WorkpadTodo-container .WorkpadTodo-register-container form input{
+    width: 80%;
+  }
+  .WorkpadTodo-container .WorkpadTodo-register-container form button{
+    background: rgb(192, 192, 192);
+    box-shadow: 1px 1px 1px 1px  rgb(123, 123, 123);
+    border: none;
+    padding: 4px 10px;
+    cursor: pointer;
+  }
+  .WorkpadTodo-container .WorkpadTodo-register-container form button:active{
+    box-shadow: inset -.3rem -.1rem 1.4rem  rgb(123, 123, 123), inset .3rem .4rem .8rem rgb(123, 123, 123);
+  }
+  /* 리스트 선택 탭 */
+  .WorkpadTodo-todolist-wrap h2{
+    font-size: .8rem;
+    text-align: center;
+  }
+  .WorkpadTodo-todolist-wrap .WorkpadTodo-select-list{
+    display: flex;
+    font-size: .8rem;
+    gap: .2rem;
+    justify-content: center;
+  }
+  .WorkpadTodo-select-list div{
+    width: 50px;
+    padding: 0;
+  }
+  /* 투두 리스트 */ 
+  .WorkpadTodo-list-container h3{
+    font-size: .9rem;
+    text-align: center;
+  }
+  .WorkpadTodo-list-container .WorkpadTodo-list-card{
+    font-size: .8rem;
+    padding: .2rem .3rem;
+    margin-left: .5rem;
+  }
+  /* 투두 클릭시 선택창 */
+  .WorkpadTodo-todo-card-set{
+    margin-left: .8rem;
+    font-size: .8rem;
+  }
+  .WorkpadTodo-todo-card-set button{
+    padding: .2rem .3rem;
+  }
+  @keyframes move{
+    from{
+      left : -88px;
+    }
+    to{
+      left : 3px;
+    }
+  }
+}
+
 @media (max-width: 280px){
   .WorkpadTodo-container{
     width: 100%;

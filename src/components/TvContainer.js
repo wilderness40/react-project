@@ -54,6 +54,7 @@ function TvContainer({youTubeApiData}){
     const tvShow = (e) => { // 리스트를 누르면 윗상단에 있는 tv에 누른 리스트가 보여지는 함수
         setLoading(true)
         setVideoSrc(e.target.id)
+        console.log(e.target.id)
     }
 
     useEffect(() => {
@@ -83,11 +84,6 @@ function TvContainer({youTubeApiData}){
             <div className="TvContainer">
                 <div className="Tv">
                     <div className='Tv-body-container' >
-                        {/* {youTubeApiData.length !==0 && youTubeApiData.items.map( (youtube, index, id) => {
-                            if(index === 0) {
-                                return <iframe key={id} style={iframeStyle} src={`https://www.youtube.com/embed/${youtube.id.videoId}`}/>
-                            }
-                        })} */}
                         {!loading && <iframe style={iframeStyle} src={`https://www.youtube.com/embed/${videoSrc}`}/>}
                     </div>
                 </div>
@@ -102,7 +98,7 @@ function TvContainer({youTubeApiData}){
                     </span>
                 </button>
                 <div className="youtube-container" onMouseEnter={slideStop} onMouseLeave={slideStart}>
-                    {youTubeApiData.length !==0 && youTubeApiData.items?.map( (youtube, id) => {
+                    {youTubeApiData.length !==0 && youTubeApiData?.map( (youtube, id) => {
                         return (
                             <div key={id} className="youtube-content" style={slideStyle}>
                                 <img src={youtube.snippet.thumbnails.medium.url} 

@@ -72,3 +72,10 @@
   border-bottom: 2px solid #fff;
   border-left: 2px solid rgba(0, 0, 0, 0.6);
 }
+
+@media (max-width: 420px) {
+  .time-container{
+    width: 50px;
+    font-size: .8rem;
+  }
+}

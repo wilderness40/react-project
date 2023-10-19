@@ -41,6 +41,15 @@
   background-color: grey;
   cursor: auto;
 }
+@media (max-width: 820px) {
+  .WorkpadTotal-container{
+    padding: 0;
+    flex-direction: column;
+    align-items: center;
+    margin-top: .5rem;
+    gap: .5rem;
+  }
+}
 
 @media (max-width: 280px) {
   .WorkpadTotal-container{
