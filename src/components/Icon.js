@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import '../styles/Icons.css'
 
 import { useCookies } from 'react-cookie';
+import axios from "axios";
 
 function Icon({ src, children, href, setUserInfo, userInfo, setOptionModalState, setLoginModalState }) {
     const [cookies, setCookie, removeCookie] = useCookies(['accessToken']);
@@ -44,7 +45,7 @@ function Icon({ src, children, href, setUserInfo, userInfo, setOptionModalState,
         setLoginModalState(true);
       } else if(children === '로그아웃'){
           removeCookie('accessToken');
-          window.location.reload()
+        window.location.reload()
         console.log('out')
       }
       else {

@@ -5,7 +5,7 @@ const { generateToken, isAuth } = require('../auth')
 const { v4 : uuidv4 } = require('uuid'); 
 const { mailOpt, sendMail } = require('../emailAuth')
 const router = express.Router()
-
+const fs = require('fs')
 router.get('/', expressAsyncHandler( async(req, res) => {
     const users = await User.find({})
     res.json(users)
@@ -58,6 +58,13 @@ router.get('/isLogin',isAuth, (req, res) => {
 
 router.get('/logout', (req, res) => {
     // res.clearCookie('accessToken');
+    // fs.rmdir('./uploads' , { recursive: true, force: true }, (err) => {
+    //     if(err) {
+    //         console.log(err)
+    //     } else {
+    //         console.log('uploads 폴더를 삭제 하셨습니다.')
+    //     }
+    // })
     res.status(200).json({ code : 200, message: 'logout'});
 })
 

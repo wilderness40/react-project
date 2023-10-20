@@ -2,11 +2,11 @@ import React, { useEffect, useState} from "react";
 import "../styles/OptionModal.css"
 import axios from "axios";
 
-function OptionModal({ state, optionModalStateChange}) {
+function OptionModal({state, optionModalStateChange, userInfo}) {
     const [fileName, setFileName] = useState('')
     const [fileURL, setFileURL] = useState('')
     const [uploadFile , setUploadFile] = useState()
-     
+    console.log(userInfo)
     const fileUpload = (e) => { // 배경화면 바꿀 파일 업로드 함수
           const file = e.target.files[0]
           console.log(file)
@@ -18,7 +18,7 @@ function OptionModal({ state, optionModalStateChange}) {
     }
     const backgroundApply = () => { // 업로드된 파일로 배경화면 바꾸기 함수
         const home = document.querySelector('.Home')
-        console.log(typeof(fileURL))
+        console.log(fileURL)
         home.style.background = `url(${fileURL})`
         home.style.backgroundSize = 'cover'
     }
@@ -63,7 +63,7 @@ function OptionModal({ state, optionModalStateChange}) {
                         <div className="modal-footer">
                             <button type='button' className="modalSuccess-btn" onClick={successBackgroundApply}>확인</button>
                             <button type='button' className="modalfail-btn" onClick={optionModalStateChange}>취소</button>
-                            <button type='submit' className="modalApply-btn">적용</button>
+                            {userInfo.name === 'guest' ? null : <button type='submit' className="modalApply-btn">적용</button>}
                         </div>
                     </form>
                 </div>

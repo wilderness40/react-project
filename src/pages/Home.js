@@ -7,11 +7,11 @@ import ScreenSaver from '../components/ScreenSaver'
 import OptionModal from "../components/OptionModal";
 import LoginModal from "../components/LoginModal";
 import { useCookies } from 'react-cookie';
+import axios from "axios";
 
 function Home({setUserInfo, userInfo}){
     const [cookies, setCookie, removeCookie] = useCookies(['accessToken']);
     const loginToken = cookies.accessToken
-
     const [optionModalState , setOptionModalState] = useState(false) // OptionModal을 위한 state
     const [loginModalState, setLoginModalState] = useState(false); // 로그인 모달창 열림 상태 state
 
@@ -38,6 +38,24 @@ function Home({setUserInfo, userInfo}){
             clearTimeout(timer)
         }
     },[screenSaverState])
+
+    // useEffect ( () => {
+    //     axios.get('http://127.0.0.1:5300/api/upload',  
+    //     {
+    //         withCredentials : true ,
+    //     })
+    //     .then(res => {
+    //         const data = res.data.data.data
+    //         const type = res.data.imageFileType
+    //         const blob = new Blob(data, {type : type} )
+    //         const url = URL.createObjectURL(blob)
+    //         console.log(blob)
+    //         console.log(url)
+    //         const home = document.querySelector('.Home')
+    //         home.style.background = `url(${url})`
+    //         home.style.backgroundSize = 'cover'
+    //     })
+    // },[])
 
     const optionModalStateChange = () => {
         setOptionModalState(!optionModalState)
@@ -68,7 +86,8 @@ function Home({setUserInfo, userInfo}){
                         ) 
                     })} 
                         {optionModalState &&
-                        <OptionModal  state={optionModalState} optionModalStateChange={optionModalStateChange}></OptionModal>
+                        <OptionModal  state={optionModalState} userInfo={userInfo}
+                        optionModalStateChange={optionModalStateChange}></OptionModal>
                         }
                         {loginModalState && <LoginModal loginModalStateChange={loginModalStateChange} setUserInfo={setUserInfo}
                         setLoginModalState={setLoginModalState}></LoginModal>}

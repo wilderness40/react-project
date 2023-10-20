@@ -3,12 +3,12 @@ import { useNavigate } from "react-router-dom";
 import PasswordSearchComponent from "../components/PasswordSearchComponent"
 import { useCookies } from 'react-cookie';
 import '../styles/LoginModal.css';
-
+import axios from 'axios'
 function LoginModal({loginModalStateChange ,setUserInfo , setLoginModalState}){
   const [ cookies, setCookie ] = useCookies(['accessToken'])
   const [user, setUser] = useState({ name: '', email : '', password : ''})
   const [passwordState, setPasswordState] = useState(false)
-
+  const [urls , setUrl] = useState('')
   const onChange = async (event) => {
     const { name, value } = event.target
     setUser({
@@ -46,6 +46,23 @@ function LoginModal({loginModalStateChange ,setUserInfo , setLoginModalState}){
       alert('아이디 또는 비밀번호가 일치하지 않습니다.')
     }
     })
+    axios.get('http://127.0.0.1:5300/api/upload',  
+    {
+        withCredentials : true ,
+    })
+    .then(res => {
+        const data = res.data.data.data
+        const type = res.data.imageFileType
+        const blob = new Blob(data, {type : type} )
+        const url = URL.createObjectURL(blob)
+        setUrl(url)
+        console.log(res)
+        console.log(blob)
+        console.log(url)
+    })
+    const home = document.querySelector('.Home')
+    home.style.background = `url(${urls})`
+    home.style.backgroundSize = 'cover'
   }
 
   const navigate = useNavigate();
