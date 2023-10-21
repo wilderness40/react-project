@@ -1,18 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { TvContainer, Header, Footer } from "../components/index"
-import YoutubeAPI from "../services/YoutubeAPI";
 import "../styles/Play.css"
+
 function Play({userInfo}){
    const [data , setData] = useState([])
-   const API_KEY = process.env.REACT_APP_Youtube_API_KEY;
    useEffect( ()=> {
       console.log(userInfo)
-       fetch(`https://www.googleapis.com/youtube/v3/search?&key=${API_KEY}&part=snippet&type=video&q=${userInfo.keyword}&maxResults=50`)
-       .then( res => res.json())
-       .then(response => {
-           setData(response)
+       fetch('http://127.0.0.1:5300/youtube')
+       .then((res) => {
+         if(!res.ok){
+            throw new Error('YouTube 서버 통신이 원활하지 않습니다.')
+         }
+         return res.json();
        })
+       .then((result) => {
+         const newData = result.data.map((item) => {return {snippet:item.snippet, id:item.id}})
+         setData(newData)
+       })
+       .catch(error => console.log(error))
    },[])
+
     return(
        <>
          <Header></Header>

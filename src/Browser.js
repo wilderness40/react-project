@@ -5,7 +5,7 @@ import App from './App.js'
 function Browser () {
     return (
     <CookiesProvider>
-        <BrowserRouter basename={process.env.PUBLIC_URL}>
+        <BrowserRouter>
             <App/>
         </BrowserRouter>
     </CookiesProvider>

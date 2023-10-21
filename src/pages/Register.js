@@ -2,6 +2,8 @@ import '../styles/Register.css';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import daejeonRegionData from '../DaejeonRegionData';
+import Daum from 'react-daum-postcode'
+import { useDaumPostcodePopup } from 'react-daum-postcode';
 
 function Register(){
   // 회원가입 할 유저의 정보 스테이트
@@ -12,7 +14,9 @@ function Register(){
     CheckingUserPassword : '',
     userName : '',
     userKeyword : '',
-    userAddress : ['동구','중앙동']
+    userAddress : ['동구','중앙동'],
+    userAddresss : '',
+    userAddresssDetail : ''
   });
 
   const [errorInputData, setErrorInputData] = useState({
@@ -48,7 +52,9 @@ function Register(){
             password : inputRegisterData.userPassword.trim(),
             name : inputRegisterData.userName.trim(),
             keyword : inputRegisterData.userKeyword.trim(),
-            address : '대전광역시' + ' ' + inputRegisterData.userAddress[0] + ' ' + inputRegisterData.userAddress[1]
+            address : inputRegisterData.userAddresss,
+            addressDetail : inputRegisterData.userAddresssDetail
+            // address : '대전광역시' + ' ' + inputRegisterData.userAddress[0] + ' ' + inputRegisterData.userAddress[1]
           })
         })
         .catch(e => console.log(e))
@@ -74,7 +80,21 @@ function Register(){
   const moveToHomePage = () => {
     navigate('/');
   }
+  const open = useDaumPostcodePopup();
+
+  const addressSearchHandle = (data) => {
+    console.log(data)
+    setInputRegisterData({ ...inputRegisterData, userAddresss : `대전광역시 ${data.sigungu} ${data.bname}`, userAddresssDetail : data.roadAddress })
+  }
+  const daumToggleHandler = (e) => {
+    e.preventDefault();
+    open({ top : 200, left : 500, onComplete : addressSearchHandle });
+  }
+
+  
+
   return (
+    <>
     <div className="Register-container">
       <div className="Register-header">
         <h5>회원가입</h5>
@@ -97,7 +117,7 @@ function Register(){
           <label><span>*name : </span><input type='text' name='userName' onChange={changeRegisterData} value={inputRegisterData.userName}/></label>
           <label><span>관심 키워드 : </span><input type='text' maxLength='15' name='userKeyword' onChange={changeRegisterData} value={inputRegisterData.userKeyword}/></label>
           <label><span>직장 주소 : </span>
-            <select onChange={(e) => {setInputRegisterData({...inputRegisterData, userAddress : [e.target.value,'']})}}>
+            {/* <select onChange={(e) => {setInputRegisterData({...inputRegisterData, userAddress : [e.target.value,'']})}}>
               <option value='동구'>동구</option>
               <option value='서구'>서구</option>
               <option value='중구'>중구</option>
@@ -108,13 +128,17 @@ function Register(){
               {daejeonRegionData[`${inputRegisterData.userAddress[0]}`].map(d => {
                 return <option key={d} value={d}>{d}</option>
               })}
-            </select>
+            </select> */}
+            <input type='text' readOnly value={inputRegisterData.userAddresss} />
+            <button type='button' onClick={daumToggleHandler}>주소 찾기</button>
           </label>
           {errorInputData.err === 'emptyData' && <span style={{color:'red'}}>{errorInputData.message}</span>}
           <button onClick={handleRegister}>가입하기</button>
         </form>
       </div>
     </div>
+    
+    </>
   )
 }
 

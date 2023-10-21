@@ -30,6 +30,8 @@ const loungeChat = require('./router/loungeChats')
 const loungeComment = require('./router/loungeComments')
 const scheduleRoute = require('./router/schedule')
 const todoRoute = require('./router/todo')
+const youtubeRoute = require('./router/youtube')
+const newspaerRoute = require('./router/newspaper')
 
 
 // 라우터 적용
@@ -39,6 +41,8 @@ app.use('/lounge', loungeChat)
 app.use('/loungeComment', loungeComment)
 app.use('/api/schedule', scheduleRoute);
 app.use('/api/todo', todoRoute)
+app.use('/youtube', youtubeRoute)
+app.use('/newspaper', newspaerRoute)
 
 // 에러처리 미들웨어
 app.get('/error', (req, res, next) => {
