@@ -55,7 +55,7 @@ function LoungeCommentRegister({ comment, getCommentData, toggleComment, comment
         <>
             {
             toggleComment && dbCode === chat._id
-            ?
+            &&
                 <>
                     <LoungeCommentOutput
                         comment={comment}
@@ -85,8 +85,7 @@ function LoungeCommentRegister({ comment, getCommentData, toggleComment, comment
                         </div>
                     </div>
                 </>
-
-                : null}
+               }
 
                
         </>

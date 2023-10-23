@@ -117,6 +117,8 @@ function Lounge({ userInfo }) {
         setClickData(e.target)
         setDepth(depth)
         setPasswordMatched(false)
+        console.log(dbCode, mongoDbId)
+
         if (depth === '0') {
             if (dbCode !== mongoDbId) {
                 setToggleComment(false)
