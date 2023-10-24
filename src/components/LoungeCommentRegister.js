@@ -55,8 +55,7 @@ function LoungeCommentRegister({ comment, getCommentData, toggleComment, comment
     return (
         <>
             {
-            arrayCode.includes(chat._id)   
-            // toggleComment && dbCode === chat._id 
+            dbCode === chat._id  
             &&
                 <>
                     <LoungeCommentOutput
@@ -84,7 +83,7 @@ function LoungeCommentRegister({ comment, getCommentData, toggleComment, comment
                         <div className="comment__input__text__register">
                             <label htmlFor="comment__text">내용</label>
                             <input type="text" placeholder="글을 입력하세요" id="comment__text"></input>
-                            <button type="button" onClick={registerComment}>등록</button>
+                            <button type="button" onClick={()=>{registerComment(); getCommentData(); }}>등록</button>
                         </div>
                     </div>
                 </>

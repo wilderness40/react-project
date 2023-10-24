@@ -6,9 +6,10 @@ function LoungeCommentOutput({ comment, commentCode, dbCode, HandleModalEdit, mo
     return (
         <>
             {comment?.map((chat, index) => {
-                console.log(chat.parent,arrayCode)
+                console.log(chat.parent, arrayCode)
                 {
-                    return arrayCode.includes(chat.parent) && 
+                    return dbCode === chat.parent && 
+                    // return arrayCode.includes(chat.parent) && 
                         <div className="comment__output" key={chat._id}>
                             <div className="nickname">
                                 <span><img src='images/loungeuser.png' alt='userProfile' />{chat.nickname} </span> <SnsTimeFormat chatTime={chat.date} /> <span className='paragraph-id'>{chat._id}</span><span className="depth">1</span>
@@ -46,3 +47,4 @@ function LoungeCommentOutput({ comment, commentCode, dbCode, HandleModalEdit, mo
 }
 
 export default LoungeCommentOutput
+
