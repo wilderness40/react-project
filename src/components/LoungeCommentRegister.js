@@ -1,9 +1,9 @@
-import React, {  useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/LoungeCommentRegister.css"
 import LoungeCommentOutput from "./LoungeCommentOutput";
 
-function LoungeCommentRegister({ comment, getCommentData, toggleComment, commentCode, dbCode, chat, HandleModalEdit, passwordMatched, modalPosition , confirmEditText, depth,  arrayCode }) {
-    
+function LoungeCommentRegister({ comment, getCommentData, toggleComment, commentCode, dbCode, chat, HandleModalEdit, passwordMatched, modalPosition, confirmEditText, depth, arrayCode }) {
+
     useEffect(() => {
         getCommentData()
     }, [])
@@ -51,15 +51,14 @@ function LoungeCommentRegister({ comment, getCommentData, toggleComment, comment
             })
         }
     }, [toggleComment]) // toggleComment가 바뀔때마다 실행 (댓글접힌게 열리면 실행된다)
-
+    console.log(dbCode)
     return (
         <>
             {
-            dbCode === chat._id  
-            &&
+                 arrayCode.includes(chat._id) &&
                 <>
                     <LoungeCommentOutput
-                        comment={comment}
+                        comment={comment.filter(cmt=> { return cmt.parent === chat._id})}
                         commentCode={commentCode}
                         dbCode={dbCode}
                         toggleComment={toggleComment}
@@ -83,13 +82,11 @@ function LoungeCommentRegister({ comment, getCommentData, toggleComment, comment
                         <div className="comment__input__text__register">
                             <label htmlFor="comment__text">내용</label>
                             <input type="text" placeholder="글을 입력하세요" id="comment__text"></input>
-                            <button type="button" onClick={()=>{registerComment(); getCommentData(); }}>등록</button>
+                            <button type="button" onClick={() => { registerComment(); getCommentData(); }}>등록</button>
                         </div>
                     </div>
                 </>
-               }
-
-               
+            }
         </>
     )
 

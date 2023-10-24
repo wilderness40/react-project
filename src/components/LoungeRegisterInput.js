@@ -18,7 +18,7 @@ function LoungeRegisterInput({ registerText, getChatData }) {
     }, [])
 
     return (
-        
+
         <>
             <div className="lounge__input">
                 <div className="lounge__input__nameAndPassword">
@@ -33,7 +33,7 @@ function LoungeRegisterInput({ registerText, getChatData }) {
                 <div className="lounge__input__text__register">
                     <label htmlFor="text">내용</label>
                     <input type="text" placeholder="글을 입력하세요" id="text"></input>
-                    <button type="button" onClick={() => {registerText(); getChatData();}}>등록</button>
+                    <button type="button" onClick={() => { registerText(); getChatData(); }}>등록</button>
                 </div>
             </div>
 

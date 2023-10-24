@@ -331,10 +331,9 @@ function Lounge({ userInfo }) {
     }
     const handleComment = (e) => {
         e.stopPropagation()
-        const mongoDbId = e.target.parentNode.parentNode.parentNode.firstChild.children[2].innerText
-        const depth = e.target.parentNode.parentNode.parentNode.firstChild.children[3].innerText
+        const mongoDbId = e.target.parentNode.parentNode.parentNode.firstChild.children[2]?.innerText
+        const depth = e.target.parentNode.parentNode.parentNode.firstChild.children[3]?.innerText
         setDbCode(mongoDbId)
-
         if (e.target.innerText === "댓글") {
             setClickData(e.target)
             setToggleComment(!toggleComment)
@@ -342,7 +341,7 @@ function Lounge({ userInfo }) {
             if (!arrayCode.includes(mongoDbId)) {
                 setArrayCode([...arrayCode, mongoDbId])
             } else {
-                setArrayCode(arrayCode.filter(item => item !== mongoDbId))
+                setArrayCode([...arrayCode.filter(item => item !== mongoDbId)])
             }
             if (toggleComment) {
                 setModalPosition(null)
@@ -353,6 +352,7 @@ function Lounge({ userInfo }) {
             }
         }
     }
+    console.log(arrayCode)
 
     return (
         <>
@@ -385,7 +385,7 @@ function Lounge({ userInfo }) {
                                                 dbCode={dbCode}
                                                 handleComment={handleComment}
                                                 depth={depth}
-                                                comment={comment}
+                                                chatComment={comment}
                                             />
                                         </div>
                                     </div>
