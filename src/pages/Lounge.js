@@ -142,10 +142,8 @@ function Lounge({ userInfo }) {
     // 수정, 삭제하기 (비밀번호 일치했을경우)
     const editModalText = async (e) => {
         e.stopPropagation()
-        const id = clickData.parentNode.parentNode.previousSibling.firstChild.innerText
         const editPassword = document.querySelector("#editPassword").value
-        const text = clickData.parentNode.parentNode.firstChild.innerText
-
+        
         if (clickData.innerText === "수정" && depth === '0') {
             try {
                 const response = await fetch('http://127.0.0.1:5300/lounge/edit', {
@@ -338,7 +336,9 @@ function Lounge({ userInfo }) {
             setClickData(e.target)
             setToggleComment(!toggleComment)
             setDepth(depth)
-            if (!arrayCode.includes(mongoDbId)) {
+            
+            // 댓글을 열었을때 댓글을 달기위해 클릭한 게시글의 mongoDbId를 arrayCode배열에 저장
+            if (!arrayCode.includes(mongoDbId)) { 
                 setArrayCode([...arrayCode, mongoDbId])
             } else {
                 setArrayCode([...arrayCode.filter(item => item !== mongoDbId)])
@@ -352,8 +352,6 @@ function Lounge({ userInfo }) {
             }
         }
     }
-    console.log(arrayCode)
-
     return (
         <>
             <Header></Header>

@@ -2,8 +2,7 @@ import React from "react"
 import { SnsTimeFormat } from "../components"
 import "../styles/LoungeCommentOutput.css"
 
-function LoungeCommentOutput({ comment, commentCode, dbCode, HandleModalEdit, modalPosition, passwordMatched, confirmEditText, depth }) {
-    console.log(comment)
+function LoungeCommentOutput({ comment, commentCode, HandleModalEdit, modalPosition, passwordMatched, confirmEditText, depth }) {
     return (
         <>
             {comment?.map((chat) =>
@@ -23,6 +22,7 @@ function LoungeCommentOutput({ comment, commentCode, dbCode, HandleModalEdit, mo
                                 </div>
                                 <div className="text__function__cancle" ><span className="delete" onClick={(e, index) => confirmEditText(e, index)}>취소</span></div>
                             </>
+                            
                             :
                             <>
                                 <p>{chat.text}</p>

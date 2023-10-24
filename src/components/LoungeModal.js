@@ -7,6 +7,7 @@ function LoungeModal({ editModalText, onChange, updateInputValue, modalPosition,
         const handleKeyDown = (e) => {
             if (e.key === 'Enter') {
                 editModalText(e)
+                // editPassword.value='' // 모달 비밀번호 값초기화 안먹힘
             }
         }
         if (editPassword !== null) {

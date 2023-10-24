@@ -22,7 +22,7 @@ function LoungeCommentRegister({ comment, getCommentData, toggleComment, comment
                 nickname: id,
                 password: password,
                 text: text,
-                parent: dbCode,
+                parent: dbCode, // 여기를 수정해야한다
             })
         })
         getCommentData() // db에서 데이터 가져오기
@@ -51,23 +51,19 @@ function LoungeCommentRegister({ comment, getCommentData, toggleComment, comment
             })
         }
     }, [toggleComment]) // toggleComment가 바뀔때마다 실행 (댓글접힌게 열리면 실행된다)
-    console.log(dbCode)
     return (
         <>
             {
-                 arrayCode.includes(chat._id) &&
+                arrayCode.includes(chat._id) &&
                 <>
                     <LoungeCommentOutput
-                        comment={comment.filter(cmt=> { return cmt.parent === chat._id})}
+                        comment={comment.filter(cmt => { return cmt.parent === chat._id })} // 부모가 chat._id인 댓글만 가져온다, 이 부분을 생각하지 못했다, 선생님이 해결해주심
                         commentCode={commentCode}
-                        dbCode={dbCode}
-                        toggleComment={toggleComment}
                         HandleModalEdit={HandleModalEdit}
                         passwordMatched={passwordMatched}
                         modalPosition={modalPosition}
                         confirmEditText={confirmEditText}
                         depth={depth}
-                        arrayCode={arrayCode}
                     />
                     <div className="comment__input" >
                         <div className="comment__input__nameAndPassword">
