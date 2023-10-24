@@ -19,7 +19,7 @@ function LoungeModal({ editModalText, onChange, updateInputValue, modalPosition,
 
     return (
         <>
-            {modalPosition ? ( // modalPosition이 있을 때만 모달창이 뜨도록
+            {modalPosition && ( // modalPosition이 있을 때만 모달창이 뜨도록
                 <div className={`checkPasswordModal ${!modalStyle ? modalStyle : 'password-incorrect'}`}
                     style={{
                         top: modalPosition.top + window.scrollY,
@@ -34,7 +34,7 @@ function LoungeModal({ editModalText, onChange, updateInputValue, modalPosition,
 
                     </div>
                 </div>
-            ) : null}
+            )}
         </>
     )
 }

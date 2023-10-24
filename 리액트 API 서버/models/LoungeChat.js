@@ -6,7 +6,7 @@ const { Types: { ObjectId } } = Schema;
 const loungeChatSchema = new Schema({
     nickname: {
         type: String,
-        reuired: true,
+        required: true,
     },
     password: {
         type: String,

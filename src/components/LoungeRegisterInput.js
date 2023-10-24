@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
 import "../styles/LoungeRegisterInput.css"
 
-function LoungeRegisterInput({ registerText }) {
+function LoungeRegisterInput({ registerText, getChatData }) {
 
     useEffect(() => { // 엔터키 누르면 글이 등록됩니다
         const lounge__input = document.querySelector(".lounge__input")
         const handleKeydown = (e) => {
             if (e.key === 'Enter') {
                 registerText()
+                getChatData()
             }
         }
         lounge__input.addEventListener('keydown', handleKeydown)

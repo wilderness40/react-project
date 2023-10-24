@@ -32,6 +32,7 @@ const scheduleRoute = require('./router/schedule')
 const todoRoute = require('./router/todo')
 const youtubeRoute = require('./router/youtube')
 const newspaerRoute = require('./router/newspaper')
+const uploadRoute = require('./router/upload')
 
 
 // 라우터 적용
@@ -43,6 +44,7 @@ app.use('/api/schedule', scheduleRoute);
 app.use('/api/todo', todoRoute)
 app.use('/youtube', youtubeRoute)
 app.use('/newspaper', newspaerRoute)
+app.use('/api/upload', uploadRoute)
 
 // 에러처리 미들웨어
 app.get('/error', (req, res, next) => {

@@ -30,6 +30,9 @@
     background-color: #020183;
     color: white;
 }
+.modal-container form {
+    width: 80%;
+}
 .modalClose-btn {
     position: relative;
 }
@@ -39,7 +42,7 @@
     align-items: center;
     flex-direction: column;
 
-    width: 90%;
+    /* width: 90%; */
     height: 500px;
     /* border: 1px solid #e6e6e6; */
     margin: 1rem 0;

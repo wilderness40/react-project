@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import {
-    Header, 
+    Header,
     Footer,
     LoungeInputEdit,
-    LoungeModal, 
-    LoungeRegisterInput, 
-    LoungePagenation, 
-    SnsTimeFormat, 
-    LoungeCommentRegister, 
+    LoungeModal,
+    LoungeRegisterInput,
+    LoungePagenation,
+    SnsTimeFormat,
+    LoungeCommentRegister,
 } from "../components"
 import "../styles/Lounge.css"
 
@@ -21,6 +21,7 @@ function Lounge({ userInfo }) {
     const [passwordMatched, setPasswordMatched] = useState(false) // 비밀번호가 일치하는지 확인합니다
     const [updateInputValue, setUpdateInputValue] = useState('') // 수정할때 입력창에 기존 글을 보여줍니다
     const [dbCode, setDbCode] = useState('') // db에 저장된 데이터의 고유 코드를 저장합니다
+    const [arrayCode, setArrayCode] = useState([]) // db에 저장된 데이터의 고유 코드를 저장합니다
     const [commentCode, setCommentCode] = useState('') // db에 저장된 댓글 데이터의 고유 코드를 저장합니다
 
     const [modalStyle, setModalStyle] = useState(false) // 비밀번호가 일치하지 않을때 모달창의 스타일을 변경합니다
@@ -59,10 +60,11 @@ function Lounge({ userInfo }) {
         getChatData()
         getCommentData()
     }, [])
-    // console.log(chat)
 
+
+    // 모달창 밖을 클릭하면 모달창이 닫힙니다
     useEffect(() => {
-        const clickModalOutside = (e) => { // 모달창 밖을 클릭하면 모달창이 닫힙니다
+        const clickModalOutside = (e) => {
             e.stopPropagation()
             if (modalPosition &&
                 e.target.className !== "edit" && e.target.className !== "delete"
@@ -111,13 +113,13 @@ function Lounge({ userInfo }) {
         e.stopPropagation() // 댓글 수정,삭제 비밀번호 입력후 부모글의 수정,삭제를 누르면 부모글이 수정창이 나오는것을 방지합니다(버블링)
         const mongoDbId = e.target.parentNode.parentNode.parentNode.firstChild.children[2].innerText
         const depth = e.target.parentNode.parentNode.parentNode.firstChild.children[3].innerText
-
+        console.log(mongoDbId)
         // console.log(e.target.closest('.lounge__textOutput__text').querySelector('.paragraph-id').innerText) // comment 와 공동사용 불가
         setModalStyle(false)
         setClickData(e.target)
         setDepth(depth)
         setPasswordMatched(false)
-        console.log(dbCode, mongoDbId)
+
 
         if (depth === '0') {
             if (dbCode !== mongoDbId) {
@@ -143,7 +145,7 @@ function Lounge({ userInfo }) {
         const id = clickData.parentNode.parentNode.previousSibling.firstChild.innerText
         const editPassword = document.querySelector("#editPassword").value
         const text = clickData.parentNode.parentNode.firstChild.innerText
-        console.log(editPassword)
+
         if (clickData.innerText === "수정" && depth === '0') {
             try {
                 const response = await fetch('http://127.0.0.1:5300/lounge/edit', {
@@ -332,12 +334,22 @@ function Lounge({ userInfo }) {
         const mongoDbId = e.target.parentNode.parentNode.parentNode.firstChild.children[2].innerText
         const depth = e.target.parentNode.parentNode.parentNode.firstChild.children[3].innerText
         setDbCode(mongoDbId)
+
         if (e.target.innerText === "댓글") {
             setClickData(e.target)
             setToggleComment(!toggleComment)
             setDepth(depth)
+            if (!arrayCode.includes(mongoDbId)) {
+                setArrayCode([...arrayCode, mongoDbId])
+            } else {
+                setArrayCode(arrayCode.filter(item => item !== mongoDbId))
+            }
             if (toggleComment) {
                 setModalPosition(null)
+                // setArrayCode([...arrayCode, mongoDbId].filter((item,index)=> [...arrayCode, mongoDbId].indexOf(item) === index)) 
+                // 이유는 모르겠으나 이렇게 코드를 작성하면 댓글을 한번클릭하면 dbid를 못가져오고 2번클릭해야한다, togglestate를 읽는 시간이 걸리는건가? 
+            } else {
+                //  setArrayCode(arrayCode.filter(item => item !== mongoDbId)) 
             }
         }
     }
@@ -393,8 +405,8 @@ function Lounge({ userInfo }) {
                                     onChange={onChange}
                                     modalStyle={modalStyle}
                                     confirmEditText={confirmEditText}
-                                    clickData={clickData}
                                     depth={depth}
+                                    arrayCode={arrayCode}
                                 />
                             </ React.Fragment>
                         )
@@ -410,6 +422,7 @@ function Lounge({ userInfo }) {
                 </div>
                 <LoungeRegisterInput
                     registerText={registerText}
+                    getChatData={getChatData}
                 />
                 <LoungePagenation
                     page={page}

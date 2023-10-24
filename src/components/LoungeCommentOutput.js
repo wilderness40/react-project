@@ -2,13 +2,13 @@ import React from "react"
 import { SnsTimeFormat } from "../components"
 import "../styles/LoungeCommentOutput.css"
 
-function LoungeCommentOutput({ comment, commentCode, dbCode, HandleModalEdit, modalPosition, passwordMatched, confirmEditText, depth }) {
+function LoungeCommentOutput({ comment, commentCode, dbCode, HandleModalEdit, modalPosition, passwordMatched, confirmEditText, depth, arrayCode }) {
     return (
         <>
-            {comment?.map((chat) => {
-     
+            {comment?.map((chat, index) => {
+                console.log(chat.parent,arrayCode)
                 {
-                    return chat.parent === dbCode  &&
+                    return arrayCode.includes(chat.parent) && 
                         <div className="comment__output" key={chat._id}>
                             <div className="nickname">
                                 <span><img src='images/loungeuser.png' alt='userProfile' />{chat.nickname} </span> <SnsTimeFormat chatTime={chat.date} /> <span className='paragraph-id'>{chat._id}</span><span className="depth">1</span>

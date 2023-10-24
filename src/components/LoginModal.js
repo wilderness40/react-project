@@ -3,12 +3,14 @@ import { useNavigate } from "react-router-dom";
 import PasswordSearchComponent from "../components/PasswordSearchComponent"
 import { useCookies } from 'react-cookie';
 import '../styles/LoginModal.css';
+import axios from 'axios'
+
 
 function LoginModal({ loginModalStateChange, setUserInfo, setLoginModalState }) {
   const [cookies, setCookie] = useCookies(['accessToken'])
   const [user, setUser] = useState({ name: '', email: '', password: '' })
   const [passwordState, setPasswordState] = useState(false)
-
+  const [urls, setUrl] = useState('')
   const onChange = async (event) => {
     const { name, value } = event.target
     setUser({
@@ -46,54 +48,72 @@ function LoginModal({ loginModalStateChange, setUserInfo, setLoginModalState }) 
           alert('아이디 또는 비밀번호가 일치하지 않습니다.')
         }
       })
+    
+axios.get('http://127.0.0.1:5300/api/upload',
+  {
+    withCredentials: true,
+  })
+  .then(res => {
+    const data = res.data.data.data
+    const type = res.data.imageFileType
+    const blob = new Blob(data, { type: type })
+    const url = URL.createObjectURL(blob)
+    setUrl(url)
+    console.log(res)
+    console.log(blob)
+    console.log(url)
+  })
+const home = document.querySelector('.Home')
+home.style.background = `url(${urls})`
+home.style.backgroundSize = 'cover'
   }
 
-  const navigate = useNavigate();
-  const moveToRegisterPage = () => {
-    navigate('/register');
-  }
+const navigate = useNavigate();
+const moveToRegisterPage = () => {
+  navigate('/register');
+}
 
 
-  // 비밀번호 찾기
-  const [searchPassword, setSearchPassword] = useState(false);
+// 비밀번호 찾기
+const [searchPassword, setSearchPassword] = useState(false);
 
-  const handleSearchPasswordToggle = () => {
-    setSearchPassword(!searchPassword);
-  }
+const handleSearchPasswordToggle = () => {
+  setSearchPassword(!searchPassword);
+}
 
-  const handleSearchPassword = (event) => {
-    event.preventDefault();
-    console.log('비밀번호 찾기 중');
-  }
-  const passwordSearchChange = () => {
-    setPasswordState(true)
-  }
+const handleSearchPassword = (event) => {
+  event.preventDefault();
+  console.log('비밀번호 찾기 중');
+}
+const passwordSearchChange = () => {
+  setPasswordState(true)
+}
 
 
-  return (
-    <div className='LoginModal-container'>
-      <div className="modal-title">
-        <span>로그인</span>
-        <button className='modalClose-btn' onClick={loginModalStateChange}>X</button>
-      </div>
-      {!passwordState ?
-        <>
-          <form>
-            <div className="LoginModal-input-container">
-              <label><span><u>U</u>ser email:</span><input type='text' name='email' onChange={onChange} /></label>
-              <label><span><u>P</u>assword:</span><input type='password' name='password' onChange={onChange} /></label>
-            </div>
-            <div className="LoginModal-login-btn-container"><button type='submit' onClick={handleLogin}>로그인</button></div>
-          </form>
-          <div className="LoginModal-footer">
-            <button onClick={passwordSearchChange}>비밀번호 찾기</button>
-            <button onClick={moveToRegisterPage}>회원가입</button>
-          </div>
-        </> :
-        <PasswordSearchComponent setLoginModalState={setLoginModalState}></PasswordSearchComponent>
-      }
+return (
+  <div className='LoginModal-container'>
+    <div className="modal-title">
+      <span>로그인</span>
+      <button className='modalClose-btn' onClick={loginModalStateChange}>X</button>
     </div>
-  )
+    {!passwordState ?
+      <>
+        <form>
+          <div className="LoginModal-input-container">
+            <label><span><u>U</u>ser email:</span><input type='text' name='email' onChange={onChange} /></label>
+            <label><span><u>P</u>assword:</span><input type='password' name='password' onChange={onChange} /></label>
+          </div>
+          <div className="LoginModal-login-btn-container"><button type='submit' onClick={handleLogin}>로그인</button></div>
+        </form>
+        <div className="LoginModal-footer">
+          <button onClick={passwordSearchChange}>비밀번호 찾기</button>
+          <button onClick={moveToRegisterPage}>회원가입</button>
+        </div>
+      </> :
+      <PasswordSearchComponent setLoginModalState={setLoginModalState}></PasswordSearchComponent>
+    }
+  </div>
+)
 }
 
 export default LoginModal;

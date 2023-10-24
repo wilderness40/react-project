@@ -2,12 +2,12 @@ import React, {  useState,useEffect } from "react";
 import "../styles/LoungeCommentRegister.css"
 import LoungeCommentOutput from "./LoungeCommentOutput";
 
-function LoungeCommentRegister({ comment, getCommentData, toggleComment, commentCode, dbCode, chat, HandleModalEdit, passwordMatched, modalPosition , confirmEditText, depth, clickData }) {
+function LoungeCommentRegister({ comment, getCommentData, toggleComment, commentCode, dbCode, chat, HandleModalEdit, passwordMatched, modalPosition , confirmEditText, depth,  arrayCode }) {
     
     useEffect(() => {
         getCommentData()
-
     }, [])
+
     const registerComment = (e) => { // 등록 버튼을 누르면 글이 등록됩니다
         const id = document.querySelector("#comment__nickname").value;
         const password = document.querySelector("#comment__password").value;
@@ -34,11 +34,12 @@ function LoungeCommentRegister({ comment, getCommentData, toggleComment, comment
         document.querySelector("#comment__text").value = "";
     }
 
-    useEffect(() => { // 엔터키 누르면 글이 등록됩니다, 아직 동작 안함 e.key가 안먹힘
+    useEffect(() => { // 엔터키 누르면 글이 등록됩니다
         const handleKeydown = (e) => {
 
             if (e.key === 'Enter') {
                 registerComment()
+                getCommentData()
             }
         }
         const comment__input = document.querySelector(".comment__input")
@@ -50,11 +51,12 @@ function LoungeCommentRegister({ comment, getCommentData, toggleComment, comment
             })
         }
     }, [toggleComment]) // toggleComment가 바뀔때마다 실행 (댓글접힌게 열리면 실행된다)
-    console.log(depth)
+
     return (
         <>
             {
-            toggleComment && dbCode === chat._id
+            arrayCode.includes(chat._id)   
+            // toggleComment && dbCode === chat._id 
             &&
                 <>
                     <LoungeCommentOutput
@@ -67,6 +69,7 @@ function LoungeCommentRegister({ comment, getCommentData, toggleComment, comment
                         modalPosition={modalPosition}
                         confirmEditText={confirmEditText}
                         depth={depth}
+                        arrayCode={arrayCode}
                     />
                     <div className="comment__input" >
                         <div className="comment__input__nameAndPassword">
