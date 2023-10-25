@@ -8,7 +8,7 @@
     margin-left: 2rem;
 }
 
-.comment__input__nameAndPassword form{
+form .comment__input__nameAndPassword{
     display: flex;
     gap: 10px;
 }
@@ -28,10 +28,10 @@
     width: 450px;
     padding: 3px 0;
 }
-.comment__input__text__register input{
+form .comment__input__text__register input{
     margin-left: 10px;
 }
-.comment__input__text__register button{
+form .comment__input__text__register button{
     position: static;
     margin-left: 10px;
 }
