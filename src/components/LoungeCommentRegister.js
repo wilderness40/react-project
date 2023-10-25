@@ -1,75 +1,86 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import "../styles/LoungeCommentRegister.css"
 import LoungeCommentOutput from "./LoungeCommentOutput";
 
 
 function LoungeCommentRegister({ comment, getCommentData, toggleComment, commentCode, dbCode, chat, HandleModalEdit, passwordMatched, modalPosition, confirmEditText, depth, arrayCode }) {
-    const getCode = useRef(null)
-    const [ dbId, setDbId ] =useState(null)
-    
-    const [ inputId, setInputId ] = useState(null)
-    const [ inputPassword, setInputPassword ] = useState(null)
-    const [ inputText, setInputText ] = useState(null)
+    const [dbId, setDbId] = useState(null)
+    const [inputId, setInputId] = useState(null)
+    const [inputPassword, setInputPassword] = useState(null)
+    const [inputText, setInputText] = useState(null)
+ 
+    useEffect(()=>{
+        inputValue()
+    }, [inputId, inputPassword, inputText])
 
-    useEffect(() => {
-        getCommentData()
-    }, [])
+        const inputValue = () => {
+            const ids = document.querySelectorAll("#comment__nickname")
+            const passwords = document.querySelectorAll("#comment__password")
+            const texts = document.querySelectorAll("#comment__text")
+            
+            let newInputId = null;
+            let newInputPassword = null;
+            let newInputText = null;
 
-    // useEffect(() => {
-    //     const ids = document.querySelectorAll("#comment__nickname")
-    //     ids?.forEach((id) => setInputId(id.value))
 
-    //     const passwords = document.querySelectorAll("#comment__password").value;
-    //     passwords?.forEach((password) => setInputPassword(password.value))
+            ids.forEach(id => {   newInputId = id.value })
+            passwords.forEach(password => {  newInputPassword = password.value })
+            texts.forEach(text => { newInputText = text.value })
 
-    //     const texts = document.querySelectorAll("#comment__text").value;
-    //     texts?.forEach((text) => setInputText(text.value))
-
-    //     console.log(inputId, inputPassword, inputText)
-    // }, [])
-
-    const registerComment = (dbId) => { // 등록 버튼을 누르면 글이 등록됩니다
-        // 댓글창이 여러개 열리면서 id, password, text가 여러개 생겨서 처리를 다시해야한다, 배열활용?
-        const id = document.querySelector("#comment__nickname").value;   
-        const password = document.querySelector("#comment__password").value;
-        const text = document.querySelector("#comment__text").value;
-        console.log(id, password, text)
-        // getCode.current.focus()
-        // console.log(getCode.current.focus())
+                setInputId(newInputId);
+                setInputPassword(newInputPassword);
+                setInputText(newInputText);
+            console.log(inputId, inputPassword, inputText)
+        }
         
-        fetch('http://127.0.0.1:5300/loungeComment', { // db에 저장
+    const inputReset = () => {
+        const ids = document.querySelectorAll("#comment__nickname")
+        const passwords = document.querySelectorAll("#comment__password")
+        const texts = document.querySelectorAll("#comment__text")
+
+          // 입력창 초기화
+          ids.forEach(id => { id.value = "" })
+          passwords.forEach(password => { password.value = '' })
+          texts.forEach(text => { text.value = '' })
+
+          // state 초기화
+            setInputId('')
+            setInputPassword('')
+            setInputText('')
+    }
+    const registerComment = useCallback(async (dbId, inputId, inputPassword, inputText) => { // 등록 버튼을 누르면 글이 등록됩니다      
+        console.log(inputId, inputPassword, inputText)
+        console.log(inputText)
+        await fetch('http://127.0.0.1:5300/loungeComment', { // db에 저장
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                nickname: id,
-                password: password,
-                text: text,
-                parent: dbId, // 여기를 수정해야한다
+                nickname: inputId,
+                password: inputPassword,
+                text: inputText,
+                parent: dbId, 
             })
         })
         getCommentData() // db에서 데이터 가져오기
+        inputReset()  // 입력창, 스테이트 초기화
+    }, [])
 
-
-        // 입력창 초기화
-        document.querySelector("#comment__nickname").value = "";
-        document.querySelector("#comment__password").value = "";
-        document.querySelector("#comment__text").value = "";
-    }
-
-    useEffect(() => { // 엔터키 누르면 글이 등록됩니다
-        const handleKeydown = (e) => {
-            // console.log(e.target.parentNode.querySelector('.dbCode')?.innerText)
-            const inputCode = e.target.parentNode.querySelector('.dbCode')?.innerText
-            setDbId(inputCode)
-            console.log(dbId)
-            if (e.key === 'Enter') {
-                registerComment(dbId)
-                getCommentData()
-            }
+    const handleKeydown = (e) => {
+        inputValue()
+        
+        const inputCode = e.target.parentNode.querySelector('.dbCode')?.innerText
+        setDbId(inputCode) // 여기가 비동기로 실행되서 dbId가 null로 나온다
+        console.log(dbId)
+        if (e.key === 'Enter') {
+            registerComment(dbId, inputId, inputPassword, inputText)
+            // getCommentData()
         }
-        // const comment__input = document.querySelector(".comment__input")
+    }
+    
+    useEffect(() => { // 엔터키 누르면 글이 등록됩니다
+       
         const comment_inputs = document.querySelectorAll('.comment__input')
         comment_inputs.forEach((comment_input) => {
             if (comment_input !== null && chat._id === dbCode) {
@@ -78,7 +89,9 @@ function LoungeCommentRegister({ comment, getCommentData, toggleComment, comment
                     comment_input.removeEventListener('keydown', handleKeydown)
                 })
             }
-        })}, [toggleComment, dbId ]) // toggleComment가 바뀔때마다 실행 (댓글접힌게 열리면 실행된다)
+        })
+    }, [toggleComment, dbId]) // toggleComment가 바뀔때마다 실행 (댓글접힌게 열리면 실행된다)
+
     return (
         <>
             {
@@ -105,9 +118,9 @@ function LoungeCommentRegister({ comment, getCommentData, toggleComment, comment
 
                         <div className="comment__input__text__register">
                             <label htmlFor="comment__text">내용</label>
-                            <input type="text" placeholder="글을 입력하세요" id="comment__text"></input>
-                            <button type="button" onClick={() => { registerComment(dbId); getCommentData(); }}>등록</button>
-                            <span className='dbCode' style={{ opacity:0}} ref={getCode}>{chat._id}</span>
+                            <input type="text" placeholder="글을 입력하세요" id="comment__text" ></input>
+                            <button type="button" onClick={() => { registerComment(dbId, inputId, inputPassword, inputText); getCommentData(); }}>등록</button>
+                            <span className='dbCode' style={{ opacity: 0 }} >{chat._id}</span>
                         </div>
                     </div>
                 </>
