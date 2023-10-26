@@ -3,24 +3,15 @@ import "../styles/LoungeRegisterInput.css"
 
 function LoungeRegisterInput({ registerText, getChatData }) {
 
-    useEffect(() => { // 엔터키 누르면 글이 등록됩니다
-        const lounge__input = document.querySelector(".lounge__input")
-        const handleKeydown = (e) => {
-            if (e.key === 'Enter') {
-                registerText()
-                getChatData()
-            }
+    const handleKeydown = (e) => { // 엔터키로 원글 등록
+        if (e.key === 'Enter') {
+            registerText()
+            getChatData()
         }
-        lounge__input.addEventListener('keydown', handleKeydown)
-        return (() => {
-            lounge__input.removeEventListener('keydown', handleKeydown)
-        })
-    }, [])
-
+    }
     return (
-
         <>
-            <div className="lounge__input">
+            <div className="lounge__input" onKeyDown={e => handleKeydown(e)}>
                 <div className="lounge__input__nameAndPassword">
                     <form onSubmit={(e) => { e.preventDefault(); return false }}>
                         <label htmlFor='nickname'>닉네임</label>

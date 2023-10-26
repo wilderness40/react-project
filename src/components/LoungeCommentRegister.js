@@ -43,7 +43,7 @@ function LoungeCommentRegister({ comment, getCommentData, toggleComment, comment
     }
     
     const handleSubmit = useCallback((e) => { // 엔터키 누르면 글이 등록되고 dbId를 registerComment에 넘겨준다
-        if (e.key === 'Enter') {
+        if (e.key === 'Enter') { // 이부분을 삭제하니까 2번씩 등록이 된다
             registerComment(dbId)
         }
     }, [dbId, registerComment]) // dbId 의존성배열에 등록 안하면 바로 업데이트 안됨, enter로 등록했을때에는 입력이안된다

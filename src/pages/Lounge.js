@@ -11,7 +11,7 @@ import {
 } from "../components"
 import "../styles/Lounge.css"
 
-function Lounge({ userInfo }) {
+function Lounge ({ userInfo }) {
 
     const [chat, setChat] = useState([]) // db에서 가져온 데이터를 저장합니다
     const [comment, setComment] = useState([]) // db에서 가져온 댓글 데이터를 저장합니다
@@ -62,11 +62,11 @@ function Lounge({ userInfo }) {
     }, [])
 
 
-    // 모달창 밖을 클릭하면 모달창이 닫힙니다
+    // 모달창 닫기, useRef로 변경하려했으나 실패
     useEffect(() => {
         const clickModalOutside = (e) => {
             e.stopPropagation()
-            if (modalPosition &&
+            if ( modalPosition &&
                 e.target.className !== "edit" && e.target.className !== "delete"
                 && e.target.className !== "comment" && e.target.className !== "confirm"
                 && e.target.className !== "text_function"
@@ -216,6 +216,7 @@ function Lounge({ userInfo }) {
                             getChatData()
                             setModalPosition(null)
                             setModalStyle(false)
+                            setUpdateInputValue('')
                         } else {
                             setModalStyle(true)
                             setModalPosition(modalPosition)
@@ -243,6 +244,7 @@ function Lounge({ userInfo }) {
                             getCommentData()
                             setModalPosition(null)
                             setModalStyle(false)
+                            setUpdateInputValue('')
                         } else {
                             setModalStyle(true)
                             setModalPosition(modalPosition)

@@ -1,20 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useCallback } from "react";
 
-function LoungeModal({ editModalText, onChange, updateInputValue, modalPosition, modalStyle }) {
+function LoungeModal ({editModalText, onChange, updateInputValue, modalPosition, modalStyle}){
 
-    useEffect(() => { // 비밀번호 입력 후 엔터키로 클릭
-        const editPassword = document.querySelector('.editPassword')
-        const handleKeyDown = (e) => {
-            if (e.key === 'Enter') {
-                editModalText(e)
-                // editPassword.value='' // 모달 비밀번호 값초기화 안먹힘
-            }
-        }
-        if (editPassword !== null) {
-            editPassword.addEventListener('keydown', handleKeyDown)
-            return () => {
-                editPassword.removeEventListener('keydown', handleKeyDown)
-            }
+    const handleKeyDown = useCallback((e) => {
+        if (e.key === 'Enter') {
+            editModalText(e)
         }
     }, [editModalText])
 
@@ -25,12 +15,13 @@ function LoungeModal({ editModalText, onChange, updateInputValue, modalPosition,
                     style={{
                         top: modalPosition.top + window.scrollY,
                         left: modalPosition.left + window.scrollX,
-                    }} >
+                    }} 
+                    >
                     {!modalStyle ? <h5>비밀번호 확인</h5> : <h5 className="password-incorrect-text"><img width="48" height="48" src="images/warning.png" alt="warning-emoji" />비밀번호가 일치하지 않습니다</h5>}
                     <div className="passwordCheck">
-                        <form onSubmit={(e) => { e.preventDefault(); return false }}>
+                        <form onSubmit={(e) => { handleKeyDown(e); e.preventDefault();}}>
                             <input type='password' className='editPassword' id='editPassword' onChange={onChange} value={updateInputValue} autoComplete='on' />
-                            <button type="button" className="submit" onClick={(e) => editModalText(e)}>확인</button>
+                            <button type="submit" className="submit" onClick={(e) => editModalText(e)}>확인</button>
                         </form>
 
                     </div>
