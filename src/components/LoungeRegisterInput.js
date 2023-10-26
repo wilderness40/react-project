@@ -30,7 +30,6 @@ function LoungeRegisterInput({ registerText, getChatData }) {
 
         </>
     )
-
 }
 
 export default LoungeRegisterInput

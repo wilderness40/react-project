@@ -32,22 +32,6 @@ function WorkpadTodoList({ children, todos, todoType, todoSettingMode, changeMod
 
   const scrollTodoListEvent = useRef();
 
-  // useEffect(() => {
-  //   console.log(scrollTodoListEvent.current)
-  //   const scrollEvent = () => {
-  //     console.log(todoSettingMode)
-  //     console.log(document.getElementById(todoSettingMode._id))
-  //     const { y } = document.getElementById(todoSettingMode._id)?.getBoundingClientRect();
-  //     setTodoSettingMode({ ...todoSettingMode, loc : { y } });
-  //   }
-
-  //   scrollTodoListEvent.current?.addEventListener('scroll', scrollEvent)
-
-  //   return () => {
-  //     scrollTodoListEvent.current?.removeEventListener('scroll', scrollEvent)
-  //   }
-  // },[todoSettingMode?._id])
-  
   return(
     <>
       <h3>{children}</h3>
