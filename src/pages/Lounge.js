@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
     Header,
     Footer,
@@ -33,6 +33,16 @@ function Lounge ({ userInfo }) {
     const totalPosts = chat.length // 페이지네이션을 위한 전체 데이터 개수를 저장합니다
     const offset = (page - 1) * limit // 페이지네이션을 위한 데이터의 시작점을 저장합니다
     const currentPosts = chat.slice(0).reverse().slice(offset, offset + limit) // 시간 역순으로 데이터를 정렬하여 1페이지에 보여줄 데이터만큼 잘라냅니다.
+
+
+   const registerInputRef = useRef([])
+        
+   const inputId = registerInputRef.current[0]
+   const inputPassword = registerInputRef.current[1]
+   const inputText = registerInputRef.current[2]
+   console.log( inputId, inputPassword, inputText)
+
+   
 
     // DB데이터 가져오기
     const getChatData = async () => {
@@ -84,9 +94,9 @@ function Lounge ({ userInfo }) {
 
     // 글 등록하기
     const registerText = () => { // 등록 버튼 누르면 글이 서버에 저장되고 웹페이지에서 보여줍니다
-        const id = document.querySelector("#nickname").value;
-        const password = document.querySelector("#password").value;
-        const text = document.querySelector("#text").value;
+        // const id = document.querySelector("#nickname").value;
+        // const password = document.querySelector("#password").value;
+        // const text = document.querySelector("#text").value;
 
         fetch('http://127.0.0.1:5300/lounge', { // db에 저장
             method: 'POST',
@@ -94,24 +104,27 @@ function Lounge ({ userInfo }) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                nickname: id,
-                password: password,
-                text: text
+                nickname: inputId,
+                password: inputPassword,
+                text: inputText
             })
         })
         getChatData() // db에서 데이터 가져오기
 
         // 입력창 초기화
-        document.querySelector("#nickname").value = "";
-        document.querySelector("#password").value = "";
-        document.querySelector("#text").value = "";
+        // document.querySelector("#nickname").value = "";
+        // document.querySelector("#password").value = "";
+        // document.querySelector("#text").value = "";
+        registerInputRef.current[0] = ""
+        registerInputRef.current[1] = ""
+        registerInputRef.current[2] = ""
     }
 
 
     // 모달창 띄우기
     const HandleModalEdit = async (e) => {
         e.stopPropagation() // 댓글 수정,삭제 비밀번호 입력후 부모글의 수정,삭제를 누르면 부모글이 수정창이 나오는것을 방지합니다(버블링)
-        const mongoDbId = e.target.parentNode.parentNode.parentNode.firstChild.children[2].innerText
+        const mongoDbId = e.target.parentNode.parentNode.parentNode.firstChild.children[2].innerText // useRef로 처리가능한지 확인필요
         const depth = e.target.parentNode.parentNode.parentNode.firstChild.children[3].innerText
         console.log(mongoDbId)
         // console.log(e.target.closest('.lounge__textOutput__text').querySelector('.paragraph-id').innerText) // comment 와 공동사용 불가
@@ -423,6 +436,7 @@ function Lounge ({ userInfo }) {
                 <LoungeRegisterInput
                     registerText={registerText}
                     getChatData={getChatData}
+                    ref={registerInputRef}
                 />
                 <LoungePagenation
                     page={page}
