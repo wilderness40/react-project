@@ -5,10 +5,10 @@ import LoungeCommentOutput from "./LoungeCommentOutput";
 
 function LoungeCommentRegister({ comment, getCommentData, commentCode, chat, HandleModalEdit, passwordMatched, modalPosition, confirmEditText, depth, arrayCode }) {
 
-    const nicknameRef = useRef(null);
-    const passwordRef = useRef(null);
-    const textRef = useRef(null);
-    const inputForm = useRef(null);
+    const nicknameRef = useRef(null); // 닉네임
+    const passwordRef = useRef(null); // 비밀번호
+    const textRef = useRef(null); // 댓글 내용
+    const dbCodeRef= useRef(null) // 댓글 부모의 DB코드
 
     const [dbId, setDbId] = useState(null)
 
@@ -38,7 +38,7 @@ function LoungeCommentRegister({ comment, getCommentData, commentCode, chat, Han
     }, [])
 
     const setDbCode = (e) => { // 닉네임에 글을 입력하면 해당 댓글 부모의 db코드를 가져온다
-        const inputCode = e.target.parentNode.nextSibling.querySelector('.dbCode')?.innerText
+        const inputCode = dbCodeRef.current?.innerText
         setDbId(inputCode)
     }
     
@@ -63,7 +63,7 @@ function LoungeCommentRegister({ comment, getCommentData, commentCode, chat, Han
                         depth={depth}
                     />
                     <form onSubmit={(e) => { handleSubmit(e); e.preventDefault(); }}>
-                        <div className="comment__input" ref={inputForm}>
+                        <div className="comment__input" >
                             <div className="comment__input__nameAndPassword">
                                 <label htmlFor='comment__nickname'>닉네임</label>
                                 <input type='text' id='comment__nickname' placeholder="닉네임 설정" ref={nicknameRef} onChange={e=>setDbCode(e)}></input>
@@ -75,7 +75,7 @@ function LoungeCommentRegister({ comment, getCommentData, commentCode, chat, Han
                                 <label htmlFor="comment__text">내용</label>
                                 <input type="text" placeholder="글을 입력하세요" id="comment__text" ref={textRef}></input>
                                 <button type="submit" onClick={() => { registerComment(dbId); getCommentData(); }}>등록</button>
-                                <span className='dbCode' style={{ opacity: 0 }} >{chat._id}</span>
+                                <span className='dbCode' style={{ opacity: 0 }} ref={dbCodeRef}>{chat._id}</span>
                             </div>
                         </div>
                     </form>

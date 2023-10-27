@@ -4,7 +4,7 @@ import { useCookies } from 'react-cookie';
 import '../styles/Icons.css'
 
 
-function Icon({ src, children, href, setUserInfo, userInfo, setOptionModalState, setLoginModalState }) {
+function Icon({ src, children, href, setOptionModalState, setLoginModalState }) {
   const iconRef = useRef(null);
   const h5Ref = useRef(null);
 

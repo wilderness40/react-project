@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
     Header,
     Footer,
@@ -12,7 +12,6 @@ import {
 import "../styles/Lounge.css"
 
 function Lounge ({ userInfo }) {
-
     const [chat, setChat] = useState([]) // db에서 가져온 데이터를 저장합니다
     const [comment, setComment] = useState([]) // db에서 가져온 댓글 데이터를 저장합니다
     const [modalPosition, setModalPosition] = useState(null) // 모달창의 위치를 저장합니다
@@ -327,7 +326,7 @@ function Lounge ({ userInfo }) {
                                 <div>
                                     <div className="lounge__textOutput__text" >
                                         <div className="nickname">
-                                            <span><img src='images/loungeuser.png' alt='userProfile' />{chat.nickname} </span> <SnsTimeFormat chatTime={chat.date} /> <span className='paragraph-id'>{chat._id}</span><span className="depth">0</span>
+                                            <span><img src='images/loungeuser.png' alt='userProfile' />{chat.nickname} </span> <SnsTimeFormat chatTime={chat.date} /> <span className='paragraph-id' >{chat._id}</span><span className="depth">0</span>
                                         </div>
                                         <div className="text__function" >
                                             <LoungeInputEdit // 수정버튼 누르고 패스워드 일치시 input창이 나오도록 설정

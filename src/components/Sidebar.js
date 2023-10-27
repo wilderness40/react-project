@@ -1,8 +1,7 @@
-import React, { useEffect, forwardRef } from "react";
+import React, { forwardRef } from "react";
 import '../styles/Sidebar.css'
 import { Link } from "react-router-dom"
 import { useCookies } from 'react-cookie';
-
 
 const Sidebar = forwardRef((props, ref) => {
     const {homeIcons, buttonFlag,  setLoginModalState, setOptionModalState } = props

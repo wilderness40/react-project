@@ -5,7 +5,7 @@ import homeIcons from "../HomeIconsData";
 import "../styles/Footer.css"
 
 
-function Footer({ handleMemoToggle, memoToggle, userInfo, setLoginModalState, setOptionModalState }) {
+function Footer({ handleMemoToggle, memoToggle, setLoginModalState, setOptionModalState }) {
     const [cookies, setCookie, removeCookie] = useCookies(['accessToken']);
     const loginToken = cookies.accessToken
     const [buttonFlag, setButtonFlag] = useState(false)
