@@ -34,8 +34,6 @@ function Lounge ({ userInfo }) {
     const offset = (page - 1) * limit // 페이지네이션을 위한 데이터의 시작점을 저장합니다
     const currentPosts = chat.slice(0).reverse().slice(offset, offset + limit) // 시간 역순으로 데이터를 정렬하여 1페이지에 보여줄 데이터만큼 잘라냅니다.
  
-   
-
     // DB데이터 가져오기
     const getChatData = async () => {
         await fetch('http://127.0.0.1:5300/lounge', {
@@ -63,28 +61,6 @@ function Lounge ({ userInfo }) {
         getCommentData()
     }, [])
 
-
-    // 모달창 닫기, useRef로 변경하려했으나 실패
-    useEffect(() => {
-        const clickModalOutside = (e) => {
-            e.stopPropagation()
-            if ( modalPosition &&
-                e.target.className !== "edit" && e.target.className !== "delete"
-                && e.target.className !== "comment" && e.target.className !== "confirm"
-                && e.target.className !== "text_function"
-                && e.target.className !== "passwordCheck"
-                && e.target.className !== 'editPassword') {
-                setModalPosition(null)
-                setUpdateInputValue('')
-            }
-        }
-        document.addEventListener('click', clickModalOutside)
-        return () => {  // clean up
-            document.removeEventListener('click', clickModalOutside)
-        }
-    }, [modalPosition]) // modalPosition이 바뀔때마다 useEffect가 실행됩니다
-
-
     // 모달창 띄우기
     const HandleModalEdit = async (e) => {
         e.stopPropagation() // 댓글 수정,삭제 비밀번호 입력후 부모글의 수정,삭제를 누르면 부모글이 수정창이 나오는것을 방지합니다(버블링)
@@ -96,7 +72,6 @@ function Lounge ({ userInfo }) {
         setClickData(e.target)
         setDepth(depth)
         setPasswordMatched(false)
-
 
         if (depth === '0') {
             if (dbCode !== mongoDbId) {
@@ -139,6 +114,7 @@ function Lounge ({ userInfo }) {
                     setPasswordText(editPassword)
                     getChatData()
                 } else {
+                    setUpdateInputValue('')
                     setPasswordMatched(false);
                     setModalStyle(true)
                     setModalPosition(modalPosition)
@@ -166,6 +142,7 @@ function Lounge ({ userInfo }) {
                     setPasswordText(editPassword)
                     getCommentData()
                 } else {
+                    setUpdateInputValue('')
                     setPasswordMatched(false);
                     setModalStyle(true)
                     setModalPosition(modalPosition)
@@ -195,6 +172,7 @@ function Lounge ({ userInfo }) {
                             setModalStyle(false)
                             setUpdateInputValue('')
                         } else {
+                            setUpdateInputValue('')
                             setModalStyle(true)
                             setModalPosition(modalPosition)
                             console.log('삭제실패')
@@ -223,6 +201,7 @@ function Lounge ({ userInfo }) {
                             setModalStyle(false)
                             setUpdateInputValue('')
                         } else {
+                            setUpdateInputValue('')
                             setModalStyle(true)
                             setModalPosition(modalPosition)
                             console.log('삭제실패')
@@ -315,6 +294,7 @@ function Lounge ({ userInfo }) {
             setClickData(e.target)
             setToggleComment(!toggleComment)
             setDepth(depth)
+            setModalPosition(null)
             
             // 댓글을 열었을때 댓글을 달기위해 클릭한 게시글의 mongoDbId를 arrayCode배열에 저장
             if (!arrayCode.includes(mongoDbId)) { 
@@ -394,6 +374,8 @@ function Lounge ({ userInfo }) {
                         editModalText={editModalText}
                         onChange={onChange}
                         modalStyle={modalStyle}
+                        setModalPosition={setModalPosition}
+                        setUpdateInputValue={setUpdateInputValue}
                     />
                 </div>
                 <LoungeRegisterInput

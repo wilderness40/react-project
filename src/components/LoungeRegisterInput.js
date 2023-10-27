@@ -9,9 +9,6 @@ function LoungeRegisterInput({ getChatData }) {
 
     // 글 등록하기
     const registerText = async (nicknameValue, passwordValue, textValue) => { // 등록 버튼 누르면 글이 서버에 저장되고 웹페이지에서 보여줍니다
-        // const id = document.querySelector("#nickname").value;
-        // const password = document.querySelector("#password").value;
-        // const text = document.querySelector("#text").value;
         await fetch('http://127.0.0.1:5300/lounge', { // db에 저장
             method: 'POST',
             headers: {

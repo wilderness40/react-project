@@ -15,7 +15,7 @@ function LoungeInputEdit({chat, index, passwordMatched, modalPosition, HandleMod
                 <div className="text__function__edit">
                     <span className="confirm" onClick={(e)=>confirmEditText(e, index)}>확인</span>
                 </div>
-                    <div className="text__function__cancle" ><span className="delete" onClick={(e)=>confirmEditText(e, index)}>취소</span></div>
+                    <div className="text__function__cancle" ><span className="cancel" onClick={(e)=>confirmEditText(e, index)}>취소</span></div>
             </>
         :  
         <>

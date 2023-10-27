@@ -3,7 +3,7 @@ import "../styles/LoungeCommentRegister.css"
 import LoungeCommentOutput from "./LoungeCommentOutput";
 
 
-function LoungeCommentRegister({ comment, getCommentData, toggleComment, commentCode, dbCode, chat, HandleModalEdit, passwordMatched, modalPosition, confirmEditText, depth, arrayCode }) {
+function LoungeCommentRegister({ comment, getCommentData, commentCode, chat, HandleModalEdit, passwordMatched, modalPosition, confirmEditText, depth, arrayCode }) {
 
     const nicknameRef = useRef(null);
     const passwordRef = useRef(null);
