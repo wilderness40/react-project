@@ -36,6 +36,7 @@ export { default as LoungeButton} from  './LoungeButton'
 export { default as LoungePageWrap} from  './LoungePageWrap'
 export { default as LoungeCommentRegister} from  './LoungeCommentRegister'
 export { default as LoungeCommentOutput} from  './LoungeCommentOutput'
+export { default as LoungeOrignalPostOuput} from  './LoungeOrignalPostOuput'
 export { default as SnsTimeFormat} from  './SnsTimeFormat'
 
 

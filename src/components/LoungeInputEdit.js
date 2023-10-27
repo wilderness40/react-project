@@ -1,15 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-function LoungeInputEdit({chat, index, passwordMatched, modalPosition, HandleModalEdit, confirmEditText,  dbCode, handleComment, depth, chatComment}){
-    const commentNum = chatComment.filter(comment => {return comment.parent === chat._id}).length // 댓글 개수
+function LoungeInputEdit({chat, index, passwordMatched, modalPosition, HandleModalEdit, confirmEditText,  dbCode, handleComment, depth, chatComment, setPasswordMatched}){
+    const commentNum = chatComment?.filter(comment => {return comment.parent === chat._id}).length // 댓글 개수
 
     return (
         <>
             {/* 수정->비밀번호 입력->비밀번호가 일치 했을 때 */}
             {passwordMatched && !modalPosition && dbCode === chat._id && depth === '0' ? // 비밀번호가 일치하고, 모달이 닫혀있고, db코멘트 아이디와 채팅 아이디가 일치하고, depth=0(원글)일 때
             <>  
-                <div className="editInputDiv" >
-                    <input type="text" className="editText" defaultValue={chat.text} />
+                <div className="editInputDiv">
+                        <input type="text" className="editText" defaultValue={chat.text} />                    
                 </div>
 
                 <div className="text__function__edit">

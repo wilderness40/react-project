@@ -1,13 +1,12 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import {
     Header,
     Footer,
-    LoungeInputEdit,
     LoungeModal,
     LoungeRegisterInput,
     LoungePagenation,
-    SnsTimeFormat,
     LoungeCommentRegister,
+    LoungeOrignalPostOuput
 } from "../components"
 import "../styles/Lounge.css"
 
@@ -32,7 +31,7 @@ function Lounge ({ userInfo }) {
     const totalPosts = chat.length // 페이지네이션을 위한 전체 데이터 개수를 저장합니다
     const offset = (page - 1) * limit // 페이지네이션을 위한 데이터의 시작점을 저장합니다
     const currentPosts = chat.slice(0).reverse().slice(offset, offset + limit) // 시간 역순으로 데이터를 정렬하여 1페이지에 보여줄 데이터만큼 잘라냅니다.
- 
+
     // DB데이터 가져오기
     const getChatData = async () => {
         await fetch('http://127.0.0.1:5300/lounge', {
@@ -65,7 +64,7 @@ function Lounge ({ userInfo }) {
         e.stopPropagation() // 댓글 수정,삭제 비밀번호 입력후 부모글의 수정,삭제를 누르면 부모글이 수정창이 나오는것을 방지합니다(버블링)
         const mongoDbId = e.target.parentNode.parentNode.parentNode.firstChild.children[2].innerText // useRef로 처리가능한지 확인필요
         const depth = e.target.parentNode.parentNode.parentNode.firstChild.children[3].innerText
-        console.log(mongoDbId)
+        // console.log(mongoDbId)
         // console.log(e.target.closest('.lounge__textOutput__text').querySelector('.paragraph-id').innerText) // comment 와 공동사용 불가
         setModalStyle(false)
         setClickData(e.target)
@@ -323,29 +322,20 @@ function Lounge ({ userInfo }) {
                     {chat.length !== 0 && currentPosts.map((chat, index) => {
                         return (
                             <React.Fragment key={chat._id}>
-                                <div>
-                                    <div className="lounge__textOutput__text" >
-                                        <div className="nickname">
-                                            <span><img src='images/loungeuser.png' alt='userProfile' />{chat.nickname} </span> <SnsTimeFormat chatTime={chat.date} /> <span className='paragraph-id' >{chat._id}</span><span className="depth">0</span>
-                                        </div>
-                                        <div className="text__function" >
-                                            <LoungeInputEdit // 수정버튼 누르고 패스워드 일치시 input창이 나오도록 설정
-                                                passwordMatched={passwordMatched}
-                                                HandleModalEdit={(e, index) => HandleModalEdit(e, index)}
-                                                confirmEditText={(e) => confirmEditText(e, index)}
-                                                modalPosition={modalPosition}
-                                                clickData={clickData}
-                                                onChange={onChange}
-                                                updateInputValue={updateInputValue}
-                                                chat={chat}
-                                                dbCode={dbCode}
-                                                handleComment={handleComment}
-                                                depth={depth}
-                                                chatComment={comment}
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
+                                <LoungeOrignalPostOuput
+                                    passwordMatched={passwordMatched}
+                                    HandleModalEdit={(e, index) => HandleModalEdit(e, index)}
+                                    confirmEditText={(e) => confirmEditText(e, index)}
+                                    modalPosition={modalPosition}
+                                    clickData={clickData}
+                                    onChange={onChange}
+                                    updateInputValue={updateInputValue}
+                                    chat={chat}
+                                    dbCode={dbCode}
+                                    handleComment={handleComment}
+                                    depth={depth}
+                                    comment={comment}
+                                />
                                 <LoungeCommentRegister  // 댓글 등록
                                     passwordMatched={passwordMatched}
                                     modalPosition={modalPosition}
