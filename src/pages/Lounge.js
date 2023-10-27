@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import {
     Header,
     Footer,
@@ -33,15 +33,7 @@ function Lounge ({ userInfo }) {
     const totalPosts = chat.length // 페이지네이션을 위한 전체 데이터 개수를 저장합니다
     const offset = (page - 1) * limit // 페이지네이션을 위한 데이터의 시작점을 저장합니다
     const currentPosts = chat.slice(0).reverse().slice(offset, offset + limit) // 시간 역순으로 데이터를 정렬하여 1페이지에 보여줄 데이터만큼 잘라냅니다.
-
-
-   const registerInputRef = useRef([])
-        
-   const inputId = registerInputRef.current[0]
-   const inputPassword = registerInputRef.current[1]
-   const inputText = registerInputRef.current[2]
-   console.log( inputId, inputPassword, inputText)
-
+ 
    
 
     // DB데이터 가져오기
@@ -91,34 +83,6 @@ function Lounge ({ userInfo }) {
             document.removeEventListener('click', clickModalOutside)
         }
     }, [modalPosition]) // modalPosition이 바뀔때마다 useEffect가 실행됩니다
-
-    // 글 등록하기
-    const registerText = () => { // 등록 버튼 누르면 글이 서버에 저장되고 웹페이지에서 보여줍니다
-        // const id = document.querySelector("#nickname").value;
-        // const password = document.querySelector("#password").value;
-        // const text = document.querySelector("#text").value;
-
-        fetch('http://127.0.0.1:5300/lounge', { // db에 저장
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                nickname: inputId,
-                password: inputPassword,
-                text: inputText
-            })
-        })
-        getChatData() // db에서 데이터 가져오기
-
-        // 입력창 초기화
-        // document.querySelector("#nickname").value = "";
-        // document.querySelector("#password").value = "";
-        // document.querySelector("#text").value = "";
-        registerInputRef.current[0] = ""
-        registerInputRef.current[1] = ""
-        registerInputRef.current[2] = ""
-    }
 
 
     // 모달창 띄우기
@@ -431,12 +395,9 @@ function Lounge ({ userInfo }) {
                         onChange={onChange}
                         modalStyle={modalStyle}
                     />
-
                 </div>
                 <LoungeRegisterInput
-                    registerText={registerText}
                     getChatData={getChatData}
-                    ref={registerInputRef}
                 />
                 <LoungePagenation
                     page={page}
